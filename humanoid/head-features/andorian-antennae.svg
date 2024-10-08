@@ -8,6 +8,11 @@
     width="512pt"
     height="512pt"
     viewBox="0 0 512 512">
+    <style>
+        .andorian-antennae-color {
+            color: #41AACC;
+        }
+    </style>
 <defs/>
-<path id="shape0" transform="translate(334.499977403948, 27.8749981169956)" fill="#41aacc" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M0 71.25C32.45 46.125 43.575 27.375 33.375 15C27.0375 16.5 19.9125 14.625 12 9.375L63 0C56.7 7.6 50.325 12.225 43.875 13.875C48.2625 38.4375 37.45 63.5937 11.4375 89.3437Z" sodipodi:nodetypes="ccccccc"/><path id="shape1" transform="translate(104.624992932401, 39.1249973570387)" fill="#41aacc" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M56.625 65.625C35.125 48.45 23.1562 31.2 20.7187 13.875C27.0562 15.375 33.65 15 40.5 12.75L0 0C4.0625 7.2625 8.4375 11.5125 13.125 12.75C13.8375 38.6625 24.7125 62.1625 45.75 83.25Z" sodipodi:nodetypes="ccccccc"/>
+<path id="shape0" transform="translate(334.499977403948, 27.8749981169956)" fill="currentColor" class="andorian-antennae-color" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M0 71.25C32.45 46.125 43.575 27.375 33.375 15C27.0375 16.5 19.9125 14.625 12 9.375L63 0C56.7 7.6 50.325 12.225 43.875 13.875C48.2625 38.4375 37.45 63.5937 11.4375 89.3437Z" sodipodi:nodetypes="ccccccc"/><path id="shape1" transform="translate(104.624992932401, 39.1249973570387)" fill="currentColor" class="andorian-antennae-color" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M56.625 65.625C35.125 48.45 23.1562 31.2 20.7187 13.875C27.0562 15.375 33.65 15 40.5 12.75L0 0C4.0625 7.2625 8.4375 11.5125 13.125 12.75C13.8375 38.6625 24.7125 62.1625 45.75 83.25Z" sodipodi:nodetypes="ccccccc"/>
 </svg>

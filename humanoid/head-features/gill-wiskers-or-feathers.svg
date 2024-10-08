@@ -8,6 +8,11 @@
     width="512pt"
     height="512pt"
     viewBox="0 0 512 512">
+    <style>
+        .wiskers-color {
+            color: #745925;
+        }
+    </style>
 <defs/>
-<path id="shape0" transform="matrix(0.928847554454082 -0.370462171597421 0.370462171597421 0.928847554454082 107.585313248303 221.720434986975)" fill="#745925" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M39.375 12L21.75 0L27.375 24L0 21.75L30.375 40.875L10.875 49.125L55.125 60Z" sodipodi:nodetypes="cccccccc"/><path id="shape01" transform="matrix(-0.868996552643505 -0.494818139818768 -0.494818139818768 0.868996552643505 391.302220143029 227.853640109268)" fill="#745925" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M38.2571 11.3856L22.138 0L26.3714 23.3856L0 17.3856L29.3429 40.2606L9.70474 46.072L46.8 62.0106Z" sodipodi:nodetypes="cccccccc"/>
+<path id="shape0" transform="matrix(0.928847554454082 -0.370462171597421 0.370462171597421 0.928847554454082 107.585313248303 221.720434986975)" fill="currentColor" class="wiskers-color" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M39.375 12L21.75 0L27.375 24L0 21.75L30.375 40.875L10.875 49.125L55.125 60Z" sodipodi:nodetypes="cccccccc"/><path id="shape01" transform="matrix(-0.868996552643505 -0.494818139818768 -0.494818139818768 0.868996552643505 391.302220143029 227.853640109268)" fill="currentColor" class="wiskers-color" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M38.2571 11.3856L22.138 0L26.3714 23.3856L0 17.3856L29.3429 40.2606L9.70474 46.072L46.8 62.0106Z" sodipodi:nodetypes="cccccccc"/>
 </svg>

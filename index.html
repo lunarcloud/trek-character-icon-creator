@@ -4,41 +4,37 @@
     <meta charset="utf-8">
     <title>Star Trek Character Icon Creator</title>
 
-    <script
-    type="text/javascript"
-    src="https://unpkg.com/external-svg-loader@latest/svg-loader.min.js"
-    async></script>
+    <script type="text/javascript" src="https://unpkg.com/external-svg-loader@latest/svg-loader.min.js" async></script>
 
     <style>
-      ::root {
-        --bolian-blue: #b3b3fe;
-      }
 
-      character {
-        display: grid;
-        grid-template-columns: 512px 1fr;
-        grid-template-rows: 512px 1fr;
-
-        & > * {
-          grid-area: 1 / 1 / 2 / 2;
-          width: 512px;
-          height: 512px;
+      main {
+        &.humanoid .cetaceous-only,
+        &.cetaceous .humanoid-only,
+        &:not(.voy-ds9) .voy-ds9-only,
+        &:not(.andorian-antennae) .andorian-antennae-only,
+        &:not(.bird-tuft) .bird-tuft-only,
+        &:not(.wiskers) .wiskers-only {
+          display: none;
+          visibility: hidden;
         }
 
-        & svg .body-color {
-            color: #b3b3fe !important;
-        }
+        character,
+        #character-head-features {
+          display: grid;
+          grid-template-columns: 512px 1fr;
+          grid-template-rows: 512px 1fr;
 
-        & svg .uniform-color {
-            color: #22B6B9 !important; /* blue */
-/*             color: #452125 !important; /* darkred */ */
-/*             color: #CEBD37 !important; /* gold */ */
-/*             color: #CA3B33 !important; /* red */ */
-        }
+          & > * {
+            grid-area: 1 / 1 / 2 / 2;
+            width: 512px;
+            height: 512px;
 
-        & svg .uniform-undershirt-color {
-            color: #5E5E5E !important; /* grey */
-/*             color: #452125 !important; /* purple */ */
+            & > svg {
+              width: 512px;
+              height: 512px;
+            }
+          }
         }
       }
     </style>
@@ -48,60 +44,45 @@
     <main>
 
     <character>
-      <svg
-        data-src="humanoid/ears/pointy.svg"
-        data-cache="disabled"
-        width="512"
-        height="512"
-        class="humanoid-only"
-        ></svg>
+      <style></style>
+      <div id="character-ears" class="humanoid-only">
+        <svg data-src="humanoid/ears/pointy.svg" data-cache="disabled" width="512" height="512"></svg>
+      </div>
 
-      <svg
-        data-src="cetaceaus/body.svg"
-        data-cache="disabled"
-        width="512"
-        height="512"
-        ></svg>
+      <div id="character-body">
+        <svg data-src="humanoid/body.svg" data-cache="disabled" width="512" height="512"></svg>
+      </div>
 
-      <svg
-        data-src="humanoid/head-features/andorian-antennae.svg"
-        data-cache="disabled"
-        width="512"
-        height="512"
-        class="humanoid-only"
-        ></svg>
+      <div id="character-head-features" class="humanoid-only">
+        <svg data-src="humanoid/head-features/andorian-antennae.svg" data-cache="disabled" width="512" height="512"></svg>
+      </div>
 
-      <svg
-        data-src="cetaceaus/uniform/VOY DS9.svg"
-        data-cache="disabled"
-        width="512"
-        height="512"
-        ></svg>
+      <div  id="character-uniform">
+        <svg data-src="humanoid/uniform/VOY DS9.svg" data-cache="disabled" width="512" height="512" ></svg>
+      </div>
 
-      <svg
-        data-src="cetaceaus/near-flipper.svg"
-        data-cache="disabled"
-        width="512"
-        height="512"
-        class="cetaceaus-only"
-        ></svg>
+      <div id="character-flipper" class="cetaceous-only">
+        <svg data-src="cetaceous/near-flipper.svg" data-cache="disabled" width="512" height="512"></svg>
+      </div>
 
     </character>
 
-    <h2>Body Shape</h2>
+    <h2>Body</h2>
+
+    <h3>Shape</h3>
+
     <div>
-      <input type="radio" id="humanoid" name="species-type" value="humanoid" checked />
+      <input type="radio" id="humanoid" name="body-shape" value="humanoid" checked />
       <label for="humanoid">Humanoid</label>
     </div>
 
-
     <div>
-      <input type="radio" id="cetaceaus" name="species-type" value="cetaceaus" />
-      <label for="cetaceaus">Cetaceaus</label>
+      <input type="radio" id="cetaceous" name="body-shape" value="cetaceous" />
+      <label for="cetaceous">Cetaceous</label>
     </div>
 
     <h2>Colors</h2>
-    <div class="humanoid-only">
+    <div>
       <input type="color" id="body-color" value="#FEE4B3" >
       <label for="body-color">Body</label>
     </div>
@@ -116,15 +97,54 @@
       <label for="uniform-undershirt-color">Uniform Undershirt</label>
     </div>
 
-    <h2>Ears</h2>
-    <select>
-      <option value="round">Round (Human)</option>
+    <div class="andorian-antennae-only">
+      <input type="color" id="andorian-antennae-color" value="#41AACC" >
+      <label for="andorian-antennae-color">Antennae</label>
+    </div>
+
+    <div class="bird-tuft-only">
+      <input type="color" id="bird-tuft-color" value="#745925" >
+      <label for="bird-tuft-color">Bird Tuft</label>
+    </div>
+
+    <div class="wiskers-only">
+      <input type="color" id="wiskers-color" value="#745925" >
+      <label for="wiskers-color">Gills / Wiskers / Feathers</label>
+    </div>
+
+    <h2>Uniform</h2>
+    <select id="uniform-select">
+      <option class="humanoid-only">ENT</option>
+      <option class="humanoid-only">DISCO 22nd</option>
+      <option class="humanoid-only">SNW</option>
+      <option class="humanoid-only">TOS</option>
+      <option class="humanoid-only">TOS Films Open</option>
+      <option class="humanoid-only">TOS Films Closed</option>
+      <option class="humanoid-only">TNG Early</option>
+      <option>TNG</option>
+      <option>TNG Cadet</option>
+      <option selected>VOY DS9</option>
+      <option>Dominion War</option>
+      <option>IDW 2378</option>
+      <option>Lower Decks</option>
+      <option>Prodigy</option>
+      <option>Picard Pre-S1</option>
+      <option>Picard S1</option>
+      <option>Picard S2 Cadet</option>
+      <option>Picard S3</option>
+      <option>VOY Timeship 29th</option>
+      <option>DISCO 32nd</option>
+    </select>
+
+    <h2 class="humanoid-only">Ears</h2>
+    <select id="ear-select" class="humanoid-only">
+      <option value="round" selected>Round (Human)</option>
       <option value="pointy">Pointy (Vulcan, Romulan)</option>
       <option value="ferengi">Massive (Ferengi)</option>
     </select>
 
-    <h2>Facial Features</h2>
-    <select multiple>
+    <h2 class="humanoid-only">Head Features</h2>
+    <select multiple id="head-feature-select" class="humanoid-only">
       <option value="andorian-antennae">Andorian Antennae</option>
       <option value="bird-beak">Bird Beak</option>
       <option value="bird-tuft">Bird Tuft</option>
@@ -143,4 +163,5 @@
     </main>
     <footer></footer>
   </body>
-</html>
+  <script type="module" src="index.js" crossorigin="anonymous"></script>
+  </html>
