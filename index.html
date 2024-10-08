@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <title>Star Trek Character Icon Creator</title>
+
+    <script
+    type="text/javascript"
+    src="https://unpkg.com/external-svg-loader@latest/svg-loader.min.js"
+    async></script>
+
+    <style>
+      ::root {
+        --bolian-blue: #b3b3fe;
+      }
+
+      character {
+        display: grid;
+        grid-template-columns: 512px 1fr;
+        grid-template-rows: 512px 1fr;
+
+        & > * {
+          grid-area: 1 / 1 / 2 / 2;
+          width: 512px;
+          height: 512px;
+        }
+
+        & svg .body-color {
+            color: #b3b3fe !important;
+        }
+
+        & svg .uniform-color {
+            color: #22B6B9 !important; /* blue */
+/*             color: #452125 !important; /* darkred */ */
+/*             color: #CEBD37 !important; /* gold */ */
+/*             color: #CA3B33 !important; /* red */ */
+        }
+
+        & svg .uniform-undershirt-color {
+            color: #5E5E5E !important; /* grey */
+/*             color: #452125 !important; /* purple */ */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header></header>
+    <main>
+
+    <character>
+      <svg
+        data-src="humanoid/ears/pointy.svg"
+        data-cache="disabled"
+        width="512"
+        height="512"
+        class="humanoid-only"
+        ></svg>
+
+      <svg
+        data-src="cetaceaus/body.svg"
+        data-cache="disabled"
+        width="512"
+        height="512"
+        ></svg>
+
+      <svg
+        data-src="humanoid/head-features/andorian-antennae.svg"
+        data-cache="disabled"
+        width="512"
+        height="512"
+        class="humanoid-only"
+        ></svg>
+
+      <svg
+        data-src="cetaceaus/uniform/VOY DS9.svg"
+        data-cache="disabled"
+        width="512"
+        height="512"
+        ></svg>
+
+      <svg
+        data-src="cetaceaus/near-flipper.svg"
+        data-cache="disabled"
+        width="512"
+        height="512"
+        class="cetaceaus-only"
+        ></svg>
+
+    </character>
+
+    <h2>Body Shape</h2>
+    <div>
+      <input type="radio" id="humanoid" name="species-type" value="humanoid" checked />
+      <label for="humanoid">Humanoid</label>
+    </div>
+
+
+    <div>
+      <input type="radio" id="cetaceaus" name="species-type" value="cetaceaus" />
+      <label for="cetaceaus">Cetaceaus</label>
+    </div>
+
+    <h2>Colors</h2>
+    <div class="humanoid-only">
+      <input type="color" id="body-color" value="#FEE4B3" >
+      <label for="body-color">Body</label>
+    </div>
+
+    <div>
+      <input type="color" id="uniform-color" value="#22B6B9" >
+      <label for="uniform-color">Uniform</label>
+    </div>
+
+    <div class="voy-ds9-only">
+      <input type="color" id="uniform-undershirt-color" value="#5E5E5E" >
+      <label for="uniform-undershirt-color">Uniform Undershirt</label>
+    </div>
+
+    <h2>Ears</h2>
+    <select>
+      <option value="round">Round (Human)</option>
+      <option value="pointy">Pointy (Vulcan, Romulan)</option>
+      <option value="ferengi">Massive (Ferengi)</option>
+    </select>
+
+    <h2>Facial Features</h2>
+    <select multiple>
+      <option value="andorian-antennae">Andorian Antennae</option>
+      <option value="bird-beak">Bird Beak</option>
+      <option value="bird-tuft">Bird Tuft</option>
+      <option value="gill-wiskers-or-feathers">Gills / Wiskers / Feathers</option>
+      <option value="tellarite-nose">Tellarite Nose</option>
+      <option value="tusks">Tusks</option>
+      <option value="bolian-line">Bolian Line</option>
+      <option value="ferengi-brow">Ferengi Brow</option>
+      <option value="bifurcated-forehead">Bifurcated Forehead</option>
+      <option value="klingon-ridges">Klingon Ridges</option>
+      <option value="north-romulan-v">North Romulan V Forehead</option>
+      <option value="kelpian-lines">Kelpian Lines</option>
+      <option value="chefs-hat">Chefs Hat</option>
+    </select>
+
+    </main>
+    <footer></footer>
+  </body>
+</html>

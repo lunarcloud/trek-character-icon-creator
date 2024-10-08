@@ -1,0 +1,43 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created using Krita: https://krita.org -->
+<svg xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:krita="http://krita.org/namespaces/svg/krita"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    width="512pt"
+    height="512pt"
+    viewBox="0 0 512 512">
+    <style>
+        .uniform-color {
+            color: #CE3C34;
+        }
+    </style>
+<defs/>
+<path id="shape0" transform="translate(38.9999973654754, 292.749980224178)" fill="currentColor" class="uniform-color" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M162.562 0.9375L257.812 0L255.562 28.3125L444.75 83.25L461.25 228L0 229.5L29.25 78L164.25 36.9375Z" sodipodi:nodetypes="ccccccccc"/><path id="shape01" transform="translate(32.2499978214508, 453.249969382095)" fill="#000000" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M14.25 24L0 91.5L471 84L462 14.25L437.25 0L214 2.25L45.75 1.5Z" sodipodi:nodetypes="cccccccc"/><path id="shape1" transform="translate(41.2499972134836, 320.640603344303)" fill="#4a4a4a" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M197.156 25.5469C198.675 46.6594 201.206 81.8469 204.75 131.109C211.189 81.2344 215.787 45.6094 218.547 24.2344C237.094 23.2625 248.839 15.1844 253.781 0L444 54.6094L456 164.109L426.75 134.109L38.25 137.859L0 179.109L25.5 47.8594L162.047 5.8125C169.056 18.0219 180.759 24.6 197.156 25.5469Z" sodipodi:nodetypes="cccccccccccc"/><g id="group0" transform="matrix(0.0300059796223986 0 0 0.0300059796223986 328.919985844166 453.312985183798)" fill="none">
+  <g id="group1" transform="translate(0, 327.406985136646)" fill="none">
+   <path id="shape02" fill="#a37e28" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M407.7 0L112.86 4.32L88.56 23.76L0 362.88L10.26 387.72L215.46 447.12L278.64 286.605L189.945 289.575L159.705 283.23L115.02 250.56L114.345 181.71L143.37 149.31L183.465 136.62L343.44 139.455L407.16 9.72Z" sodipodi:nodetypes="cccccccccccccccc"/>
+   <path id="shape11" transform="translate(758.69999419642, 1.43999998898471)" fill="#a37e28" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M0 0L296.46 3.78L319.14 13.5L325.62 33.48L410.4 361.8L406.08 381.24L386.64 391.5L180.36 447.12L118.935 286.335L240.3 285.66L271.62 279.315L309.96 250.83L317.79 199.53L301.86 161.865L257.31 135.945L57.915 135.81Z" sodipodi:nodetypes="ccccccccccccccccc"/>
+  </g>
+  <path id="shape011" transform="translate(1.92849595671936, 328.306962470848)" fill="none" stroke="#000000" stroke-width="10.8" stroke-linecap="square" stroke-linejoin="bevel" d="M407.031 0L125.151 3.24C101.247 3.384 88.2875 12.744 86.2715 31.32C69.2075 96.552 40.7675 205.272 0.951497 357.48C-2.4595 375.075 3.3005 385.875 18.2315 389.88C148.119 425.592 212.919 443.592 212.631 443.88" sodipodi:nodetypes="cccccc"/>
+  <path id="shape111" transform="translate(112.319998477205, 463.666984094341)" fill="none" stroke="#000000" stroke-width="10.8" stroke-linecap="square" stroke-linejoin="bevel" d="M692.64 2.47909e-15L876.96 0C924.677 2.18621e-15 963.36 28.9434 963.36 64.6468L963.36 87.2732C963.36 122.976 924.677 151.92 876.96 151.92L777.285 151.92M155.88 151.92L86.4 151.92C38.6826 151.92 8.36716e-15 122.976 1.42109e-14 87.2732L0 64.6468C5.8437e-15 28.9434 38.6826 8.44673e-15 86.4 1.0633e-14L246.6 8.47831e-15" sodipodi:nodetypes="cccccccccccc"/>
+  <path id="shape0111" transform="matrix(-1 0 0 1 1167.95549565207 328.475050006839)" fill="none" stroke="#000000" stroke-width="10.8" stroke-linecap="square" stroke-linejoin="bevel" d="M407.031 0L125.151 3.24C101.247 3.384 88.2875 12.744 86.2715 31.32C69.2075 96.552 40.7675 205.272 0.951497 357.48C-2.4595 375.075 3.3005 385.875 18.2315 389.88C148.119 425.592 227.499 443.592 227.211 443.88" sodipodi:nodetypes="cccccc"/>
+  <path id="shape021" transform="translate(41.0877111712979, -5.6843418860808e-14)" fill="#b2b2b2" stroke="#000000" stroke-width="10.8" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2.16000008583069" d="M549.065 0C288.677 436.964 105.655 888.013 0 1353.15L36.8011 1371.94C240.478 1070.25 472.297 921.381 732.257 925.339C744.677 936.217 931.709 1051.71 990.954 1207.01C997.726 1204.64 1009.01 1202.86 1024.81 1201.65C928.711 808.63 770.128 408.079 549.065 0Z" sodipodi:nodetypes="ccccccc"/>
+ </g><g id="group01" transform="matrix(1 0 0 0.863725595409991 60.3749959550809 348.999976692603)" fill="none">
+  <path id="shape03" transform="translate(0, 33.7499977201231)" fill="none" stroke="#535353" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M15.75 0L0 93.75" sodipodi:nodetypes="cc"/>
+  <path id="shape12" transform="translate(20.9999985814098, 30.7499979227787)" fill="none" stroke="#535353" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M10.5 0L0 81.75" sodipodi:nodetypes="cc"/>
+  <path id="shape2" transform="translate(41.9999971628196, 24.7499983280902)" fill="none" stroke="#535353" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M10.5 0L0 86.25" sodipodi:nodetypes="cc"/>
+  <path id="shape3" transform="translate(62.9999957442295, 17.2499988347295)" fill="none" stroke="#535353" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M13.5 0L0 96.75" sodipodi:nodetypes="cc"/>
+  <path id="shape4" transform="translate(89.2499939709917, 11.2499992400409)" fill="none" stroke="#535353" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M12.75 0L0 100.5" sodipodi:nodetypes="cc"/>
+  <path id="shape5" transform="translate(113.999992299082, 2.2499998480082)" fill="none" stroke="#535353" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M11.25 0L0 110.25" sodipodi:nodetypes="cc"/>
+  <path id="shape6" transform="translate(144.749990221861, 0)" fill="none" stroke="#535353" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M9.75 0L0 113.25" sodipodi:nodetypes="cc"/>
+  <path id="shape7" transform="translate(220.499985104803, 0.749999949336086)" fill="none" stroke="#535353" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M0 0L1.5 110.25" sodipodi:nodetypes="cc"/>
+  <path id="shape8" transform="translate(251.249983027582, 2.99999979734429)" fill="none" stroke="#535353" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M0 0L5.25 106.5" sodipodi:nodetypes="cc"/>
+  <path id="shape9" transform="translate(285.749980697041, 8.24999944269672)" fill="none" stroke="#535353" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M0 0L5.25 102.75" sodipodi:nodetypes="cc"/>
+  <path id="shape10" transform="translate(314.999978721147, 17.2499988347295)" fill="none" stroke="#535353" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M0 0L7.5 91.5" sodipodi:nodetypes="cc"/>
+  <path id="shape112" transform="translate(343.499976795918, 21.7499985307459)" fill="none" stroke="#535353" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M0 0L9 87" sodipodi:nodetypes="cc"/>
+  <path id="shape121" transform="translate(374.999974668033, 32.2499978214508)" fill="none" stroke="#535353" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M0 0L9 77.25" sodipodi:nodetypes="cc"/>
+  <path id="shape13" transform="translate(414.749971982844, 43.4999970614917)" fill="none" stroke="#535353" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M0 0L8.25 78.75" sodipodi:nodetypes="cc"/>
+  <path id="shape14" transform="translate(396.749973198779, 39.7499973148114)" fill="none" stroke="#535353" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M0 0L6.75 64.5" sodipodi:nodetypes="cc"/>
+ </g>
+</svg>

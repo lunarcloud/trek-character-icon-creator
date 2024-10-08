@@ -1,0 +1,13 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created using Krita: https://krita.org -->
+<svg xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:krita="http://krita.org/namespaces/svg/krita"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    width="512pt"
+    height="512pt"
+    viewBox="0 0 512 512">
+<defs/>
+<path id="shape0" transform="translate(193.031236960401, 66.4687455099195)" fill="none" stroke-opacity="0.474509803921569" stroke="#7b7b7b" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M0 42.6094L51.8906 0" sodipodi:nodetypes="cc"/><path id="shape1" transform="translate(249.093733173281, 66.4687455099195)" fill="none" stroke-opacity="0.474509803921569" stroke="#7b7b7b" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M0 0L57.2344 41.3437" sodipodi:nodetypes="cc"/><path id="shape2" transform="translate(249.515608144783, 92.0624937810169)" fill="none" stroke-opacity="0.474509803921569" stroke="#7b7b7b" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M51.6094 30.375L0 0" sodipodi:nodetypes="cc"/><path id="shape3" transform="translate(200.062486485428, 92.249993768351)" fill="none" stroke-opacity="0.474509803921569" stroke="#7b7b7b" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M45.2812 0L0 35.0156" sodipodi:nodetypes="cc"/><path id="shape4" transform="translate(205.03123614978, 117.32811707428)" fill="none" stroke-opacity="0.474509803921569" stroke="#7b7b7b" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M0 24.1875L39.7969 0" sodipodi:nodetypes="cc"/><path id="shape5" transform="translate(248.906233185947, 116.859367105945)" fill="none" stroke-opacity="0.474509803921569" stroke="#7b7b7b" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M0 0L49.6406 24.1875" sodipodi:nodetypes="cc"/>
+</svg>
