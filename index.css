@@ -90,7 +90,7 @@ input, select:not([multiple]), select[multiple] option {
 
 @media (pointer: fine) {
   #head-feature-select {
-    height: 17em;
+    height: 19.25em;
   }
 }
 

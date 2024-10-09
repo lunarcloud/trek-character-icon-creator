@@ -27,12 +27,12 @@
           <svg data-src="humanoid/body.svg" data-cache="disabled" width="512" height="512"></svg>
         </div>
 
-        <div id="character-head-features" class="humanoid-only">
-          <svg data-src="humanoid/head-features/andorian-antennae.svg" data-cache="disabled" width="512" height="512"></svg>
-        </div>
-
         <div  id="character-uniform">
           <svg data-src="humanoid/uniform/VOY DS9.svg" data-cache="disabled" width="512" height="512" ></svg>
+        </div>
+
+        <div id="character-head-features" class="humanoid-only">
+          <svg data-src="humanoid/head-features/andorian-antennae.svg" data-cache="disabled" width="512" height="512"></svg>
         </div>
 
         <div id="character-flipper" class="cetaceous-only">
@@ -70,6 +70,8 @@
           <option value="#B6AEAC" class="humanoid-only">Aenar</option>
           <option value="#98F69C" class="humanoid-only">Lighter Orion</option>
           <option value="#67763E" class="humanoid-only">Darker Orion</option>
+          <option value="#B3673D" class="humanoid-only">Caitian</option>
+          <option value="#A92902" class="humanoid-only">Kzinti</option>
           <option value="#B5BEC8" class="cetaceous-only">Grey</option>
           <option value="#D9CBD6" class="cetaceous-only">Reddish Grey</option>
           <option value="#ECC1DB" class="cetaceous-only">Pink</option>
@@ -87,7 +89,7 @@
             <option value="#AAA41F">Command</option>
             <option value="#CE3C34">Ops / Security</option>
             <option value="#476795">Science</option>
-            <option value="#C2E7F2">Medical</option>
+            <option value="#DAE8EC">Medical</option>
           </optgroup>
           <optgroup label="Later">
             <option value="#CE3C34">Command</option>
@@ -107,7 +109,14 @@
           <optgroup label="Timeship">
             <option value="#222360">Command</option>
             <option value="#9B5411">Ops / Security</option>
-            <option value="#505050">Science / Medical</option>
+            <option value="#232D25">Science / Medical</option>
+            <option value="#505050">Other</option>
+          </optgroup>
+          <optgroup label="Other">
+            <option value="#222222">Black Ops (Section 31)</option>
+            <option value="#E7E6FC">White</option>
+            <option value="#F1578B">Pink</option>
+            <option value="#9687BE">Lilac</option>
           </optgroup>
         </select>
       </div>
@@ -157,6 +166,7 @@
       <select id="uniform-select">
         <option class="humanoid-only">ENT</option>
         <option class="humanoid-only">DISCO 22nd</option>
+        <option class="humanoid-only">Pre-SNW</option>
         <option class="humanoid-only">SNW</option>
         <option class="humanoid-only">TOS</option>
         <option class="humanoid-only">TOS Films Open</option>
@@ -182,6 +192,7 @@
         <option value="round" selected>Round (Human)</option>
         <option value="pointy">Pointy (Vulcan, Romulan)</option>
         <option value="ferengi">Massive (Ferengi)</option>
+        <option value="cat">Cat (Caitian, Kzinti)</option>
       </select>
 
       <h2 class="humanoid-only">Head Features</h2>
@@ -198,6 +209,9 @@
         <option value="klingon-ridges">Klingon Ridges</option>
         <option value="north-romulan-v">North Romulan V Forehead</option>
         <option value="kelpian-lines">Kelpian Lines</option>
+        <option value="occular-implant">Occular Implant (Cyborg, Ex-Borg)</option>
+        <option value="benzite-nose">Benzite Nose</option>
+        <option value="benzite-breather">Benzite Breather</option>
         <option value="chefs-hat">Chefs Hat</option>
       </select>
     </aside>

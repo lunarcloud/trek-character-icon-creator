@@ -1,0 +1,13 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created using Krita: https://krita.org -->
+<svg xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:krita="http://krita.org/namespaces/svg/krita"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    width="512pt"
+    height="512pt"
+    viewBox="0 0 512 512">
+<defs/>
+<path id="shape0" transform="translate(193.607556389898, 365.241023761546)" fill="#595959" fill-rule="evenodd" stroke="none" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" d="M63.9081 0L44.4128 0.550662L41.5307 8.76325L14.0582 8.76325L0 25.7405L0.469225 37.7708L12.723 48.8536L98.7243 46.8034L110.638 36.8456L111.083 25.0966L101.325 8.50567L66.6718 8.58711Z" sodipodi:nodetypes="ccccccccccccc"/><path id="shape1" transform="translate(239.08335556704, 286.113287471979)" fill="#2f4476" fill-rule="evenodd" stroke="#1a1a1a" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" d="M1.74952 83.3304L0 0.48011L7.85413 0L7.89296 83.4005Z" sodipodi:nodetypes="ccccc"/><path id="shape2" transform="translate(199.898741987152, 376.79166946248)" fill="#000000" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M10.2509 0L61.5056 0.820075L54.945 14.7613L0 14.7613Z" sodipodi:nodetypes="ccccc"/><path id="shape3" transform="translate(261.707846718219, 377.306818961013)" fill="#000000" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M0 14.2935L6.46732 0L29.4531 0.0473505L35.7784 14.1292Z" sodipodi:nodetypes="ccccc"/><path id="shape01" transform="translate(248.961831458278, 286.045261497789)" fill="#2f4476" fill-rule="evenodd" stroke="#1a1a1a" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" d="M0.62452 83.7878L0 0L7.03817 0.08239L7.03817 84.0454Z" sodipodi:nodetypes="ccccc"/><path id="shape4" transform="translate(205.780145101706, 262.918275739044)" fill="#666666" fill-rule="evenodd" stroke="#4c4c4c" stroke-width="4" stroke-linecap="square" stroke-linejoin="bevel" d="M0.0324216 5.13536C17.7376 -1.91202 71.1472 -1.34762 83.3723 4.64389C83.4428 4.67797 83.1852 24.0472 83.1621 25.3455C68.1946 21.4367 19.5767 21.5946 2.10628 27.3247C1.81348 26.1947 -0.284056 5.01695 0.0324216 5.13536Z" sodipodi:nodetypes="ccccc"/>
+</svg>

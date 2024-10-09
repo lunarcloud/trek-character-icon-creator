@@ -9,5 +9,5 @@
     height="512pt"
     viewBox="0 0 512 512">
 <defs/>
-<path id="shape0" transform="matrix(-1 0 0 1 246.562498040544 61.6171836202046)" fill="#425573" stroke-opacity="0.6" stroke="#353f9c" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M0 0L0.140625 203.648" sodipodi:nodetypes="cc"/>
+<path id="shape0" transform="translate(140.249992179248, 119.437493339814)" fill="#626262" fill-rule="evenodd" d="M0 36L15.75 68.625L60.75 92.8125L44.4375 61.875L40.5 33.1875L93.9375 15.1875L35.4375 3.9375L11.25 0Z" sodipodi:nodetypes="ccccccccc"/>
 </svg>
