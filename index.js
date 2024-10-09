@@ -188,6 +188,8 @@ export class IndexController {
         })
 
         this.onChangeDetected();
+
+        document.getElementById('download').addEventListener('click', () => this.saveImage())
     }
 
     get bodyShape() {
@@ -283,7 +285,21 @@ export class IndexController {
     static GenerateSVGHTML(path) {
         return `<svg data-src="${path}" data-cache="disabled" width="512" height="512"></svg>`
     }
+
+    saveImage() {
+        if (typeof(html2canvas) !== 'function') {
+            alert("Cannot create image, canvas library not working.")
+            return
+        }
+        html2canvas(document.querySelector("character"), {backgroundColor: null}).then(canvas => {
+            var link = document.createElement('a')
+            link.download = 'star-trek-officer.png'
+            link.href = canvas.toDataURL("image/png", 1.0)
+            link.click()
+
+        });
+
+    }
 }
 
-globalThis.App ??= { Page: undefined }
-globalThis.App.Page = new IndexController()
+globalThis.Controller = new IndexController()
