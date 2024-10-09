@@ -1,48 +1,11 @@
-const StandardColors = {
-    Body: {
-        Humanoid: '#FEE4B3',
-        Bolian: '#b3b3fe',
-        Andorian: '#41AACC',
-        Cetacean: '#B5BEC8'
-    },
-    Uniform: {
-        Early: {
-            'Command': '#AAA41F',
-            'Ops': '#CE3C34',
-            'Science': '#476795',
-            'Medical': '#C2E7F2'
-        },
-        Later: {
-            'Command': '#CE3C34',
-            'Ops': '#CEBD37',
-            'Science': '#23BDC0',
-            'Medical': '#23BDC0'
-        },
-        Darker: {
-            'Command': '#6C1C25',
-            'Ops': '#6C651E',
-            'Science': '#1E6C6A',
-            'Medical': '#1E6C6A'
-        },
-        Metals: {
-            'Command': '#B27010',
-            'Ops': '#BE7639',
-            'Science': '#78736D',
-        },
-        Timeship: {
-            'Command': '#222360',
-            'Ops': '#9B5411',
-            'Science': '#505050',
-        }
-    },
-}
-
 export class IndexController {
 
     #lastUsedBodyColors = {
         'humanoid': '#FEE4B3',
         'cetaceous': '#B5BEC8'
     }
+
+    #lastUsedUniformColor = ''
 
     /**
      * @type {HTMLElement}
@@ -124,12 +87,36 @@ export class IndexController {
      */
     #headFeatureSelect
 
+    /**
+     * @type {HTMLSelectElement}
+     */
+    #standardBodyColorSelect
+
+    /**
+     * @type {HTMLSelectElement}
+     */
+    #standardUniformColorSelect
+
+    /**
+     * @type {HTMLInputElement}
+     */
+    #syncAntennaeWithBodyCheck
+
+    /**
+     * @type {HTMLInputElement}
+     */
+    #syncBirdTuftWithBodyCheck
+
+    /**
+     * @type {HTMLInputElement}
+     */
+    #syncWiskersWithBodyCheck
 
     /**
      * Constructor.
      */
     constructor () {
-        this.#mainEl = document.getElementsByTagName('main')[0]
+        this.#mainEl = document.body
         this.#characterStyleEl = document.querySelector('character style')
 
         this.#characterEars = document.getElementById('character-ears')
@@ -148,14 +135,57 @@ export class IndexController {
         this.#uniformSelect = document.getElementById('uniform-select')
         this.#earSelect = document.getElementById('ear-select')
         this.#headFeatureSelect = document.getElementById('head-feature-select')
+        this.#standardBodyColorSelect = document.getElementById('std-body-colors')
+        this.#standardUniformColorSelect = document.getElementById('std-uniform-colors')
 
+        this.#syncAntennaeWithBodyCheck = document.getElementById('sync-antennae-with-body')
+        this.#syncBirdTuftWithBodyCheck = document.getElementById('sync-bird-tuft-with-body')
+        this.#syncWiskersWithBodyCheck = document.getElementById('sync-wiskers-with-body')
+
+        // Generically handle all the elements changing
         let bodyShapeEls = Array.from(document.querySelectorAll(`input[name="body-shape"]`))
-
-        let allChangeEls = bodyShapeEls.concat([this.#bodyColorPicker, this.#uniformColorPicker, this.#uniformUndershirtColorPicker, this.#antennaeColorPicker, this.#birdTuftColorPicker, this.#wiskersColorPicker, this.#uniformSelect, this.#earSelect, this.#headFeatureSelect])
-
+        let allChangeEls = bodyShapeEls.concat([this.#uniformUndershirtColorPicker, this.#uniformSelect, this.#earSelect, this.#headFeatureSelect, this.#syncAntennaeWithBodyCheck, this.#syncBirdTuftWithBodyCheck, this.#syncWiskersWithBodyCheck])
         for (let changeEl of allChangeEls) {
             changeEl.addEventListener('change', () => this.onChangeDetected())
         }
+
+        // Handle Items with 2 selectors separately
+        this.#bodyColorPicker.addEventListener('change', () => {
+            // Set the "standard" colors selector to what's selected or 'custom'
+            let el = this.#standardBodyColorSelect.querySelector(`[value="${this.#bodyColorPicker.value}"]`) ?? this.#standardBodyColorSelect.querySelector(`[value="custom"]`)
+            this.#standardBodyColorSelect.value = el.value;
+
+            this.onChangeDetected()
+        })
+        this.#uniformColorPicker.addEventListener('change', () => {
+            // Set the "standard" colors selector to what's selected or 'custom'
+            let el = this.#standardUniformColorSelect.querySelector(`[value="${this.#uniformColorPicker.value}"]`) ?? this.#standardUniformColorSelect.querySelector(`[value="custom"]`)
+            this.#standardUniformColorSelect.value = el.value;
+
+            this.onChangeDetected()
+        })
+        this.#standardBodyColorSelect.addEventListener('change', () => {
+            this.#bodyColorPicker.value = this.#standardBodyColorSelect.value
+            this.onChangeDetected()
+        })
+        this.#standardUniformColorSelect.addEventListener('change', () => {
+            this.#uniformColorPicker.value = this.#standardUniformColorSelect.value
+            this.onChangeDetected()
+        })
+
+        // Handle Items with a 'sync' - so they un-check when selecting color manually
+        this.#antennaeColorPicker.addEventListener('change', () => {
+            this.#syncAntennaeWithBodyCheck.checked = false
+            this.onChangeDetected()
+        })
+        this.#birdTuftColorPicker.addEventListener('change', () => {
+            this.#syncBirdTuftWithBodyCheck.checked = false
+            this.onChangeDetected()
+        })
+        this.#wiskersColorPicker.addEventListener('change', () => {
+            this.#syncWiskersWithBodyCheck.checked = false
+            this.onChangeDetected()
+        })
 
         this.onChangeDetected();
     }
@@ -231,6 +261,17 @@ export class IndexController {
 
         // Update the colors
         this.#lastUsedBodyColors[this.bodyShape] = this.#bodyColorPicker.value
+
+        if (this.#syncAntennaeWithBodyCheck.checked)
+            this.#antennaeColorPicker.value = this.#bodyColorPicker.value
+
+        if (this.#syncBirdTuftWithBodyCheck.checked)
+            this.#birdTuftColorPicker.value = this.#bodyColorPicker.value
+
+        if (this.#syncWiskersWithBodyCheck.checked)
+            this.#wiskersColorPicker.value = this.#bodyColorPicker.value
+
+
         this.#characterStyleEl.innerHTML = `svg .body-color { color: ${this.#bodyColorPicker.value} !important; } `
         + `svg .uniform-color { color: ${this.#uniformColorPicker.value} !important; } `
         + `svg .uniform-undershirt-color { color: ${this.#uniformUndershirtColorPicker.value} !important;}`
