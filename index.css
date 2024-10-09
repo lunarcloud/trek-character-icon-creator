@@ -153,6 +153,10 @@ input, select:not([multiple]), select[multiple] option {
   }
 }
 
+body.saving {
+  --svg-size: 512px !important;
+}
+
 @media (min-width: 900px) {
   body {
     display: grid;

@@ -301,15 +301,18 @@ export class IndexController {
             alert("Cannot create image, canvas library not working.")
             return
         }
+        this.#mainEl.classList.add('saving')
         html2canvas(document.querySelector("character"), {
-            backgroundColor: null
+            backgroundColor: null,
+            width: 512,
+            height: 512
         })
         .then(canvas => {
             var link = document.createElement('a')
             link.download = 'star-trek-officer.png'
             link.href = canvas.toDataURL("image/png", 1.0)
             link.click()
-
+            this.#mainEl.classList.remove('saving')
         });
 
     }
