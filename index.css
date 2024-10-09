@@ -2,6 +2,11 @@
   --svg-size: 256px;
 }
 
+body.embedded header {
+  height: 0;
+  visibility: hidden;
+}
+
 body {
   & > * {
     text-align: center;
@@ -31,6 +36,7 @@ body {
   &:not(.bird-tuft) .bird-tuft-only,
   &:not(.wiskers) .wiskers-only {
     visibility: hidden;
+    height: 0;
 
     &select {
       display: none;
@@ -98,6 +104,18 @@ body {
       }
     }
   }
+
+  footer {
+    padding: 1em;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    #download {
+      padding: 1em 2em;
+      font-weight: bold;
+    }
+  }
 }
 
 input, select, button {
@@ -115,7 +133,7 @@ input, select:not([multiple]), select[multiple] option {
 
 @media (pointer: fine) {
   #head-feature-select {
-    height: 19.25em;
+    height: 12em;
   }
 }
 

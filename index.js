@@ -223,14 +223,13 @@ export class IndexController {
 
         // Update the classes at the top for hiding/showing elements
         this.#mainEl.className = this.bodyShape // first one clears the list
+        if (window.self !== window.top)
+            this.#mainEl.classList.add('embedded')
         // more classes will be added later
 
         // Handle Body Shape Changes
         if (bodyShapeChanged)
         {
-            // Update the class at the top for hiding/showing elements
-            this.#mainEl.className = this.bodyShape
-
             // Ensure the "humanoid-only" items are hidden for cetaceans
             let uniformSelectMaybeHiddenEls = this.#uniformSelect.querySelectorAll('option[class]')
             for (let el of uniformSelectMaybeHiddenEls)
