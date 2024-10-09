@@ -61,23 +61,28 @@
       <div>
         <input type="color" id="body-color" value="#FEE4B3" >
         <label for="body-color">Body</label>
-        <select id="std-body-colors" class="humanoid-only">
-          <option value="custom"></option>
-          <option value="#FEE4B3">Lighter Human</option>
-          <option value="#36200C">Darker Human</option>
-          <option value="#b3b3fe">Bolian</option>
-          <option value="#41AACC">Andorian</option>
-          <option value="#B6AEAC">Aenar</option>
-          <option value="#98F69C">Lighter Orion</option>
-          <option value="#67763E">Darker Orion</option>
+        <select id="std-body-colors">
+          <option value="custom" hidden selected></option>
+          <option value="#FEE4B3" class="humanoid-only">Lighter Human</option>
+          <option value="#36200C" class="humanoid-only">Darker Human</option>
+          <option value="#b3b3fe" class="humanoid-only">Bolian</option>
+          <option value="#41AACC" class="humanoid-only">Andorian</option>
+          <option value="#B6AEAC" class="humanoid-only">Aenar</option>
+          <option value="#98F69C" class="humanoid-only">Lighter Orion</option>
+          <option value="#67763E" class="humanoid-only">Darker Orion</option>
+          <option value="#B5BEC8" class="cetaceous-only">Grey</option>
+          <option value="#D9CBD6" class="cetaceous-only">Reddish Grey</option>
+          <option value="#ECC1DB" class="cetaceous-only">Pink</option>
+          <option value="#020101" class="cetaceous-only">Black</option>
+          <option value="#F4F4F6" class="cetaceous-only">White</option>
         </select>
       </div>
 
       <div>
-        <input type="color" id="uniform-color" value="#22B6B9" >
+        <input type="color" id="uniform-color" value="#CE3C34" >
         <label for="uniform-color">Uniform</label>
         <select id="std-uniform-colors">
-          <option value="custom"></option>
+          <option value="custom" hidden selected></option>
           <optgroup label="Early">
             <option value="#AAA41F">Command</option>
             <option value="#CE3C34">Ops / Security</option>
@@ -107,9 +112,15 @@
         </select>
       </div>
 
-      <div class="voy-ds9-only hidden">
+      <div class="voy-ds9-only">
         <input type="color" id="uniform-undershirt-color" value="#736576" >
         <label for="uniform-undershirt-color">Uniform Undershirt</label>
+        <select id="std-uniform-undershirt-colors">
+          <option value="custom" hidden selected></option>
+          <option value="#847C8A">Grey</option>
+          <option value="#736576">Purplish</option>
+          <option value="#AE90BE">Purple</option>
+        </select>
       </div>
 
       <div class="andorian-antennae-only">

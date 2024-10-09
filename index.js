@@ -98,6 +98,11 @@ export class IndexController {
     #standardUniformColorSelect
 
     /**
+     * @type {HTMLSelectElement}
+     */
+    #standardUndershirtColorSelect
+
+    /**
      * @type {HTMLInputElement}
      */
     #syncAntennaeWithBodyCheck
@@ -137,6 +142,7 @@ export class IndexController {
         this.#headFeatureSelect = document.getElementById('head-feature-select')
         this.#standardBodyColorSelect = document.getElementById('std-body-colors')
         this.#standardUniformColorSelect = document.getElementById('std-uniform-colors')
+        this.#standardUndershirtColorSelect = document.getElementById('std-uniform-undershirt-colors')
 
         this.#syncAntennaeWithBodyCheck = document.getElementById('sync-antennae-with-body')
         this.#syncBirdTuftWithBodyCheck = document.getElementById('sync-bird-tuft-with-body')
@@ -144,34 +150,15 @@ export class IndexController {
 
         // Generically handle all the elements changing
         let bodyShapeEls = Array.from(document.querySelectorAll(`input[name="body-shape"]`))
-        let allChangeEls = bodyShapeEls.concat([this.#uniformUndershirtColorPicker, this.#uniformSelect, this.#earSelect, this.#headFeatureSelect, this.#syncAntennaeWithBodyCheck, this.#syncBirdTuftWithBodyCheck, this.#syncWiskersWithBodyCheck])
+        let allChangeEls = bodyShapeEls.concat([this.#uniformSelect, this.#earSelect, this.#headFeatureSelect, this.#syncAntennaeWithBodyCheck, this.#syncBirdTuftWithBodyCheck, this.#syncWiskersWithBodyCheck])
         for (let changeEl of allChangeEls) {
             changeEl.addEventListener('change', () => this.onChangeDetected())
         }
 
         // Handle Items with 2 selectors separately
-        this.#bodyColorPicker.addEventListener('change', () => {
-            // Set the "standard" colors selector to what's selected or 'custom'
-            let el = this.#standardBodyColorSelect.querySelector(`[value="${this.#bodyColorPicker.value}"]`) ?? this.#standardBodyColorSelect.querySelector(`[value="custom"]`)
-            this.#standardBodyColorSelect.value = el.value;
-
-            this.onChangeDetected()
-        })
-        this.#uniformColorPicker.addEventListener('change', () => {
-            // Set the "standard" colors selector to what's selected or 'custom'
-            let el = this.#standardUniformColorSelect.querySelector(`[value="${this.#uniformColorPicker.value}"]`) ?? this.#standardUniformColorSelect.querySelector(`[value="custom"]`)
-            this.#standardUniformColorSelect.value = el.value;
-
-            this.onChangeDetected()
-        })
-        this.#standardBodyColorSelect.addEventListener('change', () => {
-            this.#bodyColorPicker.value = this.#standardBodyColorSelect.value
-            this.onChangeDetected()
-        })
-        this.#standardUniformColorSelect.addEventListener('change', () => {
-            this.#uniformColorPicker.value = this.#standardUniformColorSelect.value
-            this.onChangeDetected()
-        })
+        this.#setupColorPickerWithStandardSelector(this.#bodyColorPicker, this.#standardBodyColorSelect)
+        this.#setupColorPickerWithStandardSelector(this.#uniformColorPicker, this.#standardUniformColorSelect)
+        this.#setupColorPickerWithStandardSelector(this.#uniformUndershirtColorPicker, this.#standardUndershirtColorSelect)
 
         // Handle Items with a 'sync' - so they un-check when selecting color manually
         this.#antennaeColorPicker.addEventListener('change', () => {
@@ -190,6 +177,30 @@ export class IndexController {
         this.onChangeDetected();
 
         document.getElementById('download').addEventListener('click', () => this.saveImage())
+    }
+
+    #setupColorPickerWithStandardSelector(picker, selector) {
+
+        let onChangePicker = () => {
+            // Set the "standard" colors selector to what's selected or 'custom'
+            let el = selector.querySelector(`[value="${picker.value}"]`) ?? selector.querySelector(`[value="custom"]`)
+            selector.value = el.value;
+
+            this.onChangeDetected()
+        }
+
+        let onChangeSelector = () => {
+            if (selector.value !== 'custom')
+                picker.value = selector.value
+            this.onChangeDetected()
+        }
+
+        picker.addEventListener('change', onChangePicker)
+        selector.addEventListener('change', onChangeSelector)
+
+        // Update the selector if the current picker is one of the values
+        let el = selector.querySelector(`[value="${picker.value.toUpperCase()}"]`) ?? selector.querySelector(`[value="custom"]`)
+        selector.value = el.value;
     }
 
     get bodyShape() {

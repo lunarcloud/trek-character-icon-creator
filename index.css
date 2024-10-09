@@ -2,15 +2,14 @@
   --svg-size: 256px;
 }
 
-@media (pointer: fine) {
-  #head-feature-select {
-    height: 17em;
-  }
-}
-
 body {
+  & > * {
+    text-align: center;
+  }
+
   aside {
     columns: 2;
+    text-align: unset;
 
     & #uniform-header {
       break-before: always;
@@ -31,27 +30,59 @@ body {
   &:not(.bird-tuft) .bird-tuft-only,
   &:not(.wiskers) .wiskers-only {
     visibility: hidden;
+
+    &select {
+      display: none;
+    }
   }
 
   character {
     background-color: transparent;
     padding: 1em 1em 0 1em;
+    width: var(--svg-size);
+    margin: 0 auto;
+    text-align: center;
+  }
+
+
+  #character-head-features {
+    grid-template-columns: var(--svg-size) 1fr;
+    grid-template-rows: var(--svg-size) 1fr;
   }
 
   character,
   #character-head-features {
+    margin: auto;
     display: grid;
-    grid-template-columns: calc(var(--svg-size) + 2em) 1fr;
-    grid-template-rows: calc(var(--svg-size) + 1em) 1fr;
 
     & > * {
       grid-area: 1 / 1 / 2 / 2;
 
-      & > svg {
+      & svg {
         width: var(--svg-size);
         height: var(--svg-size);
+        margin: auto;
       }
     }
+  }
+}
+
+input, select, button {
+  border-radius: 4px;
+}
+
+input, select:not([multiple]), select[multiple] option {
+  background-color: #ccc;
+  color: #222;
+
+  &:hover {
+    background-color: cornflowerblue;
+  }
+}
+
+@media (pointer: fine) {
+  #head-feature-select {
+    height: 17em;
   }
 }
 
@@ -80,7 +111,6 @@ body {
     header {
       grid-row: 1;
       grid-column: 1 / 3;
-      text-align: center;
     }
     main {
       grid-row: 2;
@@ -93,7 +123,24 @@ body {
     footer {
       grid-row: 3;
       grid-column: 1 / 3;
-      text-align: center;
     }
   }
+}
+
+@media (prefers-color-scheme: dark) {
+
+  body, select {
+    background-color: #111;
+    color: #ddd;
+  }
+
+  input, select:not([multiple]), select[multiple] option, button {
+    background-color: #222;
+    color: #ccc;
+
+    &:hover {
+      background-color: darkslateblue;
+    }
+  }
+
 }
