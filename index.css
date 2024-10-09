@@ -50,12 +50,37 @@ body {
     width: var(--svg-size);
     margin: 0 auto;
     text-align: center;
-  }
 
+    position: relative;
+    z-index: 0;
 
-  #character-head-features {
-    grid-template-columns: var(--svg-size) 1fr;
-    grid-template-rows: var(--svg-size) 1fr;
+    #character-ears {
+      position: relative;
+      z-index: 1;
+    }
+    #character-body {
+      position: relative;
+      z-index: 2;
+    }
+    #character-uniform {
+      position: relative;
+      z-index: 3;
+    }
+    #character-head-features {
+      grid-template-columns: var(--svg-size) 1fr;
+      grid-template-rows: var(--svg-size) 1fr;
+      position: relative;
+      z-index: 4;
+
+      & > * {
+        position: relative;
+        z-index: 6;
+      }
+    }
+    #character-flipper {
+      position: relative;
+      z-index: 12;
+    }
   }
 
   character,

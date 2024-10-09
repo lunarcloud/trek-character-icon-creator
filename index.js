@@ -302,7 +302,10 @@ export class IndexController {
             alert("Cannot create image, canvas library not working.")
             return
         }
-        html2canvas(document.querySelector("character"), {backgroundColor: null}).then(canvas => {
+        html2canvas(document.querySelector("character"), {
+            backgroundColor: null
+        })
+        .then(canvas => {
             var link = document.createElement('a')
             link.download = 'star-trek-officer.png'
             link.href = canvas.toDataURL("image/png", 1.0)
