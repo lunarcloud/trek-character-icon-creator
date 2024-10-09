@@ -10,6 +10,7 @@ body {
   aside {
     columns: 2;
     text-align: unset;
+    padding: 0 1em;
 
     & #uniform-header {
       break-before: always;
@@ -34,6 +35,13 @@ body {
     &select {
       display: none;
     }
+  }
+
+  main {
+    background-image: linear-gradient(#E5D908 3px, transparent 3px), linear-gradient(to right, #E5D908 3px, transparent 3px);
+    background-size: 32px 32px;
+    background-position: -1px -1px;
+    background-color: #4D4D50;
   }
 
   character {
