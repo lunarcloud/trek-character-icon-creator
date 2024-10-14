@@ -243,8 +243,8 @@ export class IndexController {
         // Handle Body Shape Changes
         if (bodyShapeChanged)
         {
-            // Ensure the "humanoid-only" items are hidden for cetaceans
-            let uniformSelectMaybeHiddenEls = this.#uniformSelect.querySelectorAll('option[class]')
+            // Ensure the "humanoid-only" items are hidden for others
+            let uniformSelectMaybeHiddenEls = this.#mainEl.querySelectorAll('option[class]')
             for (let el of uniformSelectMaybeHiddenEls) {
                 var style = window.getComputedStyle(el);
                 el.hidden = style.visibility === "hidden"
