@@ -19,7 +19,7 @@ body {
   aside {
     columns: 2;
     text-align: unset;
-    padding: 0 1em;
+    gap: 0.25em;
 
     & #uniform-header {
       break-before: always;
@@ -146,6 +146,7 @@ body {
 
 input, select, button, .body-radio-option {
   border-radius: 4px;
+  max-width: 100%;
 }
 
 select:not([multiple]) {
@@ -159,7 +160,8 @@ select:not([multiple]) {
 .body-radio-option {
   margin: 0.25em 0em;
   line-height: 2em;
-  width: 50%;
+  min-width: 6em;
+  width: 6em;
 
   & input {
     width: 1em;
@@ -167,6 +169,7 @@ select:not([multiple]) {
   & label {
     display: inline-block;
     width: calc(100% - 2em);
+    max-width: 100%;
   }
 }
 
@@ -188,6 +191,15 @@ select[multiple] option {
   }
 }
 
+@media (min-width: 641px) {
+  aside {
+    padding: 0 1em;
+    gap: unset;
+  }
+  .body-radio-option {
+    width: 50%;
+  }
+}
 @media (min-width: 641px) and (max-width: 1024px) {
   :root {
     --svg-size: 384px;
