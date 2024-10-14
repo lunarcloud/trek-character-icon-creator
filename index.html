@@ -34,8 +34,8 @@
           <svg data-src="humanoid/head-features/andorian-antennae.svg" data-cache="disabled" width="512" height="512"></svg>
         </div>
 
-        <div id="character-flipper" class="cetaceous-only">
-          <svg data-src="cetaceous/near-flipper.svg" data-cache="disabled" width="512" height="512"></svg>
+        <div id="body-overlay" class="non-humanoid">
+          <svg data-src="cetaceous/body-overlay.svg" data-cache="disabled" width="512" height="512"></svg>
         </div>
       </character>
     </main>
@@ -55,8 +55,13 @@
         <label for="cetaceous">Cetaceous</label>
       </div>
 
-      <h2>Colors</h2>
       <div>
+        <input type="radio" id="exocomp" name="body-shape" value="exocomp" />
+        <label for="exocomp">Exocomp</label>
+      </div>
+
+      <h2>Colors</h2>
+      <div class="non-exocomp">
         <input type="color" id="body-color" value="#FEE4B3" >
         <label for="body-color">Body</label>
         <select id="std-body-colors">
@@ -169,13 +174,13 @@
         <option class="humanoid-only">SNW Minidress</option>
         <option class="humanoid-only">TOS</option>
         <option class="humanoid-only">TOS Minidress</option>
-        <option>TOS Films Open</option>
-        <option>TOS Films Closed</option>
-        <option>Lost Era</option>
-        <option>TNG Early</option>
-        <option class="humanoid-only">TNG Early Skant</option>
+        <option class="non-exocomp">TOS Films Open</option>
+        <option class="non-exocomp">TOS Films Closed</option>
+        <option class="non-exocomp">Lost Era</option>
+        <option class="non-exocomp">TNG Early</option>
+        <option class="non-exocomp">TNG Early Skant</option>
         <option>TNG</option>
-        <option>TNG Cadet</option>
+        <option class="non-exocomp">TNG Cadet</option>
         <option selected>VOY DS9</option>
         <option>Dominion War</option>
         <option>IDW 2378</option>
@@ -183,7 +188,7 @@
         <option>Prodigy</option>
         <option>Picard Pre-S1</option>
         <option>Picard S1</option>
-        <option>Picard S2 Cadet</option>
+        <option class="non-exocomp">Picard S2 Cadet</option>
         <option>Picard S3</option>
         <option>Flash-Forwards 25th</option>
         <option>VOY Timeship 29th</option>

@@ -40,7 +40,7 @@ export class IndexController {
     /**
      * @type {HTMLElement}
      */
-    #characterFlipper
+    #bodyOverlay
 
     /**
      * @type {HTMLInputElement}
@@ -128,7 +128,7 @@ export class IndexController {
         this.#characterBody = document.getElementById('character-body')
         this.#characterHeadFeatures = document.getElementById('character-head-features')
         this.#characterUniform = document.getElementById('character-uniform')
-        this.#characterFlipper = document.getElementById('character-flipper')
+        this.#bodyOverlay = document.getElementById('body-overlay')
 
         // Selection Elements
         this.#bodyColorPicker = document.getElementById('body-color')
@@ -232,8 +232,10 @@ export class IndexController {
         {
             // Ensure the "humanoid-only" items are hidden for cetaceans
             let uniformSelectMaybeHiddenEls = this.#uniformSelect.querySelectorAll('option[class]')
-            for (let el of uniformSelectMaybeHiddenEls)
-                el.hidden = !el.classList.contains(`${this.bodyShape}-only`)
+            for (let el of uniformSelectMaybeHiddenEls) {
+                var style = window.getComputedStyle(el);
+                el.hidden = style.visibility === "hidden"
+            }
 
             // Reset color so we don't have oddly-fleshy dolphins by default
             this.#bodyColorPicker.value = this.#lastUsedBodyColors[this.bodyShape]
@@ -245,6 +247,7 @@ export class IndexController {
 
         // Change the body
         this.#characterBody.innerHTML = IndexController.GenerateSVGHTML(`${this.bodyShape}/body.svg`)
+        this.#bodyOverlay.innerHTML = IndexController.GenerateSVGHTML(`${this.bodyShape}/body-overlay.svg`)
 
         // Change the uniform
         this.#characterUniform.innerHTML = IndexController.GenerateSVGHTML(`${this.bodyShape}/uniform/${this.#uniformSelect.value}.svg`)

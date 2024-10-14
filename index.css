@@ -30,7 +30,13 @@ body {
 
   & .hidden,
   &.humanoid .cetaceous-only,
+  &.humanoid .exocomp-only,
+  &.humanoid .non-humanoid,
+  &.exocomp .non-exocomp,
+  &.exocomp .cetaceous-only,
+  &.exocomp .humanoid-only,
   &.cetaceous .humanoid-only,
+  &.cetaceous .exocomp-only,
   &:not(.voy-ds9) .voy-ds9-only,
   &:not(.andorian-antennae) .andorian-antennae-only,
   &:not(.bird-tuft) .bird-tuft-only,
@@ -83,7 +89,7 @@ body {
         z-index: 6;
       }
     }
-    #character-flipper {
+    #body-overlay {
       position: relative;
       z-index: 12;
     }
