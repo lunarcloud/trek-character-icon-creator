@@ -18,6 +18,7 @@
     <main>
       <character>
         <style></style>
+        <bg></bg>
         <div id="character-ears" class="humanoid-only">
           <svg data-src="humanoid/ears/pointy.svg" data-cache="disabled" width="512" height="512"></svg>
         </div>
@@ -60,7 +61,70 @@
         <label for="exocomp">Exocomp</label>
       </div>
 
-      <h2>Colors</h2>
+      <h3 class="humanoid-only">Ears</h3>
+      <select id="ear-select" class="humanoid-only">
+        <option value="none" selected>None (Edosian, Saurian, etc)</option>
+        <option value="round" selected>Round (Human)</option>
+        <option value="pointy">Pointy (Vulcan, Romulan)</option>
+        <option value="ferengi">Massive (Ferengi)</option>
+        <option value="cat">Cat (Caitian, Kzinti)</option>
+      </select>
+
+      <h3 class="humanoid-only">Head Features</h3>
+      <select multiple id="head-feature-select" class="humanoid-only">
+        <option value="andorian-antennae">Andorian Antennae</option>
+        <option value="trill-spots">Trill Spots</option>
+        <option value="bird-beak">Bird Beak</option>
+        <option value="bird-tuft">Bird Tuft</option>
+        <option value="gill-wiskers-or-feathers">Gills / Wiskers / Feathers</option>
+        <option value="tellarite-nose">Tellarite Nose</option>
+        <option value="tusks">Tusks</option>
+        <option value="bolian-line">Bolian Line</option>
+        <option value="ferengi-brow">Ferengi Brow</option>
+        <option value="bifurcated-forehead">Bifurcated Forehead</option>
+        <option value="klingon-ridges">Klingon Ridges</option>
+        <option value="denobulan-ridges">Denobulan Ridges</option>
+        <option value="north-romulan-v">North Romulan V Forehead</option>
+        <option value="kelpian-lines">Kelpian Lines</option>
+        <option value="occular-implant">Occular Implant (Cyborg, Ex-Borg)</option>
+        <option value="benzite-nose">Benzite Nose</option>
+        <option value="benzite-breather">Benzite Breather</option>
+        <option value="chefs-hat">Chefs Hat</option>
+      </select>
+
+      <h2 id="uniform-header">Uniform</h2>
+      <select id="uniform-select">
+        <option class="humanoid-only">ENT</option>
+        <option class="humanoid-only">DISCO 22nd</option>
+        <option class="humanoid-only">Pre-SNW</option>
+        <option class="humanoid-only">SNW</option>
+        <option class="humanoid-only">SNW Minidress</option>
+        <option class="humanoid-only">TOS</option>
+        <option class="humanoid-only">TOS Minidress</option>
+        <option class="non-exocomp">TOS Films Open</option>
+        <option class="non-exocomp">TOS Films Closed</option>
+        <option class="non-exocomp">Lost Era</option>
+        <option class="non-exocomp">TNG Early</option>
+        <option class="non-exocomp">TNG Early Skant</option>
+        <option>TNG</option>
+        <option class="non-exocomp">TNG Cadet</option>
+        <option selected>VOY DS9</option>
+        <option>Dominion War</option>
+        <option>IDW 2378</option>
+        <option>Lower Decks</option>
+        <option>Prodigy</option>
+        <option>Picard Pre-S1</option>
+        <option>Picard S1</option>
+        <option class="non-exocomp">Picard S2 Cadet</option>
+        <option>Picard S3</option>
+        <option>Flash-Forwards 25th</option>
+        <option>VOY Timeship 29th</option>
+        <option>DISCO 32nd Early</option>
+        <option>DISCO 32nd Late</option>
+        <option>DISCO 33rd</option>
+      </select>
+
+      <h3>Colors</h3>
       <div class="non-exocomp">
         <input type="color" id="body-color" value="#FEE4B3" >
         <label for="body-color">Body</label>
@@ -165,72 +229,16 @@
         </span>
       </div>
 
-      <h2 id="uniform-header">Uniform</h2>
-      <select id="uniform-select">
-        <option class="humanoid-only">ENT</option>
-        <option class="humanoid-only">DISCO 22nd</option>
-        <option class="humanoid-only">Pre-SNW</option>
-        <option class="humanoid-only">SNW</option>
-        <option class="humanoid-only">SNW Minidress</option>
-        <option class="humanoid-only">TOS</option>
-        <option class="humanoid-only">TOS Minidress</option>
-        <option class="non-exocomp">TOS Films Open</option>
-        <option class="non-exocomp">TOS Films Closed</option>
-        <option class="non-exocomp">Lost Era</option>
-        <option class="non-exocomp">TNG Early</option>
-        <option class="non-exocomp">TNG Early Skant</option>
-        <option>TNG</option>
-        <option class="non-exocomp">TNG Cadet</option>
-        <option selected>VOY DS9</option>
-        <option>Dominion War</option>
-        <option>IDW 2378</option>
-        <option>Lower Decks</option>
-        <option>Prodigy</option>
-        <option>Picard Pre-S1</option>
-        <option>Picard S1</option>
-        <option class="non-exocomp">Picard S2 Cadet</option>
-        <option>Picard S3</option>
-        <option>Flash-Forwards 25th</option>
-        <option>VOY Timeship 29th</option>
-        <option>DISCO 32nd Early</option>
-        <option>DISCO 32nd Late</option>
-        <option>DISCO 33rd</option>
-      </select>
-
-      <h2 class="humanoid-only">Ears</h2>
-      <select id="ear-select" class="humanoid-only">
-        <option value="none" selected>None (Edosian, Saurian, etc)</option>
-        <option value="round" selected>Round (Human)</option>
-        <option value="pointy">Pointy (Vulcan, Romulan)</option>
-        <option value="ferengi">Massive (Ferengi)</option>
-        <option value="cat">Cat (Caitian, Kzinti)</option>
-      </select>
-
-      <h2 class="humanoid-only">Head Features</h2>
-      <select multiple id="head-feature-select" class="humanoid-only">
-        <option value="andorian-antennae">Andorian Antennae</option>
-        <option value="trill-spots">Trill Spots</option>
-        <option value="bird-beak">Bird Beak</option>
-        <option value="bird-tuft">Bird Tuft</option>
-        <option value="gill-wiskers-or-feathers">Gills / Wiskers / Feathers</option>
-        <option value="tellarite-nose">Tellarite Nose</option>
-        <option value="tusks">Tusks</option>
-        <option value="bolian-line">Bolian Line</option>
-        <option value="ferengi-brow">Ferengi Brow</option>
-        <option value="bifurcated-forehead">Bifurcated Forehead</option>
-        <option value="klingon-ridges">Klingon Ridges</option>
-        <option value="denobulan-ridges">Denobulan Ridges</option>
-        <option value="north-romulan-v">North Romulan V Forehead</option>
-        <option value="kelpian-lines">Kelpian Lines</option>
-        <option value="occular-implant">Occular Implant (Cyborg, Ex-Borg)</option>
-        <option value="benzite-nose">Benzite Nose</option>
-        <option value="benzite-breather">Benzite Breather</option>
-        <option value="chefs-hat">Chefs Hat</option>
-      </select>
     </aside>
 
     <footer>
-      <button id="download">Download</button>
+      <span>
+        <button id="download">⇩ Save</button>
+        <span>
+          <input type="checkbox" id="save-with-bg-checkbox" checked >
+          <label for="save-with-bg-checkbox">background</label>
+        </span>
+      </span>
       <span>Created by Samuel Sarette 2024</span>
     </footer>
   </body>

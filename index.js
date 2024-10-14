@@ -18,6 +18,11 @@ export class IndexController {
     #characterStyleEl
 
     /**
+     * @type {HTMLStyleElement}
+     */
+    #characterBgEl
+
+    /**
      * @type {HTMLElement}
      */
     #characterEars
@@ -118,11 +123,17 @@ export class IndexController {
     #syncWiskersWithBodyCheck
 
     /**
+     * @type {HTMLInputElement}
+     */
+    #saveBGCheck
+
+    /**
      * Constructor.
      */
     constructor () {
         this.#mainEl = document.body
         this.#characterStyleEl = document.querySelector('character style')
+        this.#characterBgEl = document.querySelector('character bg')
 
         this.#characterEars = document.getElementById('character-ears')
         this.#characterBody = document.getElementById('character-body')
@@ -147,6 +158,8 @@ export class IndexController {
         this.#syncAntennaeWithBodyCheck = document.getElementById('sync-antennae-with-body')
         this.#syncBirdTuftWithBodyCheck = document.getElementById('sync-bird-tuft-with-body')
         this.#syncWiskersWithBodyCheck = document.getElementById('sync-wiskers-with-body')
+
+        this.#saveBGCheck = document.getElementById('save-with-bg-checkbox')
 
         // Generically handle all the elements changing
         let bodyShapeEls = Array.from(document.querySelectorAll(`input[name="body-shape"]`))
@@ -304,12 +317,20 @@ export class IndexController {
             alert("Cannot create image, canvas library not working.")
             return
         }
+
+        let size1em = parseFloat(getComputedStyle(this.#mainEl).fontSize)
+
+        let options = {
+            backgroundColor: (this.#saveBGCheck.checked ? '#363638' : null),
+            width: 512 + (size1em * 2),
+            height: 512 + (size1em * 2),
+            ignoreElements: el => {
+                return el.tagName === 'BG' && !this.#saveBGCheck.checked
+            }
+        }
+
         this.#mainEl.classList.add('saving')
-        html2canvas(document.querySelector("character"), {
-            backgroundColor: null,
-            width: 512,
-            height: 512
-        })
+        html2canvas(document.querySelector("character"), options)
         .then(canvas => {
             var link = document.createElement('a')
             link.download = 'star-trek-officer.png'
