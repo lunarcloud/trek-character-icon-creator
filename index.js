@@ -1,3 +1,5 @@
+const DEFAULT_UNIFORM = 'VOY DS9'
+
 export class IndexController {
 
     #lastUsedBodyColors = {
@@ -255,7 +257,7 @@ export class IndexController {
 
             // If currently selecting a hidden uniform, select the first non-hidden one
             if (this.#isCurrentUniformInvalid())
-                this.#uniformSelect.value = this.#uniformSelect.querySelector('option:not([hidden])').value
+                this.#uniformSelect.value = DEFAULT_UNIFORM
         }
 
         // Change the body
