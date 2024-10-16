@@ -187,7 +187,7 @@ export class IndexController {
             this.onChangeDetected()
         })
 
-        this.onChangeDetected();
+        this.onChangeDetected()
 
         document.getElementById('download').addEventListener('click', () => this.saveImage())
     }
@@ -228,7 +228,7 @@ export class IndexController {
     }
 
     #isCurrentUniformInvalid() {
-        return this.#uniformSelect.children[this.#uniformSelect.selectedIndex].hidden
+        return this.#uniformSelect.querySelectorAll('option')[this.#uniformSelect.selectedIndex].hidden ?? true
     }
 
     onChangeDetected() {
@@ -255,7 +255,7 @@ export class IndexController {
 
             // If currently selecting a hidden uniform, select the first non-hidden one
             if (this.#isCurrentUniformInvalid())
-                this.#uniformSelect.value = this.#uniformSelect.querySelector(':not([hidden])').value
+                this.#uniformSelect.value = this.#uniformSelect.querySelector('option:not([hidden])').value
         }
 
         // Change the body
