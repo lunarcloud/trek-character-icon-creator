@@ -51,6 +51,16 @@ export async function saveBlobAs(filename, blobData, mimeOptions, startIn = 'dow
 
         console.warn('file picker method failed, falling back to link element with download attribute. ', ex)
 
+        try {
+            // Use the browser prompt for name selection
+            filename = prompt("Download As", filename)
+            if (typeof(filename) !== 'string')
+                return; // user chose to cancel
+        } catch (ex) {
+
+            console.warn('Prompt failed, using default filename. ', ex)
+        }
+
         // Classic method, only gives users a choice if they tell their browser to for all downloads
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blobData);
