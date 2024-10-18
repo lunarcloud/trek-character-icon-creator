@@ -53,7 +53,7 @@ export async function saveBlobAs(filename, blobData, mimeOptions, startIn = 'dow
 
         try {
             // Use the browser prompt for name selection
-            filename = prompt("Download As", filename)
+            filename = prompt("Enter file name for download", filename)
             if (typeof(filename) !== 'string')
                 return; // user chose to cancel
         } catch (ex) {
