@@ -45,6 +45,10 @@ export async function saveBlobAs(filename, blobData, mimeOptions, startIn = 'dow
         await writeable.write(blobData)
         await writeable.close()
     } catch (ex) {
+
+        if (ex.name === 'AbortError')
+            return; // user chose to cancel
+
         console.warn('file picker method failed, falling back to link element with download attribute. ', ex)
 
         // Classic method, only gives users a choice if they tell their browser to for all downloads
