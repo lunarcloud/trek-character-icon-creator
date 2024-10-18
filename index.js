@@ -1,3 +1,5 @@
+import { saveBlobAs } from './save-file-utils.js'
+
 const DEFAULT_UNIFORM = 'VOY DS9'
 
 export class IndexController {
@@ -333,15 +335,16 @@ export class IndexController {
 
         this.#mainEl.classList.add('saving')
         html2canvas(document.querySelector("character"), options)
-        .then(canvas => {
-            var link = document.createElement('a')
-            link.download = 'star-trek-officer.png'
-            link.href = canvas.toDataURL("image/png", 1.0)
-            link.click()
-            this.#mainEl.classList.remove('saving')
+        .then((/** @type {HTMLCanvasElement} */ canvas) => {
+            canvas.toBlob((blob) => {
+                saveBlobAs('star-trek-officer.png', blob, {
+                    description: '*.png',
+                    accept: {"image/png": [".png"] }
+                }, 'pictures')
+            }, "image/png", 1.0)
         });
-
     }
+
 }
 
 globalThis.Controller = new IndexController()
