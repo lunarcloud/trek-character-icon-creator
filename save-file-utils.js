@@ -44,7 +44,9 @@ export async function saveBlobAs(filename, blobData, mimeOptions, startIn = 'dow
         let writeable = await fileHandle.createWritable()
         await writeable.write(blobData)
         await writeable.close()
-    } catch {
+    } catch (ex) {
+        console.warn('file picker method failed, falling back to link element with download attribute. ', ex)
+
         // Classic method, only gives users a choice if they tell their browser to for all downloads
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blobData);
