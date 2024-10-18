@@ -26,8 +26,25 @@
  * @param {StartPathType}  [startIn]            Where to start the save-as dialog from
  */
 export async function saveBlobAs(filename, blobData, mimeOptions, startIn = 'downloads') {
-    if (typeof(window['showSaveFilePicker']) !== 'function') {
+    /**
+     * @type {SaveFilePickerOptions}
+     */
+    const savePickOptions = {
+        startIn: startIn,
+        suggestedName: filename,
+        types: [mimeOptions]
+    }
 
+    try {
+        /**
+         * @type {FileSystemFileHandle}
+         */ // @ts-ignore
+        let fileHandle = await window.showSaveFilePicker(savePickOptions)
+
+        let writeable = await fileHandle.createWritable()
+        await writeable.write(blobData)
+        await writeable.close()
+    } catch {
         // Classic method, only gives users a choice if they tell their browser to for all downloads
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blobData);
@@ -36,27 +53,6 @@ export async function saveBlobAs(filename, blobData, mimeOptions, startIn = 'dow
         URL.revokeObjectURL(link.href);
         return;
     }
-
-    // New method using the 'showSaveFilePicker' functionality
-
-    /**
-     * @type {SaveFilePickerOptions}
-     */
-    // @ts-ignore
-    const savePickOptions = {
-        startIn: startIn,
-        suggestedName: filename,
-        types: [mimeOptions]
-    }
-
-    /**
-     * @type {FileSystemFileHandle}
-     */ // @ts-ignore
-    let fileHandle = await window.showSaveFilePicker(savePickOptions)
-
-    let writeable = await fileHandle.createWritable()
-    await writeable.write(blobData)
-    await writeable.close()
 }
 
 /**

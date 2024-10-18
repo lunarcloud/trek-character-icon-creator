@@ -342,6 +342,8 @@ export class IndexController {
                     accept: {"image/png": [".png"] }
                 }, 'pictures')
             }, "image/png", 1.0)
+        }).finally(() => {
+            this.#mainEl.classList.remove('saving')
         });
     }
 
