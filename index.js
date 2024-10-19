@@ -1,5 +1,3 @@
-import { saveBlobAs } from './save-file-utils.js'
-
 const DEFAULT_UNIFORM = 'VOY DS9'
 
 export class IndexController {
@@ -336,9 +334,10 @@ export class IndexController {
         this.#mainEl.classList.add('saving')
         html2canvas(document.querySelector("character"), options)
         .then((/** @type {HTMLCanvasElement} */ canvas) => {
-            canvas.toBlob((blob) => {
-                saveBlob('star-trek-officer.png', blob)
-            }, "image/png", 1.0)
+            var link = document.createElement('a')
+            link.download = 'star-trek-officer.png'
+            link.href = canvas.toDataURL("image/png", 1.0)
+            link.click()
         }).finally(() => {
             this.#mainEl.classList.remove('saving')
         });
