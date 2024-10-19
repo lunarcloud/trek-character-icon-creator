@@ -337,10 +337,7 @@ export class IndexController {
         html2canvas(document.querySelector("character"), options)
         .then((/** @type {HTMLCanvasElement} */ canvas) => {
             canvas.toBlob((blob) => {
-                saveBlobAs('star-trek-officer.png', blob, {
-                    description: '*.png',
-                    accept: {"image/png": [".png"] }
-                }, 'pictures')
+                saveBlob('star-trek-officer.png', blob)
             }, "image/png", 1.0)
         }).finally(() => {
             this.#mainEl.classList.remove('saving')
