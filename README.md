@@ -9,5 +9,26 @@ Icon-y Character Creator for Star Trek
 Character Creator for Star Trek style character icons
 
 ## Development Setup
-Just put it in a web served folder.
-I have a master krita file that I export from before modifying the SVG manually to enable changing "currentColor" via css classes for body/uniform/etc color.
+```sh
+npm i
+npm run copy-deps
+npm serve
+```
+
+## Code Quality Tools
+The project has linters for the HTML, CSS, and JavaScript all setup and configured.
+Simply run `npm run lint-fix` to run all of them in "fix what you can automatically" mode.
+
+## CSS Colors in SVG
+All SVG files have been hand-edited to enable color changing of certain shapes/paths.
+New files will have to, if they want to support color changes, or utilizing existing color change classes, do the same.
+
+```svg
+    <style>
+        .body-color {
+            color: #fee4b3;
+        }
+    </style>
+    ...
+    <path fill="currentColor" class="body-color" ... >
+```
