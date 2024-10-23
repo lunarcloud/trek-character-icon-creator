@@ -7,6 +7,7 @@ rm -r $EXPORT
 mkdir $EXPORT
 cp index.* $EXPORT
 cp *.js $EXPORT
+cp -r lib $EXPORT
 cp -r fonts $EXPORT
 cp -r cetaceous $EXPORT
 cp -r humanoid $EXPORT

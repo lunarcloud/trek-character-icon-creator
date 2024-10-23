@@ -1,10 +1,12 @@
+import html2canvas from './lib/html2canvas.esm.js'
+import { getInputElement, getSelectElement, queryInputElement, queryStyleElement } from './type-helpers.js'
+
 const DEFAULT_UNIFORM = 'VOY DS9'
 
 export class IndexController {
-
     #lastUsedBodyColors = {
-        'humanoid': '#FEE4B3',
-        'cetaceous': '#B5BEC8'
+        humanoid: '#FEE4B3',
+        cetaceous: '#B5BEC8'
     }
 
     #lastUsedUniformColor = ''
@@ -18,11 +20,6 @@ export class IndexController {
      * @type {HTMLStyleElement}
      */
     #characterStyleEl
-
-    /**
-     * @type {HTMLStyleElement}
-     */
-    #characterBgEl
 
     /**
      * @type {HTMLElement}
@@ -134,8 +131,7 @@ export class IndexController {
      */
     constructor () {
         this.#mainEl = document.body
-        this.#characterStyleEl = document.querySelector('character style')
-        this.#characterBgEl = document.querySelector('character bg')
+        this.#characterStyleEl = queryStyleElement('character style')
 
         this.#characterEars = document.getElementById('character-ears')
         this.#characterBody = document.getElementById('character-body')
@@ -144,29 +140,29 @@ export class IndexController {
         this.#bodyOverlay = document.getElementById('body-overlay')
 
         // Selection Elements
-        this.#bodyColorPicker = document.getElementById('body-color')
-        this.#uniformColorPicker = document.getElementById('uniform-color')
-        this.#uniformUndershirtColorPicker = document.getElementById('uniform-undershirt-color')
-        this.#antennaeColorPicker = document.getElementById('andorian-antennae-color')
-        this.#birdTuftColorPicker = document.getElementById('bird-tuft-color')
-        this.#wiskersColorPicker = document.getElementById('wiskers-color')
-        this.#uniformSelect = document.getElementById('uniform-select')
-        this.#earSelect = document.getElementById('ear-select')
-        this.#headFeatureSelect = document.getElementById('head-feature-select')
-        this.#standardBodyColorSelect = document.getElementById('std-body-colors')
-        this.#standardUniformColorSelect = document.getElementById('std-uniform-colors')
-        this.#standardUndershirtColorSelect = document.getElementById('std-uniform-undershirt-colors')
+        this.#bodyColorPicker = getInputElement('body-color')
+        this.#uniformColorPicker = getInputElement('uniform-color')
+        this.#uniformUndershirtColorPicker = getInputElement('uniform-undershirt-color')
+        this.#antennaeColorPicker = getInputElement('andorian-antennae-color')
+        this.#birdTuftColorPicker = getInputElement('bird-tuft-color')
+        this.#wiskersColorPicker = getInputElement('wiskers-color')
+        this.#uniformSelect = getSelectElement('uniform-select')
+        this.#earSelect = getSelectElement('ear-select')
+        this.#headFeatureSelect = getSelectElement('head-feature-select')
+        this.#standardBodyColorSelect = getSelectElement('std-body-colors')
+        this.#standardUniformColorSelect = getSelectElement('std-uniform-colors')
+        this.#standardUndershirtColorSelect = getSelectElement('std-uniform-undershirt-colors')
 
-        this.#syncAntennaeWithBodyCheck = document.getElementById('sync-antennae-with-body')
-        this.#syncBirdTuftWithBodyCheck = document.getElementById('sync-bird-tuft-with-body')
-        this.#syncWiskersWithBodyCheck = document.getElementById('sync-wiskers-with-body')
+        this.#syncAntennaeWithBodyCheck = getInputElement('sync-antennae-with-body')
+        this.#syncBirdTuftWithBodyCheck = getInputElement('sync-bird-tuft-with-body')
+        this.#syncWiskersWithBodyCheck = getInputElement('sync-wiskers-with-body')
 
-        this.#saveBGCheck = document.getElementById('save-with-bg-checkbox')
+        this.#saveBGCheck = getInputElement('save-with-bg-checkbox')
 
         // Generically handle all the elements changing
-        let bodyShapeEls = Array.from(document.querySelectorAll(`input[name="body-shape"]`))
-        let allChangeEls = bodyShapeEls.concat([this.#uniformSelect, this.#earSelect, this.#headFeatureSelect, this.#syncAntennaeWithBodyCheck, this.#syncBirdTuftWithBodyCheck, this.#syncWiskersWithBodyCheck])
-        for (let changeEl of allChangeEls) {
+        const bodyShapeEls = Array.from(document.querySelectorAll('input[name="body-shape"]'))
+        const allChangeEls = bodyShapeEls.concat([this.#uniformSelect, this.#earSelect, this.#headFeatureSelect, this.#syncAntennaeWithBodyCheck, this.#syncBirdTuftWithBodyCheck, this.#syncWiskersWithBodyCheck])
+        for (const changeEl of allChangeEls) {
             changeEl.addEventListener('change', () => this.onChangeDetected())
         }
 
@@ -194,17 +190,16 @@ export class IndexController {
         document.getElementById('download').addEventListener('click', () => this.saveImage())
     }
 
-    #setupColorPickerWithStandardSelector(picker, selector) {
-
-        let onChangePicker = () => {
+    #setupColorPickerWithStandardSelector (picker, selector) {
+        const onChangePicker = () => {
             // Set the "standard" colors selector to what's selected or 'custom'
-            let el = selector.querySelector(`[value="${picker.value}"]`) ?? selector.querySelector(`[value="custom"]`)
-            selector.value = el.value;
+            const el = selector.querySelector(`[value="${picker.value}"]`) ?? selector.querySelector('[value="custom"]')
+            selector.value = el.value
 
             this.onChangeDetected()
         }
 
-        let onChangeSelector = () => {
+        const onChangeSelector = () => {
             if (selector.value !== 'custom')
                 picker.value = selector.value
             this.onChangeDetected()
@@ -214,27 +209,31 @@ export class IndexController {
         selector.addEventListener('change', onChangeSelector)
 
         // Update the selector if the current picker is one of the values
-        let el = selector.querySelector(`[value="${picker.value.toUpperCase()}"]`) ?? selector.querySelector(`[value="custom"]`)
-        selector.value = el.value;
+        const el = selector.querySelector(`[value="${picker.value.toUpperCase()}"]`) ?? selector.querySelector('[value="custom"]')
+        selector.value = el.value
     }
 
-    get bodyShape() {
-        return document.querySelector('input[name="body-shape"]:checked')?.value ?? "humanoid";
+    get bodyShape () {
+        const el = queryInputElement('input[name="body-shape"]:checked')
+        return el?.value ?? 'humanoid'
     }
 
     set bodyShape (value) {
-        let el = document.querySelector(`input[name="body-shape"][value="${value}"]`)
+        const el = queryInputElement(`input[name="body-shape"][value="${value}"]`)
         if (el instanceof HTMLInputElement === false)
             return
-        el.checked = true;
+        el.checked = true
     }
 
-    #isCurrentUniformInvalid() {
-        return this.#uniformSelect.querySelectorAll('option')[this.#uniformSelect.selectedIndex].hidden ?? true
+    #isCurrentUniformInvalid () {
+        const el = this.#uniformSelect.querySelectorAll('option')[this.#uniformSelect.selectedIndex]
+        if (el instanceof HTMLOptionElement === false)
+            return false
+        return el.hidden ?? true
     }
 
-    onChangeDetected() {
-        let bodyShapeChanged = !this.#mainEl.classList.contains(this.bodyShape)
+    onChangeDetected () {
+        const bodyShapeChanged = !this.#mainEl.classList.contains(this.bodyShape)
 
         // Update the classes at the top for hiding/showing elements
         this.#mainEl.className = this.bodyShape // first one clears the list
@@ -243,13 +242,14 @@ export class IndexController {
         // more classes will be added later
 
         // Handle Body Shape Changes
-        if (bodyShapeChanged)
-        {
+        if (bodyShapeChanged) {
             // Ensure the "humanoid-only" items are hidden for others
-            let uniformSelectMaybeHiddenEls = this.#mainEl.querySelectorAll('option[class]')
-            for (let el of uniformSelectMaybeHiddenEls) {
-                var style = window.getComputedStyle(el);
-                el.hidden = style.visibility === "hidden"
+            const uniformSelectMaybeHiddenEls = this.#mainEl.querySelectorAll('option[class]')
+            for (const el of uniformSelectMaybeHiddenEls) {
+                if (el instanceof HTMLOptionElement === false)
+                    continue
+                const style = window.getComputedStyle(el)
+                el.hidden = style.visibility === 'hidden'
             }
 
             // Reset color so we don't have oddly-fleshy dolphins by default
@@ -273,13 +273,16 @@ export class IndexController {
 
         // Humanoid-only features
         if (this.bodyShape === 'humanoid') {
-
             // Change the ears
             this.#characterEars.innerHTML = IndexController.GenerateSVGHTML(`${this.bodyShape}/ears/${this.#earSelect.value}.svg`)
 
             // Update the head features
-            let selections = (Array.from(this.#headFeatureSelect.selectedOptions) ?? []).map(e => e.value)
-            this.#characterHeadFeatures.innerHTML = selections.reduce((accumulator, v) => accumulator += IndexController.GenerateSVGHTML(`${this.bodyShape}/head-features/${v}.svg`), '')
+            const selections = (Array.from(this.#headFeatureSelect.selectedOptions) ?? []).map(e => e.value)
+            this.#characterHeadFeatures.innerHTML = selections.reduce(
+                (accumulator, v) => {
+                    accumulator += IndexController.GenerateSVGHTML(`${this.bodyShape}/head-features/${v}.svg`)
+                    return accumulator
+                }, '')
 
             if (selections.includes('andorian-antennae'))
                 this.#mainEl.classList.add('andorian-antennae')
@@ -301,28 +304,27 @@ export class IndexController {
         if (this.#syncWiskersWithBodyCheck.checked)
             this.#wiskersColorPicker.value = this.#bodyColorPicker.value
 
-
-        this.#characterStyleEl.innerHTML = `svg .body-color { color: ${this.#bodyColorPicker.value} !important; } `
-        + `svg .uniform-color { color: ${this.#uniformColorPicker.value} !important; } `
-        + `svg .uniform-undershirt-color { color: ${this.#uniformUndershirtColorPicker.value} !important;}`
-        + `svg .bird-tuft-color { color: ${this.#birdTuftColorPicker.value} !important;}`
-        + `svg .andorian-antennae-color { color: ${this.#antennaeColorPicker.value} !important;}`
-        + `svg .wiskers-color { color: ${this.#wiskersColorPicker.value} !important;}`
+        this.#characterStyleEl.innerHTML = `svg .body-color { color: ${this.#bodyColorPicker.value} !important; } ` +
+        `svg .uniform-color { color: ${this.#uniformColorPicker.value} !important; } ` +
+        `svg .uniform-undershirt-color { color: ${this.#uniformUndershirtColorPicker.value} !important;}` +
+        `svg .bird-tuft-color { color: ${this.#birdTuftColorPicker.value} !important;}` +
+        `svg .andorian-antennae-color { color: ${this.#antennaeColorPicker.value} !important;}` +
+        `svg .wiskers-color { color: ${this.#wiskersColorPicker.value} !important;}`
     }
 
-    static GenerateSVGHTML(path) {
+    static GenerateSVGHTML (path) {
         return `<svg data-src="${path}" data-cache="disabled" width="512" height="512"></svg>`
     }
 
-    saveImage() {
-        if (typeof(html2canvas) !== 'function') {
-            alert("Cannot create image, canvas library not working.")
+    saveImage () {
+        if (typeof (html2canvas) !== 'function') {
+            alert('Cannot create image, canvas library not working.')
             return
         }
 
-        let size1em = parseFloat(getComputedStyle(this.#mainEl).fontSize)
+        const size1em = parseFloat(getComputedStyle(this.#mainEl).fontSize)
 
-        let options = {
+        const options = {
             backgroundColor: (this.#saveBGCheck.checked ? '#363638' : null),
             width: 512 + (size1em * 2),
             height: 512 + (size1em * 2),
@@ -332,17 +334,16 @@ export class IndexController {
         }
 
         this.#mainEl.classList.add('saving')
-        html2canvas(document.querySelector("character"), options)
-        .then((/** @type {HTMLCanvasElement} */ canvas) => {
-            var link = document.createElement('a')
-            link.download = 'star-trek-officer.png'
-            link.href = canvas.toDataURL("image/png", 1.0)
-            link.click()
-        }).finally(() => {
-            this.#mainEl.classList.remove('saving')
-        });
+        html2canvas(document.querySelector('character'), options)
+            .then((/** @type {HTMLCanvasElement} */ canvas) => {
+                const link = document.createElement('a')
+                link.download = 'star-trek-officer.png'
+                link.href = canvas.toDataURL('image/png', 1.0)
+                link.click()
+            }).finally(() => {
+                this.#mainEl.classList.remove('saving')
+            })
     }
-
 }
 
 globalThis.Controller = new IndexController()
