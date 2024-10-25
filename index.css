@@ -115,19 +115,19 @@ body {
         z-index: 5;
     }
 
-    #character-hair {
-        z-index: 6;
-    }
-
     #character-head-features {
-        z-index: 7;
+        z-index: 6;
         grid-template-columns: var(--svg-size) 1fr;
         grid-template-rows: var(--svg-size) 1fr;
 
         & > * {
             position: relative;
-            z-index: 8;
+            z-index: 7;
         }
+    }
+
+    #character-hair {
+        z-index: 8;
     }
 
     #body-overlay {
