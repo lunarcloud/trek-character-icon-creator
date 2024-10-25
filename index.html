@@ -21,9 +21,12 @@
             <character>
                 <style></style>
                 <bg></bg>
+                <div id="character-rear-hair" class="humanoid-only"></div>
                 <div id="character-ears-or-nose" class="non-exocomp"></div>
                 <div id="character-body"></div>
                 <div id="character-uniform"></div>
+                <div id="character-facial-hair" class="humanoid-only"></div>
+                <div id="character-hair" class="humanoid-only"></div>
                 <div id="character-head-features" class="non-exocomp"></div>
                 <div id="body-overlay" class="non-humanoid"></div>
             </character>
@@ -57,6 +60,66 @@
                 <option value="ferengi">Massive (Ferengi)</option>
                 <option value="cat">Cat (Caitian, Kzinti)</option>
             </select>
+
+            <h3 class="humanoid-only">Facial Hair</h3>
+            <select id="facial-hair-select" class="humanoid-only">
+                <option value="none" selected>None</option>
+                <option value="mustache">Mustache</option>
+                <option value="goatee">Goatee</option>
+                <option value="mutton-chops">Mutton Chops</option>
+                <option value="sideburns">Sideburns</option>
+                <option value="line-beard">Line Beard</option>
+                <option value="wide-beard">Wide Beard</option>
+                <option value="pointed-beard">Pointed Beard</option>
+                <option value="long-beard">Long Beard</option>
+            </select>
+
+            <h3 class="humanoid-only">Hair</h3>
+            <span class="side-by-side">
+                <select id="hair-select" class="humanoid-only">
+                    <option value="none" selected>None</option>
+                    <option value="a">A</option>
+                    <option value="b">B</option>
+                    <option value="c">C</option>
+                    <option value="d">D</option>
+                    <option value="e">E</option>
+                    <option value="f">F</option>
+                    <option value="g">G</option>
+                    <option value="h">H</option>
+                    <option value="i">I</option>
+                    <option value="i">J</option>
+                    <option value="k">K</option>
+                    <option value="l">L</option>
+                    <option value="m">M</option>
+                    <option value="n">N</option>
+                    <option value="o">O</option>
+                    <option value="p">P</option>
+                    <option value="q">Q</option>
+                    <option value="r">R</option>
+                    <option value="s">S</option>
+                    <option value="t">T</option>
+                    <option value="u">U</option>
+                </select>
+
+                <select id="rear-hair-select" class="humanoid-only">
+                    <option value="none" selected>None</option>
+                    <option value="a">A</option>
+                    <option value="b">B</option>
+                    <option value="c">C</option>
+                    <option value="d">D</option>
+                    <option value="e">E</option>
+                    <option value="f">F</option>
+                    <option value="g">G</option>
+                    <option value="h">H</option>
+                    <option value="i">I</option>
+                    <option value="i">J</option>
+                    <option value="k">K</option>
+                    <option value="l">L</option>
+                    <option value="m">M</option>
+                    <option value="n">N</option>
+                    <option value="o">O</option>
+                </select>
+            </span>
 
             <span class="cetaceous-only">
                 <input type="checkbox" id="forehead-bump" >
@@ -155,6 +218,22 @@
                     <option value="#ECC1DB">Pink</option>
                     <option value="#020101">Black</option>
                     <option value="#F4F4F6">White</option>
+                </select>
+            </div>
+
+            <div class="humanoid-only">
+                <input type="color" id="hair-color" value="#2E230A">
+                <label for="hair-color">Hair</label>
+                <select id="std-hair-colors">
+                    <option value="custom" hidden></option>
+                    <option value="#2E230A" selected>Brown</option>
+                    <option value="#EEDF7C">Blonde</option>
+                    <option value="#F0BA3D">Ginger</option>
+                    <option value="#111111">Black</option>
+                    <option value="#F4F4F6">White</option>
+                    <option value="#B5BEC8">Grey</option>
+                    <option value="#290D6B">Purple</option>
+                    <option value="#CF52BE">Pink</option>
                 </select>
             </div>
 

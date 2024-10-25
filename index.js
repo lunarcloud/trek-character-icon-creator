@@ -39,6 +39,21 @@ export class IndexController {
     /**
      * @type {HTMLElement}
      */
+    #characterHair
+
+    /**
+     * @type {HTMLElement}
+     */
+    #characterRearHair
+
+    /**
+     * @type {HTMLElement}
+     */
+    #characterFacialHair
+
+    /**
+     * @type {HTMLElement}
+     */
     #characterUniform
 
     /**
@@ -104,6 +119,31 @@ export class IndexController {
     /**
      * @type {HTMLSelectElement}
      */
+    #facialHairSelect
+
+    /**
+     * @type {HTMLSelectElement}
+     */
+    #hairSelect
+
+    /**
+     * @type {HTMLSelectElement}
+     */
+    #rearHairSelect
+
+    /**
+     * @type {HTMLSelectElement}
+     */
+    #standardHairColorSelect
+
+    /**
+     * @type {HTMLInputElement}
+     */
+    #hairColorPicker
+
+    /**
+     * @type {HTMLSelectElement}
+     */
     #standardBodyColorSelect
 
     /**
@@ -146,6 +186,9 @@ export class IndexController {
         this.#characterEarsOrNose = document.getElementById('character-ears-or-nose')
         this.#characterBody = document.getElementById('character-body')
         this.#characterHeadFeatures = document.getElementById('character-head-features')
+        this.#characterHair = document.getElementById('character-hair')
+        this.#characterRearHair = document.getElementById('character-rear-hair')
+        this.#characterFacialHair = document.getElementById('character-facial-hair')
         this.#characterUniform = document.getElementById('character-uniform')
         this.#bodyOverlay = document.getElementById('body-overlay')
 
@@ -169,17 +212,24 @@ export class IndexController {
         this.#syncWiskersWithBodyCheck = getInputElement('sync-wiskers-with-body')
         this.#foreheadBumpCheck = getInputElement('forehead-bump')
 
+        this.#hairSelect = getSelectElement('hair-select')
+        this.#facialHairSelect = getSelectElement('facial-hair-select')
+        this.#rearHairSelect =  getSelectElement('rear-hair-select')
+        this.#standardHairColorSelect = getSelectElement('std-hair-colors')
+        this.#hairColorPicker =  getInputElement('hair-color')
+
         this.#saveBGCheck = getInputElement('save-with-bg-checkbox')
 
         // Generically handle all the elements changing
         const bodyShapeEls = Array.from(document.querySelectorAll('input[name="body-shape"]'))
-        const allChangeEls = bodyShapeEls.concat([this.#uniformSelect, this.#earSelect, this.#noseSelect, this.#headFeatureSelect, this.#syncAntennaeWithBodyCheck, this.#syncBirdTuftWithBodyCheck, this.#syncWiskersWithBodyCheck, this.#foreheadBumpCheck])
+        const allChangeEls = bodyShapeEls.concat([this.#uniformSelect, this.#earSelect, this.#noseSelect, this.#headFeatureSelect, this.#syncAntennaeWithBodyCheck, this.#syncBirdTuftWithBodyCheck, this.#syncWiskersWithBodyCheck, this.#foreheadBumpCheck, this.#hairSelect, this.#facialHairSelect, this.#rearHairSelect])
         for (const changeEl of allChangeEls) {
             changeEl.addEventListener('change', () => this.onChangeDetected())
         }
 
         // Handle Items with 2 selectors separately
         this.#setupColorPickerWithStandardSelector(this.#bodyColorPicker, this.#standardBodyColorSelect)
+        this.#setupColorPickerWithStandardSelector(this.#hairColorPicker, this.#standardHairColorSelect)
         this.#setupColorPickerWithStandardSelector(this.#uniformColorPicker, this.#standardUniformColorSelect)
         this.#setupColorPickerWithStandardSelector(this.#uniformUndershirtColorPicker, this.#standardUndershirtColorSelect)
 
@@ -288,6 +338,11 @@ export class IndexController {
             // Change the ears
             this.#characterEarsOrNose.innerHTML = IndexController.GenerateSVGHTML(`${this.bodyShape}/ears/${this.#earSelect.value}.svg`)
 
+            // Update the hair
+            this.#characterHair.innerHTML = IndexController.GenerateSVGHTML(`${this.bodyShape}/hair/${this.#hairSelect.value}.svg`)
+            this.#characterRearHair.innerHTML = IndexController.GenerateSVGHTML(`${this.bodyShape}/rear-hair/${this.#rearHairSelect.value}.svg`)
+            this.#characterFacialHair.innerHTML = IndexController.GenerateSVGHTML(`${this.bodyShape}/facial-hair/${this.#facialHairSelect.value}.svg`)
+
             // Update the head features
             const selections = (Array.from(this.#headFeatureSelect.selectedOptions) ?? []).map(e => e.value)
             this.#characterHeadFeatures.innerHTML = selections.reduce(
@@ -326,6 +381,7 @@ export class IndexController {
             this.#wiskersColorPicker.value = this.#bodyColorPicker.value
 
         this.#characterStyleEl.innerHTML = `svg .body-color { color: ${this.#bodyColorPicker.value} !important; } ` +
+        `svg .hair-color { color: ${this.#hairColorPicker.value} !important; } ` +
         `svg .uniform-color { color: ${this.#uniformColorPicker.value} !important; } ` +
         `svg .uniform-undershirt-color { color: ${this.#uniformUndershirtColorPicker.value} !important;}` +
         `svg .bird-tuft-color { color: ${this.#birdTuftColorPicker.value} !important;}` +

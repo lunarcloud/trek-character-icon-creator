@@ -62,6 +62,7 @@ body {
   &:not(.andorian-antennae) .andorian-antennae-only,
   &:not(.bird-tuft) .bird-tuft-only,
   &:not(.wiskers) .wiskers-only {
+    display: none;
     visibility: hidden;
     height: 0;
 
@@ -90,36 +91,40 @@ body {
     position: relative;
     z-index: 0;
 
-    #character-ears {
-      position: relative;
-      z-index: 1;
-    }
-
-    #character-body {
-      position: relative;
-      z-index: 2;
-    }
-
-    #character-uniform {
-      position: relative;
-      z-index: 3;
-    }
-
-    #character-head-features {
-      grid-template-columns: var(--svg-size) 1fr;
-      grid-template-rows: var(--svg-size) 1fr;
-      position: relative;
-      z-index: 4;
-
-      & > * {
+    & > * {
         position: relative;
-        z-index: 6;
-      }
     }
 
+    #character-rear-hair {
+        z-index: 1;
+    }
+    #character-ears-or-nose {
+        z-index: 2;
+    }
+    #character-body {
+        z-index: 3;
+    }
+    #character-uniform {
+        z-index: 4;
+    }
+    #character-facial-hair {
+        z-index: 5;
+    }
+    #character-hair {
+        z-index: 6;
+    }
+    #character-head-features {
+        z-index: 7;
+        grid-template-columns: var(--svg-size) 1fr;
+        grid-template-rows: var(--svg-size) 1fr;
+
+        & > * {
+            position: relative;
+            z-index: 8;
+        }
+    }
     #body-overlay {
-      position: relative;
-      z-index: 12;
+        z-index: 9;
     }
   }
 
@@ -279,4 +284,8 @@ body.saving {
     }
   }
 
+}
+
+span.side-by-side select {
+    display: inline-block;
 }
