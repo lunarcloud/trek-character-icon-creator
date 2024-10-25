@@ -21,20 +21,11 @@
             <character>
                 <style></style>
                 <bg></bg>
-                <div id="character-ears" class="humanoid-only">
-                </div>
-
-                <div id="character-body">
-                </div>
-
-                <div id="character-uniform">
-                </div>
-
-                <div id="character-head-features" class="humanoid-only">
-                </div>
-
-                <div id="body-overlay" class="non-humanoid">
-                </div>
+                <div id="character-ears-or-nose" class="non-exocomp"></div>
+                <div id="character-body"></div>
+                <div id="character-uniform"></div>
+                <div id="character-head-features" class="non-exocomp"></div>
+                <div id="body-overlay" class="non-humanoid"></div>
             </character>
         </main>
 
@@ -60,11 +51,23 @@
 
             <h3 class="humanoid-only">Ears</h3>
             <select id="ear-select" class="humanoid-only">
-                <option value="none" selected>None (Edosian, Saurian, etc)</option>
+                <option value="none">None (Edosian, Saurian, etc)</option>
                 <option value="round" selected>Round (Human)</option>
                 <option value="pointy">Pointy (Vulcan, Romulan)</option>
                 <option value="ferengi">Massive (Ferengi)</option>
                 <option value="cat">Cat (Caitian, Kzinti)</option>
+            </select>
+
+            <span class="cetaceous-only">
+                <input type="checkbox" id="forehead-bump" >
+                <label for="forehead-bump">Forehead Bump</label>
+            </span>
+
+            <h3 class="cetaceous-only">Nose</h3>
+            <select id="nose-select" class="cetaceous-only">
+                <option value="thick" selected>Thick</option>
+                <option value="small">Small</option>
+                <option value="long">Long</option>
             </select>
 
             <h3 class="humanoid-only">Head Features</h3>
@@ -88,6 +91,7 @@
                 <option value="occular-implant">Occular Implant (Cyborg, Ex-Borg)</option>
                 <option value="benzite-nose">Benzite Nose</option>
                 <option value="benzite-breather">Benzite Breather</option>
+                <option value="visor">Visor (ala LaForge's)</option>
                 <option value="chefs-hat">Chefs Hat</option>
             </select>
 

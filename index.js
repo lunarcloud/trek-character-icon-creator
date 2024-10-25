@@ -24,7 +24,7 @@ export class IndexController {
     /**
      * @type {HTMLElement}
      */
-    #characterEars
+    #characterEarsOrNose
 
     /**
      * @type {HTMLElement}
@@ -89,6 +89,16 @@ export class IndexController {
     /**
      * @type {HTMLSelectElement}
      */
+    #noseSelect
+
+    /**
+     * @type {HTMLInputElement}
+     */
+    #foreheadBumpCheck
+
+    /**
+     * @type {HTMLSelectElement}
+     */
     #headFeatureSelect
 
     /**
@@ -133,7 +143,7 @@ export class IndexController {
         this.#mainEl = document.body
         this.#characterStyleEl = queryStyleElement('character style')
 
-        this.#characterEars = document.getElementById('character-ears')
+        this.#characterEarsOrNose = document.getElementById('character-ears-or-nose')
         this.#characterBody = document.getElementById('character-body')
         this.#characterHeadFeatures = document.getElementById('character-head-features')
         this.#characterUniform = document.getElementById('character-uniform')
@@ -148,6 +158,7 @@ export class IndexController {
         this.#wiskersColorPicker = getInputElement('wiskers-color')
         this.#uniformSelect = getSelectElement('uniform-select')
         this.#earSelect = getSelectElement('ear-select')
+        this.#noseSelect = getSelectElement('nose-select')
         this.#headFeatureSelect = getSelectElement('head-feature-select')
         this.#standardBodyColorSelect = getSelectElement('std-body-colors')
         this.#standardUniformColorSelect = getSelectElement('std-uniform-colors')
@@ -156,12 +167,13 @@ export class IndexController {
         this.#syncAntennaeWithBodyCheck = getInputElement('sync-antennae-with-body')
         this.#syncBirdTuftWithBodyCheck = getInputElement('sync-bird-tuft-with-body')
         this.#syncWiskersWithBodyCheck = getInputElement('sync-wiskers-with-body')
+        this.#foreheadBumpCheck = getInputElement('forehead-bump')
 
         this.#saveBGCheck = getInputElement('save-with-bg-checkbox')
 
         // Generically handle all the elements changing
         const bodyShapeEls = Array.from(document.querySelectorAll('input[name="body-shape"]'))
-        const allChangeEls = bodyShapeEls.concat([this.#uniformSelect, this.#earSelect, this.#headFeatureSelect, this.#syncAntennaeWithBodyCheck, this.#syncBirdTuftWithBodyCheck, this.#syncWiskersWithBodyCheck])
+        const allChangeEls = bodyShapeEls.concat([this.#uniformSelect, this.#earSelect, this.#noseSelect, this.#headFeatureSelect, this.#syncAntennaeWithBodyCheck, this.#syncBirdTuftWithBodyCheck, this.#syncWiskersWithBodyCheck, this.#foreheadBumpCheck])
         for (const changeEl of allChangeEls) {
             changeEl.addEventListener('change', () => this.onChangeDetected())
         }
@@ -274,7 +286,7 @@ export class IndexController {
         // Humanoid-only features
         if (this.bodyShape === 'humanoid') {
             // Change the ears
-            this.#characterEars.innerHTML = IndexController.GenerateSVGHTML(`${this.bodyShape}/ears/${this.#earSelect.value}.svg`)
+            this.#characterEarsOrNose.innerHTML = IndexController.GenerateSVGHTML(`${this.bodyShape}/ears/${this.#earSelect.value}.svg`)
 
             // Update the head features
             const selections = (Array.from(this.#headFeatureSelect.selectedOptions) ?? []).map(e => e.value)
@@ -290,6 +302,15 @@ export class IndexController {
                 this.#mainEl.classList.add('bird-tuft')
             if (selections.includes('gill-wiskers-or-feathers'))
                 this.#mainEl.classList.add('wiskers')
+        }
+        // Cetaceous-only features
+        if (this.bodyShape === 'cetaceous') {
+            // Change the nose
+            this.#characterEarsOrNose.innerHTML = IndexController.GenerateSVGHTML(`${this.bodyShape}/nose/${this.#noseSelect.value}.svg`)
+
+            this.#characterHeadFeatures.innerHTML = this.#foreheadBumpCheck.checked
+                ? IndexController.GenerateSVGHTML(`${this.bodyShape}/head-features/forehead-bump.svg`)
+                : ''
         }
 
         // Update the colors
