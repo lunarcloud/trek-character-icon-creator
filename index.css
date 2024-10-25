@@ -98,21 +98,27 @@ body {
     #character-rear-hair {
         z-index: 1;
     }
+
     #character-ears-or-nose {
         z-index: 2;
     }
+
     #character-body {
         z-index: 3;
     }
+
     #character-uniform {
         z-index: 4;
     }
+
     #character-facial-hair {
         z-index: 5;
     }
+
     #character-hair {
         z-index: 6;
     }
+
     #character-head-features {
         z-index: 7;
         grid-template-columns: var(--svg-size) 1fr;
@@ -123,6 +129,7 @@ body {
             z-index: 8;
         }
     }
+
     #body-overlay {
         z-index: 9;
     }

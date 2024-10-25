@@ -214,9 +214,9 @@ export class IndexController {
 
         this.#hairSelect = getSelectElement('hair-select')
         this.#facialHairSelect = getSelectElement('facial-hair-select')
-        this.#rearHairSelect =  getSelectElement('rear-hair-select')
+        this.#rearHairSelect = getSelectElement('rear-hair-select')
         this.#standardHairColorSelect = getSelectElement('std-hair-colors')
-        this.#hairColorPicker =  getInputElement('hair-color')
+        this.#hairColorPicker = getInputElement('hair-color')
 
         this.#saveBGCheck = getInputElement('save-with-bg-checkbox')
 
