@@ -4,6 +4,11 @@
   --svg-size: 256px;
 }
 
+html {
+    display: flex;
+    height: calc(100dvh - 1em);
+}
+
 body.embedded header {
   height: 0;
   visibility: hidden;
@@ -13,8 +18,16 @@ span.inline-block {
   display: inline-block;
 }
 
+body.embedded {
+    min-height: 43.5em; /* height after which it will vertically center */
+}
+
 body {
   font-family: Roddenberry, sans-serif;
+  width: 100%;
+  max-width: 90em;
+  min-height: 52em; /* height after which it will vertically center */
+  margin: auto;
 
   & > * {
     text-align: center;
@@ -24,6 +37,7 @@ body {
     columns: 2;
     text-align: unset;
     gap: 0.25em;
+    min-height: 40em;
 
     & #post-body-marker {
         display: block;
@@ -75,6 +89,8 @@ body {
   main {
     background-color: #363638;
     margin-bottom: 1em;
+    padding: 1em 0;
+    display: flex;
   }
 
   character bg {
@@ -156,7 +172,7 @@ body {
     padding: 0.25em;
     display: flex;
     justify-content: space-around;
-    align-items: center;
+    align-items: flex-start;
 
     #download {
       padding: 0.75em 2.25em;
