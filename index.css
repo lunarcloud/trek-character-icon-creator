@@ -25,11 +25,12 @@ body {
     text-align: unset;
     gap: 0.25em;
 
-    & #uniform-header {
-      break-before: always;
-      column-break-before: always;
-      -webkit-column-break-before: always;
-    }
+    & #post-body-marker {
+        display: block;
+        break-before: always;
+        column-break-before: always;
+        -webkit-column-break-before: always;
+      }
 
     h2, h3 {
       break-after: avoid;
