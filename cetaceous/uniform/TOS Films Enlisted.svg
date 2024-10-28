@@ -1,0 +1,22 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created using Krita: https://krita.org -->
+<svg xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:krita="http://krita.org/namespaces/svg/krita"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    width="512pt"
+    height="512pt"
+    viewBox="0 0 512 512">
+    <style>
+        .uniform-color {
+            color: #FFFFFF;
+        }
+    </style>
+<defs/>
+<path id="shape0" transform="translate(139.80409673521, 245.012501061777)" fill="currentColor" class="uniform-color" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M4.47463 17.625C113.325 33.0625 203.137 14.8125 252.912 0C257.295 1.90414 257.389 5.56664 253.194 10.9875C209.156 35.0642 54.0309 43.61 2.13088 33.25C-1.34828 26.8625 -0.567034 21.6542 4.47463 17.625Z" sodipodi:nodetypes="ccccc"/><path id="shape01" transform="translate(132.575563217631, 256.162500997996)" fill="#702121" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M8.9388 19.875C117.789 35.3125 210.976 14.8125 260.751 0C285.701 59.2937 288.326 213.158 273.689 256C222.464 256 137.089 256 17.5638 256C-2.49869 149.346 -5.37369 70.6375 8.9388 19.875Z" sodipodi:nodetypes="ccccc"/><path id="shape1" transform="translate(132.168060422488, 256)" fill="#dcc689" fill-rule="evenodd" stroke="none" stroke-width="4" stroke-linecap="square" stroke-linejoin="bevel" d="M261.207 0C272.253 23.863 274.621 47.1061 279.099 70.5C277.827 18.2864 215.286 -22.9069 193.176 77.4062C129.13 80.4488 65.3925 91.6063 0.0819386 78.8437C-0.642503 58.2328 3.50812 37.1264 9.70694 17.25C26.2976 26.1819 149.509 32.0568 261.207 0Z" sodipodi:nodetypes="cccccc"/><path id="shape2" transform="translate(310.249979479262, 263.731386908264)" fill="none" stroke="#000000" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M102.5 69.5186C101.697 12.7073 40.998 -29.3606 13.75 69.0186L0 69.7686C7.48466 5.17261 96.8794 -47.854 102.5 69.5186" sodipodi:nodetypes="cccc"/><g id="group0" transform="translate(277.373570953266, 305.851880382663)" fill="none">
+  <circle id="shape31" transform="matrix(0.0285348444860162 0 0 0.0285348444860162 1.57033910567787 3.35875187048447)" r="485.999955318679" cx="485.999955318679" cy="485.999955318679" fill="none" stroke="#8a5e48" stroke-width="50.4" stroke-linecap="square" stroke-linejoin="bevel"/>
+  <path id="shape0111" transform="matrix(0.0285348444860162 0 0 0.0285348444860162 -5.6843418860808e-14 0)" fill="#8a5e48" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M549.065 0C288.677 436.964 105.655 888.013 0 1353.15L36.8011 1371.94C240.478 1070.25 472.297 921.381 732.257 925.339C744.677 936.217 931.709 1051.71 990.954 1207.01C997.726 1204.64 1009.01 1202.86 1024.81 1201.65C928.711 808.63 770.128 408.079 549.065 0Z" sodipodi:nodetypes="ccccccc"/>
+  <path id="shape01111" transform="matrix(0.0285348444860162 0 0 0.0285348444860162 12.393824410575 4.07335813200012)" fill="#333333" stroke="#814a45" stroke-width="4.32" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2.16000008583069" d="M114.784 0L76.6191 491.502L0 493.679L67.0991 543.005L69.0775 612.239L111.893 552L149.317 614.527L150.313 540.37L212.532 490.544L148.478 491.495Z" sodipodi:nodetypes="ccccccccccc"/>
+ </g><rect id="shape3" transform="matrix(0.994557054750392 0.104193401164506 -0.104193401164506 0.994557054750392 133.465607302106 331.444099541458)" fill="#595959" fill-rule="evenodd" stroke="#959595" stroke-width="2" stroke-linecap="square" stroke-linejoin="bevel" width="30.3749987827741" height="9.74999492061943"/><rect id="shape4" transform="translate(362.499997299193, 264)" fill="#595959" fill-rule="evenodd" stroke="#959595" stroke-width="2" stroke-linecap="square" stroke-linejoin="bevel" width="16.3749998780021" height="8"/>
+</svg>
