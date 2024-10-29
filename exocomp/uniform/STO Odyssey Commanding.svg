@@ -1,0 +1,18 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created using Krita: https://krita.org -->
+<svg xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:krita="http://krita.org/namespaces/svg/krita"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    width="512pt"
+    height="512pt"
+    viewBox="0 0 512 512">
+<defs>
+  <linearGradient id="gradient0" gradientUnits="objectBoundingBox" x1="0.418731247899168" y1="0.0125953021257278" x2="0.866572601510912" y2="0.963926999001052" spreadMethod="pad">
+   <stop stop-color="#ffffff" offset="0" stop-opacity="1"/>
+   <stop stop-color="#6b6a7b" offset="1" stop-opacity="1"/>
+  </linearGradient>
+ </defs>
+<path id="shape0" transform="translate(106.499999671482, 280.124999135904)" fill="#dfdfdf" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M0 29.25L83.8125 22.875L220.5 47.25L275.625 42.75L275.625 0L0.375 1.5Z" sodipodi:nodetypes="ccccccc"/><path id="shape1" transform="translate(108.499999665315, 301.749999069206)" fill="#000000" fill-opacity="0.631372549019608" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M0.5 0L0 27.5L58.5 84L124.75 85.75L139.75 72.75L212 74.75L215.5 78.25L273.25 21L216.75 26.25L74.25 1.25Z" sodipodi:nodetypes="ccccccccccc"/><path id="shape2" transform="translate(181.999997372751, 296.249995723503)" fill="#780422" fill-rule="evenodd" stroke="#4a4a4a" stroke-width="2" stroke-linecap="square" stroke-linejoin="bevel" d="M199 21L143.75 23.75L2.75 0L0 7L143.25 31.25L200.25 26.75Z" sodipodi:nodetypes="ccccccc"/><path id="shape01" transform="matrix(0.999092416491476 -0.0425951089823954 0.0425951089823954 0.999092416491476 197.589003674065 270.731735817449)" fill="url(#gradient0)" stroke="#606060" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12.5896 0C6.61909 10.7601 2.42257 21.8671 0 33.321L0.843816 33.7837C5.51393 26.3546 10.8293 22.6888 16.7899 22.7862C17.0748 23.0541 21.3632 25.8981 22.7216 29.7223C22.8769 29.664 23.1357 29.6202 23.4979 29.5903C21.2945 19.9123 17.6583 10.0489 12.5896 0Z" sodipodi:nodetypes="ccccccc"/>
+</svg>

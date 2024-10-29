@@ -333,6 +333,9 @@ export class IndexController {
         if (this.#uniformSelect.value === 'VOY DS9')
             this.#mainEl.classList.add('voy-ds9')
 
+        if (this.#uniformSelect.selectedOptions[0].classList.contains('no-color-choice'))
+            this.#mainEl.classList.add('no-uniform-color')
+
         // Humanoid-only features
         if (this.bodyShape === 'humanoid') {
             // Change the ears

@@ -76,7 +76,8 @@ body {
   &:not(.voy-ds9) .voy-ds9-only,
   &:not(.andorian-antennae) .andorian-antennae-only,
   &:not(.bird-tuft) .bird-tuft-only,
-  &:not(.wiskers) .wiskers-only {
+  &:not(.wiskers) .wiskers-only,
+  &.no-uniform-color #uniform-color-section {
     display: none;
     visibility: hidden;
     height: 0;
