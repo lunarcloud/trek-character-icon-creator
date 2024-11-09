@@ -12,8 +12,6 @@ export class IndexController {
         cetaceous: '#B5BEC8'
     }
 
-    #lastUsedUniformColor = ''
-
     /**
      * @type {HTMLElement}
      */
@@ -135,29 +133,9 @@ export class IndexController {
     #rearHairSelect
 
     /**
-     * @type {HTMLSelectElement}
-     */
-    #standardHairColorSelect
-
-    /**
      * @type {HTMLInputElement}
      */
     #hairColorPicker
-
-    /**
-     * @type {HTMLSelectElement}
-     */
-    #standardBodyColorSelect
-
-    /**
-     * @type {HTMLSelectElement}
-     */
-    #standardUniformColorSelect
-
-    /**
-     * @type {HTMLSelectElement}
-     */
-    #standardUndershirtColorSelect
 
     /**
      * @type {HTMLInputElement}
@@ -196,9 +174,6 @@ export class IndexController {
         this.#bodyOverlay = document.getElementById('body-overlay')
 
         // Selection Elements
-        this.#bodyColorPicker = getInputElement('body-color')
-        this.#uniformColorPicker = getInputElement('uniform-color')
-        this.#uniformUndershirtColorPicker = getInputElement('uniform-undershirt-color')
         this.#antennaeColorPicker = getInputElement('andorian-antennae-color')
         this.#birdTuftColorPicker = getInputElement('bird-tuft-color')
         this.#wiskersColorPicker = getInputElement('wiskers-color')
@@ -206,9 +181,6 @@ export class IndexController {
         this.#earSelect = getSelectElement('ear-select')
         this.#noseSelect = getSelectElement('nose-select')
         this.#headFeatureSelect = getSelectElement('head-feature-select')
-        this.#standardBodyColorSelect = getSelectElement('std-body-colors')
-        this.#standardUniformColorSelect = getSelectElement('std-uniform-colors')
-        this.#standardUndershirtColorSelect = getSelectElement('std-uniform-undershirt-colors')
 
         this.#syncAntennaeWithBodyCheck = getInputElement('sync-antennae-with-body')
         this.#syncBirdTuftWithBodyCheck = getInputElement('sync-bird-tuft-with-body')
@@ -218,8 +190,6 @@ export class IndexController {
         this.#hairSelect = getSelectElement('hair-select')
         this.#facialHairSelect = getSelectElement('facial-hair-select')
         this.#rearHairSelect = getSelectElement('rear-hair-select')
-        this.#standardHairColorSelect = getSelectElement('std-hair-colors')
-        this.#hairColorPicker = getInputElement('hair-color')
 
         this.#saveBGCheck = getInputElement('save-with-bg-checkbox')
 
@@ -230,11 +200,11 @@ export class IndexController {
             changeEl.addEventListener('change', () => this.onChangeDetected())
         }
 
-        // Handle Items with 2 selectors separately
-        this.#setupColorPickerWithStandardSelector(this.#bodyColorPicker, this.#standardBodyColorSelect)
-        this.#setupColorPickerWithStandardSelector(this.#hairColorPicker, this.#standardHairColorSelect)
-        this.#setupColorPickerWithStandardSelector(this.#uniformColorPicker, this.#standardUniformColorSelect)
-        this.#setupColorPickerWithStandardSelector(this.#uniformUndershirtColorPicker, this.#standardUndershirtColorSelect)
+        // Handle Items with an input paired with selector
+        this.#bodyColorPicker = this.#setupColorInputWithSelect('body-color', 'std-body-colors')
+        this.#hairColorPicker = this.#setupColorInputWithSelect('hair-color', 'std-hair-colors')
+        this.#uniformColorPicker = this.#setupColorInputWithSelect('uniform-color', 'std-uniform-colors')
+        this.#uniformUndershirtColorPicker = this.#setupColorInputWithSelect('uniform-undershirt-color', 'std-uniform-undershirt-colors')
 
         // Handle Items with a 'sync' - so they un-check when selecting color manually
         this.#antennaeColorPicker.addEventListener('change', () => {
@@ -257,10 +227,16 @@ export class IndexController {
 
     /**
      *  Wire together a color input that has a selector of pre-created colors.
-     * @param {HTMLInputElement} picker     Color Input Element.
-     * @param {HTMLSelectElement} selector  Color Selector Element.
+     * @param {string} pickerId     Color Input Element's Id.
+     * @param {string} selectorId   Color Selector Element's Id.
+     * @returns {HTMLInputElement}  Color Input Element.
      */
-    #setupColorPickerWithStandardSelector (picker, selector) {
+    #setupColorInputWithSelect (pickerId, selectorId) {
+        // get the elements from their ids
+        const picker = getInputElement(pickerId)
+        const selector = getSelectElement(selectorId)
+
+        // create changed event handlers
         const onChangePicker = () => {
             // Set the "standard" colors selector to what's selected or 'custom'
             const el = selector.querySelector(`[value="${picker.value}"]`) ??
@@ -277,12 +253,18 @@ export class IndexController {
             this.onChangeDetected()
         }
 
+        // wire up the changed events
         picker.addEventListener('change', onChangePicker)
         selector.addEventListener('change', onChangeSelector)
 
         // Update the selector if the current picker is one of the values
-        const el = selector.querySelector(`[value="${picker.value.toUpperCase()}"]`) ?? selector.querySelector('[value="custom"]')
-        selector.value = el.value
+        const el = selector.querySelector(`[value="${picker.value.toUpperCase()}"]`) ??
+                    selector.querySelector('[value="custom"]')
+        if (el instanceof HTMLOptionElement)
+            selector.value = el.value
+
+        // return the setup picker
+        return picker
     }
 
     /**
