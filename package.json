@@ -1,6 +1,7 @@
 {
     "name": "@lunarcloud/trek-character-icon-creator",
     "private": true,
+    "type": "module",
     "scripts": {
         "eslint-fix": "npx eslint --ignore-path .gitignore --ext .js . --fix",
         "eslint": "npx eslint --ignore-path .gitignore --ext .js .",
@@ -19,17 +20,17 @@
         "svglint": "^3.0.0"
     },
     "devDependencies": {
-        "@linthtml/linthtml": "^0.9.6",
-        "eslint": "^8.55.0",
+        "@linthtml/linthtml": "^0.10.1",
+        "eslint": "^8.57.1",
         "eslint-config-standard": "^17.1.0",
         "eslint-plugin-editorconfig": "^4.0.3",
-        "eslint-plugin-import": "^2.29.0",
-        "eslint-plugin-jsdoc": "^46.9.0",
-        "eslint-plugin-n": "^16.4.0",
-        "eslint-plugin-promise": "^6.1.1",
-        "serve": "^14.2.1",
+        "eslint-plugin-import": "^2.31.0",
+        "eslint-plugin-jsdoc": "^46.10.1",
+        "eslint-plugin-n": "^16.6.2",
+        "eslint-plugin-promise": "^6.6.0",
+        "serve": "^14.2.4",
         "shx": "^0.3.4",
-        "stylelint": "^16.0.2",
+        "stylelint": "^16.10.0",
         "stylelint-config-standard": "^35.0.0"
     }
 }

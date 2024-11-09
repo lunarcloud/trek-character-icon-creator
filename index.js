@@ -3,6 +3,9 @@ import { getInputElement, getSelectElement, queryInputElement, queryStyleElement
 
 const DEFAULT_UNIFORM = 'VOY DS9'
 
+/**
+ * Controller for the Main, Index, Page.
+ */
 export class IndexController {
     #lastUsedBodyColors = {
         humanoid: '#FEE4B3',
@@ -252,11 +255,18 @@ export class IndexController {
         document.getElementById('download').addEventListener('click', () => this.saveImage())
     }
 
+    /**
+     *  Wire together a color input that has a selector of pre-created colors.
+     * @param {HTMLInputElement} picker     Color Input Element.
+     * @param {HTMLSelectElement} selector  Color Selector Element.
+     */
     #setupColorPickerWithStandardSelector (picker, selector) {
         const onChangePicker = () => {
             // Set the "standard" colors selector to what's selected or 'custom'
-            const el = selector.querySelector(`[value="${picker.value}"]`) ?? selector.querySelector('[value="custom"]')
-            selector.value = el.value
+            const el = selector.querySelector(`[value="${picker.value}"]`) ??
+                selector.querySelector('[value="custom"]')
+            if (el instanceof HTMLOptionElement)
+                selector.value = el.value
 
             this.onChangeDetected()
         }
@@ -275,11 +285,19 @@ export class IndexController {
         selector.value = el.value
     }
 
+    /**
+     * the selected body shape.
+     * @returns {string}    the attribute value.
+     */
     get bodyShape () {
         const el = queryInputElement('input[name="body-shape"]:checked')
         return el?.value ?? 'humanoid'
     }
 
+    /**
+     * the selected body shape.
+     * @param {string} value    the attribute value.
+     */
     set bodyShape (value) {
         const el = queryInputElement(`input[name="body-shape"][value="${value}"]`)
         if (el instanceof HTMLInputElement === false)
@@ -287,6 +305,10 @@ export class IndexController {
         el.checked = true
     }
 
+    /**
+     * Determine if the current uniform is not currently valid. Usually invalidated by a change in body shape.
+     * @returns {boolean} the determination
+     */
     #isCurrentUniformInvalid () {
         const el = this.#uniformSelect.querySelectorAll('option')[this.#uniformSelect.selectedIndex]
         if (el instanceof HTMLOptionElement === false)
@@ -294,6 +316,10 @@ export class IndexController {
         return el.hidden ?? true
     }
 
+    /**
+     * Handle when a change in options occurs.
+     * This will setup all the SVG html and CSS styles for the current options.
+     */
     onChangeDetected () {
         const bodyShapeChanged = !this.#mainEl.classList.contains(this.bodyShape)
 
@@ -392,10 +418,18 @@ export class IndexController {
         `svg .wiskers-color { color: ${this.#wiskersColorPicker.value} !important;}`
     }
 
+    /**
+     * Generate a valid svg element to insert.
+     * @param {string} path location of the SVG file.
+     * @returns {string} html
+     */
     static GenerateSVGHTML (path) {
         return `<svg data-src="${path}" data-cache="disabled" width="512" height="512"></svg>`
     }
 
+    /**
+     * Save an image file of the currently selected options.
+     */
     saveImage () {
         if (typeof (html2canvas) !== 'function') {
             alert('Cannot create image, canvas library not working.')
