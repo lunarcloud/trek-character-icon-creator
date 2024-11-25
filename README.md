@@ -6,6 +6,9 @@ Icon-y Character Creator for Star Trek
 [![GitHub top language](https://img.shields.io/github/languages/top/lunarcloud/trek-character-icon-creator)](https://github.com/lunarcloud/trek-character-icon-creator/pulse)
 [![environment](https://img.shields.io/badge/env-Browser-green)](https://developer.mozilla.org/en-US/docs/Glossary/Browser)
 
+![Code Quality](https://github.com/lunarcloud/trek-character-icon-creator/actions/workflows/lint.yml/badge.svg)
+
+
 Character Creator for Star Trek style character icons
 
 ## Development Setup
