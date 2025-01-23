@@ -14,5 +14,5 @@
         }
     </style>
 <defs/>
-<path id="shape0" transform="translate(208, 212.509386450561)" fill="none" stroke="currentColor" class="hair-color" stroke-width="13" stroke-linecap="square" stroke-linejoin="bevel" d="M38.125 0.0531137C60.9605 -0.744388 68.5 7.54949 68.5 17.4906L77 47.4906C77 57.4317 68.9411 65.4906 59 65.4906C45.4575 65.4906 33.7592 65.4906 18 65.4906C8.05887 65.4906 -1.33227e-15 57.4317 0 47.4906L8.5 16.2406C8.5 9.6132 15.2895 0.850615 38.125 0.0531137Z" sodipodi:nodetypes="ccccsccz"/>
+<path id="shape0" transform="translate(201, 203)" fill="currentColor" class="hair-color" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M17 0L71 0C80.3888 5.74901e-16 88 7.61116 88 17C88 26.3888 2.40291e-15 26.3888 3.55271e-15 17C4.70252e-15 7.61116 7.61116 -5.74901e-16 17 0Z" sodipodi:nodetypes="ccccc"/>
 </svg>
