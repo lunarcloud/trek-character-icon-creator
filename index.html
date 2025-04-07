@@ -312,33 +312,36 @@
             </div>
 
             <h3 class="humanoid-only">Facial</h3>
-            <select id="facial-hair-select" class="humanoid-only">
-                <option value="none" selected>None</option>
-                <option value="mustache-a">Mustache A</option>
-                <option value="mustache-b">Mustache B</option>
-                <option value="mustache-c">Mustache C</option>
-                <option value="mustache-d">Mustache D</option>
-                <option value="mustache-e">Mustache E</option>
-                <option value="mustache-f">Mustache F</option>
-                <option value="mustache-g">Mustache G</option>
-                <option value="goatee-a">Goatee A</option>
-                <option value="goatee-b">Goatee B</option>
-                <option value="goatee-c">Goatee C</option>
-                <option value="goatee-d">Goatee D</option>
-                <option value="mutton-chops">Mutton Chops</option>
-                <option value="sideburns">Sideburns</option>
-                <option value="line-beard">Line Beard</option>
-                <option value="wide-beard">Wide Beard</option>
-                <option value="pointed-beard">Pointed Beard</option>
-                <option value="long-beard">Long Beard</option>
-                <option value="beard-and-mustache-a">Beard & Mustache A</option>
-                <option value="beard-and-mustache-b">Beard & Mustache B</option>
-                <option value="beard-and-mustache-c">Beard & Mustache C</option>
-                <option value="beard-and-mustache-d">Beard & Mustache D</option>
-            </select>
+            <div class="index-list">
+                <select id="facial-hair-select" class="humanoid-only">
+                    <option value="none" selected>None</option>
+                    <option value="mustache-a">Mustache A</option>
+                    <option value="mustache-b">Mustache B</option>
+                    <option value="mustache-c">Mustache C</option>
+                    <option value="mustache-d">Mustache D</option>
+                    <option value="mustache-e">Mustache E</option>
+                    <option value="mustache-f">Mustache F</option>
+                    <option value="mustache-g">Mustache G</option>
+                    <option value="goatee-a">Goatee A</option>
+                    <option value="goatee-b">Goatee B</option>
+                    <option value="goatee-c">Goatee C</option>
+                    <option value="goatee-d">Goatee D</option>
+                    <option value="mutton-chops">Mutton Chops</option>
+                    <option value="sideburns">Sideburns</option>
+                    <option value="line-beard">Line Beard</option>
+                    <option value="wide-beard">Wide Beard</option>
+                    <option value="pointed-beard">Pointed Beard</option>
+                    <option value="long-beard">Long Beard</option>
+                    <option value="beard-and-mustache-a">Beard & Mustache A</option>
+                    <option value="beard-and-mustache-b">Beard & Mustache B</option>
+                    <option value="beard-and-mustache-c">Beard & Mustache C</option>
+                    <option value="beard-and-mustache-d">Beard & Mustache D</option>
+                </select>
+                <button id="facial-hair-next">➜</button>
+            </div>
 
             <h3 class="humanoid-only">Head</h3>
-            <span class="side-by-side">
+            <div class="index-list">
                 <select id="hair-select" class="humanoid-only">
                     <option value="none" selected>None</option>
                     <option value="a">A</option>
@@ -363,7 +366,13 @@
                     <option value="t">T</option>
                     <option value="u">U</option>
                 </select>
-
+                <button id="hair-next">➜</button>
+                <label class="toggle-button">
+                    <input id="hair-mirror" type="checkbox" />
+                    <span>⎅</span>
+                </label>
+            </div>
+            <div class="index-list">
                 <select id="rear-hair-select" class="humanoid-only">
                     <option value="none" selected>None</option>
                     <option value="a">A</option>
@@ -382,7 +391,12 @@
                     <option value="n">N</option>
                     <option value="o">O</option>
                 </select>
-            </span>
+                <button id="rear-hair-next">➜</button>
+                <label class="toggle-button" tab-index>
+                    <input id="rear-hair-mirror" type="checkbox" />
+                    <span>⎅</span>
+                </label>
+            </div>
 
         </aside>
 

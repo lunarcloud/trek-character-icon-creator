@@ -22,6 +22,16 @@ export function getInputElement (id) {
 }
 
 /**
+ * Get element as HTMLButtonElement.
+ * @param {string} id id of element
+ * @returns {HTMLButtonElement} correctly typed element
+ */
+export function getButtonElement (id) {
+    // @ts-ignore
+    return getElementOfType(id, HTMLButtonElement)
+}
+
+/**
  * Get element as HTMLInputElement
  * @param {string} query query to select the element
  * @returns {HTMLInputElement} correctly typed element

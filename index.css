@@ -111,6 +111,10 @@ body {
 
     & > * {
         position: relative;
+
+        &.mirrored {
+            transform: scaleX(-1) translateX(12px);
+        }
     }
 
     #character-rear-hair {
@@ -311,6 +315,56 @@ body.saving {
 
 }
 
-span.side-by-side select {
+.index-list select,
+.index-list button {
     display: inline-block;
+    min-width: fit-content;
+}
+
+.index-list button {
+    padding: 0 1.25em;
+    height: 2rem;
+    font-weight: bold;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+label.toggle-button {
+    vertical-align: top;
+    position: relative;
+
+    &, & > * {
+        user-select: none;
+    }
+
+    input {
+        /* display: none; */
+        position: absolute;
+        z-index: -1;
+        inset: 1em;
+    }
+
+    & span {
+        background-color: #111;
+        padding: 0.25em 0.75em;
+        border: 2px outset #ddd;
+        border-radius: 4px;
+
+        &:hover {
+            border-color: cadetblue;
+        }
+    }
+
+    & :focus + span {
+        border-color: cadetblue;
+    }
+
+    & :checked + span {
+        background-color: royalblue;
+        border-color: black;
+
+        &:hover {
+            border-color: mediumslateblue;
+        }
+    }
 }

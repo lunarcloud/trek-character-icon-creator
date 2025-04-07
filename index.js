@@ -1,5 +1,5 @@
 import html2canvas from './lib/html2canvas.esm.js'
-import { getInputElement, getSelectElement, queryInputElement, queryStyleElement } from './type-helpers.js'
+import { getButtonElement, getInputElement, getSelectElement, queryInputElement, queryStyleElement } from './type-helpers.js'
 
 const DEFAULT_UNIFORM = 'VOY DS9'
 
@@ -128,9 +128,19 @@ export class IndexController {
     #hairSelect
 
     /**
+     * @type {HTMLInputElement}
+     */
+    #hairMirror
+
+    /**
      * @type {HTMLSelectElement}
      */
     #rearHairSelect
+
+    /**
+     * @type {HTMLInputElement}
+     */
+    #rearHairMirror
 
     /**
      * @type {HTMLInputElement}
@@ -187,15 +197,29 @@ export class IndexController {
         this.#syncWiskersWithBodyCheck = getInputElement('sync-wiskers-with-body')
         this.#foreheadBumpCheck = getInputElement('forehead-bump')
 
-        this.#hairSelect = getSelectElement('hair-select')
         this.#facialHairSelect = getSelectElement('facial-hair-select')
+
+        this.#hairSelect = getSelectElement('hair-select')
+        const hairNext = getButtonElement('hair-next')
+        hairNext.addEventListener('click', ev => {
+            this.#hairSelect.selectedIndex++
+            this.onChangeDetected()
+        })
+        this.#hairMirror = getInputElement('hair-mirror')
+
         this.#rearHairSelect = getSelectElement('rear-hair-select')
+        const rearHairNext = getButtonElement('rear-hair-next')
+        rearHairNext.addEventListener('click', ev => {
+            this.#rearHairSelect.selectedIndex++
+            this.onChangeDetected()
+        })
+        this.#rearHairMirror = getInputElement('rear-hair-mirror')
 
         this.#saveBGCheck = getInputElement('save-with-bg-checkbox')
 
         // Generically handle all the elements changing
         const bodyShapeEls = Array.from(document.querySelectorAll('input[name="body-shape"]'))
-        const allChangeEls = bodyShapeEls.concat([this.#uniformSelect, this.#earSelect, this.#noseSelect, this.#headFeatureSelect, this.#syncAntennaeWithBodyCheck, this.#syncBirdTuftWithBodyCheck, this.#syncWiskersWithBodyCheck, this.#foreheadBumpCheck, this.#hairSelect, this.#facialHairSelect, this.#rearHairSelect])
+        const allChangeEls = bodyShapeEls.concat([this.#uniformSelect, this.#earSelect, this.#noseSelect, this.#headFeatureSelect, this.#syncAntennaeWithBodyCheck, this.#syncBirdTuftWithBodyCheck, this.#syncWiskersWithBodyCheck, this.#foreheadBumpCheck, this.#hairSelect, this.#facialHairSelect, this.#rearHairSelect, this.#hairMirror, this.#rearHairMirror])
         for (const changeEl of allChangeEls) {
             changeEl.addEventListener('change', () => this.onChangeDetected())
         }
@@ -353,6 +377,10 @@ export class IndexController {
             this.#characterHair.innerHTML = IndexController.GenerateSVGHTML(`${this.bodyShape}/hair/${this.#hairSelect.value}.svg`)
             this.#characterRearHair.innerHTML = IndexController.GenerateSVGHTML(`${this.bodyShape}/rear-hair/${this.#rearHairSelect.value}.svg`)
             this.#characterFacialHair.innerHTML = IndexController.GenerateSVGHTML(`${this.bodyShape}/facial-hair/${this.#facialHairSelect.value}.svg`)
+
+            // Handle hair mirroring
+            this.#characterHair.classList.toggle('mirrored', this.#hairMirror.checked)
+            this.#characterRearHair.classList.toggle('mirrored', this.#rearHairMirror.checked)
 
             // Update the head features
             const selections = (Array.from(this.#headFeatureSelect.selectedOptions) ?? []).map(e => e.value)
