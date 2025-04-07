@@ -109,12 +109,12 @@ body {
     position: relative;
     z-index: 0;
 
+    & > .mirrored {
+        transform: scaleX(-1) translateX(var(--mirror-offset, 6px));
+    }
+
     & > * {
         position: relative;
-
-        &.mirrored {
-            transform: scaleX(-1) translateX(12px);
-        }
     }
 
     #character-rear-hair {
@@ -248,23 +248,27 @@ select[multiple] option {
 @media (width >= 641px) and (width <= 1024px) {
   :root {
     --svg-size: 384px;
+    --mirror-offset: 9px;
   }
 }
 
 @media (width >= 1024px) and (width <= 1440px) {
   :root {
     --svg-size: 512px;
+    --mirror-offset: 12px;
   }
 }
 
 @media (width >= 1441px) {
   :root {
     --svg-size: 640px;
+    --mirror-offset: 15px;
   }
 }
 
 body.saving {
   --svg-size: 512px !important;
+  --mirror-offset: 12px;
 }
 
 @media (width >= 900px) {
