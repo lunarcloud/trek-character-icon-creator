@@ -326,10 +326,16 @@ body.saving {
 
 }
 
-.index-list select,
 .index-list button {
     display: inline-block;
-    min-width: fit-content;
+    width: fit-content;
+    max-width: 6em;
+}
+
+.index-list select {
+    display: inline-block;
+    width: fit-content;
+    max-width: calc(100% - 6em);
 }
 
 .index-list button {
