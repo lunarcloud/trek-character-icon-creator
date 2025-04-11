@@ -326,10 +326,10 @@ body.saving {
 
 }
 
-.index-list button {
+.index-list button,
+.index-list select {
     display: inline-block;
     width: fit-content;
-    max-width: 6em;
 }
 
 .index-list select {
@@ -339,6 +339,7 @@ body.saving {
 }
 
 .index-list button {
+    max-width: 6em;
     padding: 0 1.25em;
     height: 2rem;
     font-weight: bold;
