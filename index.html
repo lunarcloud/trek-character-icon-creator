@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en-us">
-
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
         <title>Star Trek Character Icon Creator</title>
 
         <meta name="theme-color" content="black">
@@ -17,6 +18,7 @@
         <header>
             <h1>Star Trek Character Icon Designer</h1>
         </header>
+
         <main>
             <character>
                 <style></style>
@@ -35,22 +37,11 @@
         <aside>
             <h2>Body</h2>
 
-            <h3>Shape</h3>
-
-            <div class="body-radio-option">
-                <input type="radio" id="humanoid" name="body-shape" value="humanoid" checked />
-                <label for="humanoid">Humanoid</label>
-            </div>
-
-            <div class="body-radio-option">
-                <input type="radio" id="cetaceous" name="body-shape" value="cetaceous" />
-                <label for="cetaceous">Cetaceous</label>
-            </div>
-
-            <div class="body-radio-option">
-                <input type="radio" id="exocomp" name="body-shape" value="exocomp" />
-                <label for="exocomp">Exocomp</label>
-            </div>
+            <select id="body-shape">
+                <option value="humanoid">Humanoid</option>
+                <option value="cetaceous">Cetaceous</option>
+                <option value="exocomp">Exocomp</option>
+            </select>
 
             <div class="non-exocomp">
                 <input type="color" id="body-color" value="#FEE4B3">
@@ -312,8 +303,8 @@
             </div>
 
             <h3 class="humanoid-only">Facial</h3>
-            <div class="index-list">
-                <select id="facial-hair-select" class="humanoid-only">
+            <div class="index-list humanoid-only">
+                <select id="facial-hair-select">
                     <option value="none" selected>None</option>
                     <option value="mustache-a">Mustache A</option>
                     <option value="mustache-b">Mustache B</option>
@@ -341,8 +332,8 @@
             </div>
 
             <h3 class="humanoid-only">Head</h3>
-            <div class="index-list">
-                <select id="hair-select" class="humanoid-only">
+            <div class="index-list humanoid-only">
+                <select id="hair-select">
                     <option value="none" selected>None</option>
                     <option value="a">A</option>
                     <option value="b">B</option>
@@ -372,8 +363,8 @@
                     <span>⎅</span>
                 </label>
             </div>
-            <div class="index-list">
-                <select id="rear-hair-select" class="humanoid-only">
+            <div class="index-list humanoid-only">
+                <select id="rear-hair-select">
                     <option value="none" selected>None</option>
                     <option value="a">A</option>
                     <option value="b">B</option>

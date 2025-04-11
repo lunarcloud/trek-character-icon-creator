@@ -9,11 +9,6 @@ html {
     height: calc(100dvh - 1em);
 }
 
-body.embedded header {
-  height: 0;
-  visibility: hidden;
-}
-
 span.inline-block {
   display: inline-block;
 }
@@ -21,6 +16,7 @@ span.inline-block {
 body.embedded {
     min-height: 43.5em; /* height after which it will vertically center */
 }
+
 
 body {
   font-family: Roddenberry, sans-serif;
@@ -37,7 +33,8 @@ body {
     columns: 2;
     text-align: unset;
     gap: 0.25em;
-    min-height: 40em;
+
+    /* min-height: 40em; */
 
     & #post-body-marker {
         display: block;
@@ -234,7 +231,17 @@ select[multiple] option {
   }
 }
 
+body header {
+  height: 0;
+  visibility: hidden;
+}
+
 @media (width >= 641px) {
+  body:not(.embedded) header {
+    height: unset;
+    visibility: visible;
+  }
+
   aside {
     padding: 0 1em;
     gap: unset;

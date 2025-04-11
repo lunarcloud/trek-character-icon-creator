@@ -95,6 +95,11 @@ export class IndexController {
     /**
      * @type {HTMLSelectElement}
      */
+    #shapeSelect
+
+    /**
+     * @type {HTMLSelectElement}
+     */
     #uniformSelect
 
     /**
@@ -184,6 +189,7 @@ export class IndexController {
         this.#bodyOverlay = document.getElementById('body-overlay')
 
         // Selection Elements
+        this.#shapeSelect = getSelectElement('body-shape')
         this.#antennaeColorPicker = getInputElement('andorian-antennae-color')
         this.#birdTuftColorPicker = getInputElement('bird-tuft-color')
         this.#wiskersColorPicker = getInputElement('wiskers-color')
@@ -218,8 +224,7 @@ export class IndexController {
         this.#saveBGCheck = getInputElement('save-with-bg-checkbox')
 
         // Generically handle all the elements changing
-        const bodyShapeEls = Array.from(document.querySelectorAll('input[name="body-shape"]'))
-        const allChangeEls = bodyShapeEls.concat([this.#uniformSelect, this.#earSelect, this.#noseSelect, this.#headFeatureSelect, this.#syncAntennaeWithBodyCheck, this.#syncBirdTuftWithBodyCheck, this.#syncWiskersWithBodyCheck, this.#foreheadBumpCheck, this.#hairSelect, this.#facialHairSelect, this.#rearHairSelect, this.#hairMirror, this.#rearHairMirror])
+        const allChangeEls = [this.#shapeSelect, this.#uniformSelect, this.#earSelect, this.#noseSelect, this.#headFeatureSelect, this.#syncAntennaeWithBodyCheck, this.#syncBirdTuftWithBodyCheck, this.#syncWiskersWithBodyCheck, this.#foreheadBumpCheck, this.#hairSelect, this.#facialHairSelect, this.#rearHairSelect, this.#hairMirror, this.#rearHairMirror]
         for (const changeEl of allChangeEls) {
             changeEl.addEventListener('change', () => this.onChangeDetected())
         }
@@ -292,26 +297,6 @@ export class IndexController {
     }
 
     /**
-     * the selected body shape.
-     * @returns {string}    the attribute value.
-     */
-    get bodyShape () {
-        const el = queryInputElement('input[name="body-shape"]:checked')
-        return el?.value ?? 'humanoid'
-    }
-
-    /**
-     * the selected body shape.
-     * @param {string} value    the attribute value.
-     */
-    set bodyShape (value) {
-        const el = queryInputElement(`input[name="body-shape"][value="${value}"]`)
-        if (el instanceof HTMLInputElement === false)
-            return
-        el.checked = true
-    }
-
-    /**
      * Determine if the current uniform is not currently valid. Usually invalidated by a change in body shape.
      * @returns {boolean} the determination
      */
@@ -327,10 +312,11 @@ export class IndexController {
      * This will setup all the SVG html and CSS styles for the current options.
      */
     onChangeDetected () {
-        const bodyShapeChanged = !this.#mainEl.classList.contains(this.bodyShape)
+        const bodyShape = this.#shapeSelect.value
+        const bodyShapeChanged = !this.#mainEl.classList.contains(bodyShape)
 
         // Update the classes at the top for hiding/showing elements
-        this.#mainEl.className = this.bodyShape // first one clears the list
+        this.#mainEl.className = bodyShape // first one clears the list
         if (window.self !== window.top)
             this.#mainEl.classList.add('embedded')
         // more classes will be added later
@@ -347,7 +333,7 @@ export class IndexController {
             }
 
             // Reset color so we don't have oddly-fleshy dolphins by default
-            this.#bodyColorPicker.value = this.#lastUsedBodyColors[this.bodyShape]
+            this.#bodyColorPicker.value = this.#lastUsedBodyColors[bodyShape]
 
             // If currently selecting a hidden uniform, select the first non-hidden one
             if (this.#isCurrentUniformInvalid())
@@ -355,11 +341,11 @@ export class IndexController {
         }
 
         // Change the body
-        this.#characterBody.innerHTML = IndexController.GenerateSVGHTML(`${this.bodyShape}/body.svg`)
-        this.#bodyOverlay.innerHTML = IndexController.GenerateSVGHTML(`${this.bodyShape}/body-overlay.svg`)
+        this.#characterBody.innerHTML = IndexController.GenerateSVGHTML(`${bodyShape}/body.svg`)
+        this.#bodyOverlay.innerHTML = IndexController.GenerateSVGHTML(`${bodyShape}/body-overlay.svg`)
 
         // Change the uniform
-        this.#characterUniform.innerHTML = IndexController.GenerateSVGHTML(`${this.bodyShape}/uniform/${this.#uniformSelect.value}.svg`)
+        this.#characterUniform.innerHTML = IndexController.GenerateSVGHTML(`${bodyShape}/uniform/${this.#uniformSelect.value}.svg`)
 
         // Allow for uniform-specific options
         if (this.#uniformSelect.value === 'VOY DS9')
@@ -369,14 +355,14 @@ export class IndexController {
             this.#mainEl.classList.add('no-uniform-color')
 
         // Humanoid-only features
-        if (this.bodyShape === 'humanoid') {
+        if (bodyShape === 'humanoid') {
             // Change the ears
-            this.#characterEarsOrNose.innerHTML = IndexController.GenerateSVGHTML(`${this.bodyShape}/ears/${this.#earSelect.value}.svg`)
+            this.#characterEarsOrNose.innerHTML = IndexController.GenerateSVGHTML(`${bodyShape}/ears/${this.#earSelect.value}.svg`)
 
             // Update the hair
-            this.#characterHair.innerHTML = IndexController.GenerateSVGHTML(`${this.bodyShape}/hair/${this.#hairSelect.value}.svg`)
-            this.#characterRearHair.innerHTML = IndexController.GenerateSVGHTML(`${this.bodyShape}/rear-hair/${this.#rearHairSelect.value}.svg`)
-            this.#characterFacialHair.innerHTML = IndexController.GenerateSVGHTML(`${this.bodyShape}/facial-hair/${this.#facialHairSelect.value}.svg`)
+            this.#characterHair.innerHTML = IndexController.GenerateSVGHTML(`${bodyShape}/hair/${this.#hairSelect.value}.svg`)
+            this.#characterRearHair.innerHTML = IndexController.GenerateSVGHTML(`${bodyShape}/rear-hair/${this.#rearHairSelect.value}.svg`)
+            this.#characterFacialHair.innerHTML = IndexController.GenerateSVGHTML(`${bodyShape}/facial-hair/${this.#facialHairSelect.value}.svg`)
 
             // Handle hair mirroring
             this.#characterHair.classList.toggle('mirrored', this.#hairMirror.checked)
@@ -386,7 +372,7 @@ export class IndexController {
             const selections = (Array.from(this.#headFeatureSelect.selectedOptions) ?? []).map(e => e.value)
             this.#characterHeadFeatures.innerHTML = selections.reduce(
                 (accumulator, v) => {
-                    accumulator += IndexController.GenerateSVGHTML(`${this.bodyShape}/head-features/${v}.svg`)
+                    accumulator += IndexController.GenerateSVGHTML(`${bodyShape}/head-features/${v}.svg`)
                     return accumulator
                 }, '')
 
@@ -398,17 +384,17 @@ export class IndexController {
                 this.#mainEl.classList.add('wiskers')
         }
         // Cetaceous-only features
-        if (this.bodyShape === 'cetaceous') {
+        if (bodyShape === 'cetaceous') {
             // Change the nose
-            this.#characterEarsOrNose.innerHTML = IndexController.GenerateSVGHTML(`${this.bodyShape}/nose/${this.#noseSelect.value}.svg`)
+            this.#characterEarsOrNose.innerHTML = IndexController.GenerateSVGHTML(`${bodyShape}/nose/${this.#noseSelect.value}.svg`)
 
             this.#characterHeadFeatures.innerHTML = this.#foreheadBumpCheck.checked
-                ? IndexController.GenerateSVGHTML(`${this.bodyShape}/head-features/forehead-bump.svg`)
+                ? IndexController.GenerateSVGHTML(`${bodyShape}/head-features/forehead-bump.svg`)
                 : ''
         }
 
         // Update the colors
-        this.#lastUsedBodyColors[this.bodyShape] = this.#bodyColorPicker.value
+        this.#lastUsedBodyColors[bodyShape] = this.#bodyColorPicker.value
 
         if (this.#syncAntennaeWithBodyCheck.checked)
             this.#antennaeColorPicker.value = this.#bodyColorPicker.value
