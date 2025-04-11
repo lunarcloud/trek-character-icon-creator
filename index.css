@@ -17,12 +17,17 @@ body.embedded {
     min-height: 43.5em; /* height after which it will vertically center */
 }
 
+body, select, footer {
+  background-color: #ddd;
+  color: #111;
+}
+
 
 body {
   font-family: Roddenberry, sans-serif;
   width: 100%;
-  max-width: 90em;
-  min-height: 52em; /* height after which it will vertically center */
+  max-width: min(90em, 100dvw);
+  min-height: min(52em, 100%); /* 52 em is the height after which it will vertically center */
   margin: auto;
 
   & > * {
@@ -33,15 +38,23 @@ body {
     columns: 2;
     text-align: unset;
     gap: 0.25em;
+    max-width: inherit;
 
     /* min-height: 40em; */
 
-    & #post-body-marker {
+    & > group {
+      display: block;
+      break-before: auto;
+      column-break-before: auto;
+      -webkit-column-break-before: auto;
+
+      &.break-before {
         display: block;
         break-before: always;
         column-break-before: always;
         -webkit-column-break-before: always;
       }
+    }
 
     h2, h3 {
       break-after: avoid;
@@ -231,17 +244,52 @@ select[multiple] option {
   }
 }
 
-body header {
-  height: 0;
-  visibility: hidden;
+
+/* Vertical mode for Mobile/Small/Narrow */
+@media screen and (width <= 899px) {
+    body {
+        --header-size: calc(var(--svg-size) + 5em);
+        --footer-size: 5em;
+
+        display: grid;
+        position: absolute;
+        inset: 0;
+        margin: 0;
+        grid-template-rows: var(--header-size) 1fr var(--footer-size);
+
+        & header {
+            visibility: hidden;
+            height: 0;
+            overflow: hidden;
+        }
+
+        & main {
+            position: absolute;
+            inset: 0;
+            bottom: unset;
+            z-index: 1;
+        }
+
+        & aside {
+            z-index: 0;
+            position: absolute;
+            inset: 0;
+            padding: var(--header-size) 1em var(--footer-size);
+            overflow-y: auto;
+        }
+
+        & footer {
+            position: absolute;
+            inset: 0;
+            margin: 0;
+            top: unset;
+            z-index: 1;
+            border-top: 2px inset #aaa;
+        }
+    }
 }
 
 @media (width >= 641px) {
-  body:not(.embedded) header {
-    height: unset;
-    visibility: visible;
-  }
-
   aside {
     padding: 0 1em;
     gap: unset;
@@ -278,11 +326,19 @@ body.saving {
   --mirror-offset: 12px;
 }
 
+/* Horizontal mode for Desktop/Large/Wide */
 @media (width >= 900px) {
   body {
     display: grid;
     grid-template-columns: calc(var(--svg-size) + 4em) 1fr;
     grid-template-rows: auto auto 1fr;
+
+
+    &:not(.embedded) header {
+      display: unset;
+      visibility: unset;
+      height: max-content;
+    }
 
     header {
       grid-row: 1;
@@ -307,7 +363,7 @@ body.saving {
 }
 
 @media (prefers-color-scheme: dark) {
-  body, select {
+  body, select, footer {
     background-color: #111;
     color: #ddd;
   }

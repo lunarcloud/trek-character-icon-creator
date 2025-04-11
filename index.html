@@ -35,359 +35,365 @@
         </main>
 
         <aside>
-            <h2>Body</h2>
-
-            <select id="body-shape">
-                <option value="humanoid">Humanoid</option>
-                <option value="cetaceous">Cetaceous</option>
-                <option value="exocomp">Exocomp</option>
-            </select>
-
-            <div class="non-exocomp">
-                <input type="color" id="body-color" value="#FEE4B3">
-                <label for="body-color">Color</label>
-                <select id="std-body-colors">
-                    <option value="custom" hidden selected></option>
-                    <option value="#FEE4B3" class="humanoid-only">Lighter Human</option>
-                    <option value="#36200C" class="humanoid-only">Darker Human</option>
-                    <option value="#b3b3fe" class="humanoid-only">Bolian</option>
-                    <option value="#41AACC" class="humanoid-only">Andorian</option>
-                    <option value="#B6AEAC" class="humanoid-only">Aenar</option>
-                    <option value="#98F69C" class="humanoid-only">Lighter Orion</option>
-                    <option value="#67763E" class="humanoid-only">Darker Orion</option>
-                    <option value="#B3673D" class="humanoid-only">Caitian</option>
-                    <option value="#A92902" class="humanoid-only">Kzinti</option>
-                    <option value="#B5BEC8">Grey</option>
-                    <option value="#D9CBD6">Reddish Grey</option>
-                    <option value="#ECC1DB">Pink</option>
-                    <option value="#020101">Black</option>
-                    <option value="#F4F4F6">White</option>
+            <group>
+                <h2>Body</h2>
+                <select id="body-shape">
+                    <option value="humanoid">Humanoid</option>
+                    <option value="cetaceous">Cetaceous</option>
+                    <option value="exocomp">Exocomp</option>
                 </select>
-            </div>
 
-            <h3 class="humanoid-only">Ears</h3>
-            <select id="ear-select" class="humanoid-only">
-                <option value="none">None (Edosian, Saurian, etc)</option>
-                <option value="round" selected>Round (Human)</option>
-                <option value="pointy">Pointy (Vulcan, Romulan)</option>
-                <option value="ferengi">Massive (Ferengi)</option>
-                <option value="cat">Cat (Caitian, Kzinti)</option>
-            </select>
+                <div class="non-exocomp">
+                    <input type="color" id="body-color" value="#FEE4B3">
+                    <label for="body-color">Color</label>
+                    <select id="std-body-colors">
+                        <option value="custom" hidden selected></option>
+                        <option value="#FEE4B3" class="humanoid-only">Lighter Human</option>
+                        <option value="#36200C" class="humanoid-only">Darker Human</option>
+                        <option value="#b3b3fe" class="humanoid-only">Bolian</option>
+                        <option value="#41AACC" class="humanoid-only">Andorian</option>
+                        <option value="#B6AEAC" class="humanoid-only">Aenar</option>
+                        <option value="#98F69C" class="humanoid-only">Lighter Orion</option>
+                        <option value="#67763E" class="humanoid-only">Darker Orion</option>
+                        <option value="#B3673D" class="humanoid-only">Caitian</option>
+                        <option value="#A92902" class="humanoid-only">Kzinti</option>
+                        <option value="#B5BEC8">Grey</option>
+                        <option value="#D9CBD6">Reddish Grey</option>
+                        <option value="#ECC1DB">Pink</option>
+                        <option value="#020101">Black</option>
+                        <option value="#F4F4F6">White</option>
+                    </select>
+                </div>
 
-            <span class="cetaceous-only">
-                <input type="checkbox" id="forehead-bump" >
-                <label for="forehead-bump">Forehead Bump</label>
-            </span>
+                <h3 class="humanoid-only">Ears</h3>
+                <select id="ear-select" class="humanoid-only">
+                    <option value="none">None (Edosian, Saurian, etc)</option>
+                    <option value="round" selected>Round (Human)</option>
+                    <option value="pointy">Pointy (Vulcan, Romulan)</option>
+                    <option value="ferengi">Massive (Ferengi)</option>
+                    <option value="cat">Cat (Caitian, Kzinti)</option>
+                </select>
 
-            <h3 class="cetaceous-only">Nose</h3>
-            <select id="nose-select" class="cetaceous-only">
-                <option value="thick" selected>Thick</option>
-                <option value="small">Small</option>
-                <option value="long">Long</option>
-            </select>
-
-            <h3 class="humanoid-only">Head Features</h3>
-            <select multiple id="head-feature-select" class="humanoid-only">
-                <option value="andorian-antennae">Andorian Antennae</option>
-                <option value="trill-spots">Trill Spots</option>
-                <option value="bird-beak">Bird Beak</option>
-                <option value="bird-tuft">Bird Tuft</option>
-                <option value="gill-wiskers-or-feathers">Gills / Wiskers / Feathers</option>
-                <option value="tellarite-nose">Tellarite Nose</option>
-                <option value="tusks">Tusks</option>
-                <option value="bolian-line">Bolian Line</option>
-                <option value="ferengi-brow">Ferengi Brow</option>
-                <option value="bajoran-earring">Bajoran Earring</option>
-                <option value="nose-ridges">Nose Ridges (Bajorans)</option>
-                <option value="bifurcated-forehead">Bifurcated Forehead</option>
-                <option value="klingon-ridges">Klingon Ridges</option>
-                <option value="denobulan-ridges">Denobulan Ridges</option>
-                <option value="north-romulan-v">North Romulan V Forehead</option>
-                <option value="kelpian-lines">Kelpian Lines</option>
-                <option value="occular-implant">Occular Implant (Cyborg, Ex-Borg)</option>
-                <option value="benzite-nose">Benzite Nose</option>
-                <option value="benzite-breather">Benzite Breather</option>
-                <option value="visor">Visor (ala LaForge's)</option>
-                <option value="sunglasses">Sunglasses</option>
-                <option value="chefs-hat">Chefs Hat</option>
-                <option value="baseball-cap">Baseball Cap</option>
-                <option value="rimmer-h">Rimmer's H</option>
-                <option value="forehead-coin">Forehead Coin</option>
-            </select>
-
-            <div class="andorian-antennae-only">
-                <input type="color" id="andorian-antennae-color" value="#41AACC">
-                <label for="andorian-antennae-color">Antennae</label>
-
-                <span>
-                    <input type="checkbox" id="sync-antennae-with-body" checked >
-                    <label for="sync-antennae-with-body">Sync with body</label>
+                <span class="cetaceous-only">
+                    <input type="checkbox" id="forehead-bump" >
+                    <label for="forehead-bump">Forehead Bump</label>
                 </span>
-            </div>
 
-            <div class="bird-tuft-only">
-                <input type="color" id="bird-tuft-color" value="#745925">
-                <label for="bird-tuft-color">Bird Tuft</label>
+                <h3 class="cetaceous-only">Nose</h3>
+                <select id="nose-select" class="cetaceous-only">
+                    <option value="thick" selected>Thick</option>
+                    <option value="small">Small</option>
+                    <option value="long">Long</option>
+                </select>
 
-                <span>
-                    <input type="checkbox" id="sync-bird-tuft-with-body" checked >
-                    <label for="sync-bird-tuft-with-body">Sync with body</label>
-                </span>
-            </div>
+            </group>
 
-            <div class="wiskers-only">
-                <input type="color" id="wiskers-color" value="#745925">
-                <label for="wiskers-color">Gills / Wiskers / Feathers</label>
+            <group>
+                <h3 class="humanoid-only">Head Features</h3>
+                <select multiple id="head-feature-select" class="humanoid-only">
+                    <option value="andorian-antennae">Andorian Antennae</option>
+                    <option value="trill-spots">Trill Spots</option>
+                    <option value="bird-beak">Bird Beak</option>
+                    <option value="bird-tuft">Bird Tuft</option>
+                    <option value="gill-wiskers-or-feathers">Gills / Wiskers / Feathers</option>
+                    <option value="tellarite-nose">Tellarite Nose</option>
+                    <option value="tusks">Tusks</option>
+                    <option value="bolian-line">Bolian Line</option>
+                    <option value="ferengi-brow">Ferengi Brow</option>
+                    <option value="bajoran-earring">Bajoran Earring</option>
+                    <option value="nose-ridges">Nose Ridges (Bajorans)</option>
+                    <option value="bifurcated-forehead">Bifurcated Forehead</option>
+                    <option value="klingon-ridges">Klingon Ridges</option>
+                    <option value="denobulan-ridges">Denobulan Ridges</option>
+                    <option value="north-romulan-v">North Romulan V Forehead</option>
+                    <option value="kelpian-lines">Kelpian Lines</option>
+                    <option value="occular-implant">Occular Implant (Cyborg, Ex-Borg)</option>
+                    <option value="benzite-nose">Benzite Nose</option>
+                    <option value="benzite-breather">Benzite Breather</option>
+                    <option value="visor">Visor (ala LaForge's)</option>
+                    <option value="sunglasses">Sunglasses</option>
+                    <option value="chefs-hat">Chefs Hat</option>
+                    <option value="baseball-cap">Baseball Cap</option>
+                    <option value="rimmer-h">Rimmer's H</option>
+                    <option value="forehead-coin">Forehead Coin</option>
+                </select>
 
-                <span>
-                    <input type="checkbox" id="sync-wiskers-with-body" >
-                    <label for="sync-wiskers-with-body">Sync with body</label>
-                </span>
-            </div>
+                <div class="andorian-antennae-only">
+                    <input type="color" id="andorian-antennae-color" value="#41AACC">
+                    <label for="andorian-antennae-color">Antennae</label>
 
+                    <span>
+                        <input type="checkbox" id="sync-antennae-with-body" checked >
+                        <label for="sync-antennae-with-body">Sync with body</label>
+                    </span>
+                </div>
 
-            <!-- This is used to force a column break, to keep columns even-ish heights -->
-            <span id="post-body-marker"></span>
+                <div class="bird-tuft-only">
+                    <input type="color" id="bird-tuft-color" value="#745925">
+                    <label for="bird-tuft-color">Bird Tuft</label>
 
+                    <span>
+                        <input type="checkbox" id="sync-bird-tuft-with-body" checked >
+                        <label for="sync-bird-tuft-with-body">Sync with body</label>
+                    </span>
+                </div>
 
-            <h2 id="uniform-header">Uniform</h2>
-            <select id="uniform-select">
-                <optgroup label="Canon">
-                    <option class="humanoid-only">ENT</option>
-                    <option class="humanoid-only">Mid 22nd</option>
-                    <option class="humanoid-only">DISCO 23rd</option>
-                    <option class="humanoid-only">Pre-SNW</option>
-                    <option class="humanoid-only">SNW</option>
-                    <option class="humanoid-only">SNW Minidress</option>
-                    <option class="humanoid-only">TOS</option>
-                    <option class="humanoid-only">TOS Minidress</option>
-                    <option class="non-exocomp">TOS Films Enlisted</option>
-                    <option class="non-exocomp hidden">TOS Films Open</option>
-                    <option class="non-exocomp" value="TOS Films Closed">TOS Films</option>
-                    <option class="non-exocomp">Lost Era</option>
-                    <option class="non-exocomp">TNG Early</option>
-                    <option class="non-exocomp">TNG Early Skant</option>
-                    <option>TNG</option>
-                    <option class="non-exocomp">TNG Cadet</option>
-                    <option selected>VOY DS9</option>
-                    <option>Dominion War</option>
-                    <option>Lower Decks</option>
-                    <option>Prodigy A</option>
-                    <option>Prodigy B</option>
-                    <option>Picard Pre-S1</option>
-                    <option>Picard S1</option>
-                    <option class="non-exocomp">Picard S2 Cadet</option>
-                    <option>Picard S3</option>
-                    <option>Flash-Forwards 25th</option>
-                    <option>VOY Timeship 29th</option>
-                    <option>DISCO 32nd Early</option>
-                    <option>DISCO 32nd Late</option>
-                    <option>DISCO 33rd</option>
-                </optgroup>
+                <div class="wiskers-only">
+                    <input type="color" id="wiskers-color" value="#745925">
+                    <label for="wiskers-color">Gills / Wiskers / Feathers</label>
 
-                <optgroup label="Non-Canon">
-                    <option>IDW 2378</option>
-                    <option>Clear Skies 2410s</option>
-                    <option>STO Odyssey</option>
-                    <option class="no-color-choice">STO Odyssey Commanding</option>
-                    <option class="no-color-choice">STO Odyssey Medical</option>
-                    <option>STO Odyssey Enlisted</option>
-                </optgroup>
+                    <span>
+                        <input type="checkbox" id="sync-wiskers-with-body" >
+                        <label for="sync-wiskers-with-body">Sync with body</label>
+                    </span>
+                </div>
 
-                <optgroup label="Other Series">
-                    <option class="humanoid-only">Galaxy Quest Captain</option>
-                    <option class="humanoid-only">Galaxy Quest Crew</option>
-                    <option class="humanoid-only">Orville</option>
-                    <option class="humanoid-only">Stargate SG-1</option>
-                    <option class="humanoid-only">Stargate Atlantis Early</option>
-                    <option class="humanoid-only">Stargate Atlantis Late</option>
-                </optgroup>
-            </select>
+            </group>
 
-            <div id="uniform-color-section">
-                <input type="color" id="uniform-color" value="#CE3C35">
-                <label for="uniform-color">Color</label>
-                <select id="std-uniform-colors">
-                    <option value="custom" hidden selected></option>
-                    <optgroup label="22nd–23rd (ENT-TAS)">
-                        <option value="#A6A81F">Command</option>
-                        <option value="#CE3C34">Ops / Security</option>
-                        <option value="#476795">Science</option>
-                        <option value="#DAE8EC">Medical</option>
+            <group class="break-before">
+                <h2 id="uniform-header">Uniform</h2>
+                <select id="uniform-select">
+                    <optgroup label="Canon">
+                        <option class="humanoid-only">ENT</option>
+                        <option class="humanoid-only">Mid 22nd</option>
+                        <option class="humanoid-only">DISCO 23rd</option>
+                        <option class="humanoid-only">Pre-SNW</option>
+                        <option class="humanoid-only">SNW</option>
+                        <option class="humanoid-only">SNW Minidress</option>
+                        <option class="humanoid-only">TOS</option>
+                        <option class="humanoid-only">TOS Minidress</option>
+                        <option class="non-exocomp">TOS Films Enlisted</option>
+                        <option class="non-exocomp hidden">TOS Films Open</option>
+                        <option class="non-exocomp" value="TOS Films Closed">TOS Films</option>
+                        <option class="non-exocomp">Lost Era</option>
+                        <option class="non-exocomp">TNG Early</option>
+                        <option class="non-exocomp">TNG Early Skant</option>
+                        <option>TNG</option>
+                        <option class="non-exocomp">TNG Cadet</option>
+                        <option selected>VOY DS9</option>
+                        <option>Dominion War</option>
+                        <option>Lower Decks</option>
+                        <option>Prodigy A</option>
+                        <option>Prodigy B</option>
+                        <option>Picard Pre-S1</option>
+                        <option>Picard S1</option>
+                        <option class="non-exocomp">Picard S2 Cadet</option>
+                        <option>Picard S3</option>
+                        <option>Flash-Forwards 25th</option>
+                        <option>VOY Timeship 29th</option>
+                        <option>DISCO 32nd Early</option>
+                        <option>DISCO 32nd Late</option>
+                        <option>DISCO 33rd</option>
                     </optgroup>
-                    <optgroup label="23rd Metal (DISCO)">
-                        <option value="#968013">Command</option>
-                        <option value="#BE7639">Ops / Security</option>
-                        <option value="#B0B0B0">Science / Medical</option>
+
+                    <optgroup label="Non-Canon">
+                        <option>IDW 2378</option>
+                        <option>Clear Skies 2410s</option>
+                        <option>STO Odyssey</option>
+                        <option class="no-color-choice">STO Odyssey Commanding</option>
+                        <option class="no-color-choice">STO Odyssey Medical</option>
+                        <option>STO Odyssey Enlisted</option>
                     </optgroup>
-                    <optgroup label="23rd–24th (TOS Films)">
-                        <option value="#EEEEEE">Command</option>
-                        <option value="#B68247">Ops</option>
-                        <option value="#625B6D">Science</option>
-                        <option value="#566752">Medical</option>
-                        <option value="#192F20">Security</option>
-                        <option value="#9D0F02">Cadet</option>
-                        <option value="#111111">Enlisted</option>
-                    </optgroup>
-                    <optgroup label="24th/32nd (TNG-DISCO)">
-                        <option value="#CE3C35">Command</option>
-                        <option value="#CEBD37">Ops / Security</option>
-                        <option value="#23BDC0">Science / Medical</option>
-                    </optgroup>
-                    <optgroup label="24th Dark (Picard)">
-                        <option value="#6C1C25">Command</option>
-                        <option value="#6C651E">Ops / Security</option>
-                        <option value="#1E6C6A">Science / Medical</option>
-                    </optgroup>
-                    <optgroup label="Timeship (29th)">
-                        <option value="#222360">Command</option>
-                        <option value="#9B5411">Ops / Security</option>
-                        <option value="#505050">Science / Medical</option>
-                        <option value="#232D25">Other</option>
-                    </optgroup>
-                    <optgroup label="Other">
-                        <option value="#222222">Intellegence</option>
-                        <option value="#515274">STO Intelligence</option>
-                        <option value="#E7E6FC">White</option>
-                        <option value="#F1578B">Pink</option>
-                        <option value="#9687BE">Lilac</option>
-                    </optgroup>
-                    <optgroup label="Galaxy Quest">
-                        <option value="#A92321">Command</option>
-                        <option value="#421D84">Science</option>
-                        <option value="#2A44A5">Other</option>
-                    </optgroup>
-                    <optgroup label="Orville">
-                        <option value="#2678B3">Command</option>
-                        <option value="#8C2029">Security</option>
-                        <option value="#0B523F">Science / Medical</option>
-                        <option value="#E55C41">Engineering</option>
-                    </optgroup>
-                    <optgroup label="Stargate Atlantis">
-                        <option value="#622A38">Admin</option>
-                        <option value="#212322">Military</option>
-                        <option value="#1D433C">Technician</option>
-                        <option value="#3D5667">Science</option>
-                        <option value="#B1A867">Medical</option>
+
+                    <optgroup label="Other Series">
+                        <option class="humanoid-only">Galaxy Quest Captain</option>
+                        <option class="humanoid-only">Galaxy Quest Crew</option>
+                        <option class="humanoid-only">Orville</option>
+                        <option class="humanoid-only">Stargate SG-1</option>
+                        <option class="humanoid-only">Stargate Atlantis Early</option>
+                        <option class="humanoid-only">Stargate Atlantis Late</option>
                     </optgroup>
                 </select>
-            </div>
 
-            <div class="voy-ds9-only">
-                <input type="color" id="uniform-undershirt-color" value="#736576">
-                <label for="uniform-undershirt-color">Undershirt Color</label>
-                <select id="std-uniform-undershirt-colors">
-                    <option value="custom" hidden selected></option>
-                    <option value="#847C8A">Grey</option>
-                    <option value="#736576">Purplish</option>
-                    <option value="#AE90BE">Purple</option>
-                </select>
-            </div>
+                <div id="uniform-color-section">
+                    <input type="color" id="uniform-color" value="#CE3C35">
+                    <label for="uniform-color">Color</label>
+                    <select id="std-uniform-colors">
+                        <option value="custom" hidden selected></option>
+                        <optgroup label="22nd–23rd (ENT-TAS)">
+                            <option value="#A6A81F">Command</option>
+                            <option value="#CE3C34">Ops / Security</option>
+                            <option value="#476795">Science</option>
+                            <option value="#DAE8EC">Medical</option>
+                        </optgroup>
+                        <optgroup label="23rd Metal (DISCO)">
+                            <option value="#968013">Command</option>
+                            <option value="#BE7639">Ops / Security</option>
+                            <option value="#B0B0B0">Science / Medical</option>
+                        </optgroup>
+                        <optgroup label="23rd–24th (TOS Films)">
+                            <option value="#EEEEEE">Command</option>
+                            <option value="#B68247">Ops</option>
+                            <option value="#625B6D">Science</option>
+                            <option value="#566752">Medical</option>
+                            <option value="#192F20">Security</option>
+                            <option value="#9D0F02">Cadet</option>
+                            <option value="#111111">Enlisted</option>
+                        </optgroup>
+                        <optgroup label="24th/32nd (TNG-DISCO)">
+                            <option value="#CE3C35">Command</option>
+                            <option value="#CEBD37">Ops / Security</option>
+                            <option value="#23BDC0">Science / Medical</option>
+                        </optgroup>
+                        <optgroup label="24th Dark (Picard)">
+                            <option value="#6C1C25">Command</option>
+                            <option value="#6C651E">Ops / Security</option>
+                            <option value="#1E6C6A">Science / Medical</option>
+                        </optgroup>
+                        <optgroup label="Timeship (29th)">
+                            <option value="#222360">Command</option>
+                            <option value="#9B5411">Ops / Security</option>
+                            <option value="#505050">Science / Medical</option>
+                            <option value="#232D25">Other</option>
+                        </optgroup>
+                        <optgroup label="Other">
+                            <option value="#222222">Intellegence</option>
+                            <option value="#515274">STO Intelligence</option>
+                            <option value="#E7E6FC">White</option>
+                            <option value="#F1578B">Pink</option>
+                            <option value="#9687BE">Lilac</option>
+                        </optgroup>
+                        <optgroup label="Galaxy Quest">
+                            <option value="#A92321">Command</option>
+                            <option value="#421D84">Science</option>
+                            <option value="#2A44A5">Other</option>
+                        </optgroup>
+                        <optgroup label="Orville">
+                            <option value="#2678B3">Command</option>
+                            <option value="#8C2029">Security</option>
+                            <option value="#0B523F">Science / Medical</option>
+                            <option value="#E55C41">Engineering</option>
+                        </optgroup>
+                        <optgroup label="Stargate Atlantis">
+                            <option value="#622A38">Admin</option>
+                            <option value="#212322">Military</option>
+                            <option value="#1D433C">Technician</option>
+                            <option value="#3D5667">Science</option>
+                            <option value="#B1A867">Medical</option>
+                        </optgroup>
+                    </select>
+                </div>
 
-            <h2 id="hair-header" class="humanoid-only">Hair</h2>
+                <div class="voy-ds9-only">
+                    <input type="color" id="uniform-undershirt-color" value="#736576">
+                    <label for="uniform-undershirt-color">Undershirt Color</label>
+                    <select id="std-uniform-undershirt-colors">
+                        <option value="custom" hidden selected></option>
+                        <option value="#847C8A">Grey</option>
+                        <option value="#736576">Purplish</option>
+                        <option value="#AE90BE">Purple</option>
+                    </select>
+                </div>
 
-            <div class="humanoid-only">
-                <input type="color" id="hair-color" value="#2E230A">
-                <label for="hair-color">Color</label>
-                <select id="std-hair-colors">
-                    <option value="custom" hidden></option>
-                    <option value="#2E230A" selected>Brown</option>
-                    <option value="#EEDF7C">Blonde</option>
-                    <option value="#F0BA3D">Ginger</option>
-                    <option value="#111111">Black</option>
-                    <option value="#F4F4F6">White</option>
-                    <option value="#B5BEC8">Grey</option>
-                    <option value="#290D6B">Purple</option>
-                    <option value="#CF52BE">Pink</option>
-                </select>
-            </div>
+            </group>
 
-            <h3 class="humanoid-only">Facial</h3>
-            <div class="index-list humanoid-only">
-                <select id="facial-hair-select">
-                    <option value="none" selected>None</option>
-                    <option value="mustache-a">Mustache A</option>
-                    <option value="mustache-b">Mustache B</option>
-                    <option value="mustache-c">Mustache C</option>
-                    <option value="mustache-d">Mustache D</option>
-                    <option value="mustache-e">Mustache E</option>
-                    <option value="mustache-f">Mustache F</option>
-                    <option value="mustache-g">Mustache G</option>
-                    <option value="goatee-a">Goatee A</option>
-                    <option value="goatee-b">Goatee B</option>
-                    <option value="goatee-c">Goatee C</option>
-                    <option value="goatee-d">Goatee D</option>
-                    <option value="mutton-chops">Mutton Chops</option>
-                    <option value="sideburns">Sideburns</option>
-                    <option value="line-beard">Line Beard</option>
-                    <option value="wide-beard">Wide Beard</option>
-                    <option value="pointed-beard">Pointed Beard</option>
-                    <option value="long-beard">Long Beard</option>
-                    <option value="beard-and-mustache-a">Beard & Mustache A</option>
-                    <option value="beard-and-mustache-b">Beard & Mustache B</option>
-                    <option value="beard-and-mustache-c">Beard & Mustache C</option>
-                    <option value="beard-and-mustache-d">Beard & Mustache D</option>
-                </select>
-                <button id="facial-hair-next">➜</button>
-            </div>
+            <group>
+                <h2 id="hair-header" class="humanoid-only">Hair</h2>
 
-            <h3 class="humanoid-only">Head</h3>
-            <div class="index-list humanoid-only">
-                <select id="hair-select">
-                    <option value="none" selected>None</option>
-                    <option value="a">A</option>
-                    <option value="b">B</option>
-                    <option value="c">C</option>
-                    <option value="d">D</option>
-                    <option value="e">E</option>
-                    <option value="f">F</option>
-                    <option value="g">G</option>
-                    <option value="h">H</option>
-                    <option value="i">I</option>
-                    <option value="j">J</option>
-                    <option value="k">K</option>
-                    <option value="l">L</option>
-                    <option value="m">M</option>
-                    <option value="n">N</option>
-                    <option value="o">O</option>
-                    <option value="p">P</option>
-                    <option value="q">Q</option>
-                    <option value="r">R</option>
-                    <option value="s">S</option>
-                    <option value="t">T</option>
-                    <option value="u">U</option>
-                </select>
-                <button id="hair-next">➜</button>
-                <label class="toggle-button">
-                    <input id="hair-mirror" type="checkbox" />
-                    <span>⎅</span>
-                </label>
-            </div>
-            <div class="index-list humanoid-only">
-                <select id="rear-hair-select">
-                    <option value="none" selected>None</option>
-                    <option value="a">A</option>
-                    <option value="b">B</option>
-                    <option value="c">C</option>
-                    <option value="d">D</option>
-                    <option value="e">E</option>
-                    <option value="f">F</option>
-                    <option value="g">G</option>
-                    <option value="h">H</option>
-                    <option value="i">I</option>
-                    <option value="j">J</option>
-                    <option value="k">K</option>
-                    <option value="l">L</option>
-                    <option value="m">M</option>
-                    <option value="n">N</option>
-                    <option value="o">O</option>
-                </select>
-                <button id="rear-hair-next">➜</button>
-                <label class="toggle-button" tab-index>
-                    <input id="rear-hair-mirror" type="checkbox" />
-                    <span>⎅</span>
-                </label>
-            </div>
+                <div class="humanoid-only">
+                    <input type="color" id="hair-color" value="#2E230A">
+                    <label for="hair-color">Color</label>
+                    <select id="std-hair-colors">
+                        <option value="custom" hidden></option>
+                        <option value="#2E230A" selected>Brown</option>
+                        <option value="#EEDF7C">Blonde</option>
+                        <option value="#F0BA3D">Ginger</option>
+                        <option value="#111111">Black</option>
+                        <option value="#F4F4F6">White</option>
+                        <option value="#B5BEC8">Grey</option>
+                        <option value="#290D6B">Purple</option>
+                        <option value="#CF52BE">Pink</option>
+                    </select>
+                </div>
+
+                <h3 class="humanoid-only">Facial</h3>
+                <div class="index-list humanoid-only">
+                    <select id="facial-hair-select">
+                        <option value="none" selected>None</option>
+                        <option value="mustache-a">Mustache A</option>
+                        <option value="mustache-b">Mustache B</option>
+                        <option value="mustache-c">Mustache C</option>
+                        <option value="mustache-d">Mustache D</option>
+                        <option value="mustache-e">Mustache E</option>
+                        <option value="mustache-f">Mustache F</option>
+                        <option value="mustache-g">Mustache G</option>
+                        <option value="goatee-a">Goatee A</option>
+                        <option value="goatee-b">Goatee B</option>
+                        <option value="goatee-c">Goatee C</option>
+                        <option value="goatee-d">Goatee D</option>
+                        <option value="mutton-chops">Mutton Chops</option>
+                        <option value="sideburns">Sideburns</option>
+                        <option value="line-beard">Line Beard</option>
+                        <option value="wide-beard">Wide Beard</option>
+                        <option value="pointed-beard">Pointed Beard</option>
+                        <option value="long-beard">Long Beard</option>
+                        <option value="beard-and-mustache-a">Beard & Mustache A</option>
+                        <option value="beard-and-mustache-b">Beard & Mustache B</option>
+                        <option value="beard-and-mustache-c">Beard & Mustache C</option>
+                        <option value="beard-and-mustache-d">Beard & Mustache D</option>
+                    </select>
+                    <button id="facial-hair-next">➜</button>
+                </div>
+
+                <h3 class="humanoid-only">Head</h3>
+                <div class="index-list humanoid-only">
+                    <select id="hair-select">
+                        <option value="none" selected>None</option>
+                        <option value="a">A</option>
+                        <option value="b">B</option>
+                        <option value="c">C</option>
+                        <option value="d">D</option>
+                        <option value="e">E</option>
+                        <option value="f">F</option>
+                        <option value="g">G</option>
+                        <option value="h">H</option>
+                        <option value="i">I</option>
+                        <option value="j">J</option>
+                        <option value="k">K</option>
+                        <option value="l">L</option>
+                        <option value="m">M</option>
+                        <option value="n">N</option>
+                        <option value="o">O</option>
+                        <option value="p">P</option>
+                        <option value="q">Q</option>
+                        <option value="r">R</option>
+                        <option value="s">S</option>
+                        <option value="t">T</option>
+                        <option value="u">U</option>
+                    </select>
+                    <button id="hair-next">➜</button>
+                    <label class="toggle-button">
+                        <input id="hair-mirror" type="checkbox" />
+                        <span>⎅</span>
+                    </label>
+                </div>
+                <div class="index-list humanoid-only">
+                    <select id="rear-hair-select">
+                        <option value="none" selected>None</option>
+                        <option value="a">A</option>
+                        <option value="b">B</option>
+                        <option value="c">C</option>
+                        <option value="d">D</option>
+                        <option value="e">E</option>
+                        <option value="f">F</option>
+                        <option value="g">G</option>
+                        <option value="h">H</option>
+                        <option value="i">I</option>
+                        <option value="j">J</option>
+                        <option value="k">K</option>
+                        <option value="l">L</option>
+                        <option value="m">M</option>
+                        <option value="n">N</option>
+                        <option value="o">O</option>
+                    </select>
+                    <button id="rear-hair-next">➜</button>
+                    <label class="toggle-button" tab-index>
+                        <input id="rear-hair-mirror" type="checkbox" />
+                        <span>⎅</span>
+                    </label>
+                </div>
+
+            </group>
 
         </aside>
 
