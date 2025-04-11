@@ -32,18 +32,6 @@ export function getButtonElement (id) {
 }
 
 /**
- * Get element as HTMLInputElement
- * @param {string} query query to select the element
- * @returns {HTMLInputElement} correctly typed element
- */
-export function queryInputElement (query) {
-    const el = document.querySelector(query)
-    if (el instanceof HTMLInputElement === false)
-        throw new Error(`Page setup incorrectly, ${query} is not a ${HTMLInputElement}`)
-    return el
-}
-
-/**
  * Get element as HTMLSelectElement
  * @param {string} id id of element
  * @returns {HTMLSelectElement} correctly typed element

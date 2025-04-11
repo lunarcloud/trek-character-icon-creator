@@ -1,5 +1,5 @@
 import html2canvas from './lib/html2canvas.esm.js'
-import { getButtonElement, getInputElement, getSelectElement, queryInputElement, queryStyleElement } from './type-helpers.js'
+import { getButtonElement, getInputElement, getSelectElement, queryStyleElement } from './type-helpers.js'
 
 const DEFAULT_UNIFORM = 'VOY DS9'
 
@@ -204,6 +204,11 @@ export class IndexController {
         this.#foreheadBumpCheck = getInputElement('forehead-bump')
 
         this.#facialHairSelect = getSelectElement('facial-hair-select')
+        const facialHairNext = getButtonElement('facial-hair-next')
+        facialHairNext.addEventListener('click', ev => {
+            this.#facialHairSelect.selectedIndex++
+            this.onChangeDetected()
+        })
 
         this.#hairSelect = getSelectElement('hair-select')
         const hairNext = getButtonElement('hair-next')
