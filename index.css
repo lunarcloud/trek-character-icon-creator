@@ -140,21 +140,27 @@ body {
     }
 
     #character-uniform {
-        z-index: 4;
-    }
-
-    #character-facial-hair {
         z-index: 5;
     }
 
-    #character-head-features {
+    #character-facial-hair {
         z-index: 6;
+    }
+
+    #character-head-features {
         grid-template-columns: var(--svg-size) 1fr;
         grid-template-rows: var(--svg-size) 1fr;
 
         & > * {
             position: relative;
             z-index: 7;
+
+            &.underuniform {
+                z-index: 4;
+            }
+            &.overhair {
+                z-index: 9;
+            }
         }
     }
 
@@ -163,7 +169,7 @@ body {
     }
 
     #body-overlay {
-        z-index: 9;
+        z-index: 10;
     }
   }
 

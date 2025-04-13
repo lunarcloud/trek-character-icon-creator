@@ -374,18 +374,19 @@ export class IndexController {
             this.#characterRearHair.classList.toggle('mirrored', this.#rearHairMirror.checked)
 
             // Update the head features
-            const selections = (Array.from(this.#headFeatureSelect.selectedOptions) ?? []).map(e => e.value)
+            const selections = (Array.from(this.#headFeatureSelect.selectedOptions) ?? [])
             this.#characterHeadFeatures.innerHTML = selections.reduce(
-                (accumulator, v) => {
-                    accumulator += IndexController.GenerateSVGHTML(`${bodyShape}/head-features/${v}.svg`)
+                (accumulator, e) => {
+                    accumulator += IndexController.GenerateSVGHTML(`${bodyShape}/head-features/${e.value}.svg`, e.className) // TODO
                     return accumulator
                 }, '')
 
-            if (selections.includes('andorian-antennae'))
+            const selectionNames = selections.map(e => e.value)
+            if (selectionNames.includes('andorian-antennae'))
                 this.#mainEl.classList.add('andorian-antennae')
-            if (selections.includes('bird-tuft'))
+            if (selectionNames.includes('bird-tuft'))
                 this.#mainEl.classList.add('bird-tuft')
-            if (selections.includes('gill-wiskers-or-feathers'))
+            if (selectionNames.includes('gill-wiskers-or-feathers'))
                 this.#mainEl.classList.add('wiskers')
         }
         // Cetaceous-only features
@@ -421,11 +422,12 @@ export class IndexController {
 
     /**
      * Generate a valid svg element to insert.
-     * @param {string} path location of the SVG file.
+     * @param {string} path         location of the SVG file.
+     * @param {string} [className]  classes to apply to the svg element.
      * @returns {string} html
      */
-    static GenerateSVGHTML (path) {
-        return `<svg data-src="${path}" data-cache="disabled" width="512" height="512"></svg>`
+    static GenerateSVGHTML (path, className = "") {
+        return `<svg data-src="${path}" class="${className}" data-cache="disabled" width="512" height="512"></svg>`
     }
 
     /**
