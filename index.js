@@ -2,6 +2,7 @@ import html2canvas from './lib/html2canvas.esm.js'
 import { getButtonElement, getInputElement, getSelectElement, queryStyleElement } from './type-helpers.js'
 
 const DEFAULT_UNIFORM = 'VOY DS9'
+const DEFAULT_MEDUSAN_SUIT = 'Prodigy B'
 
 /**
  * Controller for the Main, Index, Page.
@@ -170,6 +171,16 @@ export class IndexController {
     /**
      * @type {HTMLInputElement}
      */
+    #medusanAltColorCheck
+
+    /**
+     * @type {HTMLInputElement}
+     */
+    #medusanBoxCheck
+
+    /**
+     * @type {HTMLInputElement}
+     */
     #saveBGCheck
 
     /**
@@ -202,6 +213,8 @@ export class IndexController {
         this.#syncBirdTuftWithBodyCheck = getInputElement('sync-bird-tuft-with-body')
         this.#syncWiskersWithBodyCheck = getInputElement('sync-wiskers-with-body')
         this.#foreheadBumpCheck = getInputElement('forehead-bump')
+        this.#medusanAltColorCheck = getInputElement('medusan-alt-color')
+        this.#medusanBoxCheck = getInputElement('medusan-box')
 
         this.#facialHairSelect = getSelectElement('facial-hair-select')
         const facialHairNext = getButtonElement('facial-hair-next')
@@ -229,7 +242,7 @@ export class IndexController {
         this.#saveBGCheck = getInputElement('save-with-bg-checkbox')
 
         // Generically handle all the elements changing
-        const allChangeEls = [this.#shapeSelect, this.#uniformSelect, this.#earSelect, this.#noseSelect, this.#headFeatureSelect, this.#syncAntennaeWithBodyCheck, this.#syncBirdTuftWithBodyCheck, this.#syncWiskersWithBodyCheck, this.#foreheadBumpCheck, this.#hairSelect, this.#facialHairSelect, this.#rearHairSelect, this.#hairMirror, this.#rearHairMirror]
+        const allChangeEls = [this.#shapeSelect, this.#uniformSelect, this.#earSelect, this.#noseSelect, this.#headFeatureSelect, this.#syncAntennaeWithBodyCheck, this.#syncBirdTuftWithBodyCheck, this.#syncWiskersWithBodyCheck, this.#foreheadBumpCheck, this.#medusanAltColorCheck, this.#medusanBoxCheck, this.#hairSelect, this.#facialHairSelect, this.#rearHairSelect, this.#hairMirror, this.#rearHairMirror]
         for (const changeEl of allChangeEls) {
             changeEl.addEventListener('change', () => this.onChangeDetected())
         }
@@ -309,6 +322,8 @@ export class IndexController {
         const el = this.#uniformSelect.querySelectorAll('option')[this.#uniformSelect.selectedIndex]
         if (el instanceof HTMLOptionElement === false)
             return false
+        if (el.parentElement instanceof HTMLOptGroupElement && el.parentElement.hidden === true)
+            return true
         return el.hidden ?? true
     }
 
@@ -342,7 +357,7 @@ export class IndexController {
 
             // If currently selecting a hidden uniform, select the first non-hidden one
             if (this.#isCurrentUniformInvalid())
-                this.#uniformSelect.value = DEFAULT_UNIFORM
+                this.#uniformSelect.value = bodyShape === 'medusan' ? DEFAULT_MEDUSAN_SUIT : DEFAULT_UNIFORM
         }
 
         // Change the body
@@ -389,6 +404,7 @@ export class IndexController {
             if (selectionNames.includes('gill-wiskers-or-feathers'))
                 this.#mainEl.classList.add('wiskers')
         }
+
         // Cetaceous-only features
         if (bodyShape === 'cetaceous') {
             // Change the nose
@@ -397,6 +413,32 @@ export class IndexController {
             this.#characterHeadFeatures.innerHTML = this.#foreheadBumpCheck.checked
                 ? IndexController.GenerateSVGHTML(`${bodyShape}/head-features/forehead-bump.svg`)
                 : ''
+        }
+
+        // Medusan-only features (no if statement, so these can be reset when leaving medusan body type)
+        {
+            // Alternative Coloring
+            this.#characterBody.style.filter = bodyShape === 'medusan' && this.#medusanAltColorCheck.checked
+                ? 'hue-rotate(65deg) contrast(1.5) saturate(0.5)'
+                : ''
+
+            // Box hides the uniform
+            const medusanBox = bodyShape === 'medusan' && this.#medusanBoxCheck.checked
+            this.#uniformSelect.style.visibility = medusanBox ? 'hidden' : 'visible'
+            this.#characterUniform.style.visibility = medusanBox ? 'hidden' : 'visible'
+            document.getElementById('uniform-header').style.visibility = medusanBox ? 'hidden' : 'visible'
+
+            // Box hides the uniform layer
+            this.#characterUniform.style.visibility = bodyShape === 'medusan' && this.#medusanBoxCheck.checked
+                ? 'hidden'
+                : 'visible'
+
+            // Other features
+            if (bodyShape === 'medusan') {
+                this.#characterBody.innerHTML = this.#medusanBoxCheck.checked
+                    ? IndexController.GenerateSVGHTML(`${bodyShape}/body/box.svg`)
+                    : IndexController.GenerateSVGHTML(`${bodyShape}/body/visible.svg`)
+            }
         }
 
         // Update the colors
@@ -426,7 +468,7 @@ export class IndexController {
      * @param {string} [className]  classes to apply to the svg element.
      * @returns {string} html
      */
-    static GenerateSVGHTML (path, className = "") {
+    static GenerateSVGHTML (path, className = '') {
         return `<svg data-src="${path}" class="${className}" data-cache="disabled" width="512" height="512"></svg>`
     }
 

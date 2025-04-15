@@ -24,12 +24,12 @@
                 <style></style>
                 <bg></bg>
                 <div id="character-rear-hair" class="humanoid-only"></div>
-                <div id="character-ears-or-nose" class="non-exocomp"></div>
+                <div id="character-ears-or-nose" class="non-exocomp non-medusan"></div>
                 <div id="character-body"></div>
                 <div id="character-head-features-underuniform" class="humanoid-only"></div>
                 <div id="character-uniform"></div>
                 <div id="character-facial-hair" class="humanoid-only"></div>
-                <div id="character-head-features" class="non-exocomp"></div>
+                <div id="character-head-features" class="non-exocomp non-medusan"></div>
                 <div id="character-hair" class="humanoid-only"></div>
                 <div id="character-head-features-overhair" class="humanoid-only"></div>
                 <div id="body-overlay" class="non-humanoid"></div>
@@ -43,9 +43,10 @@
                     <option value="humanoid">Humanoid</option>
                     <option value="cetaceous">Cetaceous</option>
                     <option value="exocomp">Exocomp</option>
+                    <option value="medusan">Medusan</option>
                 </select>
 
-                <div class="non-exocomp">
+                <div class="non-exocomp non-medusan">
                     <input type="color" id="body-color" value="#FEE4B3">
                     <label for="body-color">Color</label>
                     <select id="std-body-colors">
@@ -76,24 +77,36 @@
                     <option value="ferengi">Massive (Ferengi)</option>
                     <option value="cat">Cat (Caitian, Kzinti)</option>
                 </select>
+            </group>
 
-                <span class="cetaceous-only">
-                    <input type="checkbox" id="forehead-bump" >
-                    <label for="forehead-bump">Forehead Bump</label>
-                </span>
+            <group class="cetaceous-only">
+                <label class="check-label">
+                    <input type="checkbox" id="forehead-bump" />
+                    Forehead Bump
+                </label>
 
-                <h3 class="cetaceous-only">Nose</h3>
-                <select id="nose-select" class="cetaceous-only">
+                <h3>Nose</h3>
+                <select id="nose-select">
                     <option value="thick" selected>Thick</option>
                     <option value="small">Small</option>
                     <option value="long">Long</option>
                 </select>
-
             </group>
 
-            <group>
-                <h3 class="humanoid-only">Head Features</h3>
-                <select multiple id="head-feature-select" class="humanoid-only">
+            <group class="medusan-only">
+                <label class="check-label">
+                    <input type="checkbox" id="medusan-box" />
+                    TOS Transport
+                </label>
+                <label class="check-label">
+                    <input type="checkbox" id="medusan-alt-color" />
+                    Alt Color
+                </label>
+            </group>
+
+            <group class="humanoid-only">
+                <h3>Head Features</h3>
+                <select multiple id="head-feature-select">
                     <option value="andorian-antennae" class="overhair">Andorian Antennae</option>
                     <option value="trill-spots">Trill Spots</option>
                     <option value="bird-beak">Bird Beak</option>
@@ -167,40 +180,45 @@
                         <option class="humanoid-only">SNW Minidress</option>
                         <option class="humanoid-only">TOS</option>
                         <option class="humanoid-only">TOS Minidress</option>
-                        <option class="non-exocomp">TOS Films Enlisted</option>
-                        <option class="non-exocomp hidden">TOS Films Open</option>
-                        <option class="non-exocomp" value="TOS Films Closed">TOS Films</option>
-                        <option class="non-exocomp">Lost Era</option>
-                        <option class="non-exocomp">TNG Early</option>
-                        <option class="non-exocomp">TNG Early Skant</option>
-                        <option>TNG</option>
-                        <option class="non-exocomp">TNG Cadet</option>
-                        <option selected>VOY DS9</option>
-                        <option>Dominion War</option>
-                        <option>Lower Decks</option>
+                        <option class="non-exocomp non-medusan">TOS Films Enlisted</option>
+                        <option class="non-exocomp non-medusan hidden">TOS Films Open</option>
+                        <option class="non-exocomp non-medusan" value="TOS Films Closed">TOS Films</option>
+                        <option class="non-exocomp non-medusan">Lost Era</option>
+                        <option class="non-exocomp non-medusan">TNG Early</option>
+                        <option class="non-exocomp non-medusan">TNG Early Skant</option>
+                        <option class="non-medusan">TNG</option>
+                        <option class="non-exocomp non-medusan">TNG Cadet</option>
+                        <option class="non-medusan" selected>VOY DS9</option>
+                        <option class="non-medusan">Dominion War</option>
+                        <option class="non-medusan">Lower Decks</option>
                         <option>Prodigy A</option>
                         <option>Prodigy B</option>
-                        <option>Picard Pre-S1</option>
-                        <option>Picard S1</option>
-                        <option class="non-exocomp">Picard S2 Cadet</option>
-                        <option>Picard S3</option>
-                        <option>Flash-Forwards 25th</option>
-                        <option>VOY Timeship 29th</option>
-                        <option>DISCO 32nd Early</option>
-                        <option>DISCO 32nd Late</option>
-                        <option>DISCO 33rd</option>
+                        <option class="non-medusan">Picard Pre-S1</option>
+                        <option class="non-medusan">Picard S1</option>
+                        <option class="non-exocomp non-medusan">Picard S2 Cadet</option>
+                        <option class="non-medusan">Picard S3</option>
+                        <option class="non-medusan">Flash-Forwards 25th</option>
+                        <option class="non-medusan">VOY Timeship 29th</option>
+                        <option class="non-medusan">DISCO 32nd Early</option>
+                        <option class="non-medusan">DISCO 32nd Late</option>
+                        <option class="non-medusan">DISCO 33rd</option>
                     </optgroup>
 
-                    <optgroup label="Non-Canon">
-                        <option>IDW 2378</option>
-                        <option>Clear Skies 2410s</option>
-                        <option>STO Odyssey</option>
-                        <option class="no-color-choice">STO Odyssey Commanding</option>
-                        <option class="no-color-choice">STO Odyssey Medical</option>
-                        <option>STO Odyssey Enlisted</option>
+                    <optgroup label="Canon Non-Uniform">
+                        <option class="medusan-only no-color-choice">Civilian Casual</option>
+                        <option class="humanoid-only no-color-choice">Cardassian</option>
                     </optgroup>
 
-                    <optgroup label="Other Series">
+                    <optgroup label="Non-Canon" class="non-medusan">
+                        <option class="non-medusan">IDW 2378</option>
+                        <option class="non-medusan">Clear Skies 2410s</option>
+                        <option class="non-medusan">STO Odyssey</option>
+                        <option class="non-medusan no-color-choice">STO Odyssey Commanding</option>
+                        <option class="non-medusan no-color-choice">STO Odyssey Medical</option>
+                        <option class="non-medusan">STO Odyssey Enlisted</option>
+                    </optgroup>
+
+                    <optgroup label="Other Series" class="humanoid-only">
                         <option class="humanoid-only">Galaxy Quest Captain</option>
                         <option class="humanoid-only">Galaxy Quest Crew</option>
                         <option class="humanoid-only">Orville</option>
@@ -210,7 +228,7 @@
                     </optgroup>
                 </select>
 
-                <div id="uniform-color-section">
+                <div id="uniform-color-section" class="non-medusan">
                     <input type="color" id="uniform-color" value="#CE3C35">
                     <label for="uniform-color">Color</label>
                     <select id="std-uniform-colors">
@@ -292,10 +310,10 @@
 
             </group>
 
-            <group>
-                <h2 id="hair-header" class="humanoid-only">Hair</h2>
+            <group class="humanoid-only">
+                <h2 id="hair-header">Hair</h2>
 
-                <div class="humanoid-only">
+                <div>
                     <input type="color" id="hair-color" value="#2E230A">
                     <label for="hair-color">Color</label>
                     <select id="std-hair-colors">
@@ -311,8 +329,8 @@
                     </select>
                 </div>
 
-                <h3 class="humanoid-only">Facial</h3>
-                <div class="index-list humanoid-only">
+                <h3>Facial</h3>
+                <div class="index-list">
                     <select id="facial-hair-select">
                         <option value="none" selected>None</option>
                         <option value="mustache-a">Mustache A</option>
@@ -340,8 +358,8 @@
                     <button id="facial-hair-next">➜</button>
                 </div>
 
-                <h3 class="humanoid-only">Head</h3>
-                <div class="index-list humanoid-only">
+                <h3>Head</h3>
+                <div class="index-list">
                     <select id="hair-select">
                         <option value="none" selected>None</option>
                         <option value="a">A</option>
@@ -372,7 +390,7 @@
                         <span>⎅</span>
                     </label>
                 </div>
-                <div class="index-list humanoid-only">
+                <div class="index-list">
                     <select id="rear-hair-select">
                         <option value="none" selected>None</option>
                         <option value="a">A</option>
