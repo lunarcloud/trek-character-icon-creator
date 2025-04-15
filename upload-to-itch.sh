@@ -12,6 +12,7 @@ cp -r fonts $EXPORT
 cp -r cetaceous $EXPORT
 cp -r humanoid $EXPORT
 cp -r exocomp $EXPORT
+cp -r medusan $EXPORT
 
 echo Uploading to Itch...
 butler -v push $EXPORT "samsarette/simple-trekkie-character-creator:web"
