@@ -15,7 +15,7 @@ cp -r exocomp $EXPORT
 cp -r medusan $EXPORT
 
 echo Uploading to Itch...
-butler -v push $EXPORT "samsarette/simple-trekkie-character-creator:web"
+butler -v push $EXPORT "samsarette/simple-trekkie-character-creator:web" --if-changed
 
 echo Cleanup...
 rm -r $EXPORT
