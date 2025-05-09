@@ -110,6 +110,7 @@ body {
     margin-bottom: 1em;
     padding: 1em 0;
     display: flex;
+    height: auto;
     height: fit-content;
   }
 

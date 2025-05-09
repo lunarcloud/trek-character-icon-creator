@@ -1,0 +1,21 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created using Krita: https://krita.org -->
+<svg xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:krita="http://krita.org/namespaces/svg/krita"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    width="512pt"
+    height="512pt"
+    viewBox="0 0 512 512">
+    <style>
+        .uniform-color {
+            color: #6C1C25;
+        }
+    </style>
+<defs/>
+<path id="shape0" transform="translate(132.575571713037, 256.162500997996)" fill="currentColor" class="uniform-color" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M8.9388 19.875C117.789 35.3125 210.976 14.8125 260.751 0C285.701 59.2937 288.326 213.158 273.689 256C222.464 256 137.089 256 17.5638 256C-2.49869 149.346 -5.37369 70.6375 8.9388 19.875Z" sodipodi:nodetypes="ccccc"/><path id="shape1" transform="translate(131.939801434553, 336.249973798763)" fill="#000000" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M0.62268 40.875C-1.81482 69.725 2.90393 114.683 14.7789 175.75L277.748 175.75C287.36 105.183 288.735 53.975 281.873 22.125C279.248 17.7 274.873 10.325 268.748 0L102.779 18.9062L99.3124 47.274L95.1542 18.8892L14.6852 16.6875C8.12268 27.975 3.43518 36.0375 0.62268 40.875Z" sodipodi:nodetypes="cccccccccc"/><path id="shape2" transform="translate(130.256450944787, 256)" fill="#4a4a4a" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M92.5873 38.8125C93.5705 52.4808 94.9168 79.3894 97.1417 100.625C97.3457 100.62 103.612 100.541 103.926 100.59C105.374 79.9172 106.974 53.3339 108.728 39.75C127.275 38.7781 248.019 19.5281 262.837 0C277.481 17.675 284.325 48.4875 285.244 108.563C280.844 108.728 261.117 107.149 226.061 103.825L206.782 122.653L185.619 98.25L22.7435 102.812L2.30603 144.687C-1.94813 91.4827 -1.19289 33.1651 12.1029 18.7031C42.6123 37.9125 76.1904 37.8656 92.5873 38.8125Z" sodipodi:nodetypes="ccccccccccccc"/><path id="shape21" transform="translate(130.796873944681, 352.970651019667)" fill="#ffffff" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M102.812 8.23242L185.22 8.2435L206.828 31.7949L234 14.8575L284.578 13.295L284.438 5.51372L228.516 5.79497L207.5 18.2793L188 0.826222L103.386 0M96.827 0.130707L20.8282 0.279342L0 36.5918L1.6875 47.9824L24.7088 7.98155L97.1641 8.00588" sodipodi:nodetypes="cccccccccccccccc"/><g id="group0" transform="matrix(1.27846939962136 0 0 1.27846939962136 263.955414275437 370.812986652184)" fill="none">
+  <path id="shape011" transform="matrix(0.0240839166483355 0 0 0.0240839166483355 -3.40073654570006e-07 7.50075658424538)" fill="#a37e28" fill-rule="evenodd" stroke="#000000" stroke-width="31.8" stroke-linecap="square" stroke-linejoin="bevel" d="M1007.29 0C983.269 4.87333 154.107 5.67945 129.374 2.65505C22.9873 80.7377 -56.9535 319.701 52.0404 402.239C192.175 438.066 925.272 437.49 1092.93 402.239C1174.59 381.617 1110.47 78.1696 1007.29 0Z" sodipodi:nodetypes="ccccc"/>
+  <path id="shape02" transform="matrix(0.0229492777015907 0 0 0.0229492777015907 1.34500707979851 0)" fill="#b2b2b2" stroke="#000000" stroke-width="48" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2.16000008583069" d="M549.065 0C288.677 436.964 105.655 888.013 0 1353.15L36.8011 1371.94C240.478 1070.25 472.297 921.381 732.257 925.339C744.677 936.217 931.709 1051.71 990.954 1207.01C997.726 1204.64 1009.01 1202.86 1024.81 1201.65C928.711 808.63 770.128 408.079 549.065 0Z" sodipodi:nodetypes="ccccccc"/>
+ </g>
+</svg>
