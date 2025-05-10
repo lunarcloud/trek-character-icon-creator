@@ -59,6 +59,7 @@
                         <option value="#B6AEAC" class="humanoid-only">Aenar</option>
                         <option value="#98F69C" class="humanoid-only">Lighter Orion</option>
                         <option value="#67763E" class="humanoid-only">Darker Orion</option>
+                        <option value="#00B3B8" class="humanoid-only">Blue Orion</option>
                         <option value="#B3673D" class="humanoid-only">Caitian</option>
                         <option value="#A92902" class="humanoid-only">Kzinti</option>
                         <option value="#B5BEC8">Grey</option>
@@ -106,34 +107,54 @@
 
             <group class="humanoid-only">
                 <h3>Head Features</h3>
-                <select multiple id="head-feature-select">
-                    <option value="andorian-antennae" class="overhair">Andorian Antennae</option>
-                    <option value="trill-spots">Trill Spots</option>
-                    <option value="bird-beak">Bird Beak</option>
-                    <option value="bird-tuft">Bird Tuft</option>
-                    <option value="gill-wiskers-or-feathers">Gills / Wiskers / Feathers</option>
-                    <option value="tellarite-nose">Tellarite Nose</option>
-                    <option value="tusks">Tusks</option>
-                    <option value="bolian-line">Bolian Line</option>
-                    <option value="ferengi-brow">Ferengi Brow</option>
-                    <option value="bajoran-earring">Bajoran Earring</option>
-                    <option value="nose-ridges">Nose Ridges (Bajorans)</option>
-                    <option value="bifurcated-forehead">Bifurcated Forehead</option>
-                    <option value="klingon-ridges">Klingon Ridges</option>
-                    <option value="cardassian-forehead">Cardassian Forehead</option>
-                    <option value="cardassian-neck" class="underuniform">Cardassian Neck</option>
-                    <option value="denobulan-ridges">Denobulan Ridges</option>
-                    <option value="north-romulan-v">North Romulan V Forehead</option>
-                    <option value="kelpian-lines">Kelpian Lines</option>
-                    <option value="occular-implant">Occular Implant (Cyborg, Ex-Borg)</option>
-                    <option value="benzite-nose">Benzite Nose</option>
-                    <option value="benzite-breather">Benzite Breather</option>
-                    <option value="visor" class="overhair">Visor (ala LaForge's)</option>
-                    <option value="sunglasses" class="overhair">Sunglasses</option>
-                    <option value="chefs-hat" class="overhair">Chefs Hat</option>
-                    <option value="baseball-cap" class="overhair">Baseball Cap</option>
-                    <option value="rimmer-h" class="overhair">Rimmer's H</option>
-                    <option value="forehead-coin">Forehead Coin</option>
+                    <select multiple id="head-feature-select">
+                    <optgroup label="Species Traits">
+                        <option value="andorian-antennae" class="overhair">Andorian Antennae</option>
+                        <option value="bolian-line">Bolian Line</option>
+                        <option value="ferengi-brow">Ferengi Brow</option>
+                        <option value="trill-spots">Trill Spots</option>
+                        <option value="bird-beak">Bird Beak</option>
+                        <option value="bird-tuft">Bird Tuft</option>
+                        <option value="gill-wiskers-or-feathers">Gills / Wiskers / Feathers</option>
+                        <option value="tellarite-nose">Tellarite Nose</option>
+                        <option value="tusks">Tusks</option>
+                        <option value="benzite-nose">Benzite Nose</option>
+                        <option value="nose-ridges">Nose Ridges (Bajorans)</option>
+                        <option value="bifurcated-forehead">Bifurcated Forehead</option>
+                        <option value="klingon-ridges">Klingon Ridges</option>
+                        <option value="cardassian-forehead">Cardassian Forehead</option>
+                        <option value="cardassian-neck" class="underuniform">Cardassian Neck</option>
+                        <option value="denobulan-ridges">Denobulan Ridges</option>
+                        <option value="north-romulan-v">North Romulan V Forehead</option>
+                        <option value="kelpian-lines">Kelpian Lines</option>
+                    </optgroup>
+                    <optgroup label="Jewelry & Technology">
+                        <option value="bajoran-earring">Bajoran Earring</option>
+                        <option value="occular-implant">Occular Implant (Cyborg, Ex-Borg)</option>
+                        <option value="benzite-breather">Benzite Breather</option>
+                        <option value="rimmer-h" class="overhair">Rimmer's H</option>
+                        <option value="forehead-coin">Forehead Coin</option>
+                    </optgroup>
+                    <optgroup label="Hats / Helmets">
+                        <option value="romulan-23rd-helmet" class="overhair">Romulan 23rd Helmet</option>
+                        <option value="blue-orion-helmet" class="overhair">Blue Orion Helmet</option>
+                        <option value="chefs-hat" class="overhair">Chefs Hat</option>
+                        <option value="baseball-cap" class="overhair">Baseball Cap</option>
+                        <option value="baseball-cap-ds9ers" class="overhair">DS9ers Baseball Cap</option>
+                        <option value="baseball-cap-nx01" class="overhair">NX-01 Baseball Cap</option>
+                        <option value="guinan-hat" class="overhair">Guinan's Hat</option>
+                        <option value="bajoran-vedic-hat" class="overhair">Bajoran Vedic's Hat</option>
+                        <option value="bajoran-kai-hat-a" class="overhair">Bajoran Kai Opaka's Hat</option>
+                        <option value="bajoran-kai-hat-b" class="overhair">Bajoran Kai Winn's Hat</option>
+                        <option value="gangster-hat" class="overhair">Trilby (Gasgster Hat)</option>
+                        <option value="western-hat" class="overhair">Western Hat</option>
+                        <option value="top-hat" class="overhair">Top Hat</option>
+                    </optgroup>
+                    <optgroup label="Over-Eyes">
+                        <option value="visor" class="overhair">Visor (ala LaForge's)</option>
+                        <option value="sunglasses" class="overhair">Sunglasses</option>
+                        <option value="blue-orion-mask" class="overhair">Blue Orion Mask</option>
+                    </optgroup>
                 </select>
 
                 <div class="andorian-antennae-only">
@@ -171,7 +192,7 @@
             <group class="break-before">
                 <h2 id="uniform-header">Uniform</h2>
                 <select id="uniform-select">
-                    <optgroup label="Canon">
+                    <optgroup label="Starfleet">
                         <option class="humanoid-only">ENT</option>
                         <option class="humanoid-only">Mid 22nd</option>
                         <option class="humanoid-only">DISCO 23rd</option>
@@ -206,13 +227,39 @@
                         <option class="non-medusan">DISCO 33rd</option>
                     </optgroup>
 
-                    <optgroup label="Canon Non-Starfleet">
+                    <optgroup label="Casual">
                         <option>None</option>
                         <option class="medusan-only">Civilian Casual</option>
-                        <option class="humanoid-only no-color-choice">Cardassian</option>
+                        <option class="humanoid-only no-color-choice">Civilian Federation A</option>
+                        <option class="humanoid-only no-color-choice">Civilian Federation B</option>
+                        <option class="humanoid-only no-color-choice">Civilian Federation C</option>
+                        <option class="humanoid-only no-color-choice">Civilian Federation D</option>
+                        <option class="humanoid-only no-color-choice">Civilian Federation E</option>
+                        <option class="humanoid-only no-color-choice">Civilian Ferengi 24th</option>
+                        <option class="humanoid-only no-color-choice">Leather Jacket Courrier</option>
+                        <option class="humanoid-only no-color-choice">Leather Jacket Spy</option>
+                        <option class="humanoid-only no-color-choice">Orion Casual A</option>
+                        <option class="humanoid-only no-color-choice">Orion Casual B</option>
                     </optgroup>
 
-                    <optgroup label="Non-Canon" class="non-medusan">
+                    <optgroup label="Other Militia" class="humanoid-only">
+                        <option class="humanoid-only no-color-choice">Andorian 22nd</option>
+                        <option class="humanoid-only no-color-choice">Andorian 23rd</option>
+                        <option class="humanoid-only no-color-choice">Cardassian Early 24th</option>
+                        <option class="humanoid-only no-color-choice">Cardassian 24th</option>
+                        <option class="humanoid-only no-color-choice">Ferengi Early 24th</option>
+                        <option class="humanoid-only no-color-choice">Ferengi Mid 24th</option>
+                        <option class="humanoid-only no-color-choice">Klingon Early 23rd</option>
+                        <option class="humanoid-only no-color-choice">Klingon 23rd</option>
+                        <option class="humanoid-only no-color-choice">Klingon 24th</option>
+                        <option class="humanoid-only no-color-choice">Klingon Bekk 24th</option>
+                        <option class="humanoid-only no-color-choice">Orion Blue</option>
+                        <option class="humanoid-only no-color-choice">Romulan 23rd</option>
+                        <option class="humanoid-only no-color-choice">Romulan 24th</option>
+                        <option class="humanoid-only no-color-choice">Romulan Late 24th</option>
+                    </optgroup>
+
+                    <optgroup label="Non-Canon Starfleet" class="non-medusan">
                         <option class="non-medusan">IDW 2378</option>
                         <option class="non-medusan">Clear Skies 2410s</option>
                         <option class="non-medusan">STO Odyssey</option>

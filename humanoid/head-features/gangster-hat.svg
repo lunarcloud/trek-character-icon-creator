@@ -1,0 +1,13 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created using Krita: https://krita.org -->
+<svg xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:krita="http://krita.org/namespaces/svg/krita"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    width="512pt"
+    height="512pt"
+    viewBox="0 0 512 512">
+<defs/>
+<path id="shape0" transform="translate(138.499994496559, 12.9999994834315)" fill="#cacde0" fill-rule="evenodd" d="M0 115L22 12.5C46.3597 3.1229 91.0085 2.42718 96.5 0C103.168 2.35142 172.178 5.35439 202.25 12L231.5 140Z" sodipodi:nodetypes="cccccc"/><path id="shape1" transform="translate(97.0950902744053, 106.223472003685)" fill="#cacde0" fill-rule="evenodd" d="M17.2799 11.214C66.699 -4.54922 237.204 -12.0891 294.78 47.2765C305.745 54.2224 306.083 61.2356 293.592 64.464C163.602 70.3955 59.7465 50.9794 15.4049 39.0265C-5.32803 25.057 -5.55125 19.1735 17.2799 11.214Z" sodipodi:nodetypes="ccccc"/><path id="shape2" transform="translate(134.499994655503, 85.4999966025687)" fill="#000000" fill-rule="evenodd" d="M12.5 0L225.5 21.25L235.75 69.75L0 46.5Z" sodipodi:nodetypes="ccccc"/><path id="shape3" transform="translate(238.999931848432, 20.9989559192231)" sodipodi:type="arc" sodipodi:rx="37.5" sodipodi:ry="36" sodipodi:cx="37.5000681515676" sodipodi:cy="36.0010440807768" sodipodi:start="2.62949277841249" sodipodi:end="4.87104417925393" sodipodi:open="true" d="M43.4247 0.453181C29.2172 -1.72909 14.9618 4.0849 6.73485 15.4169C-1.49207 26.7489 -2.23969 41.6006 4.81066 53.6414" fill="none" stroke-opacity="0.364705882352941" stroke="#878787" stroke-width="3" stroke-linecap="square" stroke-linejoin="bevel"/><path id="shape4" transform="translate(196.867706198588, 25.2494363999292)" sodipodi:type="arc" sodipodi:rx="23.5" sodipodi:ry="30.5" sodipodi:cx="2.38229313583343" sodipodi:cy="30.5005635504007" sodipodi:start="4.61084036408076" sodipodi:end="0.604631148496575" sodipodi:open="true" d="M21.716 47.8386C26.9271 38.0502 27.277 25.2225 22.6123 14.9804C17.9476 4.73831 9.11982 -1.04843 -1.33227e-15 0.157688" fill="none" stroke-opacity="0.364705882352941" stroke="#878787" stroke-width="3" stroke-linecap="square" stroke-linejoin="bevel"/>
+</svg>
