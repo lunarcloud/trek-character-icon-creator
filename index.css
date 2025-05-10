@@ -265,6 +265,11 @@ select[multiple] option {
   }
 }
 
+body header {
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+}
 
 /* Vertical mode for Mobile/Small/Narrow */
 @media screen and (width <= 899px) {
@@ -277,12 +282,6 @@ select[multiple] option {
         inset: 0;
         margin: 0;
         grid-template-rows: var(--header-size) 1fr var(--footer-size);
-
-        & header {
-            visibility: hidden;
-            height: 0;
-            overflow: hidden;
-        }
 
         & main {
             position: absolute;
@@ -359,9 +358,6 @@ body.saving {
       display: unset;
       visibility: unset;
       height: max-content;
-    }
-
-    header {
       grid-row: 1;
       grid-column: 1 / 3;
     }
