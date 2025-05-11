@@ -111,7 +111,7 @@ export class IndexController {
     /**
      * @type {HTMLSelectElement}
      */
-    #orvilleBadgePicker
+    #orvilleBadgeSelect
 
     /**
      * @type {HTMLSelectElement}
@@ -219,7 +219,7 @@ export class IndexController {
         this.#earSelect = getSelectElement('ear-select')
         this.#noseSelect = getSelectElement('nose-select')
         this.#headFeatureSelect = getSelectElement('head-feature-select')
-        this.#orvilleBadgePicker = getSelectElement('orville-badge-select')
+        this.#orvilleBadgeSelect = getSelectElement('orville-badge-select')
 
         this.#syncAntennaeWithBodyCheck = getInputElement('sync-antennae-with-body')
         this.#syncBirdTuftWithBodyCheck = getInputElement('sync-bird-tuft-with-body')
@@ -254,7 +254,7 @@ export class IndexController {
         this.#saveBGCheck = getInputElement('save-with-bg-checkbox')
 
         // Generically handle all the elements changing
-        const allChangeEls = [this.#shapeSelect, this.#uniformSelect, this.#earSelect, this.#noseSelect, this.#headFeatureSelect, this.#syncAntennaeWithBodyCheck, this.#syncBirdTuftWithBodyCheck, this.#syncWiskersWithBodyCheck, this.#foreheadBumpCheck, this.#medusanAltColorCheck, this.#medusanBoxCheck, this.#hairSelect, this.#facialHairSelect, this.#rearHairSelect, this.#hairMirror, this.#rearHairMirror]
+        const allChangeEls = [this.#shapeSelect, this.#uniformSelect, this.#earSelect, this.#noseSelect, this.#headFeatureSelect, this.#orvilleBadgeSelect, this.#syncAntennaeWithBodyCheck, this.#syncBirdTuftWithBodyCheck, this.#syncWiskersWithBodyCheck, this.#foreheadBumpCheck, this.#medusanAltColorCheck, this.#medusanBoxCheck, this.#hairSelect, this.#facialHairSelect, this.#rearHairSelect, this.#hairMirror, this.#rearHairMirror]
         for (const changeEl of allChangeEls) {
             changeEl.addEventListener('change', () => this.onChangeDetected())
         }
@@ -398,7 +398,7 @@ export class IndexController {
             this.#characterFacialHair.innerHTML = IndexController.GenerateSVGHTML(`${bodyShape}/facial-hair/${this.#facialHairSelect.value}.svg`)
 
             this.#characterExtraOverlay.innerHTML = uniformClassList.contains('orville-badge-choice')
-                ? IndexController.GenerateSVGHTML(`${bodyShape}/extra/${this.#orvilleBadgePicker.value}.svg`)
+                ? IndexController.GenerateSVGHTML(`${bodyShape}/extra/Orville ${this.#orvilleBadgeSelect.value}.svg`)
                 : ''
 
             // Handle hair mirroring

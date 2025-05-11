@@ -188,6 +188,10 @@ body {
     #body-overlay {
         z-index: 10;
     }
+
+    #extra-overlay {
+        z-index: 11;
+    }
   }
 
   character,
