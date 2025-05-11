@@ -33,6 +33,7 @@
                 <div id="character-hair" class="humanoid-only"></div>
                 <div id="character-head-features-overhair" class="humanoid-only"></div>
                 <div id="body-overlay" class="non-humanoid"></div>
+                <div id="extra-overlay" class="humanoid-only"></div>
             </character>
         </main>
 
@@ -211,7 +212,7 @@
                         <option class="non-exocomp non-medusan">TNG Early Skant</option>
                         <option class="non-medusan">TNG</option>
                         <option class="non-exocomp non-medusan">TNG Cadet</option>
-                        <option class="non-medusan" selected>VOY DS9</option>
+                        <option class="non-medusan undershirt-color-choice" selected>VOY DS9</option>
                         <option class="non-medusan no-color-choice">VOY Hazard Team</option>
                         <option class="non-medusan">Dominion War</option>
                         <option class="non-medusan">Lower Decks</option>
@@ -232,12 +233,12 @@
                     <optgroup label="Casual">
                         <option>None</option>
                         <option class="medusan-only">Civilian Casual</option>
-                        <option class="humanoid-only no-color-choice">Civilian Federation A</option>
-                        <option class="humanoid-only no-color-choice">Civilian Federation B</option>
-                        <option class="humanoid-only no-color-choice">Civilian Federation C</option>
-                        <option class="humanoid-only no-color-choice">Civilian Federation D</option>
+                        <option class="humanoid-only">Civilian Federation A</option>
+                        <option class="humanoid-only">Civilian Federation B</option>
+                        <option class="humanoid-only undershirt-color-choice">Civilian Federation C</option>
+                        <option class="humanoid-only">Civilian Federation D</option>
                         <option class="humanoid-only no-color-choice">Civilian Federation E</option>
-                        <option class="humanoid-only no-color-choice">Civilian Ferengi 24th</option>
+                        <option class="humanoid-only">Civilian Ferengi 24th</option>
                         <option class="humanoid-only no-color-choice">Leather Jacket Courrier</option>
                         <option class="humanoid-only no-color-choice">Leather Jacket Spy</option>
                         <option class="humanoid-only no-color-choice">Orion Casual A</option>
@@ -256,7 +257,7 @@
                         <option class="humanoid-only no-color-choice">Klingon 24th</option>
                         <option class="humanoid-only no-color-choice">Klingon Bekk 24th</option>
                         <option class="humanoid-only no-color-choice">Orion Blue</option>
-                        <option class="humanoid-only no-color-choice">Romulan 23rd</option>
+                        <option class="humanoid-only">Romulan 23rd</option>
                         <option class="humanoid-only no-color-choice">Romulan 24th</option>
                         <option class="humanoid-only no-color-choice">Romulan Late 24th</option>
                         <option class="humanoid-only no-color-choice">Breen 24th</option>
@@ -275,7 +276,7 @@
                     <optgroup label="Other Series" class="humanoid-only">
                         <option class="humanoid-only">Galaxy Quest Captain</option>
                         <option class="humanoid-only">Galaxy Quest Crew</option>
-                        <option class="humanoid-only">Orville</option>
+                        <option class="humanoid-only orville-badge-choice">Orville</option>
                         <option class="humanoid-only">Stargate SG-1</option>
                         <option class="humanoid-only">Stargate Atlantis Early</option>
                         <option class="humanoid-only">Stargate Atlantis Late</option>
@@ -324,11 +325,18 @@
                             <option value="#232D25">Other</option>
                         </optgroup>
                         <optgroup label="Other">
+                            <option value="#7e1848">Romulan Sash</option>
                             <option value="#222222">Intellegence</option>
                             <option value="#515274">STO Intelligence</option>
                             <option value="#E7E6FC">White</option>
                             <option value="#F1578B">Pink</option>
-                            <option value="#9687BE">Lilac</option>
+                            <option value="#62226c">Purple</option>
+                            <option value="#ae3208">Orange</option>
+                            <option value="#de6a62">Salmon</option>
+                            <option value="#2f4a2f">Forest Green</option>
+                            <option value="#363e6a">Midnight Blue</option>
+                            <option value="#6ba09f">Blue Fog</option>
+                            <option value="#cd3b1e">Red Orange</option>
                         </optgroup>
                         <optgroup label="Galaxy Quest">
                             <option value="#A92321">Command</option>
@@ -351,14 +359,25 @@
                     </select>
                 </div>
 
-                <div class="voy-ds9-only">
+                <div class="undershirt-color-choice-only">
                     <input type="color" id="uniform-undershirt-color" value="#736576">
                     <label for="uniform-undershirt-color">Undershirt Color</label>
                     <select id="std-uniform-undershirt-colors">
-                        <option value="custom" hidden selected></option>
-                        <option value="#847C8A">Grey</option>
+                        <option value="custom" hidden></option>
+                        <option value="#718085" selected>Stone Grey</option>
+                        <option value="#847C8A">Nearly Grey Purple</option>
                         <option value="#736576">Purplish</option>
                         <option value="#AE90BE">Purple</option>
+                    </select>
+                </div>
+
+                <div class="hidden orville-badge-choice-only">
+                    <label for="orville-badge-select">Badge</label>
+                    <select id="orville-badge-select">
+                        <option>Command</option>
+                        <option>Security</option>
+                        <option value="Science">Science / Medical</option>
+                        <option value="Engineering">Engineering</option>
                     </select>
                 </div>
 

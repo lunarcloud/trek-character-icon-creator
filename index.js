@@ -56,6 +56,11 @@ export class IndexController {
     /**
      * @type {HTMLElement}
      */
+    #characterExtraOverlay
+
+    /**
+     * @type {HTMLElement}
+     */
     #characterUniform
 
     /**
@@ -102,6 +107,11 @@ export class IndexController {
      * @type {HTMLSelectElement}
      */
     #uniformSelect
+
+    /**
+     * @type {HTMLSelectElement}
+     */
+    #orvilleBadgePicker
 
     /**
      * @type {HTMLSelectElement}
@@ -198,6 +208,7 @@ export class IndexController {
         this.#characterFacialHair = document.getElementById('character-facial-hair')
         this.#characterUniform = document.getElementById('character-uniform')
         this.#bodyOverlay = document.getElementById('body-overlay')
+        this.#characterExtraOverlay = document.getElementById('extra-overlay')
 
         // Selection Elements
         this.#shapeSelect = getSelectElement('body-shape')
@@ -208,6 +219,7 @@ export class IndexController {
         this.#earSelect = getSelectElement('ear-select')
         this.#noseSelect = getSelectElement('nose-select')
         this.#headFeatureSelect = getSelectElement('head-feature-select')
+        this.#orvilleBadgePicker = getSelectElement('orville-badge-select')
 
         this.#syncAntennaeWithBodyCheck = getInputElement('sync-antennae-with-body')
         this.#syncBirdTuftWithBodyCheck = getInputElement('sync-bird-tuft-with-body')
@@ -367,12 +379,13 @@ export class IndexController {
         // Change the uniform
         this.#characterUniform.innerHTML = IndexController.GenerateSVGHTML(`${bodyShape}/uniform/${this.#uniformSelect.value}.svg`)
 
-        // Allow for uniform-specific options
-        if (this.#uniformSelect.value === 'VOY DS9')
-            this.#mainEl.classList.add('voy-ds9')
+        const uniformClassList = this.#uniformSelect.selectedOptions[0].classList
 
-        if (this.#uniformSelect.selectedOptions[0].classList.contains('no-color-choice'))
-            this.#mainEl.classList.add('no-uniform-color')
+        // No uniform-specific options (mostly about color)
+        this.#mainEl.classList.toggle('no-uniform-color', uniformClassList.contains('no-color-choice'))
+        this.#mainEl.classList.toggle('undershirt-color-choice', uniformClassList.contains('undershirt-color-choice'))
+        const extraOverlay = this.#mainEl.classList.toggle('orville-badge-choice', uniformClassList.contains('orville-badge-choice'))
+        this.#mainEl.classList.toggle('extra-overlay', extraOverlay)
 
         // Humanoid-only features
         if (bodyShape === 'humanoid') {
@@ -383,6 +396,10 @@ export class IndexController {
             this.#characterHair.innerHTML = IndexController.GenerateSVGHTML(`${bodyShape}/hair/${this.#hairSelect.value}.svg`)
             this.#characterRearHair.innerHTML = IndexController.GenerateSVGHTML(`${bodyShape}/rear-hair/${this.#rearHairSelect.value}.svg`)
             this.#characterFacialHair.innerHTML = IndexController.GenerateSVGHTML(`${bodyShape}/facial-hair/${this.#facialHairSelect.value}.svg`)
+
+            this.#characterExtraOverlay.innerHTML = uniformClassList.contains('orville-badge-choice')
+                ? IndexController.GenerateSVGHTML(`${bodyShape}/extra/${this.#orvilleBadgePicker.value}.svg`)
+                : ''
 
             // Handle hair mirroring
             this.#characterHair.classList.toggle('mirrored', this.#hairMirror.checked)

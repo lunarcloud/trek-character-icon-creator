@@ -8,6 +8,11 @@
     width="512pt"
     height="512pt"
     viewBox="0 0 512 512">
+    <style>
+        .uniform-color {
+            color: #7e1848;
+        }
+    </style>
 <defs/>
 <path id="shape0" transform="translate(159.999993642188, 295.999988238048)" fill="#000000" fill-rule="evenodd" d="M41.5 1L135.5 0L135.5 24L205.5 50L104 138.5L0 48L43.5 34Z" sodipodi:nodetypes="cccccccc"/><path id="shape1" transform="translate(40.4999983906789, 339.499986509518)" fill="#665d3c" fill-rule="evenodd" stroke="#535353" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" d="M128.5 1.5C178.325 46.128 245.979 40.7227 311.5 0L445 41L458 172.5L0 172.5L28.5 32.5Z" sodipodi:nodetypes="ccccccc"/><g id="group0" transform="translate(41.1333160141107, 346.668967127619)" fill="none">
   <rect id="shape0181" transform="matrix(0.670555040621096 0 0 0.741241554520685 193.573522822504 24.0810291893859)" fill="#2c281a" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="16" height="4.42094051439943"/>
@@ -371,7 +376,7 @@
   <rect id="shape0239" transform="matrix(0.670555040621096 0 0 0.741241554520685 395.608406431473 161.975447754616)" fill="#2c281a" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="10.0499720976205" height="8"/>
   <rect id="shape02310" transform="matrix(0.670555040621096 0 0 0.741241554520685 419.983406189333 161.975447754616)" fill="#2c281a" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="10.0499720976205" height="8"/>
   <rect id="shape02316" transform="matrix(0.670555040621096 0 0 0.741241554520685 445.130123794059 161.975447754616)" fill="#2c281a" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" width="10.0499720976205" height="8"/>
- </g><path id="shape3" transform="translate(67.1874953278762, 335.499996667176)" fill="#7e1848" fill-rule="evenodd" d="M105.015 0L5.30973 31.536L0 176.5L146.313 176.5Z" sodipodi:nodetypes="ccccc"/><g id="group1" transform="translate(67.4595375222251, 341.719923191613)" fill="none">
+ </g><path id="shape3" transform="translate(67.1874953278762, 335.499996667176)" fill="currentColor" class="uniform-color" fill-rule="evenodd" d="M105.015 0L5.30973 31.536L0 176.5L146.313 176.5Z" sodipodi:nodetypes="ccccc"/><g id="group1" transform="translate(67.4595375222251, 341.719923191613)" fill="none">
   <path id="shape088" transform="matrix(1.17867346147063 -0.0334407509282264 0.0394377831365484 0.999440701681374 87.9116512016011 12.5030230230817)" fill="#000000" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M0 9.375L3 0L9.1875 7.3125Z" sodipodi:nodetypes="cccc"/>
   <g id="group2" fill="none">
    <path id="shape01215" transform="matrix(1.17867346147063 -0.0334407509282265 0.0394377831365485 0.999440701681375 1.8781096197315 93.3237034839015)" fill="#000000" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M0.0535712 8.44534L0 0L6.1875 7.3125Z" sodipodi:nodetypes="cccc"/>
