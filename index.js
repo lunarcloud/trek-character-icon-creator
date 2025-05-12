@@ -374,6 +374,8 @@ export class IndexController {
         const el = this.#uniformColorSelect.querySelectorAll('option')[this.#uniformColorSelect.selectedIndex]
         if (el instanceof HTMLOptionElement === false)
             return true
+        if (el.value = 'custom')
+            return false
         if (el.parentElement instanceof HTMLOptGroupElement === false ||
             el.parentElement.hidden === true)
             return true
@@ -563,10 +565,6 @@ export class IndexController {
         }
 
         // Update the colors
-        if (!uniformClassList.contains('no-color-choice') || (selectedUniform?.parentElement.label ?? 'Other') !== 'Other') {
-            this.#lastUsedBodyColors[bodyShape] = this.#bodyColorPicker.value
-        }
-
         if (this.#syncAntennaeWithBodyCheck.checked)
             this.#antennaeColorPicker.value = this.#bodyColorPicker.value
 
@@ -575,6 +573,12 @@ export class IndexController {
 
         if (this.#syncWiskersWithBodyCheck.checked)
             this.#wiskersColorPicker.value = this.#bodyColorPicker.value
+
+        const selectedUniformGroup = selectedUniform?.parentElement
+        const selectedUniformGroupLabel = selectedUniformGroup instanceof HTMLOptGroupElement ? selectedUniformGroup : 'Other'
+        if (!uniformClassList.contains('no-color-choice') || selectedUniformGroupLabel !== 'Other') {
+            this.#lastUsedBodyColors[bodyShape] = this.#bodyColorPicker.value
+        }
 
         this.#characterStyleEl.innerHTML = `svg .body-color { color: ${this.#bodyColorPicker.value} !important; } ` +
         `svg .hair-color { color: ${this.#hairColorPicker.value} !important; } ` +
