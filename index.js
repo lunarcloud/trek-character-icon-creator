@@ -374,7 +374,7 @@ export class IndexController {
         const el = this.#uniformColorSelect.querySelectorAll('option')[this.#uniformColorSelect.selectedIndex]
         if (el instanceof HTMLOptionElement === false)
             return true
-        if (el.value = 'custom')
+        if (el.value === 'custom')
             return false
         if (el.parentElement instanceof HTMLOptGroupElement === false ||
             el.parentElement.hidden === true)
