@@ -297,7 +297,7 @@ export class IndexController {
 
         // When user changes the uniform color, update the "last known uniform list"
         this.#uniformColorSelect.addEventListener('change', () => {
-            const selectedColorNames = this.#colorNameToArray(this.#uniformColorSelect.selectedOptions[0].textContent)
+            const selectedColorNames = this.#arrayishToArray(this.#uniformColorSelect.selectedOptions[0].textContent)
             if (!this.#listInList(selectedColorNames, UNIFORM_DEPARTMENTS))
                 return
             this.#lastUsedBodyColors.uniform = selectedColorNames
@@ -359,8 +359,8 @@ export class IndexController {
         const el = this.#uniformSelect.querySelectorAll('option')[this.#uniformSelect.selectedIndex]
         if (el instanceof HTMLOptionElement === false)
             return true
-        if (el.parentElement instanceof HTMLOptGroupElement === false
-            || el.parentElement.hidden === true)
+        if (el.parentElement instanceof HTMLOptGroupElement === false ||
+            el.parentElement.hidden === true)
             return true
         return el.hidden ?? false
     }
@@ -374,20 +374,20 @@ export class IndexController {
         const el = this.#uniformColorSelect.querySelectorAll('option')[this.#uniformColorSelect.selectedIndex]
         if (el instanceof HTMLOptionElement === false)
             return true
-        if (el.parentElement instanceof HTMLOptGroupElement === false
-            || el.parentElement.hidden === true)
+        if (el.parentElement instanceof HTMLOptGroupElement === false ||
+            el.parentElement.hidden === true)
             return true
         return el.hidden ?? false
     }
 
     /**
      * Split a name into it's multiple parts
-     * @param {string|undefined} name name to split
-     * @returns {Array<string>|undefined}
+     * @param {string|undefined} name       string list to split
+     * @returns {Array<string>|undefined}   list of individual names
      */
-    #colorNameToArray(name) {
+    #arrayishToArray (name) {
         return name
-            ?.split(/\s*[\\\/\&]\s*/i)
+            ?.split(/\s*[,/\\&]\s*/i)
             ?.map(i => i.trim())
             ?.filter(i => i !== '')
     }
@@ -398,7 +398,7 @@ export class IndexController {
      * @param {Array} haystack    second list
      * @returns {boolean}         if any needles are in the haystack
      */
-    #listInList(needles, haystack) {
+    #listInList (needles, haystack) {
         return haystack.some(el => needles.includes(el))
     }
 
@@ -481,8 +481,8 @@ export class IndexController {
             const colorOptions = Array.from(this.#uniformColorSelect.querySelectorAll('option:not([hidden])'))
 
             // Select first possible, or a random valid one
-            selectedUniform = /** @type {HTMLOptionElement} */ (colorOptions.filter(el => this.#listInList(this.#colorNameToArray(el.textContent), this.#lastUsedBodyColors.uniform))?.[0]
-                ?? colorOptions[Math.floor(Math.random() * colorOptions.length)])
+            selectedUniform = /** @type {HTMLOptionElement} */ (colorOptions.filter(el => this.#listInList(this.#arrayishToArray(el.textContent), this.#lastUsedBodyColors.uniform))?.[0] ??
+                colorOptions[Math.floor(Math.random() * colorOptions.length)])
             if (selectedUniform instanceof HTMLOptionElement) {
                 this.#uniformColorSelect.selectedIndex = selectedUniform.index
                 this.#uniformColorSelect.value = selectedUniform.value
@@ -563,7 +563,7 @@ export class IndexController {
         }
 
         // Update the colors
-        if (!uniformClassList.contains('no-color-choice') || (selectedUniform?.parentElement['label'] ?? 'Other') !== 'Other') {
+        if (!uniformClassList.contains('no-color-choice') || (selectedUniform?.parentElement.label ?? 'Other') !== 'Other') {
             this.#lastUsedBodyColors[bodyShape] = this.#bodyColorPicker.value
         }
 
@@ -592,9 +592,9 @@ export class IndexController {
      * @returns {string} html
      */
     static GenerateSVGHTML (path, className = '') {
-        if (path.toLowerCase().endsWith('none.svg')
-            || path === 'humanoid/body-overlay.svg')
-            return ``
+        if (path.toLowerCase().endsWith('none.svg') ||
+            path === 'humanoid/body-overlay.svg')
+            return ''
 
         return `<svg data-src="${path}" class="${className}" data-cache="disabled" width="512" height="512"></svg>`
     }
