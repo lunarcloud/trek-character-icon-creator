@@ -343,7 +343,6 @@ export class IndexController {
      */
     #isCurrentColorInvalid = () => DomUtil.IsOptionInvalid(this.#uniformColorSelect, el => el.value !== 'custom')
 
-
     /**
      * Handle when a change in options occurs.
      * This will setup all the SVG html and CSS styles for the current options.
