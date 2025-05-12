@@ -1,5 +1,6 @@
-import html2canvas from './lib/html2canvas.esm.js'
 import { getButtonElement, getInputElement, getSelectElement, queryStyleElement } from './type-helpers.js'
+import { DataUtil } from './util-data.js'
+import { DomUtil } from './util-dom.js'
 
 const DEFAULT_UNIFORM = 'VOY DS9'
 const DEFAULT_MEDUSAN_SUIT = 'Prodigy B'
@@ -276,10 +277,10 @@ export class IndexController {
         }
 
         // Handle Items with an input paired with selector
-        this.#bodyColorPicker = this.#setupColorInputWithSelect('body-color', 'std-body-colors')
-        this.#hairColorPicker = this.#setupColorInputWithSelect('hair-color', 'std-hair-colors')
-        this.#uniformColorPicker = this.#setupColorInputWithSelect('uniform-color', 'std-uniform-colors')
-        this.#uniformUndershirtColorPicker = this.#setupColorInputWithSelect('uniform-undershirt-color', 'std-uniform-undershirt-colors')
+        this.#bodyColorPicker = DomUtil.SetupColorInputWithSelect('body-color', 'std-body-colors', () => this.onChangeDetected())
+        this.#hairColorPicker = DomUtil.SetupColorInputWithSelect('hair-color', 'std-hair-colors', () => this.onChangeDetected())
+        this.#uniformColorPicker = DomUtil.SetupColorInputWithSelect('uniform-color', 'std-uniform-colors', () => this.onChangeDetected())
+        this.#uniformUndershirtColorPicker = DomUtil.SetupColorInputWithSelect('uniform-undershirt-color', 'std-uniform-undershirt-colors', () => this.onChangeDetected())
 
         // Handle Items with a 'sync' - so they un-check when selecting color manually
         this.#antennaeColorPicker.addEventListener('change', () => {
@@ -297,57 +298,15 @@ export class IndexController {
 
         // When user changes the uniform color, update the "last known uniform list"
         this.#uniformColorSelect.addEventListener('change', () => {
-            const selectedColorNames = this.#arrayishToArray(this.#uniformColorSelect.selectedOptions[0].textContent)
-            if (!this.#listInList(selectedColorNames, UNIFORM_DEPARTMENTS))
+            const selectedColorNames = DataUtil.ListStringToArray(this.#uniformColorSelect.selectedOptions[0].textContent)
+            if (!DataUtil.ListInList(selectedColorNames, UNIFORM_DEPARTMENTS))
                 return
             this.#lastUsedBodyColors.uniform = selectedColorNames
         })
 
         this.onChangeDetected()
 
-        document.getElementById('download').addEventListener('click', () => this.saveImage())
-    }
-
-    /**
-     *  Wire together a color input that has a selector of pre-created colors.
-     * @param {string} pickerId     Color Input Element's Id.
-     * @param {string} selectorId   Color Selector Element's Id.
-     * @returns {HTMLInputElement}  Color Input Element.
-     */
-    #setupColorInputWithSelect (pickerId, selectorId) {
-        // get the elements from their ids
-        const picker = getInputElement(pickerId)
-        const selector = getSelectElement(selectorId)
-
-        // create changed event handlers
-        const onChangePicker = () => {
-            // Set the "standard" colors selector to what's selected or 'custom'
-            const el = selector.querySelector(`[value="${picker.value}"]`) ??
-                selector.querySelector('[value="custom"]')
-            if (el instanceof HTMLOptionElement)
-                selector.value = el.value
-
-            this.onChangeDetected()
-        }
-
-        const onChangeSelector = () => {
-            if (selector.value !== 'custom')
-                picker.value = selector.value
-            this.onChangeDetected()
-        }
-
-        // wire up the changed events
-        picker.addEventListener('change', onChangePicker)
-        selector.addEventListener('change', onChangeSelector)
-
-        // Update the selector if the current picker is one of the values
-        const el = selector.querySelector(`[value="${picker.value.toUpperCase()}"]`) ??
-                    selector.querySelector('[value="custom"]')
-        if (el instanceof HTMLOptionElement)
-            selector.value = el.value
-
-        // return the setup picker
-        return picker
+        document.getElementById('download').addEventListener('click', () => this.#saveImage())
     }
 
     /**
@@ -355,53 +314,23 @@ export class IndexController {
      * Usually invalidated by a change in body shape.
      * @returns {boolean} the determination
      */
-    #isCurrentUniformInvalid () {
-        const el = this.#uniformSelect.querySelectorAll('option')[this.#uniformSelect.selectedIndex]
-        if (el instanceof HTMLOptionElement === false)
-            return true
-        if (el.parentElement instanceof HTMLOptGroupElement === false ||
-            el.parentElement.hidden === true)
-            return true
-        return el.hidden ?? false
-    }
+    #isCurrentUniformInvalid = () => DomUtil.IsOptionInvalid(this.#uniformSelect)
 
     /**
      * Determine if the current color is not currently valid.
      * Usually invalidated by a change in uniform.
      * @returns {boolean} the determination
      */
-    #isCurrentColorInvalid () {
-        const el = this.#uniformColorSelect.querySelectorAll('option')[this.#uniformColorSelect.selectedIndex]
-        if (el instanceof HTMLOptionElement === false)
-            return true
-        if (el.value === 'custom')
-            return false
-        if (el.parentElement instanceof HTMLOptGroupElement === false ||
-            el.parentElement.hidden === true)
-            return true
-        return el.hidden ?? false
-    }
+    #isCurrentColorInvalid = () => DomUtil.IsOptionInvalid(this.#uniformColorSelect, el => el.value !== 'custom')
 
     /**
-     * Split a name into it's multiple parts
-     * @param {string|undefined} name       string list to split
-     * @returns {Array<string>|undefined}   list of individual names
+     * Save an image file of the currently selected options.
      */
-    #arrayishToArray (name) {
-        return name
-            ?.split(/\s*[,/\\&]\s*/i)
-            ?.map(i => i.trim())
-            ?.filter(i => i !== '')
-    }
-
-    /**
-     * if any elements of the first list are in the second
-     * @param {Array} needles     first list
-     * @param {Array} haystack    second list
-     * @returns {boolean}         if any needles are in the haystack
-     */
-    #listInList (needles, haystack) {
-        return haystack.some(el => needles.includes(el))
+    #saveImage () {
+        DomUtil.SaveImage('star-trek-officer.png',
+            this.#mainEl,
+            this.#mainEl.querySelector('character'),
+            this.#saveBGCheck.checked)
     }
 
     /**
@@ -438,11 +367,11 @@ export class IndexController {
         }
 
         // Change the body
-        this.#characterBody.innerHTML = IndexController.GenerateSVGHTML(`${bodyShape}/body.svg`)
-        this.#bodyOverlay.innerHTML = IndexController.GenerateSVGHTML(`${bodyShape}/body-overlay.svg`)
+        this.#characterBody.innerHTML = DomUtil.GenerateSVGHTML(`${bodyShape}/body.svg`)
+        this.#bodyOverlay.innerHTML = DomUtil.GenerateSVGHTML(`${bodyShape}/body-overlay.svg`)
 
         // Change the uniform
-        this.#characterUniform.innerHTML = IndexController.GenerateSVGHTML(`${bodyShape}/uniform/${this.#uniformSelect.value}.svg`)
+        this.#characterUniform.innerHTML = DomUtil.GenerateSVGHTML(`${bodyShape}/uniform/${this.#uniformSelect.value}.svg`)
 
         const uniformClassList = this.#uniformSelect.selectedOptions[0].classList
 
@@ -483,7 +412,7 @@ export class IndexController {
             const colorOptions = Array.from(this.#uniformColorSelect.querySelectorAll('option:not([hidden])'))
 
             // Select first possible, or a random valid one
-            selectedUniform = /** @type {HTMLOptionElement} */ (colorOptions.filter(el => this.#listInList(this.#arrayishToArray(el.textContent), this.#lastUsedBodyColors.uniform))?.[0] ??
+            selectedUniform = /** @type {HTMLOptionElement} */ (colorOptions.filter(el => DataUtil.ListInList(DataUtil.ListStringToArray(el.textContent), this.#lastUsedBodyColors.uniform))?.[0] ??
                 colorOptions[Math.floor(Math.random() * colorOptions.length)])
             if (selectedUniform instanceof HTMLOptionElement) {
                 this.#uniformColorSelect.selectedIndex = selectedUniform.index
@@ -495,17 +424,17 @@ export class IndexController {
         // Humanoid-only features
         if (bodyShape === 'humanoid') {
             // Change the ears
-            this.#characterEarsOrNose.innerHTML = IndexController.GenerateSVGHTML(`${bodyShape}/ears/${this.#earSelect.value}.svg`)
+            this.#characterEarsOrNose.innerHTML = DomUtil.GenerateSVGHTML(`${bodyShape}/ears/${this.#earSelect.value}.svg`)
 
             // Update the hair
-            this.#characterHair.innerHTML = IndexController.GenerateSVGHTML(`${bodyShape}/hair/${this.#hairSelect.value}.svg`)
-            this.#characterRearHair.innerHTML = IndexController.GenerateSVGHTML(`${bodyShape}/rear-hair/${this.#rearHairSelect.value}.svg`)
-            this.#characterFacialHair.innerHTML = IndexController.GenerateSVGHTML(`${bodyShape}/facial-hair/${this.#facialHairSelect.value}.svg`)
+            this.#characterHair.innerHTML = DomUtil.GenerateSVGHTML(`${bodyShape}/hair/${this.#hairSelect.value}.svg`)
+            this.#characterRearHair.innerHTML = DomUtil.GenerateSVGHTML(`${bodyShape}/rear-hair/${this.#rearHairSelect.value}.svg`)
+            this.#characterFacialHair.innerHTML = DomUtil.GenerateSVGHTML(`${bodyShape}/facial-hair/${this.#facialHairSelect.value}.svg`)
 
             // Update extra overlay
             this.#characterExtraOverlay.innerHTML = ''
             if (selectedUniform?.hasAttribute('extra-overlay') ?? false)
-                this.#characterExtraOverlay.innerHTML += IndexController.GenerateSVGHTML(`${bodyShape}/extra/${selectedUniform.getAttribute('extra-overlay')}.svg`)
+                this.#characterExtraOverlay.innerHTML += DomUtil.GenerateSVGHTML(`${bodyShape}/extra/${selectedUniform.getAttribute('extra-overlay')}.svg`)
 
             // Handle hair mirroring
             this.#characterHair.classList.toggle('mirrored', this.#hairMirror.checked)
@@ -515,7 +444,7 @@ export class IndexController {
             const selections = (Array.from(this.#headFeatureSelect.selectedOptions) ?? [])
             this.#characterHeadFeatures.innerHTML = selections.reduce(
                 (accumulator, e) => {
-                    accumulator += IndexController.GenerateSVGHTML(`${bodyShape}/head-features/${e.value}.svg`, e.className) // TODO
+                    accumulator += DomUtil.GenerateSVGHTML(`${bodyShape}/head-features/${e.value}.svg`, e.className) // TODO
                     return accumulator
                 }, '')
 
@@ -531,10 +460,10 @@ export class IndexController {
         // Cetaceous-only features
         if (bodyShape === 'cetaceous') {
             // Change the nose
-            this.#characterEarsOrNose.innerHTML = IndexController.GenerateSVGHTML(`${bodyShape}/nose/${this.#noseSelect.value}.svg`)
+            this.#characterEarsOrNose.innerHTML = DomUtil.GenerateSVGHTML(`${bodyShape}/nose/${this.#noseSelect.value}.svg`)
 
             this.#characterHeadFeatures.innerHTML = this.#foreheadBumpCheck.checked
-                ? IndexController.GenerateSVGHTML(`${bodyShape}/head-features/forehead-bump.svg`)
+                ? DomUtil.GenerateSVGHTML(`${bodyShape}/head-features/forehead-bump.svg`)
                 : ''
         }
 
@@ -559,8 +488,8 @@ export class IndexController {
             // Other features
             if (bodyShape === 'medusan') {
                 this.#characterBody.innerHTML = this.#medusanBoxCheck.checked
-                    ? IndexController.GenerateSVGHTML(`${bodyShape}/body/box.svg`)
-                    : IndexController.GenerateSVGHTML(`${bodyShape}/body/visible.svg`)
+                    ? DomUtil.GenerateSVGHTML(`${bodyShape}/body/box.svg`)
+                    : DomUtil.GenerateSVGHTML(`${bodyShape}/body/visible.svg`)
             }
         }
 
@@ -587,52 +516,6 @@ export class IndexController {
         `svg .bird-tuft-color { color: ${this.#birdTuftColorPicker.value} !important;}` +
         `svg .andorian-antennae-color { color: ${this.#antennaeColorPicker.value} !important;}` +
         `svg .wiskers-color { color: ${this.#wiskersColorPicker.value} !important;}`
-    }
-
-    /**
-     * Generate a valid svg element to insert.
-     * @param {string} path         location of the SVG file.
-     * @param {string} [className]  classes to apply to the svg element.
-     * @returns {string} html
-     */
-    static GenerateSVGHTML (path, className = '') {
-        if (path.toLowerCase().endsWith('none.svg') ||
-            path === 'humanoid/body-overlay.svg')
-            return ''
-
-        return `<svg data-src="${path}" class="${className}" data-cache="disabled" width="512" height="512"></svg>`
-    }
-
-    /**
-     * Save an image file of the currently selected options.
-     */
-    saveImage () {
-        if (typeof (html2canvas) !== 'function') {
-            alert('Cannot create image, canvas library not working.')
-            return
-        }
-
-        const size1em = parseFloat(getComputedStyle(this.#mainEl).fontSize)
-
-        const options = {
-            backgroundColor: (this.#saveBGCheck.checked ? '#363638' : null),
-            width: 512 + (size1em * 2),
-            height: 512 + (size1em * 2),
-            ignoreElements: el => {
-                return el.tagName === 'BG' && !this.#saveBGCheck.checked
-            }
-        }
-
-        this.#mainEl.classList.add('saving')
-        html2canvas(document.querySelector('character'), options)
-            .then((/** @type {HTMLCanvasElement} */ canvas) => {
-                const link = document.createElement('a')
-                link.download = 'star-trek-officer.png'
-                link.href = canvas.toDataURL('image/png', 1.0)
-                link.click()
-            }).finally(() => {
-                this.#mainEl.classList.remove('saving')
-            })
     }
 }
 
