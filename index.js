@@ -213,6 +213,35 @@ export class IndexController {
      * Constructor.
      */
     constructor () {
+        this.#assignMembers()
+
+        this.#setupPairedElements()
+
+        // Setup change detection on any of the element member variables
+        const allChangeEls = [this.#shapeSelect, this.#uniformSelect, this.#uniformColorFilterCheck, this.#earSelect, this.#noseSelect, this.#headFeatureSelect, this.#syncAntennaeWithBodyCheck, this.#syncBirdTuftWithBodyCheck, this.#syncWiskersWithBodyCheck, this.#foreheadBumpCheck, this.#medusanAltColorCheck, this.#medusanBoxCheck, this.#hairSelect, this.#facialHairSelect, this.#rearHairSelect, this.#hairMirror, this.#rearHairMirror]
+        for (const changeEl of allChangeEls) {
+            changeEl.addEventListener('change', () => this.onChangeDetected())
+        }
+
+        // When user changes the uniform color, update the "last known uniform list"
+        this.#uniformColorSelect.addEventListener('change', () => {
+            const selectedColorNames = DataUtil.ListStringToArray(this.#uniformColorSelect.selectedOptions[0].textContent)
+            if (!DataUtil.ListInList(selectedColorNames, UNIFORM_DEPARTMENTS))
+                return
+            this.#lastUsedBodyColors.uniform = selectedColorNames
+        })
+
+        // Trigger the change detection to begin, so we won't start in an unsupported/unusual state
+        this.onChangeDetected()
+
+        // Setup the save as image functionality
+        document.getElementById('download').addEventListener('click', () => this.#saveImage())
+    }
+
+    /**
+     * Set up element member variables.
+     */
+    #assignMembers () {
         this.#mainEl = document.body
         this.#characterStyleEl = queryStyleElement('character style')
 
@@ -246,41 +275,42 @@ export class IndexController {
         this.#medusanBoxCheck = getInputElement('medusan-box')
 
         this.#facialHairSelect = getSelectElement('facial-hair-select')
+
+        this.#hairSelect = getSelectElement('hair-select')
+        this.#hairMirror = getInputElement('hair-mirror')
+        this.#rearHairSelect = getSelectElement('rear-hair-select')
+        this.#rearHairMirror = getInputElement('rear-hair-mirror')
+        this.#saveBGCheck = getInputElement('save-with-bg-checkbox')
+    }
+
+    /**
+     * Set up element pair events, color picker members.
+     */
+    #setupPairedElements () {
+        // Setup color input paired with a select
+        this.#bodyColorPicker = DomUtil.SetupColorInputWithSelect('body-color', 'std-body-colors', () => this.onChangeDetected())
+        this.#hairColorPicker = DomUtil.SetupColorInputWithSelect('hair-color', 'std-hair-colors', () => this.onChangeDetected())
+        this.#uniformColorPicker = DomUtil.SetupColorInputWithSelect('uniform-color', 'std-uniform-colors', () => this.onChangeDetected())
+        this.#uniformUndershirtColorPicker = DomUtil.SetupColorInputWithSelect('uniform-undershirt-color', 'std-uniform-undershirt-colors', () => this.onChangeDetected())
+
+        // Setup "Next" buttons for selects
         const facialHairNext = getButtonElement('facial-hair-next')
         facialHairNext.addEventListener('click', ev => {
             this.#facialHairSelect.selectedIndex++
             this.onChangeDetected()
         })
 
-        this.#hairSelect = getSelectElement('hair-select')
         const hairNext = getButtonElement('hair-next')
         hairNext.addEventListener('click', ev => {
             this.#hairSelect.selectedIndex++
             this.onChangeDetected()
         })
-        this.#hairMirror = getInputElement('hair-mirror')
 
-        this.#rearHairSelect = getSelectElement('rear-hair-select')
         const rearHairNext = getButtonElement('rear-hair-next')
         rearHairNext.addEventListener('click', ev => {
             this.#rearHairSelect.selectedIndex++
             this.onChangeDetected()
         })
-        this.#rearHairMirror = getInputElement('rear-hair-mirror')
-
-        this.#saveBGCheck = getInputElement('save-with-bg-checkbox')
-
-        // Generically handle all the elements changing
-        const allChangeEls = [this.#shapeSelect, this.#uniformSelect, this.#uniformColorFilterCheck, this.#earSelect, this.#noseSelect, this.#headFeatureSelect, this.#syncAntennaeWithBodyCheck, this.#syncBirdTuftWithBodyCheck, this.#syncWiskersWithBodyCheck, this.#foreheadBumpCheck, this.#medusanAltColorCheck, this.#medusanBoxCheck, this.#hairSelect, this.#facialHairSelect, this.#rearHairSelect, this.#hairMirror, this.#rearHairMirror]
-        for (const changeEl of allChangeEls) {
-            changeEl.addEventListener('change', () => this.onChangeDetected())
-        }
-
-        // Handle Items with an input paired with selector
-        this.#bodyColorPicker = DomUtil.SetupColorInputWithSelect('body-color', 'std-body-colors', () => this.onChangeDetected())
-        this.#hairColorPicker = DomUtil.SetupColorInputWithSelect('hair-color', 'std-hair-colors', () => this.onChangeDetected())
-        this.#uniformColorPicker = DomUtil.SetupColorInputWithSelect('uniform-color', 'std-uniform-colors', () => this.onChangeDetected())
-        this.#uniformUndershirtColorPicker = DomUtil.SetupColorInputWithSelect('uniform-undershirt-color', 'std-uniform-undershirt-colors', () => this.onChangeDetected())
 
         // Handle Items with a 'sync' - so they un-check when selecting color manually
         this.#antennaeColorPicker.addEventListener('change', () => {
@@ -295,18 +325,6 @@ export class IndexController {
             this.#syncWiskersWithBodyCheck.checked = false
             this.onChangeDetected()
         })
-
-        // When user changes the uniform color, update the "last known uniform list"
-        this.#uniformColorSelect.addEventListener('change', () => {
-            const selectedColorNames = DataUtil.ListStringToArray(this.#uniformColorSelect.selectedOptions[0].textContent)
-            if (!DataUtil.ListInList(selectedColorNames, UNIFORM_DEPARTMENTS))
-                return
-            this.#lastUsedBodyColors.uniform = selectedColorNames
-        })
-
-        this.onChangeDetected()
-
-        document.getElementById('download').addEventListener('click', () => this.#saveImage())
     }
 
     /**
