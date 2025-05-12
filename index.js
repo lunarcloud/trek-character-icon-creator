@@ -4,13 +4,23 @@ import { getButtonElement, getInputElement, getSelectElement, queryStyleElement 
 const DEFAULT_UNIFORM = 'VOY DS9'
 const DEFAULT_MEDUSAN_SUIT = 'Prodigy B'
 
+const UNIFORM_DEPARTMENTS = [
+    'Command',
+    'Ops',
+    'Security',
+    'Science',
+    'Medical',
+    'Engineering'
+]
+
 /**
  * Controller for the Main, Index, Page.
  */
 export class IndexController {
     #lastUsedBodyColors = {
         humanoid: '#FEE4B3',
-        cetaceous: '#B5BEC8'
+        cetaceous: '#B5BEC8',
+        uniform: ['Command']
     }
 
     /**
@@ -81,6 +91,11 @@ export class IndexController {
     /**
      * @type {HTMLInputElement}
      */
+    #uniformColorFilterCheck
+
+    /**
+     * @type {HTMLInputElement}
+     */
     #uniformUndershirtColorPicker
 
     /**
@@ -111,7 +126,7 @@ export class IndexController {
     /**
      * @type {HTMLSelectElement}
      */
-    #orvilleBadgeSelect
+    #uniformColorSelect
 
     /**
      * @type {HTMLSelectElement}
@@ -216,10 +231,11 @@ export class IndexController {
         this.#birdTuftColorPicker = getInputElement('bird-tuft-color')
         this.#wiskersColorPicker = getInputElement('wiskers-color')
         this.#uniformSelect = getSelectElement('uniform-select')
+        this.#uniformColorSelect = getSelectElement('std-uniform-colors')
+        this.#uniformColorFilterCheck = getInputElement('filter-color-selection')
         this.#earSelect = getSelectElement('ear-select')
         this.#noseSelect = getSelectElement('nose-select')
         this.#headFeatureSelect = getSelectElement('head-feature-select')
-        this.#orvilleBadgeSelect = getSelectElement('orville-badge-select')
 
         this.#syncAntennaeWithBodyCheck = getInputElement('sync-antennae-with-body')
         this.#syncBirdTuftWithBodyCheck = getInputElement('sync-bird-tuft-with-body')
@@ -254,7 +270,7 @@ export class IndexController {
         this.#saveBGCheck = getInputElement('save-with-bg-checkbox')
 
         // Generically handle all the elements changing
-        const allChangeEls = [this.#shapeSelect, this.#uniformSelect, this.#earSelect, this.#noseSelect, this.#headFeatureSelect, this.#orvilleBadgeSelect, this.#syncAntennaeWithBodyCheck, this.#syncBirdTuftWithBodyCheck, this.#syncWiskersWithBodyCheck, this.#foreheadBumpCheck, this.#medusanAltColorCheck, this.#medusanBoxCheck, this.#hairSelect, this.#facialHairSelect, this.#rearHairSelect, this.#hairMirror, this.#rearHairMirror]
+        const allChangeEls = [this.#shapeSelect, this.#uniformSelect, this.#uniformColorFilterCheck, this.#earSelect, this.#noseSelect, this.#headFeatureSelect, this.#syncAntennaeWithBodyCheck, this.#syncBirdTuftWithBodyCheck, this.#syncWiskersWithBodyCheck, this.#foreheadBumpCheck, this.#medusanAltColorCheck, this.#medusanBoxCheck, this.#hairSelect, this.#facialHairSelect, this.#rearHairSelect, this.#hairMirror, this.#rearHairMirror]
         for (const changeEl of allChangeEls) {
             changeEl.addEventListener('change', () => this.onChangeDetected())
         }
@@ -277,6 +293,14 @@ export class IndexController {
         this.#wiskersColorPicker.addEventListener('change', () => {
             this.#syncWiskersWithBodyCheck.checked = false
             this.onChangeDetected()
+        })
+
+        // When user changes the uniform color, update the "last known uniform list"
+        this.#uniformColorSelect.addEventListener('change', () => {
+            const selectedColorNames = this.#colorNameToArray(this.#uniformColorSelect.selectedOptions[0].textContent)
+            if (!this.#listInList(selectedColorNames, UNIFORM_DEPARTMENTS))
+                return
+            this.#lastUsedBodyColors.uniform = selectedColorNames
         })
 
         this.onChangeDetected()
@@ -327,16 +351,55 @@ export class IndexController {
     }
 
     /**
-     * Determine if the current uniform is not currently valid. Usually invalidated by a change in body shape.
+     * Determine if the current uniform is not currently valid.
+     * Usually invalidated by a change in body shape.
      * @returns {boolean} the determination
      */
     #isCurrentUniformInvalid () {
         const el = this.#uniformSelect.querySelectorAll('option')[this.#uniformSelect.selectedIndex]
         if (el instanceof HTMLOptionElement === false)
-            return false
-        if (el.parentElement instanceof HTMLOptGroupElement && el.parentElement.hidden === true)
             return true
-        return el.hidden ?? true
+        if (el.parentElement instanceof HTMLOptGroupElement === false
+            || el.parentElement.hidden === true)
+            return true
+        return el.hidden ?? false
+    }
+
+    /**
+     * Determine if the current color is not currently valid.
+     * Usually invalidated by a change in uniform.
+     * @returns {boolean} the determination
+     */
+    #isCurrentColorInvalid () {
+        const el = this.#uniformColorSelect.querySelectorAll('option')[this.#uniformColorSelect.selectedIndex]
+        if (el instanceof HTMLOptionElement === false)
+            return true
+        if (el.parentElement instanceof HTMLOptGroupElement === false
+            || el.parentElement.hidden === true)
+            return true
+        return el.hidden ?? false
+    }
+
+    /**
+     * Split a name into it's multiple parts
+     * @param {string|undefined} name name to split
+     * @returns {Array<string>|undefined}
+     */
+    #colorNameToArray(name) {
+        return name
+            ?.split(/\s*[\\\/\&]\s*/i)
+            ?.map(i => i.trim())
+            ?.filter(i => i !== '')
+    }
+
+    /**
+     * if any elements of the first list are in the second
+     * @param {Array} needles     first list
+     * @param {Array} haystack    second list
+     * @returns {boolean}         if any needles are in the haystack
+     */
+    #listInList(needles, haystack) {
+        return haystack.some(el => needles.includes(el))
     }
 
     /**
@@ -367,7 +430,7 @@ export class IndexController {
             // Reset color so we don't have oddly-fleshy dolphins by default
             this.#bodyColorPicker.value = this.#lastUsedBodyColors[bodyShape]
 
-            // If currently selecting a hidden uniform, select the first non-hidden one
+            // If currently selecting a hidden uniform, select the body type default
             if (this.#isCurrentUniformInvalid())
                 this.#uniformSelect.value = bodyShape === 'medusan' ? DEFAULT_MEDUSAN_SUIT : DEFAULT_UNIFORM
         }
@@ -387,6 +450,46 @@ export class IndexController {
         const extraOverlay = this.#mainEl.classList.toggle('orville-badge-choice', uniformClassList.contains('orville-badge-choice'))
         this.#mainEl.classList.toggle('extra-overlay', extraOverlay)
 
+        // Filter color selector by uniform's colors
+        const filteringColors = this.#uniformColorFilterCheck.checked
+        this.#mainEl.classList.toggle('filter-color-selection', filteringColors)
+        // get the current filter
+        const colorsFilter = this.#uniformSelect.selectedOptions[0].getAttribute('colors-filter')
+
+        // Ensure only the filtered colors are shown
+        const colorSelectMaybeHiddenEls = this.#uniformColorSelect.querySelectorAll('optgroup')
+        for (const el of colorSelectMaybeHiddenEls) {
+            if (el instanceof HTMLOptGroupElement === false)
+                continue
+
+            // Hide if we're filtering colors and it's not the filter group
+            el.hidden = filteringColors && el.getAttribute('filtergroup') !== colorsFilter
+
+            // Hide or show the children of a group
+            for (const childEl of el.children) {
+                if (childEl instanceof HTMLOptionElement === false)
+                    continue
+                childEl.hidden = el.hidden
+            }
+        }
+
+        // Get selected uniform
+        let selectedUniform = this.#uniformColorSelect.selectedOptions[0]
+
+        // If currently selecting a hidden/non-existent uniform
+        if (this.#isCurrentColorInvalid()) {
+            const colorOptions = Array.from(this.#uniformColorSelect.querySelectorAll('option:not([hidden])'))
+
+            // Select first possible, or a random valid one
+            selectedUniform = /** @type {HTMLOptionElement} */ (colorOptions.filter(el => this.#listInList(this.#colorNameToArray(el.textContent), this.#lastUsedBodyColors.uniform))?.[0]
+                ?? colorOptions[Math.floor(Math.random() * colorOptions.length)])
+            if (selectedUniform instanceof HTMLOptionElement) {
+                this.#uniformColorSelect.selectedIndex = selectedUniform.index
+                this.#uniformColorSelect.value = selectedUniform.value
+                this.#uniformColorPicker.value = selectedUniform.value
+            }
+        }
+
         // Humanoid-only features
         if (bodyShape === 'humanoid') {
             // Change the ears
@@ -397,9 +500,10 @@ export class IndexController {
             this.#characterRearHair.innerHTML = IndexController.GenerateSVGHTML(`${bodyShape}/rear-hair/${this.#rearHairSelect.value}.svg`)
             this.#characterFacialHair.innerHTML = IndexController.GenerateSVGHTML(`${bodyShape}/facial-hair/${this.#facialHairSelect.value}.svg`)
 
-            this.#characterExtraOverlay.innerHTML = uniformClassList.contains('orville-badge-choice')
-                ? IndexController.GenerateSVGHTML(`${bodyShape}/extra/Orville ${this.#orvilleBadgeSelect.value}.svg`)
-                : ''
+            // Update extra overlay
+            this.#characterExtraOverlay.innerHTML = ''
+            if (selectedUniform?.hasAttribute('extra-overlay') ?? false)
+                this.#characterExtraOverlay.innerHTML += IndexController.GenerateSVGHTML(`${bodyShape}/extra/${selectedUniform.getAttribute('extra-overlay')}.svg`)
 
             // Handle hair mirroring
             this.#characterHair.classList.toggle('mirrored', this.#hairMirror.checked)
@@ -459,7 +563,9 @@ export class IndexController {
         }
 
         // Update the colors
-        this.#lastUsedBodyColors[bodyShape] = this.#bodyColorPicker.value
+        if (!uniformClassList.contains('no-color-choice') || (selectedUniform?.parentElement['label'] ?? 'Other') !== 'Other') {
+            this.#lastUsedBodyColors[bodyShape] = this.#bodyColorPicker.value
+        }
 
         if (this.#syncAntennaeWithBodyCheck.checked)
             this.#antennaeColorPicker.value = this.#bodyColorPicker.value
@@ -486,6 +592,10 @@ export class IndexController {
      * @returns {string} html
      */
     static GenerateSVGHTML (path, className = '') {
+        if (path.toLowerCase().endsWith('none.svg')
+            || path === 'humanoid/body-overlay.svg')
+            return ``
+
         return `<svg data-src="${path}" class="${className}" data-cache="disabled" width="512" height="512"></svg>`
     }
 
