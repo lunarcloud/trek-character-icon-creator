@@ -235,7 +235,9 @@ export class IndexController {
         this.onChangeDetected()
 
         // Setup the save as image functionality
-        document.getElementById('download').addEventListener('click', () => this.#saveImage())
+        document.getElementById('download')
+            .addEventListener('click', () => DomUtil.SaveImage('star-trek-officer.png',
+                this.#mainEl, this.#mainEl.querySelector('character'), this.#saveBGCheck.checked))
     }
 
     /**
@@ -341,15 +343,6 @@ export class IndexController {
      */
     #isCurrentColorInvalid = () => DomUtil.IsOptionInvalid(this.#uniformColorSelect, el => el.value !== 'custom')
 
-    /**
-     * Save an image file of the currently selected options.
-     */
-    #saveImage () {
-        DomUtil.SaveImage('star-trek-officer.png',
-            this.#mainEl,
-            this.#mainEl.querySelector('character'),
-            this.#saveBGCheck.checked)
-    }
 
     /**
      * Handle when a change in options occurs.
