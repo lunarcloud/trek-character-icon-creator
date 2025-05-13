@@ -457,6 +457,8 @@ export class IndexController {
         case 'medusan':
             this.#medusanChangeUpdate()
             break
+        case 'exocomp':
+            break
         default:
             alert(`Unexpected body shape chosen: ${bodyShape}`)
         }
