@@ -1,0 +1,18 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created using Krita: https://krita.org -->
+<svg xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:krita="http://krita.org/namespaces/svg/krita"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    width="512pt"
+    height="512pt"
+    viewBox="0 0 512 512">
+    <style>
+        .hair-color {
+            color: #3e3421;
+        }
+    </style>
+<defs/>
+<path id="shape0" transform="translate(139.749999243499, 41.9518406839992)" fill="currentColor" class="hair-color" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M0 111.861C2.91954 82.4503 10.5205 58.9825 25.4736 42.2206C47.9424 -22.4884 159.628 0.690559 189.594 23.3294C192.634 25.8628 202.131 27.4106 208.978 18.2796C205.858 36.2466 214.037 59.0989 222 116.611C207.986 121.966 220.452 82.9639 187.607 50.9206C123.116 86.4939 71.772 72.1186 35.1286 50.6453C27.6388 64.615 12.8299 110.558 0 111.861Z" sodipodi:nodetypes="cccccccc"/>
+</svg>
