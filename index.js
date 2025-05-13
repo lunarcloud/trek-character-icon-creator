@@ -390,7 +390,9 @@ export class IndexController {
 
         // Change the body
         this.#characterBody.innerHTML = DomUtil.GenerateSVGHTML(`${bodyShape}/body.svg`)
-        this.#bodyOverlay.innerHTML = DomUtil.GenerateSVGHTML(`${bodyShape}/body-overlay.svg`)
+        this.#bodyOverlay.innerHTML = ['medusan'].includes(bodyShape)
+            ? ''
+            : DomUtil.GenerateSVGHTML(`${bodyShape}/body-overlay.svg`)
 
         // Change the uniform
         this.#characterUniform.innerHTML = DomUtil.GenerateSVGHTML(`${bodyShape}/uniform/${this.#uniformSelect.value}.svg`)
