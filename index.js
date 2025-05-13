@@ -444,6 +444,9 @@ export class IndexController {
             break
         case 'medusan':
             this.#medusanChangeUpdate()
+            break
+        default:
+            alert(`Unexpected body shape chosen: ${bodyShape}`)
         }
 
         this.#updateSynchronizedColors()
