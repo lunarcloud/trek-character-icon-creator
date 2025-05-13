@@ -431,79 +431,44 @@ export class IndexController {
             }
         }
 
-        // Humanoid-only features
-        if (bodyShape === 'humanoid') {
-            // Change the ears
-            this.#characterEarsOrNose.innerHTML = DomUtil.GenerateSVGHTML(`${bodyShape}/ears/${this.#earSelect.value}.svg`)
+        // Reset body changes that could be made via bodyShape-specific actions
+        this.#resetCharacterBodyChanges()
 
-            // Update the hair
-            this.#characterHair.innerHTML = DomUtil.GenerateSVGHTML(`${bodyShape}/hair/${this.#hairSelect.value}.svg`)
-            this.#characterRearHair.innerHTML = DomUtil.GenerateSVGHTML(`${bodyShape}/rear-hair/${this.#rearHairSelect.value}.svg`)
-            this.#characterFacialHair.innerHTML = DomUtil.GenerateSVGHTML(`${bodyShape}/facial-hair/${this.#facialHairSelect.value}.svg`)
-
-            // Update extra overlay
-            this.#characterExtraOverlay.innerHTML = ''
-            if (selectedUniform?.hasAttribute('extra-overlay') ?? false)
-                this.#characterExtraOverlay.innerHTML += DomUtil.GenerateSVGHTML(`${bodyShape}/extra/${selectedUniform.getAttribute('extra-overlay')}.svg`)
-
-            // Handle hair mirroring
-            this.#characterHair.classList.toggle('mirrored', this.#hairMirror.checked)
-            this.#characterRearHair.classList.toggle('mirrored', this.#rearHairMirror.checked)
-
-            // Update the head features
-            const selections = (Array.from(this.#headFeatureSelect.selectedOptions) ?? [])
-            this.#characterHeadFeatures.innerHTML = selections.reduce(
-                (accumulator, e) => {
-                    accumulator += DomUtil.GenerateSVGHTML(`${bodyShape}/head-features/${e.value}.svg`, e.className) // TODO
-                    return accumulator
-                }, '')
-
-            const selectionNames = selections.map(e => e.value)
-            if (selectionNames.includes('andorian-antennae'))
-                this.#mainEl.classList.add('andorian-antennae')
-            if (selectionNames.includes('bird-tuft'))
-                this.#mainEl.classList.add('bird-tuft')
-            if (selectionNames.includes('gill-wiskers-or-feathers'))
-                this.#mainEl.classList.add('wiskers')
+        // Perform body-specific actions
+        switch (bodyShape) {
+        case 'humanoid':
+            this.#humanoidChangeUpdate(selectedUniform)
+            break
+        case 'cetaceous':
+            this.#cetaceousChangeUpdate()
+            break
+        case 'medusan':
+            this.#medusanChangeUpdate()
         }
 
-        // Cetaceous-only features
-        if (bodyShape === 'cetaceous') {
-            // Change the nose
-            this.#characterEarsOrNose.innerHTML = DomUtil.GenerateSVGHTML(`${bodyShape}/nose/${this.#noseSelect.value}.svg`)
+        this.#updateSynchronizedColors()
 
-            this.#characterHeadFeatures.innerHTML = this.#foreheadBumpCheck.checked
-                ? DomUtil.GenerateSVGHTML(`${bodyShape}/head-features/forehead-bump.svg`)
-                : ''
+        // Remember the last used color choice if it's not a color in the "Other" category
+        const selectedUniformGroup = selectedUniform?.parentElement
+        const selectedUniformGroupLabel = selectedUniformGroup instanceof HTMLOptGroupElement ? selectedUniformGroup : 'Other'
+        if (!uniformClassList.contains('no-color-choice') || selectedUniformGroupLabel !== 'Other') {
+            this.#lastUsedBodyColors[bodyShape] = this.#bodyColorPicker.value
         }
 
-        // Medusan-only features (no if statement, so these can be reset when leaving medusan body type)
-        {
-            // Alternative Coloring
-            this.#characterBody.style.filter = bodyShape === 'medusan' && this.#medusanAltColorCheck.checked
-                ? 'hue-rotate(65deg) contrast(1.5) saturate(0.5)'
-                : ''
+        // Update the CSS styles for the character based on the choices
+        this.#characterStyleEl.innerHTML = `svg .body-color { color: ${this.#bodyColorPicker.value} !important; } ` +
+        `svg .hair-color { color: ${this.#hairColorPicker.value} !important; } ` +
+        `svg .uniform-color { color: ${this.#uniformColorPicker.value} !important; } ` +
+        `svg .uniform-undershirt-color { color: ${this.#uniformUndershirtColorPicker.value} !important;}` +
+        `svg .bird-tuft-color { color: ${this.#birdTuftColorPicker.value} !important;}` +
+        `svg .andorian-antennae-color { color: ${this.#antennaeColorPicker.value} !important;}` +
+        `svg .wiskers-color { color: ${this.#wiskersColorPicker.value} !important;}`
+    }
 
-            // Box hides the uniform
-            const medusanBox = bodyShape === 'medusan' && this.#medusanBoxCheck.checked
-            this.#uniformSelect.style.visibility = medusanBox ? 'hidden' : 'visible'
-            this.#characterUniform.style.visibility = medusanBox ? 'hidden' : 'visible'
-            document.getElementById('uniform-header').style.visibility = medusanBox ? 'hidden' : 'visible'
-
-            // Box hides the uniform layer
-            this.#characterUniform.style.visibility = bodyShape === 'medusan' && this.#medusanBoxCheck.checked
-                ? 'hidden'
-                : 'visible'
-
-            // Other features
-            if (bodyShape === 'medusan') {
-                this.#characterBody.innerHTML = this.#medusanBoxCheck.checked
-                    ? DomUtil.GenerateSVGHTML(`${bodyShape}/body/box.svg`)
-                    : DomUtil.GenerateSVGHTML(`${bodyShape}/body/visible.svg`)
-            }
-        }
-
-        // Update the colors
+    /**
+     * Update color pickers that have been chosen to sync with the body color
+     */
+    #updateSynchronizedColors () {
         if (this.#syncAntennaeWithBodyCheck.checked)
             this.#antennaeColorPicker.value = this.#bodyColorPicker.value
 
@@ -512,20 +477,94 @@ export class IndexController {
 
         if (this.#syncWiskersWithBodyCheck.checked)
             this.#wiskersColorPicker.value = this.#bodyColorPicker.value
+    }
 
-        const selectedUniformGroup = selectedUniform?.parentElement
-        const selectedUniformGroupLabel = selectedUniformGroup instanceof HTMLOptGroupElement ? selectedUniformGroup : 'Other'
-        if (!uniformClassList.contains('no-color-choice') || selectedUniformGroupLabel !== 'Other') {
-            this.#lastUsedBodyColors[bodyShape] = this.#bodyColorPicker.value
-        }
+    /**
+     * Reset any visibility or filter changes made specific to choices.
+     */
+    #resetCharacterBodyChanges () {
+        this.#characterBody.style.filter = ''
+        this.#uniformSelect.style.visibility = 'visible'
+        this.#characterUniform.style.visibility = 'visible'
+        this.#characterUniform.style.visibility = 'visible'
+        document.getElementById('uniform-header').style.visibility = 'visible'
+    }
 
-        this.#characterStyleEl.innerHTML = `svg .body-color { color: ${this.#bodyColorPicker.value} !important; } ` +
-        `svg .hair-color { color: ${this.#hairColorPicker.value} !important; } ` +
-        `svg .uniform-color { color: ${this.#uniformColorPicker.value} !important; } ` +
-        `svg .uniform-undershirt-color { color: ${this.#uniformUndershirtColorPicker.value} !important;}` +
-        `svg .bird-tuft-color { color: ${this.#birdTuftColorPicker.value} !important;}` +
-        `svg .andorian-antennae-color { color: ${this.#antennaeColorPicker.value} !important;}` +
-        `svg .wiskers-color { color: ${this.#wiskersColorPicker.value} !important;}`
+    /**
+     * Handle the humanoid-only change detection logic.
+     * @param {HTMLOptionElement} selectedUniform the uniform selected
+     */
+    #humanoidChangeUpdate (selectedUniform) {
+        // Change the ears
+        this.#characterEarsOrNose.innerHTML = DomUtil.GenerateSVGHTML(`humanoid/ears/${this.#earSelect.value}.svg`)
+
+        // Update the hair
+        this.#characterHair.innerHTML = DomUtil.GenerateSVGHTML(`humanoid/hair/${this.#hairSelect.value}.svg`)
+        this.#characterRearHair.innerHTML = DomUtil.GenerateSVGHTML(`humanoid/rear-hair/${this.#rearHairSelect.value}.svg`)
+        this.#characterFacialHair.innerHTML = DomUtil.GenerateSVGHTML(`humanoid/facial-hair/${this.#facialHairSelect.value}.svg`)
+
+        // Update extra overlay
+        this.#characterExtraOverlay.innerHTML = ''
+        if (selectedUniform?.hasAttribute('extra-overlay') ?? false)
+            this.#characterExtraOverlay.innerHTML += DomUtil.GenerateSVGHTML(`humanoid/extra/${selectedUniform.getAttribute('extra-overlay')}.svg`)
+
+        // Handle hair mirroring
+        this.#characterHair.classList.toggle('mirrored', this.#hairMirror.checked)
+        this.#characterRearHair.classList.toggle('mirrored', this.#rearHairMirror.checked)
+
+        // Update the head features
+        const selections = (Array.from(this.#headFeatureSelect.selectedOptions) ?? [])
+        this.#characterHeadFeatures.innerHTML = selections.reduce(
+            (accumulator, e) => {
+                accumulator += DomUtil.GenerateSVGHTML(`humanoid/head-features/${e.value}.svg`, e.className) // TODO
+                return accumulator
+            }, '')
+
+        const selectionNames = selections.map(e => e.value)
+        if (selectionNames.includes('andorian-antennae'))
+            this.#mainEl.classList.add('andorian-antennae')
+        if (selectionNames.includes('bird-tuft'))
+            this.#mainEl.classList.add('bird-tuft')
+        if (selectionNames.includes('gill-wiskers-or-feathers'))
+            this.#mainEl.classList.add('wiskers')
+    }
+
+    /**
+     * Handle the cetaceous-only change detection logic.
+     */
+    #cetaceousChangeUpdate () {
+        // Change the nose
+        this.#characterEarsOrNose.innerHTML = DomUtil.GenerateSVGHTML(`cetaceous/nose/${this.#noseSelect.value}.svg`)
+
+        this.#characterHeadFeatures.innerHTML = this.#foreheadBumpCheck.checked
+            ? DomUtil.GenerateSVGHTML('cetaceous/head-features/forehead-bump.svg')
+            : ''
+    }
+
+    /**
+     * Handle the medusan-only change detection logic.
+     */
+    #medusanChangeUpdate () {
+        // Alternative Coloring
+        this.#characterBody.style.filter = this.#medusanAltColorCheck.checked
+            ? 'hue-rotate(65deg) contrast(1.5) saturate(0.5)'
+            : ''
+
+        // Box hides the uniform
+        const medusanBox = this.#medusanBoxCheck.checked
+        this.#uniformSelect.style.visibility = medusanBox ? 'hidden' : 'visible'
+        this.#characterUniform.style.visibility = medusanBox ? 'hidden' : 'visible'
+        document.getElementById('uniform-header').style.visibility = medusanBox ? 'hidden' : 'visible'
+
+        // Box hides the uniform layer
+        this.#characterUniform.style.visibility = this.#medusanBoxCheck.checked
+            ? 'hidden'
+            : 'visible'
+
+        // Character body set to box or normal style
+        this.#characterBody.innerHTML = this.#medusanBoxCheck.checked
+            ? DomUtil.GenerateSVGHTML('medusan/body/box.svg')
+            : DomUtil.GenerateSVGHTML('medusan/body/visible.svg')
     }
 }
 
