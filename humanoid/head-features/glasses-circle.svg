@@ -1,0 +1,13 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created using Krita: https://krita.org -->
+<svg xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:krita="http://krita.org/namespaces/svg/krita"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    width="512pt"
+    height="512pt"
+    viewBox="0 0 512 512">
+<defs/>
+<path id="shape0" transform="translate(253.991869472761, 136.491655916224)" sodipodi:type="arc" sodipodi:rx="38" sodipodi:ry="39" sodipodi:cx="38.0081301726005" sodipodi:cy="39.008344124511" sodipodi:start="5.81953768200744" sodipodi:end="5.81306790552359" sodipodi:open="true" d="M71.8857 21.3417C62.3789 2.13926 39.5045 -5.51777 20.7945 4.23925C2.08441 13.9963 -5.37628 37.4726 4.13056 56.675C13.6374 75.8774 36.5117 83.5345 55.2218 73.7774C73.9319 64.0204 81.3925 40.5441 71.8857 21.3417Z" fill="none" stroke="#060606" stroke-width="4" stroke-linecap="square" stroke-linejoin="bevel"/><path id="shape01" transform="translate(166.491900311029, 134.991687142843)" sodipodi:type="arc" sodipodi:rx="38" sodipodi:ry="39" sodipodi:cx="38.0080997536687" sodipodi:cy="39.008312905081" sodipodi:start="5.81953768200744" sodipodi:end="5.81207109365288" sodipodi:open="true" d="M71.8685 21.307C62.343 2.11431 39.4613 -5.51931 20.7607 4.25685C2.0601 14.033 -5.37778 37.5169 4.1477 56.7096C13.6732 75.9023 36.5549 83.5359 55.2555 73.7598C73.9561 63.9836 81.394 40.4997 71.8685 21.307Z" fill="none" stroke="#060606" stroke-width="4" stroke-linecap="square" stroke-linejoin="bevel"/><path id="shape1" transform="translate(140.499999326665, 152.499999269156)" fill="none" stroke="#060606" stroke-width="4" stroke-linecap="square" stroke-linejoin="bevel" d="M0 0L27.1994 10.7366M101.939 14.3246L113.942 14.1978M189.239 11.5367L220 5" sodipodi:nodetypes="cccccc"/>
+</svg>
