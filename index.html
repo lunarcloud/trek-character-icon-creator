@@ -108,6 +108,8 @@
 
             <group class="humanoid-only">
                 <h3>Head Features</h3>
+
+                <!-- Multiple combinatory options -->
                 <select multiple id="head-feature-select">
                     <optgroup label="Species Traits">
                         <option value="andorian-antennae" class="overhair">Andorian Antennae</option>
@@ -136,28 +138,33 @@
                         <option value="rimmer-h" class="overhair">Rimmer's H</option>
                         <option value="forehead-coin">Forehead Coin</option>
                     </optgroup>
-                    <optgroup label="Hats / Helmets">
-                        <option value="romulan-23rd-helmet" class="overhair">Romulan 23rd Helmet</option>
-                        <option value="breen-helmet-24th" class="overhair">Breen 24th</option>
-                        <option value="breen-helmet-32nd" class="overhair">Breen 32nd</option>
-                        <option value="blue-orion-helmet" class="overhair">Blue Orion Helmet</option>
-                        <option value="chefs-hat" class="overhair">Chefs Hat</option>
-                        <option value="baseball-cap" class="overhair">Baseball Cap</option>
-                        <option value="baseball-cap-ds9ers" class="overhair">DS9ers Baseball Cap</option>
-                        <option value="baseball-cap-nx01" class="overhair">NX-01 Baseball Cap</option>
-                        <option value="guinan-hat" class="overhair">Guinan's Hat</option>
-                        <option value="bajoran-vedic-hat" class="overhair">Bajoran Vedic's Hat</option>
-                        <option value="bajoran-kai-hat-a" class="overhair">Bajoran Kai Opaka's Hat</option>
-                        <option value="bajoran-kai-hat-b" class="overhair">Bajoran Kai Winn's Hat</option>
-                        <option value="gangster-hat" class="overhair">Trilby (Gasgster Hat)</option>
-                        <option value="western-hat" class="overhair">Western Hat</option>
-                        <option value="top-hat" class="overhair">Top Hat</option>
-                    </optgroup>
-                    <optgroup label="Over-Eyes">
-                        <option value="visor" class="overhair">Visor (ala LaForge's)</option>
-                        <option value="sunglasses" class="overhair">Sunglasses</option>
-                        <option value="blue-orion-mask" class="overhair">Blue Orion Mask</option>
-                    </optgroup>
+                </select>
+
+                <h3>Hat &amp; Eyewear</h3>
+                <!-- Mutually-Exclusive Headgear options -->
+                <select id="hat-select">
+                    <option>None</option>
+                    <option value="romulan-23rd-helmet" class="overhair">Romulan 23rd Helmet</option>
+                    <option value="breen-helmet-24th" class="overhair">Breen 24th</option>
+                    <option value="breen-helmet-32nd" class="overhair">Breen 32nd</option>
+                    <option value="blue-orion-helmet" class="overhair">Blue Orion Helmet</option>
+                    <option value="chefs-hat" class="overhair">Chefs Hat</option>
+                    <option value="baseball-cap" class="overhair">Baseball Cap</option>
+                    <option value="baseball-cap-ds9ers" class="overhair">DS9ers Baseball Cap</option>
+                    <option value="baseball-cap-nx01" class="overhair">NX-01 Baseball Cap</option>
+                    <option value="guinan-hat" class="overhair">Guinan's Hat</option>
+                    <option value="bajoran-vedic-hat" class="overhair">Bajoran Vedic's Hat</option>
+                    <option value="bajoran-kai-hat-a" class="overhair">Bajoran Kai Opaka's Hat</option>
+                    <option value="bajoran-kai-hat-b" class="overhair">Bajoran Kai Winn's Hat</option>
+                    <option value="gangster-hat" class="overhair">Trilby (Gasgster Hat)</option>
+                    <option value="western-hat" class="overhair">Western Hat</option>
+                    <option value="top-hat" class="overhair">Top Hat</option>
+                </select>
+                <select id="eyewear-select">
+                    <option>None</option>
+                    <option value="visor" class="overhair">Visor (ala LaForge's)</option>
+                    <option value="sunglasses" class="overhair">Sunglasses</option>
+                    <option value="blue-orion-mask" class="overhair">Blue Orion Mask</option>
                 </select>
 
                 <div class="andorian-antennae-only">

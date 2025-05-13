@@ -152,6 +152,16 @@ export class IndexController {
     /**
      * @type {HTMLSelectElement}
      */
+    #hatFeatureSelect
+
+    /**
+     * @type {HTMLSelectElement}
+     */
+    #eyewearFeatureSelect
+
+    /**
+     * @type {HTMLSelectElement}
+     */
     #facialHairSelect
 
     /**
@@ -218,7 +228,7 @@ export class IndexController {
         this.#setupPairedElements()
 
         // Setup change detection on any of the element member variables
-        const allChangeEls = [this.#shapeSelect, this.#uniformSelect, this.#uniformColorFilterCheck, this.#earSelect, this.#noseSelect, this.#headFeatureSelect, this.#syncAntennaeWithBodyCheck, this.#syncBirdTuftWithBodyCheck, this.#syncWiskersWithBodyCheck, this.#foreheadBumpCheck, this.#medusanAltColorCheck, this.#medusanBoxCheck, this.#hairSelect, this.#facialHairSelect, this.#rearHairSelect, this.#hairMirror, this.#rearHairMirror]
+        const allChangeEls = [this.#shapeSelect, this.#uniformSelect, this.#uniformColorFilterCheck, this.#earSelect, this.#noseSelect, this.#headFeatureSelect, this.#hatFeatureSelect, this.#eyewearFeatureSelect, this.#syncAntennaeWithBodyCheck, this.#syncBirdTuftWithBodyCheck, this.#syncWiskersWithBodyCheck, this.#foreheadBumpCheck, this.#medusanAltColorCheck, this.#medusanBoxCheck, this.#hairSelect, this.#facialHairSelect, this.#rearHairSelect, this.#hairMirror, this.#rearHairMirror]
         for (const changeEl of allChangeEls) {
             changeEl.addEventListener('change', () => this.onChangeDetected())
         }
@@ -268,6 +278,8 @@ export class IndexController {
         this.#earSelect = getSelectElement('ear-select')
         this.#noseSelect = getSelectElement('nose-select')
         this.#headFeatureSelect = getSelectElement('head-feature-select')
+        this.#hatFeatureSelect = getSelectElement('hat-select')
+        this.#eyewearFeatureSelect = getSelectElement('eyewear-select')
 
         this.#syncAntennaeWithBodyCheck = getInputElement('sync-antennae-with-body')
         this.#syncBirdTuftWithBodyCheck = getInputElement('sync-bird-tuft-with-body')
@@ -515,8 +527,11 @@ export class IndexController {
         this.#characterHair.classList.toggle('mirrored', this.#hairMirror.checked)
         this.#characterRearHair.classList.toggle('mirrored', this.#rearHairMirror.checked)
 
-        // Update the head features
+        // Update the head & headgear features
         const selections = (Array.from(this.#headFeatureSelect.selectedOptions) ?? [])
+            .concat(Array.from(this.#eyewearFeatureSelect.selectedOptions) ?? [])
+            .concat(Array.from(this.#hatFeatureSelect.selectedOptions) ?? [])
+
         this.#characterHeadFeatures.innerHTML = selections.reduce(
             (accumulator, e) => {
                 accumulator += DomUtil.GenerateSVGHTML(`humanoid/head-features/${e.value}.svg`, e.className) // TODO
