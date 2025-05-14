@@ -134,6 +134,7 @@
                     <optgroup label="Jewelry & Technology">
                         <option value="bajoran-earring">Bajoran Earring</option>
                         <option value="occular-implant">Occular Implant (Cyborg, Ex-Borg)</option>
+                        <option value="vulcan-cybernetic-implant" class="overhair">Vulcan Cybernetic Implant (ala Rutherford's)</option>
                         <option value="benzite-breather">Benzite Breather</option>
                         <option value="rimmer-h" class="overhair">Rimmer's H</option>
                         <option value="forehead-coin">Forehead Coin</option>
@@ -144,6 +145,7 @@
                         <option value="upper-stud-r">Upper Right Stud</option>
                         <option value="hoop-earring-l">Left Hoop Earring</option>
                         <option value="hoop-earring-r">Right Hoop Earring</option>
+                        <option value="eye-scar">Eye Scar</option>
                     </optgroup>
                 </select>
 
@@ -228,7 +230,9 @@
                         <option class="non-exocomp non-medusan" colors-filter="TOF">Lost Era</option>
                         <option class="non-exocomp non-medusan" colors-filter="TNG">TNG Early</option>
                         <option class="non-exocomp non-medusan" colors-filter="TNG">TNG Early Skant</option>
+                        <option class="humanoid-only no-color-choice">TNG Early Provisional</option>
                         <option class="non-medusan" colors-filter="TNG">TNG</option>
+                        <option class="humanoid-only no-color-choice">TNG Provisional</option>
                         <option class="non-exocomp non-medusan" colors-filter="TNG">TNG Cadet</option>
                         <option class="non-medusan undershirt-color-choice" colors-filter="TNG" selected>VOY DS9</option>
                         <option class="non-medusan no-color-choice">VOY Hazard Team</option>
@@ -401,14 +405,14 @@
                 <h2 id="hair-header">Hair</h2>
 
                 <div>
-                    <input type="color" id="hair-color" value="#2E230A">
+                    <input type="color" id="hair-color" value="#111111">
                     <label for="hair-color">Color</label>
                     <select id="std-hair-colors">
                         <option value="custom" hidden></option>
-                        <option value="#2E230A" selected>Brown</option>
+                        <option value="#2E230A">Brown</option>
                         <option value="#BCB480">Blonde</option>
                         <option value="#F0BA3D">Ginger</option>
-                        <option value="#111111">Black</option>
+                        <option value="#111111"selected>Black</option>
                         <option value="#F4F4F6">White</option>
                         <option value="#B5BEC8">Grey</option>
                         <option value="#290D6B">Purple</option>
@@ -437,11 +441,13 @@
                         <option value="wide-beard">Wide Beard</option>
                         <option value="pointed-beard">Pointed Beard</option>
                         <option value="long-beard">Long Beard</option>
+                        <option value="worf-beard">Long Beard</option>
                         <option value="beard-and-mustache-a">Beard & Mustache A</option>
                         <option value="beard-and-mustache-b">Beard & Mustache B</option>
                         <option value="beard-and-mustache-c">Beard & Mustache C</option>
                         <option value="beard-and-mustache-d">Beard & Mustache D</option>
                         <option value="beard-and-mustache-e">Beard & Mustache E</option>
+                        <option value="five-o-clock-shadow">Five O'Clock Shadow</option>
                     </select>
                     <button id="facial-hair-next">➜</button>
                 </div>
@@ -484,6 +490,11 @@
                         <option value="af">AF</option>
                         <option value="ag">AG</option>
                         <option value="ah">AH</option>
+                        <option value="ai">AI</option>
+                        <option value="aj">AJ</option>
+                        <option value="ak">AK</option>
+                        <option value="al">AL</option>
+                        <option value="am">AM</option>
                     </select>
                     <button id="hair-next">➜</button>
                     <label class="toggle-button">
@@ -510,6 +521,8 @@
                         <option value="n">N</option>
                         <option value="o">O</option>
                         <option value="p">P</option>
+                        <option value="q">Q</option>
+                        <option value="r">R</option>
                     </select>
                     <button id="rear-hair-next">➜</button>
                     <label class="toggle-button" tab-index>
