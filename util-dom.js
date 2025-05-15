@@ -58,18 +58,15 @@ export class DomUtil {
      * Determine if the current uniform is not currently valid.
      * Usually invalidated by a change in body shape.
      * @param {HTMLSelectElement} selectEl          the element to inspect
-     * @param {OptionToBoolean} [additionalCheck]   additional inspection.
      * @returns {boolean} the determination
      */
-    static IsOptionInvalid (selectEl, additionalCheck) {
+    static IsOptionInvalid (selectEl) {
         const el = selectEl.querySelectorAll('option')[selectEl.selectedIndex]
         if (el instanceof HTMLOptionElement === false)
             return true
         if (el.parentElement instanceof HTMLOptGroupElement === false ||
             el.parentElement.hidden === true)
             return true
-        if (additionalCheck !== undefined && !additionalCheck(el))
-            return false
         return el.hidden ?? false
     }
 

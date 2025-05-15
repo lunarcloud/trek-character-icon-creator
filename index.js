@@ -236,7 +236,7 @@ export class IndexController {
         // When user changes the uniform color, update the "last known uniform list"
         this.#uniformColorSelect.addEventListener('change', () => {
             const selectedColorNames = DataUtil.ListStringToArray(this.#uniformColorSelect.selectedOptions[0].textContent)
-            if (!DataUtil.ListInList(selectedColorNames, UNIFORM_DEPARTMENTS))
+            if (!this.#uniformColorIsCustom() && !DataUtil.ListInList(selectedColorNames, UNIFORM_DEPARTMENTS))
                 return
             this.#lastUsedBodyColors.uniform = selectedColorNames
         })
@@ -341,6 +341,8 @@ export class IndexController {
         })
     }
 
+    #uniformColorIsCustom = () => this.#uniformColorSelect.selectedOptions?.[0].value === 'custom'
+
     /**
      * Determine if the current uniform is not currently valid.
      * Usually invalidated by a change in body shape.
@@ -353,7 +355,7 @@ export class IndexController {
      * Usually invalidated by a change in uniform.
      * @returns {boolean} the determination
      */
-    #isCurrentColorInvalid = () => DomUtil.IsOptionInvalid(this.#uniformColorSelect, el => el.value !== 'custom')
+    #isCurrentColorInvalid = () => !this.#uniformColorIsCustom() && DomUtil.IsOptionInvalid(this.#uniformColorSelect)
 
     /**
      * Handle when a change in options occurs.
