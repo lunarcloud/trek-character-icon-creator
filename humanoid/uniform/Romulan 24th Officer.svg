@@ -135,5 +135,5 @@
   <path id="shape041113" transform="matrix(1.17135414309804 0 0 1.17135414309804 253.622581619319 16.7674021452492)" fill="#9098a1" fill-rule="evenodd" stroke="#313131" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M0 0L21.2401 6.64295L21.2401 7.99377L0.240107 7.99377Z" sodipodi:nodetypes="ccccc"/>
   <path id="shape0211113" transform="matrix(1.17135414309804 0 0 1.17135414309804 228.494500459559 0.328940357290037)" fill="#9098a1" fill-rule="evenodd" stroke="#313131" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M0 0L18.3588 0L18.1959 11.2556L21.043 13.6644L21 22L0 22Z" sodipodi:nodetypes="ccccccc"/>
   <rect id="shape0311113" transform="matrix(1.17135414309804 0 0 1.17135414309804 202.859333036796 0.203019935269083)" fill="#9098a1" fill-rule="evenodd" stroke="#313131" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" width="21" height="22"/>
- </g>
+ </g><path id="shape3" transform="translate(22.0519188887761, 325.172611096967)" fill="#2c2c2c" fill-rule="evenodd" stroke="#151515" stroke-width="3" stroke-linecap="square" stroke-linejoin="bevel" d="M179.147 0L0 12.8673L72.912 103.215L73.2345 201.827L177.252 203.327Z" sodipodi:nodetypes="cccccc"/>
 </svg>
