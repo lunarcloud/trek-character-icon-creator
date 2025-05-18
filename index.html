@@ -119,12 +119,14 @@
                         <option value="bird-beak">Bird Beak</option>
                         <option value="bird-tuft">Bird Tuft</option>
                         <option value="gill-wiskers-or-feathers">Gills / Wiskers / Feathers</option>
+                        <option value="cat-nose">Cat Nose</option>
                         <option value="tellarite-nose">Tellarite Nose</option>
                         <option value="tusks">Tusks</option>
                         <option value="benzite-nose">Benzite Nose</option>
                         <option value="nose-ridges">Nose Ridges (Bajorans)</option>
-                        <option value="bifurcated-forehead">Bifurcated Forehead</option>
                         <option value="klingon-ridges">Klingon Ridges</option>
+                        <option value="bifurcated-forehead-a">Bifurcated Forehead A</option>
+                        <option value="bifurcated-forehead-b">Bifurcated Forehead B</option>
                         <option value="cardassian-forehead">Cardassian Forehead</option>
                         <option value="cardassian-neck" class="underuniform">Cardassian Neck</option>
                         <option value="denobulan-ridges">Denobulan Ridges</option>
@@ -133,7 +135,8 @@
                     </optgroup>
                     <optgroup label="Jewelry & Technology">
                         <option value="bajoran-earring">Bajoran Earring</option>
-                        <option value="occular-implant">Occular Implant (Cyborg, Ex-Borg)</option>
+                        <option value="occular-implant-l">Occular Implant L</option>
+                        <option value="occular-implant-r">Occular Implant R</option>
                         <option value="vulcan-cybernetic-implant" class="overhair">Vulcan Implant (Rutherford)</option>
                         <option value="benzite-breather">Benzite Breather</option>
                         <option value="rimmer-h" class="overhair">Rimmer's H</option>
@@ -146,7 +149,10 @@
                         <option value="hoop-earring-l">Left Hoop Earring</option>
                         <option value="hoop-earring-r">Right Hoop Earring</option>
                         <option value="eye-scar">Eye Scar</option>
+                        <option value="chakotay-tattoo">Chakotay's Tattoo</option>
                         <option value="bandolier">Bandolier</option>
+                        <option value="medical-coat">Medical Coat</option>
+                        <option value="mobile-emitter">Mobile Emitter</option>
                     </optgroup>
                 </select>
 
@@ -235,9 +241,10 @@
                         <option class="non-medusan" colors-filter="TNG">TNG</option>
                         <option class="humanoid-only no-color-choice">TNG Provisional</option>
                         <option class="non-exocomp non-medusan" colors-filter="TNG">TNG Cadet</option>
-                        <option class="non-medusan undershirt-color-choice" colors-filter="TNG" selected>VOY DS9</option>
+                        <option class="non-medusan undershirt-color-choice" colors-filter="VOY" selected>VOY DS9</option>
                         <option class="non-medusan no-color-choice">VOY Hazard Team</option>
-                        <option class="non-medusan" colors-filter="TNG">Dominion War</option>
+                        <option class="humanoid-only" colors-filter="Other">VOY Seven's Uniform</option>
+                        <option class="non-medusan" colors-filter="VOY">Dominion War</option>
                         <option class="non-medusan" colors-filter="TNG">Lower Decks</option>
                         <option class="non-medusan" colors-filter="TNG">Crisis Point 2</option>
                         <option colors-filter="Picard">Prodigy A</option>
@@ -256,7 +263,8 @@
                     <optgroup label="Casual">
                         <option class="no-color-choice">None</option>
                         <option class="medusan-only" colors-filter="Other">Civilian Casual</option>
-                        <option class="humanoid-only" colors-filter="Other">Civilian Simple</option>
+                        <option class="humanoid-only" colors-filter="Other">Civilian Simple 1</option>
+                        <option class="humanoid-only" colors-filter="Other">Civilian Simple 2</option>
                         <option class="humanoid-only" colors-filter="Other">Bajoran Civilian</option>
                         <option class="humanoid-only" colors-filter="Other">Civilian Ferengi 24th</option>
                         <option class="humanoid-only" colors-filter="Other">Civilian Federation A</option>
@@ -264,6 +272,7 @@
                         <option class="humanoid-only undershirt-color-choice" colors-filter="Other">Civilian Federation C</option>
                         <option class="humanoid-only" colors-filter="Other">Civilian Federation D</option>
                         <option class="humanoid-only no-color-choice">Civilian Federation E</option>
+                        <option class="humanoid-only undershirt-color-choice" colors-filter="Other">Civilian Federation F</option>
                         <option class="humanoid-only no-color-choice">Leather Jacket Courrier</option>
                         <option class="humanoid-only no-color-choice">Leather Jacket Spy</option>
                         <option class="humanoid-only no-color-choice">Orion Casual A</option>
@@ -341,10 +350,15 @@
                             <option value="#9D0F02">Cadet</option>
                             <option value="#111111">Enlisted</option>
                         </optgroup>
-                        <optgroup label="24th/32nd (TNG-DISCO)" filtergroup="TNG">
+                        <optgroup label="24th/32nd (TNG/32nd)" filtergroup="TNG">
                             <option value="#CE3C35">Command</option>
                             <option value="#CEBD37">Ops / Security / Engineering</option>
                             <option value="#23BDC0">Science / Medical</option>
+                        </optgroup>
+                        <optgroup label="24th (VOY/DS9)" filtergroup="VOY">
+                            <option value="#83002C">Command</option>
+                            <option value="#CDAE38">Ops / Security / Engineering</option>
+                            <option value="#2492C2">Science / Medical</option>
                         </optgroup>
                         <optgroup label="24th Dark (Picard)" filtergroup="Picard">
                             <option value="#6C1C25">Command</option>
@@ -420,14 +434,31 @@
                     <label for="hair-color">Color</label>
                     <select id="std-hair-colors">
                         <option value="custom" hidden></option>
-                        <option value="#2E230A">Brown</option>
-                        <option value="#BCB480">Blonde</option>
-                        <option value="#F0BA3D">Ginger</option>
                         <option value="#111111" selected>Black</option>
-                        <option value="#F4F4F6">White</option>
+                        <option value="#270D02">Walnut</option>
+                        <option value="#271C02">Darker Brown</option>
+                        <option value="#2E230A">Lighter Brown</option>
+                        <option value="#944123">Darker Ginger</option>
+                        <option value="#DB8239">Mid Ginger</option>
+                        <option value="#F0A53D">Light Ginger</option>
+                        <option value="#9A6450">Auburn</option>
+                        <option value="#DC9176">Strawberry Blonde</option>
+                        <option value="#CB9944">Dirty Blonde</option>
+                        <option value="#C1B14E">Blonde</option>
+                        <option value="#DCCF7A">Platinum Blonde</option>
+                        <option value="#BCB480">Grey Blonde</option>
                         <option value="#B5BEC8">Grey</option>
-                        <option value="#290D6B">Purple</option>
+                        <option value="#CCCCFF">Blue Grey</option>
+                        <option value="#F4F4F6">White</option>
                         <option value="#CF52BE">Pink</option>
+                        <option value="#CE789D">Bubblegum</option>
+                        <option value="#290D6B">Purple</option>
+                        <option value="#5F072D">Red Purple</option>
+                        <option value="#5F1007">Fire Red</option>
+                        <option value="#222154">Darker Blue</option>
+                        <option value="#2D439A">Blue</option>
+                        <option value="#2D9A43">Darker Green</option>
+                        <option value="#78CE89">Lighter Green</option>
                     </select>
                 </div>
 
@@ -447,18 +478,21 @@
                         <option value="goatee-c">Goatee C</option>
                         <option value="goatee-d">Goatee D</option>
                         <option value="mutton-chops">Mutton Chops</option>
+                        <option value="neelix-mutton-chops">Neelix's Mutton Chops</option>
+                        <option value="mutton-chops-and-mustache">Mutton Chops & Mustache</option>
                         <option value="sideburns">Sideburns</option>
                         <option value="line-beard">Line Beard</option>
                         <option value="wide-beard">Wide Beard</option>
                         <option value="pointed-beard">Pointed Beard</option>
                         <option value="long-beard">Long Beard</option>
-                        <option value="worf-beard">Long Beard</option>
+                        <option value="worf-beard">Worf Beard</option>
                         <option value="beard-and-mustache-a">Beard & Mustache A</option>
                         <option value="beard-and-mustache-b">Beard & Mustache B</option>
                         <option value="beard-and-mustache-c">Beard & Mustache C</option>
                         <option value="beard-and-mustache-d">Beard & Mustache D</option>
                         <option value="beard-and-mustache-e">Beard & Mustache E</option>
                         <option value="five-o-clock-shadow">Five O'Clock Shadow</option>
+                        <option value="cat-mouth-beard">Cat Mouth Beard</option>
                     </select>
                     <button id="facial-hair-next">➜</button>
                 </div>
@@ -506,6 +540,11 @@
                         <option value="ak">AK</option>
                         <option value="al">AL</option>
                         <option value="am">AM</option>
+                        <option value="an">AN</option>
+                        <option value="ao">AO</option>
+                        <option value="ap">AP</option>
+                        <option value="aq">AQ</option>
+                        <option value="ar">AR</option>
                     </select>
                     <button id="hair-next">➜</button>
                     <label class="toggle-button">
