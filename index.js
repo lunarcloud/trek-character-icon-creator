@@ -72,6 +72,11 @@ export class IndexController {
     /**
      * @type {HTMLElement}
      */
+    #characterExtraUnderlay
+
+    /**
+     * @type {HTMLElement}
+     */
     #characterUniform
 
     /**
@@ -266,6 +271,7 @@ export class IndexController {
         this.#characterUniform = document.getElementById('character-uniform')
         this.#bodyOverlay = document.getElementById('body-overlay')
         this.#characterExtraOverlay = document.getElementById('extra-overlay')
+        this.#characterExtraUnderlay = document.getElementById('extra-underlay')
 
         // Selection Elements
         this.#shapeSelect = getSelectElement('body-shape')
@@ -524,11 +530,6 @@ export class IndexController {
         this.#characterRearHair.innerHTML = DomUtil.GenerateSVGHTML(`humanoid/rear-hair/${this.#rearHairSelect.value}.svg`)
         this.#characterFacialHair.innerHTML = DomUtil.GenerateSVGHTML(`humanoid/facial-hair/${this.#facialHairSelect.value}.svg`)
 
-        // Update extra overlay
-        this.#characterExtraOverlay.innerHTML = ''
-        if (selectedUniform?.hasAttribute('extra-overlay') ?? false)
-            this.#characterExtraOverlay.innerHTML += DomUtil.GenerateSVGHTML(`humanoid/extra/${selectedUniform.getAttribute('extra-overlay')}.svg`)
-
         // Handle hair mirroring
         this.#characterHair.classList.toggle('mirrored', this.#hairMirror.checked)
         this.#characterRearHair.classList.toggle('mirrored', this.#rearHairMirror.checked)
@@ -544,6 +545,20 @@ export class IndexController {
                 return accumulator
             }, '')
 
+        // Update extra overlay
+        this.#characterExtraOverlay.innerHTML = ''
+        if (selectedUniform?.hasAttribute('extra-overlay') ?? false)
+            this.#characterExtraOverlay.innerHTML += DomUtil.GenerateSVGHTML(`humanoid/extra/${selectedUniform.getAttribute('extra-overlay')}.svg`)
+
+        // Update extra underlay
+        this.#characterExtraUnderlay.innerHTML = ''
+        selections
+            .filter(e => e.hasAttribute('extra-underlay'))
+            .forEach((e, _i, _all) => {
+                this.#characterExtraUnderlay.innerHTML += DomUtil.GenerateSVGHTML(`humanoid/head-features/${e.getAttribute('extra-underlay')}.svg`)
+            })
+
+        // Update document style classes
         const selectionNames = selections.map(e => e.value)
         if (selectionNames.includes('andorian-antennae'))
             this.#mainEl.classList.add('andorian-antennae')

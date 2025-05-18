@@ -24,6 +24,7 @@
                 <style></style>
                 <bg></bg>
                 <div id="character-rear-hair" class="humanoid-only"></div>
+                <div id="extra-underlay" class="humanoid-only"></div>
                 <div id="character-ears-or-nose" class="non-exocomp non-medusan"></div>
                 <div id="character-body"></div>
                 <div id="character-head-features-underuniform" class="humanoid-only"></div>
@@ -151,7 +152,8 @@
                         <option value="eye-scar">Eye Scar</option>
                         <option value="chakotay-tattoo">Chakotay's Tattoo</option>
                         <option value="bandolier">Bandolier</option>
-                        <option value="medical-coat">Medical Coat</option>
+                        <option value="medical-coat" extra-underlay="medical-coat-extra-underlay">Medical Coat</option>
+                        <option value="lab-coat" extra-underlay="lab-coat-extra-underlay">Lab Coat</option>
                         <option value="mobile-emitter">Mobile Emitter</option>
                     </optgroup>
                 </select>
@@ -180,6 +182,7 @@
                     <option>None</option>
                     <option value="visor" class="overhair">Visor (ala LaForge's)</option>
                     <option value="blue-orion-mask" class="overhair">Blue Orion Mask</option>
+                    <option value="grey-aviator-goggles" class="overhair">Captain Proton Goggles</option>
                     <option value="sunglasses" class="overhair">Sunglasses</option>
                     <option value="glasses-thick" class="overhair">Thick Glasses</option>
                     <option value="glasses-circle" class="overhair">Round Glasses</option>
@@ -238,15 +241,16 @@
                         <option class="non-exocomp non-medusan" colors-filter="TNG">TNG Early</option>
                         <option class="non-exocomp non-medusan" colors-filter="TNG">TNG Early Skant</option>
                         <option class="humanoid-only no-color-choice">TNG Early Provisional</option>
-                        <option class="non-medusan" colors-filter="TNG">TNG</option>
+                        <option class="non-medusan" colors-filter="VOY">TNG</option>
+                        <option class="non-exocomp non-medusan" colors-filter="VOY">TNG Cadet</option>
                         <option class="humanoid-only no-color-choice">TNG Provisional</option>
-                        <option class="non-exocomp non-medusan" colors-filter="TNG">TNG Cadet</option>
                         <option class="non-medusan undershirt-color-choice" colors-filter="VOY" selected>VOY DS9</option>
                         <option class="non-medusan no-color-choice">VOY Hazard Team</option>
                         <option class="humanoid-only" colors-filter="Other">VOY Seven's Uniform</option>
+                        <option class="humanoid-only no-color-choice" label="Captain Proton (VOY Holonovel)">Captain Proton</option>
                         <option class="non-medusan" colors-filter="VOY">Dominion War</option>
-                        <option class="non-medusan" colors-filter="TNG">Lower Decks</option>
-                        <option class="non-medusan" colors-filter="TNG">Crisis Point 2</option>
+                        <option class="non-medusan" colors-filter="VOY">Lower Decks</option>
+                        <option class="non-medusan" colors-filter="VOY" label="Crisis Point 2 (LD Holonovel)">Crisis Point 2</option>
                         <option colors-filter="Picard">Prodigy A</option>
                         <option colors-filter="Picard">Prodigy B</option>
                         <option class="non-medusan" colors-filter="Picard">Picard Pre-S1</option>
@@ -255,9 +259,9 @@
                         <option class="non-medusan" colors-filter="Picard">Picard S3</option>
                         <option class="non-medusan" colors-filter="TNG">Flash-Forwards 25th</option>
                         <option class="non-medusan" colors-filter="Timeship">VOY Timeship 29th</option>
-                        <option class="non-medusan" colors-filter="TNG">DISCO 32nd Early</option>
-                        <option class="non-medusan" colors-filter="TNG">DISCO 32nd Late</option>
-                        <option class="non-medusan" colors-filter="TNG">DISCO 33rd</option>
+                        <option class="non-medusan" colors-filter="VOY">DISCO 32nd Early</option>
+                        <option class="non-medusan" colors-filter="VOY">DISCO 32nd Late</option>
+                        <option class="non-medusan" colors-filter="VOY">DISCO 33rd</option>
                     </optgroup>
 
                     <optgroup label="Casual">
@@ -350,12 +354,12 @@
                             <option value="#9D0F02">Cadet</option>
                             <option value="#111111">Enlisted</option>
                         </optgroup>
-                        <optgroup label="24th/32nd (TNG/32nd)" filtergroup="TNG">
+                        <optgroup label="24th (TNG)" filtergroup="TNG">
                             <option value="#CE3C35">Command</option>
                             <option value="#CEBD37">Ops / Security / Engineering</option>
                             <option value="#23BDC0">Science / Medical</option>
                         </optgroup>
-                        <optgroup label="24th (VOY/DS9)" filtergroup="VOY">
+                        <optgroup label="24th/32nd (TNG/VOY/DS9/DISCO)" filtergroup="VOY">
                             <option value="#83002C">Command</option>
                             <option value="#CDAE38">Ops / Security / Engineering</option>
                             <option value="#2492C2">Science / Medical</option>
