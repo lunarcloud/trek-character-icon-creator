@@ -426,7 +426,8 @@ export class IndexController {
                 continue
 
             // Hide if we're filtering colors and it's not the filter group
-            el.hidden = filteringColors && el.getAttribute('filtergroup') !== colorsFilter
+            el.hidden = (filteringColors || el.hasAttribute('hidden-until-filter')) &&
+                el.getAttribute('filtergroup') !== colorsFilter
 
             // Hide or show the children of a group
             for (const childEl of el.children) {
