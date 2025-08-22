@@ -1,0 +1,22 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created using Krita: https://krita.org -->
+<svg xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:krita="http://krita.org/namespaces/svg/krita"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    width="512pt"
+    height="512pt"
+    viewBox="0 0 512 512">
+    <style>
+        .uniform-color {
+            color: #BD2626;
+        }
+    </style>
+<defs/>
+<path id="shape0" transform="translate(40.4999972641475, 318.893564118037)" fill="#ffffff" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M207.937 41.1064C223.6 43.9439 256.331 -2.50798 255.375 0.106416L444.75 55.6064L459.75 193.107L0 193.107L26.25 48.8564L162 6.48142C160.657 3.89772 190.637 44.3689 207.937 41.1064Z" sodipodi:nodetypes="cccccccc"/>
+<path id="shape1" transform="translate(39.8749984947364, 320.374987905985)" fill="currentColor" class="uniform-color" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M155.25 6.75C162 14.0167 200.219 52.6296 208.5 52.125C216.781 51.6204 258.05 8.56667 262.5 0L447.75 54L460.875 191.625L0 191.625L26.625 45.375Z" sodipodi:nodetypes="czcccccc"/>
+<path id="shape01" transform="translate(345.445203935729, 390.500499189165)" fill="#b2b2b2" stroke="#000000" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2.16000008583069" d="M18.7479 0C9.85692 14.9202 3.6076 30.3213 0 46.2035L1.25658 46.8451C8.21116 36.5438 16.1266 31.4607 25.003 31.5958C25.4271 31.9673 31.8133 35.9108 33.8363 41.2135C34.0675 41.1326 34.4528 41.0718 34.9923 41.0305C31.711 27.6108 26.2961 13.9339 18.7479 0Z" sodipodi:nodetypes="ccccccc"/>
+<path id="shape02" transform="translate(400.503426312103, 420.445275839947)" fill="#ffffff" fill-rule="evenodd" stroke="#999999" stroke-width="1.03" stroke-linecap="square" stroke-linejoin="bevel" d="M14.2019 0L0 80.4071L10.3826 109.805L17.3826 103.055Z" sodipodi:nodetypes="ccccc"/>
+<path id="shape03" transform="translate(123.258767978749, 409.693107702523)" fill="#ffffff" fill-rule="evenodd" stroke="#999999" stroke-width="1.03" stroke-linecap="square" stroke-linejoin="bevel" d="M17.3193 90.9679L6.8674 0L0 118.273L7.75 120.148Z" sodipodi:nodetypes="ccccc"/>
+</svg>
