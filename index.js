@@ -4,6 +4,7 @@ import { DomUtil } from './util-dom.js'
 
 const DEFAULT_UNIFORM = 'VOY DS9'
 const DEFAULT_MEDUSAN_SUIT = 'Prodigy B'
+const DEFAULT_SUKHABELAN_SUIT = 'Sarell Expanse'
 
 const UNIFORM_DEPARTMENTS = [
     'Command',
@@ -21,6 +22,7 @@ export class IndexController {
     #lastUsedBodyColors = {
         humanoid: '#FEE4B3',
         cetaceous: '#B5BEC8',
+        sukhabelan: '#472865',
         uniform: ['Command']
     }
 
@@ -393,7 +395,9 @@ export class IndexController {
 
             // If currently selecting a hidden uniform, select the body type default
             if (this.#isCurrentUniformInvalid())
-                this.#uniformSelect.value = bodyShape === 'medusan' ? DEFAULT_MEDUSAN_SUIT : DEFAULT_UNIFORM
+                this.#uniformSelect.value = bodyShape === 'medusan' ? DEFAULT_MEDUSAN_SUIT
+                    : this.#uniformSelect.value = bodyShape === 'sukhabelan' ? DEFAULT_SUKHABELAN_SUIT
+                    : DEFAULT_UNIFORM
         }
 
         // Change the body
@@ -403,7 +407,8 @@ export class IndexController {
             : DomUtil.GenerateSVGHTML(`${bodyShape}/body-overlay.svg`)
 
         // Change the uniform
-        this.#characterUniform.innerHTML = DomUtil.GenerateSVGHTML(`${bodyShape}/uniform/${this.#uniformSelect.value}.svg`)
+        var uniformBodyShape = bodyShape === 'sukhabelan' ? 'humanoid' : bodyShape
+        this.#characterUniform.innerHTML = DomUtil.GenerateSVGHTML(`${uniformBodyShape}/uniform/${this.#uniformSelect.value}.svg`)
 
         const uniformClassList = this.#uniformSelect.selectedOptions[0].classList
 
@@ -469,6 +474,9 @@ export class IndexController {
             this.#medusanChangeUpdate()
             break
         case 'exocomp':
+            break
+        case 'sukhabelan':
+            this.#sukhabelanChangeUpdate(selectedUniform)
             break
         default:
             alert(`Unexpected body shape chosen: ${bodyShape}`)
@@ -605,6 +613,42 @@ export class IndexController {
         this.#characterBody.innerHTML = this.#medusanBoxCheck.checked
             ? DomUtil.GenerateSVGHTML('medusan/body/box.svg')
             : DomUtil.GenerateSVGHTML('medusan/body/visible.svg')
+    }
+
+
+    /**
+     * Handle the sukhabelan-only change detection logic.
+     * @param {HTMLOptionElement} selectedUniform the uniform selected
+     */
+    #sukhabelanChangeUpdate (selectedUniform) {
+
+        // Hide non-applicable humanoid features: hair and ears
+        this.#characterEarsOrNose.innerHTML = ''
+        this.#characterHair.innerHTML = ''
+        this.#characterRearHair.innerHTML = ''
+        this.#characterFacialHair.innerHTML = ''
+
+        // Update the hat features
+        const selections = Array.from(this.#hatFeatureSelect.selectedOptions) ?? []
+
+        this.#characterHeadFeatures.innerHTML = selections.reduce(
+            (accumulator, e) => {
+                accumulator += DomUtil.GenerateSVGHTML(`humanoid/head-features/${e.value}.svg`, e.className)
+                return accumulator
+            }, '')
+
+        // Update extra overlay
+        this.#characterExtraOverlay.innerHTML = ''
+        if (selectedUniform?.hasAttribute('extra-overlay') ?? false)
+            this.#characterExtraOverlay.innerHTML += DomUtil.GenerateSVGHTML(`humanoid/extra/${selectedUniform.getAttribute('extra-overlay')}.svg`)
+
+        // Update extra underlay
+        this.#characterExtraUnderlay.innerHTML = ''
+        selections
+            .filter(e => e.hasAttribute('extra-underlay'))
+            .forEach((e, _i, _all) => {
+                this.#characterExtraUnderlay.innerHTML += DomUtil.GenerateSVGHTML(`humanoid/head-features/${e.getAttribute('extra-underlay')}.svg`)
+            })
     }
 }
 
