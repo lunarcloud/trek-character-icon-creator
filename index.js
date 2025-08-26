@@ -395,9 +395,11 @@ export class IndexController {
 
             // If currently selecting a hidden uniform, select the body type default
             if (this.#isCurrentUniformInvalid())
-                this.#uniformSelect.value = bodyShape === 'medusan' ? DEFAULT_MEDUSAN_SUIT
-                    : this.#uniformSelect.value = bodyShape === 'sukhabelan' ? DEFAULT_SUKHABELAN_SUIT
-                    : DEFAULT_UNIFORM
+                this.#uniformSelect.value = bodyShape === 'medusan'
+                    ? DEFAULT_MEDUSAN_SUIT
+                    : this.#uniformSelect.value = bodyShape === 'sukhabelan'
+                        ? DEFAULT_SUKHABELAN_SUIT
+                        : DEFAULT_UNIFORM
         }
 
         // Change the body
@@ -407,7 +409,7 @@ export class IndexController {
             : DomUtil.GenerateSVGHTML(`${bodyShape}/body-overlay.svg`)
 
         // Change the uniform
-        var uniformBodyShape = bodyShape === 'sukhabelan' ? 'humanoid' : bodyShape
+        const uniformBodyShape = bodyShape === 'sukhabelan' ? 'humanoid' : bodyShape
         this.#characterUniform.innerHTML = DomUtil.GenerateSVGHTML(`${uniformBodyShape}/uniform/${this.#uniformSelect.value}.svg`)
 
         const uniformClassList = this.#uniformSelect.selectedOptions[0].classList
@@ -615,13 +617,11 @@ export class IndexController {
             : DomUtil.GenerateSVGHTML('medusan/body/visible.svg')
     }
 
-
     /**
      * Handle the sukhabelan-only change detection logic.
      * @param {HTMLOptionElement} selectedUniform the uniform selected
      */
     #sukhabelanChangeUpdate (selectedUniform) {
-
         // Hide non-applicable humanoid features: hair and ears
         this.#characterEarsOrNose.innerHTML = ''
         this.#characterHair.innerHTML = ''
