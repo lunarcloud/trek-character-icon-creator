@@ -149,6 +149,8 @@ SVG files use CSS classes for dynamic color changes:
 4. Validate with `npm run svglint`
 5. Test in all relevant body type contexts
 
+**IMPORTANT:** AI agents should NEVER create new SVG artwork. All SVG assets must be hand-crafted by human artists. AI agents may only modify existing SVG files to fix technical issues (e.g., correcting color class names, fixing syntax errors, or updating viewBox attributes).
+
 ## Feature Areas
 
 ### Body Types
@@ -274,6 +276,7 @@ This is primarily a personal project by @lunarcloud. Contributions are considere
 4. **Follow existing patterns** - consistency is critical
 5. **Update documentation** if adding features
 6. **Consider all body types** - changes may affect multiple character types
+7. **NEVER create SVG artwork** - only modify existing SVG files for technical fixes
 
 ### Common Pitfalls to Avoid
 - Don't modify working SVG files without testing - color changes are fragile
@@ -281,6 +284,7 @@ This is primarily a personal project by @lunarcloud. Contributions are considere
 - Don't break the uniform/department color system
 - Don't introduce external API dependencies
 - Don't modify the core export functionality without extensive testing
+- **NEVER create new SVG artwork** - all SVG assets are hand-crafted by humans
 
 ### Best Practices for AI Agents
 - Use `view`, `edit`, and `grep` tools to explore before changing
