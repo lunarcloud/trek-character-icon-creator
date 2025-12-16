@@ -1,6 +1,9 @@
 import { getInputElement, getSelectElement } from './type-helpers.js'
 import html2canvas from './lib/html2canvas.esm.js'
 
+/** SVG canvas size in pixels */
+const SVG_SIZE = 512
+
 /**
  * DOM-related Utilities
  */
@@ -81,7 +84,7 @@ export class DomUtil {
             path === 'humanoid/body-overlay.svg')
             return ''
 
-        return `<svg data-src="${path}" class="${className}" data-cache="disabled" width="512" height="512"></svg>`
+        return `<svg data-src="${path}" class="${className}" data-cache="disabled" width="${SVG_SIZE}" height="${SVG_SIZE}"></svg>`
     }
 
     /**
@@ -93,7 +96,8 @@ export class DomUtil {
      */
     static SaveImage (imageName, rootElement, imageElement, saveBackground = true) {
         if (typeof (html2canvas) !== 'function') {
-            alert('Cannot create image, canvas library not working.')
+            console.error('html2canvas library is not available')
+            alert('Unable to save image. The required library failed to load. Please refresh the page and try again.')
             return
         }
 
@@ -101,8 +105,8 @@ export class DomUtil {
 
         const options = {
             backgroundColor: (saveBackground ? '#363638' : null),
-            width: 512 + (size1em * 2),
-            height: 512 + (size1em * 2),
+            width: SVG_SIZE + (size1em * 2),
+            height: SVG_SIZE + (size1em * 2),
             ignoreElements: (/** @type {{ tagName: string; }} */ el) => {
                 return el.tagName === 'BG' && !saveBackground
             }

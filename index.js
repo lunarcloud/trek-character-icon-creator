@@ -119,7 +119,7 @@ export class IndexController {
     /**
      * @type {HTMLInputElement}
      */
-    #wiskersColorPicker
+    #whiskersColorPicker
 
     /**
      * @type {HTMLSelectElement}
@@ -209,7 +209,7 @@ export class IndexController {
     /**
      * @type {HTMLInputElement}
      */
-    #syncWiskersWithBodyCheck
+    #syncWhiskersWithBodyCheck
 
     /**
      * @type {HTMLInputElement}
@@ -235,7 +235,7 @@ export class IndexController {
         this.#setupPairedElements()
 
         // Setup change detection on any of the element member variables
-        const allChangeEls = [this.#shapeSelect, this.#uniformSelect, this.#uniformColorFilterCheck, this.#earSelect, this.#noseSelect, this.#headFeatureSelect, this.#hatFeatureSelect, this.#eyewearFeatureSelect, this.#syncAntennaeWithBodyCheck, this.#syncBirdTuftWithBodyCheck, this.#syncWiskersWithBodyCheck, this.#foreheadBumpCheck, this.#medusanAltColorCheck, this.#medusanBoxCheck, this.#hairSelect, this.#facialHairSelect, this.#rearHairSelect, this.#hairMirror, this.#rearHairMirror]
+        const allChangeEls = [this.#shapeSelect, this.#uniformSelect, this.#uniformColorFilterCheck, this.#earSelect, this.#noseSelect, this.#headFeatureSelect, this.#hatFeatureSelect, this.#eyewearFeatureSelect, this.#syncAntennaeWithBodyCheck, this.#syncBirdTuftWithBodyCheck, this.#syncWhiskersWithBodyCheck, this.#foreheadBumpCheck, this.#medusanAltColorCheck, this.#medusanBoxCheck, this.#hairSelect, this.#facialHairSelect, this.#rearHairSelect, this.#hairMirror, this.#rearHairMirror]
         for (const changeEl of allChangeEls) {
             changeEl.addEventListener('change', () => this.onChangeDetected())
         }
@@ -279,7 +279,7 @@ export class IndexController {
         this.#shapeSelect = getSelectElement('body-shape')
         this.#antennaeColorPicker = getInputElement('andorian-antennae-color')
         this.#birdTuftColorPicker = getInputElement('bird-tuft-color')
-        this.#wiskersColorPicker = getInputElement('wiskers-color')
+        this.#whiskersColorPicker = getInputElement('whiskers-color')
         this.#uniformSelect = getSelectElement('uniform-select')
         this.#uniformColorSelect = getSelectElement('std-uniform-colors')
         this.#uniformColorFilterCheck = getInputElement('filter-color-selection')
@@ -291,7 +291,7 @@ export class IndexController {
 
         this.#syncAntennaeWithBodyCheck = getInputElement('sync-antennae-with-body')
         this.#syncBirdTuftWithBodyCheck = getInputElement('sync-bird-tuft-with-body')
-        this.#syncWiskersWithBodyCheck = getInputElement('sync-wiskers-with-body')
+        this.#syncWhiskersWithBodyCheck = getInputElement('sync-whiskers-with-body')
         this.#foreheadBumpCheck = getInputElement('forehead-bump')
         this.#medusanAltColorCheck = getInputElement('medusan-alt-color')
         this.#medusanBoxCheck = getInputElement('medusan-box')
@@ -343,8 +343,8 @@ export class IndexController {
             this.#syncBirdTuftWithBodyCheck.checked = false
             this.onChangeDetected()
         })
-        this.#wiskersColorPicker.addEventListener('change', () => {
-            this.#syncWiskersWithBodyCheck.checked = false
+        this.#whiskersColorPicker.addEventListener('change', () => {
+            this.#syncWhiskersWithBodyCheck.checked = false
             this.onChangeDetected()
         })
     }
@@ -481,7 +481,8 @@ export class IndexController {
             this.#sukhabelanChangeUpdate(selectedUniform)
             break
         default:
-            alert(`Unexpected body shape chosen: ${bodyShape}`)
+            console.error(`Unexpected body shape selected: "${bodyShape}". Please refresh the page and try again.`)
+            alert(`An unexpected error occurred. Body shape "${bodyShape}" is not recognized. Please refresh the page.`)
         }
 
         this.#updateSynchronizedColors()
@@ -500,7 +501,7 @@ export class IndexController {
         `svg .uniform-undershirt-color { color: ${this.#uniformUndershirtColorPicker.value} !important;}` +
         `svg .bird-tuft-color { color: ${this.#birdTuftColorPicker.value} !important;}` +
         `svg .andorian-antennae-color { color: ${this.#antennaeColorPicker.value} !important;}` +
-        `svg .wiskers-color { color: ${this.#wiskersColorPicker.value} !important;}`
+        `svg .whiskers-color { color: ${this.#whiskersColorPicker.value} !important;}`
     }
 
     /**
@@ -513,8 +514,8 @@ export class IndexController {
         if (this.#syncBirdTuftWithBodyCheck.checked)
             this.#birdTuftColorPicker.value = this.#bodyColorPicker.value
 
-        if (this.#syncWiskersWithBodyCheck.checked)
-            this.#wiskersColorPicker.value = this.#bodyColorPicker.value
+        if (this.#syncWhiskersWithBodyCheck.checked)
+            this.#whiskersColorPicker.value = this.#bodyColorPicker.value
     }
 
     /**
@@ -523,7 +524,6 @@ export class IndexController {
     #resetCharacterBodyChanges () {
         this.#characterBody.style.filter = ''
         this.#uniformSelect.style.visibility = 'visible'
-        this.#characterUniform.style.visibility = 'visible'
         this.#characterUniform.style.visibility = 'visible'
         document.getElementById('uniform-header').style.visibility = 'visible'
     }
@@ -575,8 +575,8 @@ export class IndexController {
             this.#mainEl.classList.add('andorian-antennae')
         if (selectionNames.includes('bird-tuft'))
             this.#mainEl.classList.add('bird-tuft')
-        if (selectionNames.includes('gill-wiskers-or-feathers'))
-            this.#mainEl.classList.add('wiskers')
+        if (selectionNames.includes('gill-whiskers-or-feathers'))
+            this.#mainEl.classList.add('whiskers')
     }
 
     /**

@@ -105,7 +105,7 @@ body {
   &:not(.extra-overlay) .extra-overlay-only,
   &:not(.andorian-antennae) .andorian-antennae-only,
   &:not(.bird-tuft) .bird-tuft-only,
-  &:not(.wiskers) .wiskers-only,
+  &:not(.whiskers) .whiskers-only,
   &.no-uniform-color #uniform-color-section {
     display: none;
     visibility: hidden;
