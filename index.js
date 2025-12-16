@@ -481,7 +481,8 @@ export class IndexController {
             this.#sukhabelanChangeUpdate(selectedUniform)
             break
         default:
-            alert(`Unexpected body shape chosen: ${bodyShape}`)
+            console.error(`Unexpected body shape selected: "${bodyShape}". Please refresh the page and try again.`)
+            alert(`An unexpected error occurred. Body shape "${bodyShape}" is not recognized. Please refresh the page.`)
         }
 
         this.#updateSynchronizedColors()
