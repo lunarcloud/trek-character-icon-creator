@@ -15,7 +15,7 @@ This document provides detailed information about the Trek Character Icon Creato
 A character icon creator for Star Trek-style characters with extensive customization options including multiple species, body types, uniforms, and facial features.
 
 ### Viewport Requirements
-**Critical:** The application must fit within a **980px × 800px viewport** without requiring scrolling. This constraint is required for proper display when hosted on itch.io. All UI changes must be tested at this viewport size to ensure full visibility of all controls and the character preview.
+**Important:** The application should minimize any vertical scrolling and avoid all horizontal scrolling when displayed in a **980px × 800px viewport** for optimal display when hosted on itch.io. All UI changes should be tested at this viewport size to ensure good usability.
 
 ## Architecture
 
@@ -245,7 +245,7 @@ This is primarily a personal project by @lunarcloud. Contributions are considere
 - Requires modern browser with ES6+ module support
 - Tested primarily in Chrome/Firefox
 - SVG rendering varies by browser
-- Optimized for 980px × 800px viewport (itch.io hosting requirement)
+- Designed to minimize vertical scrolling and avoid horizontal scrolling at 980px × 800px viewport (itch.io hosting)
 
 ### Performance
 - Large number of SVG assets loaded dynamically
