@@ -3,7 +3,7 @@
  */
 export class DataUtil {
     /**
-     * Split a name into it's multiple parts
+     * Split a name into its multiple parts
      * @param {string|undefined} name       string list to split
      * @returns {Array<string>|undefined}   list of individual names
      */

@@ -524,7 +524,6 @@ export class IndexController {
         this.#characterBody.style.filter = ''
         this.#uniformSelect.style.visibility = 'visible'
         this.#characterUniform.style.visibility = 'visible'
-        this.#characterUniform.style.visibility = 'visible'
         document.getElementById('uniform-header').style.visibility = 'visible'
     }
 
