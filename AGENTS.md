@@ -142,14 +142,22 @@ SVG files use CSS classes for dynamic color changes:
 </svg>
 ```
 
-### Adding New SVG Assets
-1. Create SVG with proper viewBox (512x512)
-2. Add style block with appropriate color classes
-3. Use `fill="currentColor"` on paths that should be colorable
-4. Validate with `npm run svglint`
-5. Test in all relevant body type contexts
+### Modifying Existing SVG Assets
 
-**IMPORTANT:** AI agents should NEVER create new SVG artwork. All SVG assets must be hand-crafted by human artists. AI agents may only modify existing SVG files to fix technical issues (e.g., correcting color class names, fixing syntax errors, or updating viewBox attributes).
+**AI agents are forbidden from creating new SVG artwork.** All SVG assets must be hand-crafted by human artists. However, AI agents may modify existing SVG files to fix technical issues:
+
+**Allowed modifications:**
+1. **Correcting color class names** - Fix incorrect CSS class references (e.g., `.body-color`, `.hair-color`, `.uniform-color`)
+2. **Fixing syntax errors** - Repair malformed XML, missing closing tags, or invalid attributes
+3. **Updating viewBox attributes** - Correct viewBox dimensions if incorrect
+4. **Fixing xmlns declarations** - Ensure proper `xmlns="http://www.w3.org/2000/svg"` attribute
+5. **Correcting style blocks** - Fix CSS syntax errors within `<style>` tags
+
+**After any SVG modification:**
+1. Validate with `npm run svglint`
+2. Test visually in browser with `npm run serve`
+3. Verify color customization still works correctly
+4. Test in all relevant body type contexts
 
 ## Feature Areas
 
@@ -199,20 +207,6 @@ SVG files use CSS classes for dynamic color changes:
 - Include style blocks for color classes
 
 ## Common Tasks
-
-### Adding a New Uniform Style
-1. Create SVG file in appropriate `uniform/` directory
-2. Follow naming convention: `series-variant.svg`
-3. Include uniform-color and uniform-undershirt-color classes
-4. Add option to uniform selector in `index.html`
-5. Test with all body types that support uniforms
-
-### Adding a New Species Feature
-1. Create SVG in appropriate directory (e.g., `humanoid/ears/`)
-2. Include body-color class if applicable
-3. Add selector option in `index.html`
-4. Update visibility logic in `index.js` if needed
-5. Document in README.md if significant
 
 ### Modifying Color Options
 1. Update color picker in `index.html`
