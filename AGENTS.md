@@ -38,32 +38,22 @@ A character icon creator for Star Trek-style characters with extensive customiza
 ├── type-helpers.js     # TypeScript-style type helpers for IDE support
 ├── util-data.js        # Data manipulation utilities (DataUtil class)
 ├── util-dom.js         # DOM manipulation utilities (DomUtil class)
-├── humanoid/           # SVG assets for humanoid characters
-│   ├── body.svg
-│   ├── ears/
-│   ├── extra/
-│   ├── facial-hair/
-│   ├── hair/
-│   ├── head-features/
-│   ├── rear-hair/
-│   └── uniform/
-├── cetaceous/          # SVG assets for cetaceous (whale-like) characters
-│   ├── body.svg
-│   ├── body-overlay.svg
-│   ├── head-features/
-│   ├── nose/
-│   └── uniform/
-├── exocomp/            # SVG assets for exocomp (robot-like) characters
-│   ├── body.svg
-│   ├── body-overlay.svg
-│   └── uniform/
-├── medusan/            # SVG assets for medusan (energy being) characters
-│   ├── body/
-│   └── uniform/
-├── sukhabelan/         # SVG assets for sukhabelan (non-canon) characters
-│   └── body.svg
+├── {body-type}/        # SVG asset directories for each character body type
+│   ├── body.svg        # Base body SVG (required)
+│   ├── body-overlay.svg # Optional overlay layer
+│   ├── body/           # Alternative: body parts as subdirectory
+│   ├── ears/           # Species-specific ear variations
+│   ├── extra/          # Additional customization options
+│   ├── facial-hair/    # Facial hair styles
+│   ├── hair/           # Hair styles
+│   ├── head-features/  # Species-specific head features (ridges, antennae, etc.)
+│   ├── nose/           # Nose variations
+│   ├── rear-hair/      # Back hair/ponytails
+│   └── uniform/        # Uniform styles for this body type
 └── fonts/              # Custom fonts
 ```
+
+**Note:** Body type directories vary in structure. Each contains `body.svg` or `body/` subdirectory. Subdirectories for customization options (ears, hair, uniform, etc.) differ per body type based on what's applicable.
 
 ### Key Components
 
@@ -162,11 +152,14 @@ SVG files use CSS classes for dynamic color changes:
 ## Feature Areas
 
 ### Body Types
-- **Humanoid:** Traditional bipedal characters with full customization
-- **Cetaceous:** Whale/dolphin-like aquatic species
-- **Exocomp:** Small robotic entities
-- **Medusan:** Energy beings in containment suits
-- **Sukhabelan:** Non-canon species with unique features
+The application supports multiple character body types, each with unique customization options:
+- Traditional bipedal humanoid characters
+- Aquatic/cetaceous species
+- Robotic entities
+- Energy beings with containment suits
+- Other non-canon species variants
+
+Each body type has its own asset directory and available customization features.
 
 ### Customization Options
 - Species-specific features (Vulcan ears, Klingon ridges, etc.)
