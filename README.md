@@ -56,7 +56,7 @@ npm run svglint     # SVG linting only
 - `index.js` - Main JavaScript controller
 - `index.css` - Main stylesheet
 - `util-*.js` - Utility modules for DOM and data manipulation
-- `type-helpers.js` - TypeScript-style type helpers for better IDE support
+- `type-helpers.js` - HTML element getters with runtime type checking
 - `humanoid/` - SVG assets for humanoid characters
 - `cetaceous/`, `exocomp/`, `medusan/`, `sukhabelan/` - Assets for other body types
 
