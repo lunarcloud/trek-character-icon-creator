@@ -35,7 +35,7 @@ A character icon creator for Star Trek-style characters with extensive customiza
 ├── index.html          # Main application UI
 ├── index.js            # Main controller (IndexController class)
 ├── index.css           # Main stylesheet
-├── type-helpers.js     # TypeScript-style type helpers for IDE support
+├── type-helpers.js     # HTML element getters with runtime type checking
 ├── util-data.js        # Data manipulation utilities (DataUtil class)
 ├── util-dom.js         # DOM manipulation utilities (DomUtil class)
 ├── {body-type}/        # SVG asset directories for each character body type
