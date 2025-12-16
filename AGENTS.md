@@ -1,0 +1,310 @@
+# AGENTS.md
+
+This document provides detailed information about the Trek Character Icon Creator project for AI agents and automated tools.
+
+## Project Overview
+
+**Name:** Icon-y Character Creator for Star Trek  
+**Type:** Browser-based web application  
+**License:** CC0 1.0 Universal (content), separate license for code  
+**Primary Language:** JavaScript (ES Modules)  
+**Environment:** Modern web browsers with ES6+ support  
+**Live App:** https://samsarette.itch.io/simple-trekkie-character-creator
+
+### Purpose
+A character icon creator for Star Trek-style characters with extensive customization options including multiple species, body types, uniforms, and facial features.
+
+## Architecture
+
+### Technology Stack
+- **Frontend:** Vanilla JavaScript (ES Modules), HTML5, CSS3
+- **Build Tools:** None (runs directly in browser)
+- **Dependencies:**
+  - `external-svg-loader` (v1.7.1) - Dynamic SVG loading
+  - `html2canvas` (v1.4.1) - Canvas export functionality
+- **Dev Dependencies:**
+  - ESLint with standard config
+  - stylelint for CSS
+  - linthtml for HTML
+  - svglint for SVG validation
+
+### Project Structure
+
+```
+/
+├── index.html          # Main application UI
+├── index.js            # Main controller (IndexController class)
+├── index.css           # Main stylesheet
+├── type-helpers.js     # TypeScript-style type helpers for IDE support
+├── util-data.js        # Data manipulation utilities (DataUtil class)
+├── util-dom.js         # DOM manipulation utilities (DomUtil class)
+├── humanoid/           # SVG assets for humanoid characters
+│   ├── body.svg
+│   ├── ears/
+│   ├── extra/
+│   ├── facial-hair/
+│   ├── hair/
+│   ├── head-features/
+│   ├── rear-hair/
+│   └── uniform/
+├── cetaceous/          # SVG assets for cetaceous (whale-like) characters
+│   ├── body.svg
+│   ├── body-overlay.svg
+│   ├── head-features/
+│   ├── nose/
+│   └── uniform/
+├── exocomp/            # SVG assets for exocomp (robot-like) characters
+│   ├── body.svg
+│   ├── body-overlay.svg
+│   └── uniform/
+├── medusan/            # SVG assets for medusan (energy being) characters
+│   ├── body/
+│   └── uniform/
+├── sukhabelan/         # SVG assets for sukhabelan (non-canon) characters
+│   └── body.svg
+└── fonts/              # Custom fonts
+```
+
+### Key Components
+
+#### IndexController (`index.js`)
+Main application controller that manages:
+- Character customization state
+- UI event handlers
+- SVG asset loading and visibility
+- Color customization
+- Image export functionality
+
+#### DataUtil (`util-data.js`)
+Utility class for data operations:
+- `ListStringToArray()` - Parse comma/slash separated strings
+- `ListInList()` - Check list intersection
+
+#### DomUtil (`util-dom.js`)
+Utility class for DOM operations:
+- `SetupColorInputWithSelect()` - Wire color pickers with selectors
+- `ExportImage()` - Export character as PNG using html2canvas
+- SVG manipulation helpers
+
+## Development Workflow
+
+### Setup
+```bash
+npm install
+npm run copy-deps  # Copy external dependencies to lib/
+```
+
+### Running Locally
+```bash
+npm run serve  # Starts development server on http://localhost:3000
+```
+
+### Code Quality
+All code must pass linting before submission:
+```bash
+npm run lint        # Run all linters
+npm run lint-fix    # Auto-fix issues where possible
+npm run eslint      # JavaScript only
+npm run htmllint    # HTML only
+npm run csslint     # CSS only
+npm run svglint     # SVG only
+```
+
+### Testing
+- No automated test suite currently exists
+- Manual testing required via browser interface
+- Test all body types when making changes
+- Verify export functionality
+
+## SVG Asset System
+
+### Color Customization
+SVG files use CSS classes for dynamic color changes:
+
+**Available CSS Classes:**
+- `.body-color` - Character body/skin color
+- `.hair-color` - Hair and facial hair color
+- `.uniform-color` - Primary uniform color
+- `.uniform-undershirt-color` - Undershirt/secondary uniform color
+- `.bird-tuft-color` - Bird tuft feature color
+- `.andorian-antennae-color` - Andorian antennae color
+- `.whiskers-color` - Whiskers/gills/feathers color
+
+### SVG File Pattern
+```svg
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+    <style>
+        .body-color {
+            color: #fee4b3;
+        }
+    </style>
+    <path fill="currentColor" class="body-color" d="..." />
+</svg>
+```
+
+### Adding New SVG Assets
+1. Create SVG with proper viewBox (512x512)
+2. Add style block with appropriate color classes
+3. Use `fill="currentColor"` on paths that should be colorable
+4. Validate with `npm run svglint`
+5. Test in all relevant body type contexts
+
+## Feature Areas
+
+### Body Types
+- **Humanoid:** Traditional bipedal characters with full customization
+- **Cetaceous:** Whale/dolphin-like aquatic species
+- **Exocomp:** Small robotic entities
+- **Medusan:** Energy beings in containment suits
+- **Sukhabelan:** Non-canon species with unique features
+
+### Customization Options
+- Species-specific features (Vulcan ears, Klingon ridges, etc.)
+- Hair styles and facial hair
+- Uniform styles from multiple Star Trek series
+- Department colors (Command, Ops, Security, Science, Medical, Engineering)
+- Body, hair, and uniform colors
+- Special features (whiskers, antennae, bird tufts, etc.)
+
+### Export
+- PNG export with transparent or colored background
+- Uses html2canvas for rendering
+- Default size: 512x512 pixels
+
+## Code Style Guidelines
+
+### JavaScript
+- ES6+ modules
+- JSDoc comments for all public methods
+- Standard ESLint configuration
+- No semicolons (standard style)
+- 4-space indentation (per .editorconfig)
+
+### HTML
+- Semantic HTML5
+- Validated by linthtml
+- Uses custom `<group>` elements for logical sections
+
+### CSS
+- Standard stylelint configuration
+- CSS custom properties for theme consistency
+- BEM-like naming for SVG color classes
+
+### SVG
+- Validated by svglint
+- Must include proper xmlns
+- Use viewBox for scalability
+- Include style blocks for color classes
+
+## Common Tasks
+
+### Adding a New Uniform Style
+1. Create SVG file in appropriate `uniform/` directory
+2. Follow naming convention: `series-variant.svg`
+3. Include uniform-color and uniform-undershirt-color classes
+4. Add option to uniform selector in `index.html`
+5. Test with all body types that support uniforms
+
+### Adding a New Species Feature
+1. Create SVG in appropriate directory (e.g., `humanoid/ears/`)
+2. Include body-color class if applicable
+3. Add selector option in `index.html`
+4. Update visibility logic in `index.js` if needed
+5. Document in README.md if significant
+
+### Modifying Color Options
+1. Update color picker in `index.html`
+2. Add option to appropriate `std-*-colors` selector
+3. Update default colors in `index.js` if needed
+4. Test across all body types
+
+## CI/CD
+
+### GitHub Actions
+**Workflow:** `.github/workflows/lint.yml`
+- Runs on: push to main, pull requests, manual trigger
+- Steps: Install dependencies → ESLint → linthtml → stylelint
+- All linters must pass for PR approval
+
+### Deployment
+- Manual upload to itch.io via `upload-to-itch.sh`
+- No automated deployment pipeline
+- Static files served directly
+
+## Contributing Guidelines
+
+This is primarily a personal project by @lunarcloud. Contributions are considered but not actively solicited.
+
+### Pull Request Requirements
+1. All linters must pass (`npm run lint`)
+2. Thorough manual testing of changes
+3. Clear description of changes and reasoning
+4. Follow existing code patterns
+5. Update documentation if adding features
+
+### Review Process
+- PRs reviewed at maintainer's discretion
+- May be accepted, modified, or closed based on project needs
+- Bug fixes prioritized over feature additions
+
+## Known Limitations
+
+### Browser Support
+- Requires modern browser with ES6+ module support
+- Tested primarily in Chrome/Firefox
+- SVG rendering varies by browser
+
+### Performance
+- Large number of SVG assets loaded dynamically
+- Export uses html2canvas which may be slow for complex characters
+- No lazy loading implemented
+
+### Features
+- No undo/redo functionality
+- No save/load character presets
+- No animation support
+- Limited mobile optimization
+
+## AI Agent Guidance
+
+### When Making Changes
+1. **Always run linters** before and after changes
+2. **Test manually** in browser - no automated tests exist
+3. **Maintain minimal dependencies** - avoid adding new packages unless essential
+4. **Follow existing patterns** - consistency is critical
+5. **Update documentation** if adding features
+6. **Consider all body types** - changes may affect multiple character types
+
+### Common Pitfalls to Avoid
+- Don't modify working SVG files without testing - color changes are fragile
+- Don't add complex build processes - this is intentionally simple
+- Don't break the uniform/department color system
+- Don't introduce external API dependencies
+- Don't modify the core export functionality without extensive testing
+
+### Best Practices for AI Agents
+- Use `view`, `edit`, and `grep` tools to explore before changing
+- Test changes incrementally with `npm run serve`
+- Run specific linters (`npm run eslint`) as you work
+- Check both visual output and console for errors
+- Verify export functionality after UI changes
+- Consider edge cases (no selection, custom colors, etc.)
+
+## Resources
+
+- **Repository:** https://github.com/lunarcloud/trek-character-icon-creator
+- **Live App:** https://samsarette.itch.io/simple-trekkie-character-creator
+- **License:** See LICENSE and LICENSE-CODE files
+- **Issues:** GitHub Issues (acceptance not guaranteed)
+
+## Maintainer Notes
+
+**Primary Maintainer:** @lunarcloud  
+**Maintenance Status:** Personal project, active as time permits  
+**Support:** Limited - this is a hobby project  
+**Philosophy:** Keep it simple, browser-native, and fun
+
+---
+
+*Last Updated: 2025-12-16*
+*Document Version: 1.0*
