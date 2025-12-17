@@ -1,5 +1,5 @@
 import { DomUtil } from './util-dom.js'
-import { CharacterElements } from './CharacterElements.js'
+import { CharacterElements } from './character_elements.js'
 
 /**
  * Manages body-type-specific rendering and updates.

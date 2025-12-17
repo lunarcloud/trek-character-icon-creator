@@ -1,7 +1,7 @@
-import { CharacterElements } from './CharacterElements.js'
-import { ColorManager } from './ColorManager.js'
-import { UniformManager } from './UniformManager.js'
-import { BodyTypeManager } from './BodyTypeManager.js'
+import { CharacterElements } from './character_elements.js'
+import { ColorManager } from './color_manager.js'
+import { UniformManager } from './uniform_manager.js'
+import { BodyTypeManager } from './body_type_manager.js'
 import { DomUtil } from './util-dom.js'
 
 /**
