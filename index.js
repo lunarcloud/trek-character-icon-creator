@@ -1,8 +1,8 @@
-import { CharacterElements } from './character_elements.js'
-import { ColorManager } from './color_manager.js'
-import { UniformManager } from './uniform_manager.js'
-import { BodyTypeManager } from './body_type_manager.js'
-import { DomUtil } from './util-dom.js'
+import { CharacterElements } from './js/character_elements.js'
+import { ColorManager } from './js/color_manager.js'
+import { UniformManager } from './js/uniform_manager.js'
+import { BodyTypeManager } from './js/body_type_manager.js'
+import { DomUtil } from './js/util-dom.js'
 
 /**
  * Controller for the Main, Index, Page.

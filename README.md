@@ -53,17 +53,18 @@ npm run svglint     # SVG linting only
 
 ## Project Structure
 - `index.html` - Main HTML file with character creator UI
-- `index.js` - Main JavaScript controller (orchestrates modules)
+- `index.js` - Main JavaScript controller
 - `index.css` - Main stylesheet
-- **Core Modules:**
-  - `character_elements.js` - DOM element references and initialization
-  - `color_manager.js` - Color pickers, synchronization, and color state management
-  - `uniform_manager.js` - Uniform validation, filtering, and default selection
-  - `body_type_manager.js` - Body-type-specific rendering logic
-- **Utilities:**
-  - `util-data.js` - Data manipulation utilities
-  - `util-dom.js` - DOM manipulation utilities
-  - `type-helpers.js` - HTML element getters with runtime type checking
+- `js/` - JavaScript modules folder
+  - **Core Modules:**
+    - `character_elements.js` - DOM element references and initialization
+    - `color_manager.js` - Color pickers, synchronization, and color state management
+    - `uniform_manager.js` - Uniform validation, filtering, and default selection
+    - `body_type_manager.js` - Body-type-specific rendering logic
+  - **Utilities:**
+    - `util-data.js` - Data manipulation utilities
+    - `util-dom.js` - DOM manipulation utilities
+    - `type-helpers.js` - HTML element getters with runtime type checking
 - **Assets:**
   - `humanoid/` - SVG assets for humanoid characters
   - `cetaceous/`, `exocomp/`, `medusan/`, `sukhabelan/` - Assets for other body types
