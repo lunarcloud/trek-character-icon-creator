@@ -1,4 +1,5 @@
 import { DomUtil } from './util-dom.js'
+import { CharacterElements } from './CharacterElements.js'
 
 /**
  * Manages body-type-specific rendering and updates.
@@ -6,7 +7,7 @@ import { DomUtil } from './util-dom.js'
 export class BodyTypeManager {
     /**
      * Update humanoid-specific features.
-     * @param {object} elements Character elements
+     * @param {CharacterElements} elements Character elements
      * @param {HTMLOptionElement} selectedUniform Selected uniform option
      */
     static updateHumanoid (elements, selectedUniform) {
@@ -58,7 +59,7 @@ export class BodyTypeManager {
 
     /**
      * Update cetaceous-specific features.
-     * @param {object} elements Character elements
+     * @param {CharacterElements} elements Character elements
      */
     static updateCetaceous (elements) {
         // Change the nose
@@ -71,7 +72,7 @@ export class BodyTypeManager {
 
     /**
      * Update medusan-specific features.
-     * @param {object} elements Character elements
+     * @param {CharacterElements} elements Character elements
      */
     static updateMedusan (elements) {
         // Alternative Coloring
@@ -93,7 +94,7 @@ export class BodyTypeManager {
 
     /**
      * Update sukhabelan-specific features.
-     * @param {object} elements Character elements
+     * @param {CharacterElements} elements Character elements
      * @param {HTMLOptionElement} selectedUniform Selected uniform option
      */
     static updateSukhabelan (elements, selectedUniform) {
@@ -128,7 +129,7 @@ export class BodyTypeManager {
 
     /**
      * Reset any visibility or filter changes made specific to choices.
-     * @param {object} elements Character elements
+     * @param {CharacterElements} elements Character elements
      */
     static resetCharacterBodyChanges (elements) {
         elements.characterBody.style.filter = ''
