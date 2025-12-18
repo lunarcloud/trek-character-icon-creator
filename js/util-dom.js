@@ -117,6 +117,25 @@ export class DomUtil {
         combinedSVG.setAttribute('width', String(SVG_SIZE))
         combinedSVG.setAttribute('height', String(SVG_SIZE))
 
+        // Collect all namespace declarations from source SVGs (use Map to avoid duplicates)
+        const namespaces = new Map()
+        for (const svgEl of svgElements) {
+            if (svgEl instanceof SVGSVGElement) {
+                // Get all attributes that are namespace declarations (xmlns:*)
+                for (const attr of svgEl.attributes) {
+                    if (attr.name.startsWith('xmlns:') && attr.name !== 'xmlns:xmlns') {
+                        // Map key is the namespace name, ensuring no duplicates
+                        namespaces.set(attr.name, attr.value)
+                    }
+                }
+            }
+        }
+
+        // Add collected namespaces to the combined SVG
+        for (const [name, value] of namespaces) {
+            combinedSVG.setAttribute(name, value)
+        }
+
         // Add style element if exists
         if (styleContent) {
             const styleEl = document.createElementNS('http://www.w3.org/2000/svg', 'style')
