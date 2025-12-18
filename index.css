@@ -126,9 +126,7 @@ body {
   }
 
   character bg {
-    background-image: linear-gradient(#E5D908 2px, transparent 2px), linear-gradient(to right, #E5D908 2px, transparent 2px);
-    background-size: 32px 32px;
-    background-position: -33px 0;
+    /* Background is now handled by embedded SVG */
   }
 
   &.medusan #character-body {
