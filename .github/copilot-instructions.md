@@ -36,11 +36,16 @@ A character icon creator for Star Trek-style characters with extensive customiza
 ```
 /
 ├── index.html          # Main application UI
-├── index.js            # Main controller (IndexController class)
+├── index.js            # Main controller (orchestrates modules)
 ├── index.css           # Main stylesheet
-├── type-helpers.js     # HTML element getters with runtime type checking
-├── util-data.js        # Data manipulation utilities (DataUtil class)
-├── util-dom.js         # DOM manipulation utilities (DomUtil class)
+├── js/                 # JavaScript modules folder
+│   ├── character_elements.js  # DOM element references and initialization
+│   ├── color_manager.js    # Color pickers, synchronization, and color state
+│   ├── uniform_manager.js  # Uniform validation, filtering, and defaults
+│   ├── body_type_manager.js   # Body-type-specific rendering logic
+│   ├── type-helpers.js     # HTML element getters with runtime type checking
+│   ├── util-data.js        # Data manipulation utilities (DataUtil class)
+│   └── util-dom.js         # DOM manipulation utilities (DomUtil class)
 ├── {body-type}/        # SVG asset directories for each character body type
 │   ├── body.svg        # Base body SVG (required)
 │   ├── body-overlay.svg # Optional overlay layer
@@ -61,22 +66,48 @@ A character icon creator for Star Trek-style characters with extensive customiza
 ### Key Components
 
 #### IndexController (`index.js`)
-Main application controller that manages:
-- Character customization state
-- UI event handlers
-- SVG asset loading and visibility
-- Color customization
+Main application controller that orchestrates the modular architecture:
+- Initializes and coordinates all manager modules
+- Handles top-level change detection
+- Manages character rendering workflow
 - Image export functionality
 
-#### DataUtil (`util-data.js`)
+#### CharacterElements (`js/character_elements.js`)
+Manages DOM element references:
+- Centralizes all element lookups
+- Setup for interactive elements (next buttons)
+- Provides element collections for change detection
+
+#### ColorManager (`js/color_manager.js`)
+Handles all color-related functionality:
+- Color picker initialization and pairing with selectors
+- Color synchronization (e.g., antennae with body color)
+- Last-used color tracking per body type
+- Color validation and CSS style generation
+
+#### UniformManager (`js/uniform_manager.js`)
+Manages uniform selection logic:
+- Uniform validation based on body type
+- Color option filtering by uniform type
+- Default uniform selection
+- Hiding invalid options
+
+#### BodyTypeManager (`js/body_type_manager.js`)
+Handles body-type-specific rendering:
+- Separate update methods for each body type (humanoid, cetaceous, medusan, sukhabelan, exocomp)
+- SVG asset loading and visibility management
+- Body-specific feature rendering
+- Reset logic for body changes
+
+#### DataUtil (`js/util-data.js`)
 Utility class for data operations:
 - `ListStringToArray()` - Parse comma/slash separated strings
 - `ListInList()` - Check list intersection
 
-#### DomUtil (`util-dom.js`)
+#### DomUtil (`js/util-dom.js`)
 Utility class for DOM operations:
 - `SetupColorInputWithSelect()` - Wire color pickers with selectors
-- `ExportImage()` - Export character as PNG using html2canvas
+- `SaveImage()` - Export character as PNG using html2canvas
 - SVG manipulation helpers
 
 ## Development Workflow
