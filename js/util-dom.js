@@ -145,43 +145,18 @@ export class DomUtil {
 
         // Add background if requested
         if (saveBackground) {
-            // Create a pattern for the holodeck grid background
-            const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs')
-            const pattern = document.createElementNS('http://www.w3.org/2000/svg', 'pattern')
-            pattern.setAttribute('id', 'holodeck-grid')
-            pattern.setAttribute('width', '32')
-            pattern.setAttribute('height', '32')
-            pattern.setAttribute('patternUnits', 'userSpaceOnUse')
+            // Load the holodeck grid pattern from external SVG file
+            const response = await fetch('holodeck-grid-pattern.svg')
+            const patternSvgText = await response.text()
+            const parser = new DOMParser()
+            const patternDoc = parser.parseFromString(patternSvgText, 'image/svg+xml')
+            const defs = patternDoc.querySelector('defs')
 
-            // Create the background rectangle for the pattern (dark gray)
-            const patternBg = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-            patternBg.setAttribute('width', '32')
-            patternBg.setAttribute('height', '32')
-            patternBg.setAttribute('fill', BACKGROUND_COLOR)
-            pattern.appendChild(patternBg)
-
-            // Create vertical grid line
-            const verticalLine = document.createElementNS('http://www.w3.org/2000/svg', 'line')
-            verticalLine.setAttribute('x1', '0')
-            verticalLine.setAttribute('y1', '0')
-            verticalLine.setAttribute('x2', '0')
-            verticalLine.setAttribute('y2', '32')
-            verticalLine.setAttribute('stroke', '#E5D908')
-            verticalLine.setAttribute('stroke-width', '2')
-            pattern.appendChild(verticalLine)
-
-            // Create horizontal grid line
-            const horizontalLine = document.createElementNS('http://www.w3.org/2000/svg', 'line')
-            horizontalLine.setAttribute('x1', '0')
-            horizontalLine.setAttribute('y1', '0')
-            horizontalLine.setAttribute('x2', '32')
-            horizontalLine.setAttribute('y2', '0')
-            horizontalLine.setAttribute('stroke', '#E5D908')
-            horizontalLine.setAttribute('stroke-width', '2')
-            pattern.appendChild(horizontalLine)
-
-            defs.appendChild(pattern)
-            combinedSVG.appendChild(defs)
+            if (defs) {
+                // Import the defs node with the pattern
+                const importedDefs = document.importNode(defs, true)
+                combinedSVG.appendChild(importedDefs)
+            }
 
             // Create the background rectangle using the pattern
             const bgRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
