@@ -146,17 +146,11 @@ export class DomUtil {
         // Add background if requested
         if (saveBackground) {
             // Get the holodeck grid pattern from the HTML <bg> element
-            const bgElement = imageElement.querySelector('bg')
-            if (bgElement) {
-                const bgSvg = bgElement.querySelector('svg')
-                if (bgSvg instanceof SVGSVGElement) {
-                    const defs = bgSvg.querySelector('defs')
-                    if (defs) {
-                        // Import the defs node with the pattern
-                        const importedDefs = document.importNode(defs, true)
-                        combinedSVG.appendChild(importedDefs)
-                    }
-                }
+            const defs = imageElement.querySelector('bg > svg defs')
+            if (defs) {
+                // Import the defs node with the pattern
+                const importedDefs = document.importNode(defs, true)
+                combinedSVG.appendChild(importedDefs)
             }
 
             // Create the background rectangle using the pattern

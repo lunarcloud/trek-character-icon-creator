@@ -125,10 +125,6 @@ body {
     height: fit-content;
   }
 
-  character bg {
-    /* Background is now handled by embedded SVG */
-  }
-
   &.medusan #character-body {
       z-index: 6; /* draw in front of the suit by taking the "facial hair" spot */
   }
