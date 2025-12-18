@@ -125,6 +125,12 @@ body {
     height: fit-content;
   }
 
+  bg svg {
+    width: var(--svg-size);
+    height: var(--svg-size);
+    transform: translateX(-33px);
+  }
+
   &.medusan #character-body {
       z-index: 6; /* draw in front of the suit by taking the "facial hair" spot */
   }
