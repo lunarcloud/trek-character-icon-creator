@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg">
-    <defs>
-        <pattern id="holodeck-grid" width="32" height="32" patternUnits="userSpaceOnUse">
-            <rect width="32" height="32" fill="#363638"/>
-            <line x1="0" y1="0" x2="0" y2="32" stroke="#E5D908" stroke-width="2"/>
-            <line x1="0" y1="0" x2="32" y2="0" stroke="#E5D908" stroke-width="2"/>
-        </pattern>
-    </defs>
-</svg>

@@ -145,13 +145,8 @@ export class DomUtil {
 
         // Add background if requested
         if (saveBackground) {
-            // Load the holodeck grid pattern from external SVG file
-            const response = await fetch('holodeck-grid-pattern.svg')
-            const patternSvgText = await response.text()
-            const parser = new DOMParser()
-            const patternDoc = parser.parseFromString(patternSvgText, 'image/svg+xml')
-            const defs = patternDoc.querySelector('defs')
-
+            // Get the holodeck grid pattern from the HTML <bg> element
+            const defs = imageElement.querySelector('bg > svg defs')
             if (defs) {
                 // Import the defs node with the pattern
                 const importedDefs = document.importNode(defs, true)

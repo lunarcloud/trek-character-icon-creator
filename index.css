@@ -125,10 +125,9 @@ body {
     height: fit-content;
   }
 
-  character bg {
-    background-image: linear-gradient(#E5D908 2px, transparent 2px), linear-gradient(to right, #E5D908 2px, transparent 2px);
-    background-size: 32px 32px;
-    background-position: -33px 0;
+  character bg svg {
+    width: var(--svg-size);
+    height: var(--svg-size);
   }
 
   &.medusan #character-body {
