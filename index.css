@@ -125,7 +125,7 @@ body {
     height: fit-content;
   }
 
-  bg svg {
+  character bg svg {
     width: var(--svg-size);
     height: var(--svg-size);
   }
