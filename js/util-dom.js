@@ -96,7 +96,13 @@ export class DomUtil {
      */
     static async SaveImageAsSVG (imageName, imageElement, saveBackground = true) {
         // Get all SVG elements in z-index order (DOM order = z-index order)
-        const svgElements = Array.from(imageElement.querySelectorAll('svg[data-src]'))
+        // Filter to only include SVGs whose parent containers are visible
+        const allSvgElements = Array.from(imageElement.querySelectorAll('svg[data-src]'))
+        const svgElements = allSvgElements.filter(svg => {
+            // Check if the parent element is visible (not hidden by CSS)
+            return svg.parentElement && svg.parentElement.offsetParent !== null
+        })
+
         const bgElement = imageElement.querySelector('bg')
 
         // Get the style element with color classes
