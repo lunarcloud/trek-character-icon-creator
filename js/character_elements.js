@@ -145,6 +145,11 @@ export class CharacterElements {
     saveBGCheck
 
     /**
+     * @type {HTMLSelectElement}
+     */
+    saveFormatSelect
+
+    /**
      * Constructor - Initialize all DOM element references.
      */
     constructor () {
@@ -182,6 +187,7 @@ export class CharacterElements {
         this.rearHairSelect = getSelectElement('rear-hair-select')
         this.rearHairMirror = getInputElement('rear-hair-mirror')
         this.saveBGCheck = getInputElement('save-with-bg-checkbox')
+        this.saveFormatSelect = getSelectElement('save-format-select')
     }
 
     /**

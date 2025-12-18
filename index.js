@@ -40,7 +40,8 @@ export class IndexController {
         // Setup the save as image functionality
         document.getElementById('download')
             .addEventListener('click', () => DomUtil.SaveImage('star-trek-officer.png',
-                this.#elements.mainEl, this.#elements.mainEl.querySelector('character'), this.#elements.saveBGCheck.checked))
+                this.#elements.mainEl, this.#elements.mainEl.querySelector('character'),
+                this.#elements.saveBGCheck.checked, this.#elements.saveFormatSelect.value))
     }
 
     /**

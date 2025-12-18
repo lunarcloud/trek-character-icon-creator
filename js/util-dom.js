@@ -4,6 +4,9 @@ import html2canvas from '../lib/html2canvas.esm.js'
 /** SVG canvas size in pixels */
 const SVG_SIZE = 512
 
+/** Background color for saved images */
+const BACKGROUND_COLOR = '#363638'
+
 /**
  * DOM-related Utilities
  */
@@ -88,13 +91,139 @@ export class DomUtil {
     }
 
     /**
+     * Export character as a combined SVG file.
+     * @param {string}      imageName       name for the download.
+     * @param {HTMLElement} imageElement    element to create image of.
+     * @param {boolean}     saveBackground  whether to save the background image or go transparent.
+     * @returns {Promise<void>}             promise that resolves when export is complete.
+     */
+    static async SaveImageAsSVG (imageName, imageElement, saveBackground = true) {
+        // Get all SVG elements in z-index order (DOM order = z-index order)
+        // Filter to only include SVGs whose parent containers are visible
+        const allSvgElements = Array.from(imageElement.querySelectorAll('svg[data-src]'))
+        const svgElements = allSvgElements.filter(svg => {
+            // Check if the parent element is visible (not hidden by CSS)
+            return svg.parentElement && svg.parentElement.offsetParent !== null
+        })
+
+        // Get the style element with color classes
+        const styleElement = imageElement.querySelector('style')
+        const styleContent = styleElement ? styleElement.innerHTML : ''
+
+        // Create the combined SVG
+        const combinedSVG = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+        combinedSVG.setAttribute('xmlns', 'http://www.w3.org/2000/svg')
+        combinedSVG.setAttribute('viewBox', `0 0 ${SVG_SIZE} ${SVG_SIZE}`)
+        combinedSVG.setAttribute('width', String(SVG_SIZE))
+        combinedSVG.setAttribute('height', String(SVG_SIZE))
+
+        // Collect all namespace declarations from source SVGs (use Map to avoid duplicates)
+        const namespaces = new Map()
+        for (const svgEl of svgElements) {
+            if (svgEl instanceof SVGSVGElement) {
+                // Get all attributes that are namespace declarations (xmlns:*)
+                for (const attr of svgEl.attributes) {
+                    if (attr.name.startsWith('xmlns:') && attr.name !== 'xmlns:xmlns') {
+                        // Map key is the namespace name, ensuring no duplicates
+                        namespaces.set(attr.name, attr.value)
+                    }
+                }
+            }
+        }
+
+        // Add collected namespaces to the combined SVG
+        for (const [name, value] of namespaces) {
+            combinedSVG.setAttribute(name, value)
+        }
+
+        // Add style element if exists
+        if (styleContent) {
+            const styleEl = document.createElementNS('http://www.w3.org/2000/svg', 'style')
+            styleEl.textContent = styleContent
+            combinedSVG.appendChild(styleEl)
+        }
+
+        // Add background if requested
+        if (saveBackground) {
+            // Load the holodeck grid pattern from external SVG file
+            const response = await fetch('holodeck-grid-pattern.svg')
+            const patternSvgText = await response.text()
+            const parser = new DOMParser()
+            const patternDoc = parser.parseFromString(patternSvgText, 'image/svg+xml')
+            const defs = patternDoc.querySelector('defs')
+
+            if (defs) {
+                // Import the defs node with the pattern
+                const importedDefs = document.importNode(defs, true)
+                combinedSVG.appendChild(importedDefs)
+            }
+
+            // Create the background rectangle using the pattern
+            const bgRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+            bgRect.setAttribute('width', String(SVG_SIZE))
+            bgRect.setAttribute('height', String(SVG_SIZE))
+            bgRect.setAttribute('fill', 'url(#holodeck-grid)')
+            combinedSVG.appendChild(bgRect)
+        }
+
+        // Process each SVG element in order
+        for (const svgEl of svgElements) {
+            if (svgEl instanceof SVGSVGElement) {
+                // Clone the SVG's children into a group
+                const group = document.createElementNS('http://www.w3.org/2000/svg', 'g')
+
+                // Copy all child nodes from the loaded SVG
+                const children = Array.from(svgEl.children)
+                for (const child of children) {
+                    // Skip the style element as we already have it at the top level
+                    if (child.tagName.toLowerCase() !== 'style') {
+                        const clonedChild = child.cloneNode(true)
+                        group.appendChild(clonedChild)
+                    }
+                }
+
+                // Only add the group if it has content
+                if (group.children.length > 0) {
+                    combinedSVG.appendChild(group)
+                }
+            }
+        }
+
+        // Convert to string and create download
+        const serializer = new XMLSerializer()
+        const svgString = serializer.serializeToString(combinedSVG)
+        const blob = new Blob([svgString], { type: 'image/svg+xml' })
+        const url = URL.createObjectURL(blob)
+
+        const link = document.createElement('a')
+        link.download = imageName.replace('.png', '.svg')
+        link.href = url
+        link.click()
+
+        // Clean up
+        URL.revokeObjectURL(url)
+    }
+
+    /**
      * Save an image file of the currently selected options.
      * @param {string}      imageName       name for the download.
      * @param {HTMLElement} rootElement     root element of the scene.
      * @param {HTMLElement} imageElement    element to create image of.
      * @param {boolean}     saveBackground  whether to save the background image or go transparent.
+     * @param {string}      format          export format: 'png' or 'svg'.
      */
-    static SaveImage (imageName, rootElement, imageElement, saveBackground = true) {
+    static SaveImage (imageName, rootElement, imageElement, saveBackground = true, format = 'png') {
+        // Handle SVG export
+        if (format === 'svg') {
+            rootElement.classList.add('saving')
+            DomUtil.SaveImageAsSVG(imageName, imageElement, saveBackground)
+                .finally(() => {
+                    rootElement.classList.remove('saving')
+                })
+            return
+        }
+
+        // Handle PNG export with html2canvas
         if (typeof (html2canvas) !== 'function') {
             console.error('html2canvas library is not available')
             alert('Unable to save image. The required library failed to load. Please refresh the page and try again.')
@@ -104,7 +233,7 @@ export class DomUtil {
         const size1em = parseFloat(getComputedStyle(rootElement).fontSize)
 
         const options = {
-            backgroundColor: (saveBackground ? '#363638' : null),
+            backgroundColor: (saveBackground ? BACKGROUND_COLOR : null),
             width: SVG_SIZE + (size1em * 2),
             height: SVG_SIZE + (size1em * 2),
             ignoreElements: (/** @type {{ tagName: string; }} */ el) => {
