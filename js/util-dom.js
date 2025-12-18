@@ -4,6 +4,9 @@ import html2canvas from '../lib/html2canvas.esm.js'
 /** SVG canvas size in pixels */
 const SVG_SIZE = 512
 
+/** Background color for saved images */
+const BACKGROUND_COLOR = '#363638'
+
 /**
  * DOM-related Utilities
  */
@@ -103,8 +106,6 @@ export class DomUtil {
             return svg.parentElement && svg.parentElement.offsetParent !== null
         })
 
-        const bgElement = imageElement.querySelector('bg')
-
         // Get the style element with color classes
         const styleElement = imageElement.querySelector('style')
         const styleContent = styleElement ? styleElement.innerHTML : ''
@@ -124,11 +125,11 @@ export class DomUtil {
         }
 
         // Add background if requested
-        if (saveBackground && bgElement) {
+        if (saveBackground) {
             const bgRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
             bgRect.setAttribute('width', String(SVG_SIZE))
             bgRect.setAttribute('height', String(SVG_SIZE))
-            bgRect.setAttribute('fill', '#363638')
+            bgRect.setAttribute('fill', BACKGROUND_COLOR)
             combinedSVG.appendChild(bgRect)
         }
 
@@ -199,7 +200,7 @@ export class DomUtil {
         const size1em = parseFloat(getComputedStyle(rootElement).fontSize)
 
         const options = {
-            backgroundColor: (saveBackground ? '#363638' : null),
+            backgroundColor: (saveBackground ? BACKGROUND_COLOR : null),
             width: SVG_SIZE + (size1em * 2),
             height: SVG_SIZE + (size1em * 2),
             ignoreElements: (/** @type {{ tagName: string; }} */ el) => {
