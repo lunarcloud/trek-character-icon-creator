@@ -138,6 +138,7 @@ npm run svglint     # SVG only
 - No automated test suite currently exists
 - Manual testing required via browser interface
 - Test all body types when making changes
+- Ensure the character (SVGs selected from the selections) is visible on screen
 - Verify export functionality
 
 ## SVG Asset System
