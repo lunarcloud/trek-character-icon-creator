@@ -39,7 +39,7 @@ npm run serve
 This will start a local development server. Open your browser to the URL shown (typically http://localhost:3000).
 
 ## Code Quality Tools
-The project has linters for the HTML, CSS, JavaScript, and SVG files all setup and configured.
+The project has linters for the HTML, CSS, JavaScript, and SVG files all set up and configured.
 
 ### Running Linters
 ```sh
