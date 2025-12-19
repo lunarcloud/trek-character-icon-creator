@@ -1,4 +1,4 @@
-# This workflow will run the three lint tools
+# This workflow will run the four lint tools
 name: Lint
 
 on:
