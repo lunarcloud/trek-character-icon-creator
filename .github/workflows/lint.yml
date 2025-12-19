@@ -1,4 +1,4 @@
-# This workflow will run the three lint tools
+# This workflow will run the four lint tools
 name: Lint
 
 on:
@@ -37,4 +37,7 @@ jobs:
       - name: Lint CSS
         if: ${{ ! cancelled() }}
         run: npm run csslint
-        
+
+      - name: Lint SVG
+        if: ${{ ! cancelled() }}
+        run: npm run svglint

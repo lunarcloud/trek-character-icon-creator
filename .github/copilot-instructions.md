@@ -134,12 +134,19 @@ npm run csslint     # CSS only
 npm run svglint     # SVG only
 ```
 
+**Important:** 
+- SVGLint runs with default configuration (no custom .svglintrc needed)
+- All JavaScript must have JSDoc comments on public functions/methods/classes
+- The project uses `jsconfig.json` for editor IntelliSense and basic type checking
+- Follow JavaScript Standard Style (no semicolons, 4-space indentation)
+
 ### Testing
 - No automated test suite currently exists
-- Manual testing required via browser interface
+- Manual testing required via browser interface - see TESTING.md for comprehensive checklist
 - Test all body types when making changes
 - Ensure the character (SVGs selected from the selections) is visible on screen
 - Verify export functionality
+- Always test at 980px × 800px viewport (itch.io target size)
 
 ## SVG Asset System
 
@@ -211,12 +218,16 @@ Each body type has its own asset directory and available customization features.
 
 ## Code Style Guidelines
 
+**Note: This project uses JavaScript only - no TypeScript.** The `jsconfig.json` file is used solely for editor IntelliSense support and JSDoc-based type checking.
+
 ### JavaScript
 - ES6+ modules
-- JSDoc comments for all public methods
-- Standard ESLint configuration
+- JSDoc comments required for all public methods, classes, and exported functions
+- Standard ESLint configuration (JavaScript Standard Style)
 - No semicolons (standard style)
 - 4-space indentation (per .editorconfig)
+- Use `jsconfig.json` for editor type checking support
+- Avoid `@ts-ignore` comments unless absolutely necessary for DOM type issues
 
 ### HTML
 - Semantic HTML5
@@ -229,12 +240,37 @@ Each body type has its own asset directory and available customization features.
 - BEM-like naming for SVG color classes
 
 ### SVG
-- Validated by svglint
-- Must include proper xmlns
-- Use viewBox for scalability
-- Include style blocks for color classes
+- Validated by svglint (uses default configuration)
+- Must include proper xmlns="http://www.w3.org/2000/svg"
+- Use viewBox for scalability (typically `viewBox="0 0 512 512"`)
+- Include style blocks for color classes when color customization is needed
+- Use `fill="currentColor"` with color class names for dynamic coloring
 
 ## Common Tasks
+
+### Writing JSDoc Comments
+All public functions, methods, and classes must have JSDoc comments:
+
+```javascript
+/**
+ * Get an element by id and validate its type.
+ * @param {string} id - The element ID to retrieve
+ * @param {Function} type - The expected constructor/class
+ * @returns {HTMLElement} The validated element
+ * @throws {Error} If element type doesn't match expected type
+ */
+export function getElementOfType(id, type) {
+    // implementation
+}
+```
+
+**JSDoc Requirements:**
+- Brief description of what the function does
+- `@param` for each parameter with type and description
+- `@returns` with type and description of return value
+- `@throws` if function can throw errors
+- Use JSDoc types: `{string}`, `{number}`, `{boolean}`, `{HTMLElement}`, `{Array<string>}`, etc.
+- The eslint-plugin-jsdoc validates JSDoc syntax
 
 ### Modifying Color Options
 1. Update color picker in `index.html`
@@ -247,7 +283,7 @@ Each body type has its own asset directory and available customization features.
 ### GitHub Actions
 **Workflow:** `.github/workflows/lint.yml`
 - Runs on: push to main, pull requests, manual trigger
-- Steps: Install dependencies → ESLint → linthtml → stylelint
+- Steps: Install dependencies → ESLint → linthtml → stylelint → svglint
 - All linters must pass for PR approval
 
 ### Deployment
@@ -294,12 +330,13 @@ This is primarily a personal project by @lunarcloud. Contributions are considere
 
 ### When Making Changes
 1. **Always run linters** before and after changes
-2. **Test manually** in browser - no automated tests exist
+2. **Test manually** in browser - no automated tests exist (see TESTING.md)
 3. **Maintain minimal dependencies** - avoid adding new packages unless essential
 4. **Follow existing patterns** - consistency is critical
 5. **Update documentation** if adding features
 6. **Consider all body types** - changes may affect multiple character types
 7. **NEVER create SVG artwork** - only modify existing SVG files for technical fixes
+8. **Use JSDoc comments** - required for all public functions/methods/classes
 
 ### Common Pitfalls to Avoid
 - Don't modify working SVG files without testing - color changes are fragile
@@ -316,6 +353,8 @@ This is primarily a personal project by @lunarcloud. Contributions are considere
 - Check both visual output and console for errors
 - Verify export functionality after UI changes
 - Consider edge cases (no selection, custom colors, etc.)
+- Follow the manual testing checklist in TESTING.md
+- Write JSDoc comments for any new functions
 
 ## Resources
 
