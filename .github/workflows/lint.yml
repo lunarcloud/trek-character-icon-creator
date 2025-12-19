@@ -37,4 +37,8 @@ jobs:
       - name: Lint CSS
         if: ${{ ! cancelled() }}
         run: npm run csslint
+  
+      - name: Lint SVG
+        if: ${{ ! cancelled() }}
+        run: npm run svglint
         

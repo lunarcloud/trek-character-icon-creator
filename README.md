@@ -39,7 +39,7 @@ npm run serve
 This will start a local development server. Open your browser to the URL shown (typically http://localhost:3000).
 
 ## Code Quality Tools
-The project has linters for the HTML, CSS, and JavaScript all setup and configured.
+The project has linters for the HTML, CSS, JavaScript, and SVG files all setup and configured.
 
 ### Running Linters
 ```sh
@@ -50,6 +50,13 @@ npm run htmllint    # HTML linting only
 npm run csslint     # CSS linting only
 npm run svglint     # SVG linting only
 ```
+
+### JavaScript Code Quality
+- **ESLint** with standard configuration enforces code style
+- **JSDoc comments** are required for all public functions, methods, and classes
+- **jsconfig.json** enables JavaScript type checking in editors with IntelliSense
+- Code uses ES6+ modules with 4-space indentation
+- No semicolons (JavaScript Standard Style)
 
 ## Project Structure
 - `index.html` - Main HTML file with character creator UI
@@ -70,6 +77,31 @@ npm run svglint     # SVG linting only
   - `cetaceous/`, `exocomp/`, `medusan/`, `sukhabelan/` - Assets for other body types
 
 ## Adding New Features
+
+### Module Architecture
+The codebase uses a modular architecture with clear separation of concerns:
+- **Core modules** (`js/character_elements.js`, `js/color_manager.js`, etc.) handle specific responsibilities
+- **Utility modules** (`js/util-*.js`) provide reusable helper functions
+- Main controller (`index.js`) orchestrates all modules
+- All modules use ES6 export/import syntax
+
+When adding features, follow the existing module patterns and maintain separation of concerns.
+
+### JSDoc Documentation Requirements
+All public functions, methods, and classes must have JSDoc comments:
+
+```javascript
+/**
+ * Brief description of the function.
+ * @param {string} id - Description of parameter
+ * @returns {HTMLElement} Description of return value
+ */
+export function getElement(id) {
+    // implementation
+}
+```
+
+The project uses `jsconfig.json` for editor support and basic type checking through JSDoc annotations.
 
 ### Adding New SVG Assets
 All SVG files have been hand-edited to enable color changing of certain shapes/paths.
