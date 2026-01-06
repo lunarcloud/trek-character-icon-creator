@@ -1,0 +1,18 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created using Krita: https://krita.org -->
+<svg xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:krita="http://krita.org/namespaces/svg/krita"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    width="512pt"
+    height="512pt"
+    viewBox="0 0 512 512">
+    <style>
+        .uniform-color {
+            color: #62226c;
+        }
+    </style>
+<defs/>
+<path id="shape0" transform="translate(40.9999983994452, 329.999987117486)" fill="currentColor" class="uniform-color" fill-rule="evenodd" d="M248 17C219.28 20.2375 190.731 19.5285 163 0L26 41L0 182L236 182Z" sodipodi:nodetypes="cccccc"/><path id="shape1" transform="translate(188.249992651112, 335.999986883259)" fill="none" stroke-opacity="0.164705882352941" stroke="#ffffff" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M0 0C28.891 21.6024 61.723 37.633 119.25 18.75" sodipodi:nodetypes="cc"/><path id="shape2" transform="translate(148.99999418335, 319.624987623087)" fill="currentColor" class="uniform-color" fill-rule="evenodd" d="M145 0C146.006 21.5719 118.964 27.2249 85.989 28.4628C75.4568 29.0413 6.2973 55.719 0 58.375L11 192L352 192L335 57Z" sodipodi:nodetypes="ccccccc"/><path id="shape01" transform="translate(148.19999451583, 320.074987796254)" fill="#000000" fill-opacity="0.552941176470588" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M145 0C146.006 21.5719 118.964 27.2249 85.989 28.4628C75.4568 29.0413 6.2973 55.719 0 58.375L11 192L352 192L335 57Z" sodipodi:nodetypes="ccccccc"/><path id="shape3" transform="translate(171.749987986699, 331.874977153646)" fill="none" stroke-opacity="0.164705882352941" stroke="#ffffff" stroke-width="3" stroke-linecap="square" stroke-linejoin="bevel" d="M153.75 0C86.5227 45.7858 93.5871 26.2216 0 57.375L19.5 180.125" sodipodi:nodetypes="ccc"/>
+</svg>
