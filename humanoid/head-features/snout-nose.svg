@@ -1,0 +1,13 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created using Krita: https://krita.org -->
+<svg xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:krita="http://krita.org/namespaces/svg/krita"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    width="512pt"
+    height="512pt"
+    viewBox="0 0 512 512">
+<defs/>
+<path id="shape0" transform="translate(215.249796817647, 158.807775748629)" sodipodi:type="arc" sodipodi:rx="34.0290405584865" sodipodi:ry="30.0937420901222" sodipodi:cx="34.0315440017649" sodipodi:cy="30.0937454315111" sodipodi:start="2.7771271865492" sodipodi:end="0.382097589635189" sodipodi:open="true" d="M65.6066 41.3147C71.2884 28.8106 66.8778 14.4904 54.8103 6.26177C42.7429 -1.96689 25.9608 -2.09774 13.7311 5.94149C1.50148 13.9807 -3.19392 28.2299 2.23772 40.8207" fill="none" stroke-opacity="0.541176470588235" stroke="#cecccc" stroke-width="3" stroke-linecap="square" stroke-linejoin="bevel"/><path id="shape01" transform="translate(217.435534122688, 160.874999083341)" sodipodi:type="arc" sodipodi:rx="31.5" sodipodi:ry="30.0937420901222" sodipodi:cx="31.5019659133363" sodipodi:cy="30.0937438825452" sodipodi:start="2.87596005471342" sodipodi:end="0.280019146623562" sodipodi:open="true" d="M61.775 38.4109C65.4584 26.1743 60.6825 13.0474 49.849 5.63145C39.0155 -1.78452 24.4692 -1.88449 13.5252 5.38183C2.58115 12.6481 -2.39194 25.708 1.10678 37.9939" fill="none" stroke-opacity="0.541176470588235" stroke="#000000" stroke-width="3" stroke-linecap="square" stroke-linejoin="bevel"/><ellipse id="shape011" transform="matrix(0.868609045226237 -0.512136819624553 0.533215390331171 0.834272007120797 254.250249796013 175.03199840629)" rx="6.0887944945512" ry="12" cx="6.0887944945512" cy="12" fill="#31291a" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel"/><ellipse id="shape0111" transform="matrix(0.870245506123168 0.509567546419194 -0.530540370761073 0.835843776980392 232.929162715326 169.24998857762)" rx="5.47878894919615" ry="12" cx="5.47878894919615" cy="12" fill="#31291a" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel"/>
+</svg>

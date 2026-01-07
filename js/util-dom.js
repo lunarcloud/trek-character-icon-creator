@@ -70,10 +70,23 @@ export class DomUtil {
         const el = selectEl.querySelectorAll('option')[selectEl.selectedIndex]
         if (el instanceof HTMLOptionElement === false)
             return true
-        if (el.parentElement instanceof HTMLOptGroupElement === false ||
-            el.parentElement.hidden === true)
+        if (el.parentElement instanceof HTMLOptGroupElement === true && el.parentElement.hidden === true)
             return true
         return el.hidden ?? false
+    }
+
+    /**
+     * Hide uniform options based on body shape.
+     * @param {HTMLSelectElement} selectorEl the select element
+     */
+    static hideInvalidSelectOptions (selectorEl) {
+        const maybeHiddenEls = selectorEl.querySelectorAll('option[class]')
+        for (const el of maybeHiddenEls) {
+            if (el instanceof HTMLOptionElement === false)
+                continue
+            const style = window.getComputedStyle(el)
+            el.hidden = style.visibility === 'hidden'
+        }
     }
 
     /**

@@ -64,23 +64,23 @@ npm run svglint     # SVG linting only
 - `index.css` - Main stylesheet
 - `js/` - JavaScript modules folder
   - **Core Modules:**
-    - `character_elements.js` - DOM element references and initialization
-    - `color_manager.js` - Color pickers, synchronization, and color state management
-    - `uniform_manager.js` - Uniform validation, filtering, and default selection
-    - `body_type_manager.js` - Body-type-specific rendering logic
+    - `character-elements.js` - DOM element references and initialization
+    - `color-manager.js` - Color pickers, synchronization, and color state management
+    - `uniform-manager.js` - Uniform validation, filtering, and default selection
+    - `body-type-manager.js` - Body-type-specific rendering logic
   - **Utilities:**
     - `util-data.js` - Data manipulation utilities
     - `util-dom.js` - DOM manipulation utilities
     - `type-helpers.js` - HTML element getters with runtime type checking
 - **Assets:**
   - `humanoid/` - SVG assets for humanoid characters
-  - `cetaceous/`, `exocomp/`, `medusan/`, `cal-mirran/`, `sukhabelan/` - Assets for other body types
+  - `cetaceous/`, `exocomp/`, `medusan/`, `cal-mirran/`, `qofuari`, `sukhabelan/` - Assets for other body types
 
 ## Adding New Features
 
 ### Module Architecture
 The codebase uses a modular architecture with clear separation of concerns:
-- **Core modules** (`js/character_elements.js`, `js/color_manager.js`, etc.) handle specific responsibilities
+- **Core modules** (`js/character-elements.js`, `js/color-manager.js`, etc.) handle specific responsibilities
 - **Utility modules** (`js/util-*.js`) provide reusable helper functions
 - Main controller (`index.js`) orchestrates all modules
 - All modules use ES6 export/import syntax

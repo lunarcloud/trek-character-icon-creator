@@ -79,6 +79,7 @@ export class ColorManager {
         humanoid: '#FEE4B3',
         cetaceous: '#B5BEC8',
         sukhabelan: '#472865',
+        qofuari: '#765321',
         uniform: ['Command']
     }
 

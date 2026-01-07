@@ -1,0 +1,18 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created using Krita: https://krita.org -->
+<svg xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:krita="http://krita.org/namespaces/svg/krita"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    width="512pt"
+    height="512pt"
+    viewBox="0 0 512 512">
+    <style>
+        .body-color {
+            color: #fee4b3;
+        }
+    </style>
+<defs/>
+<path id="shape1" transform="translate(42.2068093468258, 250.750001031731)" fill="currentColor" class="body-color" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M117.543 0.5L298.293 0C298.159 5.00236 282.792 18.5892 252.191 40.7606C251.792 53.7004 251.493 63.9051 251.293 71.375L440.668 129.312L455.709 261.25L0 261.25L27.1057 121.625L161.449 79.625L161.18 45.2359C132.758 21.069 118.212 6.15705 117.543 0.5Z" sodipodi:nodetypes="ccccccccccc"/><rect id="shape0" transform="translate(140.499995780062, 48.9999985282779)" fill="currentColor" class="body-color" fill-rule="evenodd" width="219.00000414485" height="238.999992821601" rx="91.9999972367671" ry="91.9999972367671"/>
+</svg>

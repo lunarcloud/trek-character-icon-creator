@@ -4,11 +4,11 @@ This document provides detailed information about the Trek Character Icon Creato
 
 ## Project Overview
 
-**Name:** Icon-y Character Creator for Star Trek  
-**Type:** Browser-based web application  
-**License:** CC0 1.0 Universal (content), separate license for code  
-**Primary Language:** JavaScript (ES Modules)  
-**Environment:** Modern web browsers with ES6+ support  
+**Name:** Icon-y Character Creator for Star Trek
+**Type:** Browser-based web application
+**License:** CC0 1.0 Universal (content), separate license for code
+**Primary Language:** JavaScript (ES Modules)
+**Environment:** Modern web browsers with ES6+ support
 **Live App:** https://samsarette.itch.io/simple-trekkie-character-creator
 
 ### Purpose
@@ -39,10 +39,10 @@ A character icon creator for Star Trek-style characters with extensive customiza
 ├── index.js            # Main controller (orchestrates modules)
 ├── index.css           # Main stylesheet
 ├── js/                 # JavaScript modules folder
-│   ├── character_elements.js  # DOM element references and initialization
-│   ├── color_manager.js    # Color pickers, synchronization, and color state
-│   ├── uniform_manager.js  # Uniform validation, filtering, and defaults
-│   ├── body_type_manager.js   # Body-type-specific rendering logic
+│   ├── character-elements.js  # DOM element references and initialization
+│   ├── color-manager.js    # Color pickers, synchronization, and color state
+│   ├── uniform-manager.js  # Uniform validation, filtering, and defaults
+│   ├── body-type-manager.js   # Body-type-specific rendering logic
 │   ├── type-helpers.js     # HTML element getters with runtime type checking
 │   ├── util-data.js        # Data manipulation utilities (DataUtil class)
 │   └── util-dom.js         # DOM manipulation utilities (DomUtil class)
@@ -61,7 +61,7 @@ A character icon creator for Star Trek-style characters with extensive customiza
 └── fonts/              # Custom fonts
 ```
 
-**Note:** Body type directories vary in structure. Each contains `body.svg` or `body/` subdirectory. Subdirectories for customization options (ears, hair, uniform, etc.) differ per body type based on what's applicable.
+**Note:** Body type directories vary in structure. Each contains `body.svg` or `body/` subdirectory. Subdirectories for customization options (ears, hair, uniform, etc.) differ per body type based on what's applicable. Filenames should be kebob-case, no underscores or spaces.
 
 ### Key Components
 
@@ -72,29 +72,29 @@ Main application controller that orchestrates the modular architecture:
 - Manages character rendering workflow
 - Image export functionality
 
-#### CharacterElements (`js/character_elements.js`)
+#### CharacterElements (`js/character-elements.js`)
 Manages DOM element references:
 - Centralizes all element lookups
 - Setup for interactive elements (next buttons)
 - Provides element collections for change detection
 
-#### ColorManager (`js/color_manager.js`)
+#### ColorManager (`js/color-manager.js`)
 Handles all color-related functionality:
 - Color picker initialization and pairing with selectors
 - Color synchronization (e.g., antennae with body color)
 - Last-used color tracking per body type
 - Color validation and CSS style generation
 
-#### UniformManager (`js/uniform_manager.js`)
+#### UniformManager (`js/uniform-manager.js`)
 Manages uniform selection logic:
 - Uniform validation based on body type
 - Color option filtering by uniform type
 - Default uniform selection
 - Hiding invalid options
 
-#### BodyTypeManager (`js/body_type_manager.js`)
+#### BodyTypeManager (`js/body-type-manager.js`)
 Handles body-type-specific rendering:
-- Separate update methods for each body type (humanoid, cetaceous, medusan, cal-mirran, sukhabelan, exocomp)
+- Separate update methods for each body type (humanoid, cetaceous, medusan, cal-mirran, qofuari, sukhabelan, exocomp)
 - SVG asset loading and visibility management
 - Body-specific feature rendering
 - Reset logic for body changes
@@ -134,7 +134,7 @@ npm run csslint     # CSS only
 npm run svglint     # SVG only
 ```
 
-**Important:** 
+**Important:**
 - SVGLint runs with default configuration (no custom .svglintrc needed)
 - All JavaScript must have JSDoc comments on public functions/methods/classes
 - The project uses `jsconfig.json` for editor IntelliSense and basic type checking
@@ -365,9 +365,9 @@ This is primarily a personal project by @lunarcloud. Contributions are considere
 
 ## Maintainer Notes
 
-**Primary Maintainer:** @lunarcloud  
-**Maintenance Status:** Personal project, active as time permits  
-**Support:** Limited - this is a hobby project  
+**Primary Maintainer:** @lunarcloud
+**Maintenance Status:** Personal project, active as time permits
+**Support:** Limited - this is a hobby project
 **Philosophy:** Keep it simple, browser-native, and fun
 
 ---

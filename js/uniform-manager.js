@@ -1,9 +1,12 @@
 import { DomUtil } from './util-dom.js'
 import { DataUtil } from './util-data.js'
 
-const DEFAULT_UNIFORM = 'VOY DS9'
-const DEFAULT_MEDUSAN_SUIT = 'Prodigy B'
-const DEFAULT_SUKHABELAN_SUIT = 'Sarell Expanse'
+const DEFAULT_UNIFORM = {
+    'medusan': 'Prodigy B',
+    'qofuari': 'Eighteenth Century A',
+    'sukhabelan': 'Sarell Expanse',
+    'other': 'VOY DS9'
+}
 
 /**
  * Manages uniform selection and color filtering.
@@ -24,23 +27,7 @@ export class UniformManager {
      * @returns {string} The default uniform value
      */
     static getDefaultUniform (bodyShape) {
-        if (bodyShape === 'medusan') return DEFAULT_MEDUSAN_SUIT
-        if (bodyShape === 'sukhabelan') return DEFAULT_SUKHABELAN_SUIT
-        return DEFAULT_UNIFORM
-    }
-
-    /**
-     * Hide uniform options based on body shape.
-     * @param {HTMLElement} mainEl The main element
-     */
-    static hideInvalidUniformOptions (mainEl) {
-        const uniformSelectMaybeHiddenEls = mainEl.querySelectorAll('option[class]')
-        for (const el of uniformSelectMaybeHiddenEls) {
-            if (el instanceof HTMLOptionElement === false)
-                continue
-            const style = window.getComputedStyle(el)
-            el.hidden = style.visibility === 'hidden'
-        }
+        return DEFAULT_UNIFORM[bodyShape] ?? DEFAULT_UNIFORM['other'];
     }
 
     /**

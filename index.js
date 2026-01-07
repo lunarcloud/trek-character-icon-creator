@@ -1,7 +1,7 @@
-import { CharacterElements } from './js/character_elements.js'
-import { ColorManager } from './js/color_manager.js'
-import { UniformManager } from './js/uniform_manager.js'
-import { BodyTypeManager } from './js/body_type_manager.js'
+import { CharacterElements } from './js/character-elements.js'
+import { ColorManager } from './js/color-manager.js'
+import { UniformManager } from './js/uniform-manager.js'
+import { BodyTypeManager } from './js/body-type-manager.js'
 import { DomUtil } from './js/util-dom.js'
 
 /**
@@ -77,8 +77,11 @@ export class IndexController {
 
         // Handle Body Shape Changes
         if (bodyShapeChanged) {
-            // Ensure the "humanoid-only" items are hidden for others
-            UniformManager.hideInvalidUniformOptions(this.#elements.mainEl)
+            // Ensure the invalid items are hidden
+            for (let selector of this.#elements.mainEl.getElementsByTagName('select')) {
+                if (selector instanceof HTMLSelectElement)
+                    DomUtil.hideInvalidSelectOptions(selector)
+            }
 
             // Reset color so we don't have oddly-fleshy dolphins by default
             this.#colorManager.bodyColorPicker.value = this.#colorManager.getLastUsedBodyColor(bodyShape)
@@ -86,16 +89,23 @@ export class IndexController {
             // If currently selecting a hidden uniform, select the body type default
             if (UniformManager.isCurrentUniformInvalid(this.#elements.uniformSelect))
                 this.#elements.uniformSelect.value = UniformManager.getDefaultUniform(bodyShape)
+
+            // Hide invalid hair options and ensure a valid one is selected
+            if (this.#elements.hairSelect.checkVisibility()) {
+                if (DomUtil.IsOptionInvalid(this.#elements.hairSelect)) {
+                    this.#elements.hairSelect.selectedIndex = 1
+                }
+            }
         }
 
         // Change the body
         this.#elements.characterBody.innerHTML = DomUtil.GenerateSVGHTML(`${bodyShape}/body.svg`)
-        this.#elements.bodyOverlay.innerHTML = ['medusan'].includes(bodyShape)
+        this.#elements.bodyOverlay.innerHTML = ['medusan', 'cal-mirran', 'qofuari'].includes(bodyShape)
             ? ''
             : DomUtil.GenerateSVGHTML(`${bodyShape}/body-overlay.svg`)
 
         // Change the uniform
-        const uniformBodyShape = bodyShape === 'sukhabelan' ? 'humanoid' : bodyShape
+        const uniformBodyShape = ['sukhabelan', 'qofuari'].includes(bodyShape) ? 'humanoid' : bodyShape
         this.#elements.characterUniform.innerHTML = DomUtil.GenerateSVGHTML(`${uniformBodyShape}/uniform/${this.#elements.uniformSelect.value}.svg`)
 
         const uniformClassList = this.#elements.uniformSelect.selectedOptions[0].classList
@@ -145,6 +155,9 @@ export class IndexController {
             break
         case 'exocomp':
             break
+        case 'qofuari':
+            BodyTypeManager.updateQofuari(this.#elements, selectedUniform)
+            break;
         case 'sukhabelan':
             BodyTypeManager.updateSukhabelan(this.#elements, selectedUniform)
             break

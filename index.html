@@ -36,18 +36,18 @@
                     </svg>
                     <!-- linthtml-enable attr-bans -->
                 </bg>
-                <div id="character-rear-hair" class="humanoid-only"></div>
-                <div id="extra-underlay" class="humanoid-only"></div>
+                <div id="character-rear-hair" class="non-exocomp non-medusan non-cal-mirran non-sukhabelan non-cetaceous"></div>
+                <div id="extra-underlay" class="non-exocomp non-medusan non-cal-mirran non-sukhabelan non-cetaceous"></div>
                 <div id="character-ears-or-nose" class="non-exocomp non-medusan non-cal-mirran"></div>
                 <div id="character-body"></div>
-                <div id="character-head-features-underuniform" class="humanoid-only"></div>
+                <div id="character-head-features-underuniform" class="non-exocomp non-medusan non-cal-mirran non-sukhabelan non-cetaceous"></div>
                 <div id="character-uniform"></div>
-                <div id="character-facial-hair" class="humanoid-only"></div>
+                <div id="character-facial-hair" class="non-exocomp non-medusan non-cal-mirran non-sukhabelan non-cetaceous"></div>
                 <div id="character-head-features" class="non-exocomp non-medusan non-cal-mirran"></div>
-                <div id="character-hair" class="humanoid-only"></div>
-                <div id="character-head-features-overhair" class="humanoid-only"></div>
+                <div id="character-hair" class="non-exocomp non-medusan non-cal-mirran non-sukhabelan non-cetaceous"></div>
+                <div id="character-head-features-overhair" class="non-exocomp non-medusan non-cal-mirran non-sukhabelan non-cetaceous"></div>
                 <div id="body-overlay" class="non-humanoid"></div>
-                <div id="extra-overlay" class="humanoid-only"></div>
+                <div id="extra-overlay" class="non-exocomp non-medusan non-cal-mirran non-sukhabelan non-cetaceous"></div>
             </character>
         </main>
 
@@ -61,6 +61,7 @@
                     <option value="medusan">Medusan</option>
                     <optgroup label="Non-Canon">
                         <option value="cal-mirran">Cal-Mirran</option>
+                        <option value="qofuari">Qofuari</option>
                         <option value="sukhabelan" hidden>Sukhabelan</option>
                     </optgroup>
                 </select>
@@ -70,21 +71,22 @@
                     <label for="body-color">Color</label>
                     <select id="std-body-colors">
                         <option value="custom" hidden selected></option>
-                        <option value="#FEE4B3" class="humanoid-only">Lighter Human</option>
-                        <option value="#A68854" class="humanoid-only">Olive Human</option>
-                        <option value="#936948" class="humanoid-only">Mid Human</option>
-                        <option value="#36200C" class="humanoid-only">Mid-Dark Human</option>
-                        <option value="#210F03" class="humanoid-only">Darker Human</option>
-                        <option value="#b3b3fe" class="humanoid-only">Bolian</option>
-                        <option value="#41AACC" class="humanoid-only">Andorian</option>
-                        <option value="#B6AEAC" class="humanoid-only">Aenar</option>
-                        <option value="#A6F3A8" class="humanoid-only">Lighter Orion</option>
-                        <option value="#98C851" class="humanoid-only">Mid Orion</option>
-                        <option value="#758322" class="humanoid-only">Darker Orion</option>
-                        <option value="#00B3B8" class="humanoid-only">Blue Orion</option>
-                        <option value="#B3673D" class="humanoid-only">Caitian</option>
-                        <option value="#A92902" class="humanoid-only">Kzinti</option>
-                        <option value="#C80909" class="humanoid-only">Red</option>
+                        <option value="#FEE4B3" class="non-cetaceous non-sukhabelan non-qofuari">Lighter Human</option>
+                        <option value="#A68854" class="non-cetaceous non-sukhabelan non-qofuari">Olive Human</option>
+                        <option value="#936948" class="non-cetaceous non-sukhabelan non-qofuari">Mid Human</option>
+                        <option value="#36200C" class="non-cetaceous non-sukhabelan non-qofuari">Mid-Dark Human</option>
+                        <option value="#210F03" class="non-cetaceous non-sukhabelan non-qofuari">Darker Human</option>
+                        <option value="#765321" class="qofuari-only">Brown Fur</option>
+                        <option value="#b3b3fe" class="non-cetaceous non-sukhabelan">Bolian</option>
+                        <option value="#41AACC" class="non-cetaceous non-sukhabelan">Andorian</option>
+                        <option value="#B6AEAC" class="non-cetaceous non-sukhabelan">Aenar</option>
+                        <option value="#A6F3A8" class="non-cetaceous non-sukhabelan">Lighter Orion</option>
+                        <option value="#98C851" class="non-cetaceous non-sukhabelan">Mid Orion</option>
+                        <option value="#758322" class="non-cetaceous non-sukhabelan">Darker Orion</option>
+                        <option value="#00B3B8" class="non-cetaceous non-sukhabelan">Blue Orion</option>
+                        <option value="#B3673D" class="non-cetaceous non-sukhabelan">Caitian</option>
+                        <option value="#A92902" class="non-cetaceous non-sukhabelan">Kzinti</option>
+                        <option value="#C80909" class="non-cetaceous non-sukhabelan">Red</option>
                         <option value="#B5BEC8" class="non-sukhabelan">Grey</option>
                         <option value="#D9CBD6" class="non-sukhabelan">Reddish Grey</option>
                         <option value="#ECC1DB" class="non-sukhabelan">Pink</option>
@@ -95,13 +97,14 @@
                     </select>
                 </div>
 
-                <h3 class="humanoid-only">Ears</h3>
-                <select id="ear-select" class="humanoid-only">
+                <h3 class="humanoid-only non-qofuari non-sukhabelan">Ears</h3>
+                <select id="ear-select" class="humanoid-only non-qofuari non-sukhabelan">
                     <option value="none">None (Edosian, Saurian, etc)</option>
                     <option value="round" selected>Round (Human)</option>
                     <option value="pointy">Pointy (Vulcan, Romulan)</option>
                     <option value="ferengi">Massive (Ferengi)</option>
                     <option value="cat">Cat (Caitian, Kzinti)</option>
+                    <option value="bear">Bear (Quofuari)</option>
                     <option value="horns">Horns</option>
                 </select>
             </group>
@@ -141,7 +144,7 @@
                 </label>
             </group>
 
-            <group class="humanoid-only non-sukhabelan">
+            <group class="non-exocomp non-medusan non-cetaceous non-cal-mirran non-sukhabelan">
                 <h3>Features, Tech, Jewelry</h3>
 
                 <!-- Multiple combinatory options -->
@@ -151,15 +154,16 @@
                         <option value="bolian-line">Bolian Line</option>
                         <option value="ferengi-brow">Ferengi Brow</option>
                         <option value="trill-spots">Trill Spots</option>
-                        <option value="bird-beak">Bird Beak</option>
+                        <option value="bird-beak" class="non-qofuari">Bird Beak</option>
                         <option value="bird-tuft">Bird Tuft</option>
                         <option value="gill-whiskers-or-feathers">Gills / Whiskers / Feathers</option>
-                        <option value="cat-nose">Cat Nose</option>
-                        <option value="tellarite-nose">Tellarite Nose</option>
+                        <option value="cat-nose" class="non-qofuari">Cat Nose</option>
+                        <option value="tellarite-nose" class="non-qofuari">Tellarite Nose</option>
+                        <option value="snout-nose" class="non-qofuari">Snout Nose</option>
                         <option value="tusks">Tusks</option>
                         <option value="zakdorn-cheeks">Zakdorn Cheeks</option>
-                        <option value="benzite-nose">Benzite Nose</option>
-                        <option value="nose-ridges">Nose Ridges (Bajorans)</option>
+                        <option value="benzite-nose class="non-qofuari"">Benzite Nose</option>
+                        <option value="nose-ridges" class="non-qofuari">Nose Ridges (Bajorans)</option>
                         <option value="klingon-ridges">Klingon Ridges A</option>
                         <option value="klingon-ridges-2">Klingon Ridges B</option>
                         <option value="bifurcated-forehead-a">Bifurcated Forehead A</option>
@@ -168,7 +172,7 @@
                         <option value="cardassian-neck" class="underuniform">Cardassian Neck</option>
                         <option value="denobulan-ridges">Denobulan Ridges</option>
                         <option value="north-romulan-v">North Romulan V Forehead</option>
-                        <option value="kelpian-lines">Kelpian Lines</option>
+                        <option value="kelpian-lines" class="non-qofuari">Kelpian Lines</option>
                     </optgroup>
                     <optgroup label="Jewelry & Technology">
                         <option value="bajoran-earring">Bajoran Earring</option>
@@ -197,7 +201,7 @@
                 </select>
             </group>
 
-            <group class="non-medusan non-exocomp non-cetaceous non-cal-mirran">
+            <group class="non-exocomp non-medusan non-cetaceous non-cal-mirran">
                 <h3>Hat<span class="non-sukhabelan"> &amp; Eyewear</span></h3>
                 <!-- Mutually-Exclusive Headgear options -->
                 <select id="hat-select">
@@ -220,7 +224,7 @@
                 </select>
             </group>
 
-            <group class="humanoid-only">
+            <group class="non-exocomp non-medusan non-cetaceous non-cal-mirran non-sukhabelan">
                 <select id="eyewear-select">
                     <option>None</option>
                     <option value="visor" class="overhair">Visor (ala LaForge's)</option>
@@ -335,6 +339,10 @@
                         <option class="non-cetaceous non-exocomp non-medusan no-color-choice">Orion Casual A</option>
                         <option class="non-cetaceous non-exocomp non-medusan no-color-choice">Orion Casual B</option>
                         <option class="non-cetaceous non-exocomp non-medusan" colors-filter="Other">Orion Casual C</option>
+                        <option class="non-cetaceous non-exocomp non-medusan non-sukhabelan undershirt-color-choice" colors-filter="Other">Eighteenth Century A</option>
+                        <option class="non-cetaceous non-exocomp non-medusan non-sukhabelan undershirt-color-choice" colors-filter="Other">Eighteenth Century B</option>
+                        <option class="non-cetaceous non-exocomp non-medusan non-sukhabelan undershirt-color-choice" colors-filter="Other">Eighteenth Century C</option>
+                        <option class="non-cetaceous non-exocomp non-medusan non-sukhabelan undershirt-color-choice" colors-filter="Other">Eighteenth Century D</option>
                     </optgroup>
 
                     <optgroup label="Other Militia" class="humanoid-only">
@@ -498,7 +506,7 @@
 
             </group>
 
-            <group class="humanoid-only non-sukhabelan">
+            <group class="non-exocomp non-medusan non-cetaceous non-cal-mirran non-sukhabelan">
                 <h2 id="hair-header">Hair</h2>
 
                 <div>
@@ -583,17 +591,17 @@
                         <option value="f">F</option>
                         <option value="g">G</option>
                         <option value="h">H</option>
-                        <option value="i">I</option>
+                        <option value="i" class="non-qofuari">I</option>
                         <option value="j">J</option>
                         <option value="k">K</option>
                         <option value="l">L</option>
-                        <option value="m">M</option>
+                        <option value="m" class="non-qofuari">M</option>
                         <option value="n">N</option>
-                        <option value="o">O</option>
+                        <option value="o" class="non-qofuari">O</option>
                         <option value="p">P</option>
-                        <option value="q">Q</option>
+                        <option value="q" class="non-qofuari">Q</option>
                         <option value="r">R</option>
-                        <option value="s">S</option>
+                        <option value="s" class="non-qofuari">S</option>
                         <option value="t">T</option>
                         <option value="u">U</option>
                         <option value="v">V</option>
@@ -603,13 +611,13 @@
                         <option value="z">Z</option>
                         <option value="aa">AA</option>
                         <option value="ab">AB</option>
-                        <option value="ac">AC</option>
+                        <option value="ac" class="non-qofuari">AC</option>
                         <option value="ad">AD</option>
                         <option value="ae">AE</option>
                         <option value="af">AF</option>
                         <option value="ag">AG</option>
                         <option value="ah">AH</option>
-                        <option value="ai">AI</option>
+                        <option value="ai" class="non-qofuari">AI</option>
                         <option value="aj">AJ</option>
                         <option value="ak">AK</option>
                         <option value="al">AL</option>
@@ -618,7 +626,7 @@
                         <option value="ao">AO</option>
                         <option value="ap">AP</option>
                         <option value="aq">AQ</option>
-                        <option value="ar">AR</option>
+                        <option value="ar" class="non-qofuari">AR</option>
                         <option value="as">AS</option>
                         <option value="at">AT</option>
                         <option value="au">AU</option>
@@ -630,7 +638,7 @@
                         <span>⎅</span>
                     </label>
                 </div>
-                <div class="index-list">
+                <div class="index-list non-qofuari">
                     <select id="rear-hair-select">
                         <option value="none" selected>None</option>
                         <option value="a">A</option>
@@ -653,6 +661,8 @@
                         <option value="r">R</option>
                         <option value="s">S</option>
                         <option value="t">T</option>
+                        <option value="u">U</option>
+                        <option value="v">V</option>
                     </select>
                     <button id="rear-hair-next" title="Next option">➜</button>
                     <label class="toggle-button" title="Mirror horizontally" tabindex="0">

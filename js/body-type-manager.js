@@ -1,5 +1,5 @@
 import { DomUtil } from './util-dom.js'
-import { CharacterElements } from './character_elements.js'
+import { CharacterElements } from './character-elements.js'
 
 /**
  * Manages body-type-specific rendering and updates.
@@ -100,6 +100,63 @@ export class BodyTypeManager {
         // Change the shape
         elements.characterUniform.innerHTML = DomUtil.GenerateSVGHTML(`cal-mirran/shape/${elements.calMirranShapeSelect.value}.svg`)
     }
+
+
+    /**
+     * Update qofuari-specific features, this is a variation on humanoid.
+     * @param {CharacterElements} elements Character elements
+     * @param {HTMLOptionElement} selectedUniform Selected uniform option
+     */
+    static updateQofuari (elements, selectedUniform) {
+
+        // Must have "bear" ears
+        elements.characterEarsOrNose.innerHTML = DomUtil.GenerateSVGHTML(`humanoid/ears/bear.svg`)
+
+        // Update the hair
+        elements.characterRearHair.innerHTML = DomUtil.GenerateSVGHTML(`humanoid/rear-hair/v.svg`) // must have
+        elements.characterHair.innerHTML = DomUtil.GenerateSVGHTML(`humanoid/hair/${elements.hairSelect.value}.svg`)
+        elements.characterFacialHair.innerHTML = DomUtil.GenerateSVGHTML(`humanoid/facial-hair/${elements.facialHairSelect.value}.svg`)
+
+        // Handle hair mirroring
+        elements.characterHair.classList.toggle('mirrored', elements.hairMirror.checked)
+        elements.characterRearHair.classList.toggle('mirrored', elements.rearHairMirror.checked)
+
+        // Update the head & headgear features
+        const selections = (Array.from(elements.headFeatureSelect.selectedOptions) ?? [])
+            .concat(Array.from(elements.eyewearFeatureSelect.selectedOptions) ?? [])
+            .concat(Array.from(elements.hatFeatureSelect.selectedOptions) ?? [])
+
+
+        elements.characterHeadFeatures.innerHTML = selections.reduce(
+            (accumulator, e) => {
+                accumulator += DomUtil.GenerateSVGHTML(`humanoid/head-features/${e.value}.svg`, e.className)
+                return accumulator
+            }, '')
+            + DomUtil.GenerateSVGHTML(`humanoid/head-features/snout-nose.svg`) // Must have snout nose
+
+        // Update extra overlay
+        elements.characterExtraOverlay.innerHTML = ''
+        if (selectedUniform?.hasAttribute('extra-overlay') ?? false)
+            elements.characterExtraOverlay.innerHTML += DomUtil.GenerateSVGHTML(`humanoid/extra/${selectedUniform.getAttribute('extra-overlay')}.svg`)
+
+        // Update extra underlay
+        elements.characterExtraUnderlay.innerHTML = ''
+        selections
+            .filter(e => e.hasAttribute('extra-underlay'))
+            .forEach((e, _i, _all) => {
+                elements.characterExtraUnderlay.innerHTML += DomUtil.GenerateSVGHTML(`humanoid/head-features/${e.getAttribute('extra-underlay')}.svg`)
+            })
+
+        // Update document style classes
+        const selectionNames = selections.map(e => e.value)
+        if (selectionNames.includes('andorian-antennae'))
+            elements.mainEl.classList.add('andorian-antennae')
+        if (selectionNames.includes('bird-tuft'))
+            elements.mainEl.classList.add('bird-tuft')
+        if (selectionNames.includes('gill-whiskers-or-feathers'))
+            elements.mainEl.classList.add('whiskers')
+    }
+
 
     /**
      * Update sukhabelan-specific features.
