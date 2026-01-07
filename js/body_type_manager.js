@@ -92,7 +92,6 @@ export class BodyTypeManager {
             : DomUtil.GenerateSVGHTML('medusan/body/visible.svg')
     }
 
-
     /**
      * Update cal-mirran-specific features.
      * @param {CharacterElements} elements Character elements
