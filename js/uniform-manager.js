@@ -2,10 +2,10 @@ import { DomUtil } from './util-dom.js'
 import { DataUtil } from './util-data.js'
 
 const DEFAULT_UNIFORM = {
-    'medusan': 'Prodigy B',
-    'qofuari': 'Eighteenth Century A',
-    'sukhabelan': 'Sarell Expanse',
-    'other': 'VOY DS9'
+    medusan: 'Prodigy B',
+    qofuari: 'Eighteenth Century A',
+    sukhabelan: 'Sarell Expanse',
+    other: 'VOY DS9'
 }
 
 /**
@@ -27,7 +27,7 @@ export class UniformManager {
      * @returns {string} The default uniform value
      */
     static getDefaultUniform (bodyShape) {
-        return DEFAULT_UNIFORM[bodyShape] ?? DEFAULT_UNIFORM['other'];
+        return DEFAULT_UNIFORM[bodyShape] ?? DEFAULT_UNIFORM.other
     }
 
     /**

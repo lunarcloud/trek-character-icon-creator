@@ -101,19 +101,17 @@ export class BodyTypeManager {
         elements.characterUniform.innerHTML = DomUtil.GenerateSVGHTML(`cal-mirran/shape/${elements.calMirranShapeSelect.value}.svg`)
     }
 
-
     /**
      * Update qofuari-specific features, this is a variation on humanoid.
      * @param {CharacterElements} elements Character elements
      * @param {HTMLOptionElement} selectedUniform Selected uniform option
      */
     static updateQofuari (elements, selectedUniform) {
-
         // Must have "bear" ears
-        elements.characterEarsOrNose.innerHTML = DomUtil.GenerateSVGHTML(`humanoid/ears/bear.svg`)
+        elements.characterEarsOrNose.innerHTML = DomUtil.GenerateSVGHTML('humanoid/ears/bear.svg')
 
         // Update the hair
-        elements.characterRearHair.innerHTML = DomUtil.GenerateSVGHTML(`humanoid/rear-hair/v.svg`) // must have
+        elements.characterRearHair.innerHTML = DomUtil.GenerateSVGHTML('humanoid/rear-hair/v.svg') // must have
         elements.characterHair.innerHTML = DomUtil.GenerateSVGHTML(`humanoid/hair/${elements.hairSelect.value}.svg`)
         elements.characterFacialHair.innerHTML = DomUtil.GenerateSVGHTML(`humanoid/facial-hair/${elements.facialHairSelect.value}.svg`)
 
@@ -126,13 +124,12 @@ export class BodyTypeManager {
             .concat(Array.from(elements.eyewearFeatureSelect.selectedOptions) ?? [])
             .concat(Array.from(elements.hatFeatureSelect.selectedOptions) ?? [])
 
-
         elements.characterHeadFeatures.innerHTML = selections.reduce(
             (accumulator, e) => {
                 accumulator += DomUtil.GenerateSVGHTML(`humanoid/head-features/${e.value}.svg`, e.className)
                 return accumulator
-            }, '')
-            + DomUtil.GenerateSVGHTML(`humanoid/head-features/snout-nose.svg`) // Must have snout nose
+            }, '') +
+            DomUtil.GenerateSVGHTML('humanoid/head-features/snout-nose.svg') // Must have snout nose
 
         // Update extra overlay
         elements.characterExtraOverlay.innerHTML = ''
@@ -156,7 +153,6 @@ export class BodyTypeManager {
         if (selectionNames.includes('gill-whiskers-or-feathers'))
             elements.mainEl.classList.add('whiskers')
     }
-
 
     /**
      * Update sukhabelan-specific features.

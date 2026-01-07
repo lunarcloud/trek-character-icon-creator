@@ -78,7 +78,7 @@ export class IndexController {
         // Handle Body Shape Changes
         if (bodyShapeChanged) {
             // Ensure the invalid items are hidden
-            for (let selector of this.#elements.mainEl.getElementsByTagName('select')) {
+            for (const selector of this.#elements.mainEl.getElementsByTagName('select')) {
                 if (selector instanceof HTMLSelectElement)
                     DomUtil.hideInvalidSelectOptions(selector)
             }
@@ -157,7 +157,7 @@ export class IndexController {
             break
         case 'qofuari':
             BodyTypeManager.updateQofuari(this.#elements, selectedUniform)
-            break;
+            break
         case 'sukhabelan':
             BodyTypeManager.updateSukhabelan(this.#elements, selectedUniform)
             break
