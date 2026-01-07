@@ -140,6 +140,11 @@ export class CharacterElements {
     medusanBoxCheck
 
     /**
+     * @type {HTMLSelectElement}
+     */
+    calMirranShapeSelect
+
+    /**
      * @type {HTMLInputElement}
      */
     saveBGCheck
@@ -179,6 +184,8 @@ export class CharacterElements {
         this.foreheadBumpCheck = getInputElement('forehead-bump')
         this.medusanAltColorCheck = getInputElement('medusan-alt-color')
         this.medusanBoxCheck = getInputElement('medusan-box')
+
+        this.calMirranShapeSelect = getSelectElement('cal-mirran-shape')
 
         this.facialHairSelect = getSelectElement('facial-hair-select')
 
@@ -234,7 +241,8 @@ export class CharacterElements {
             this.facialHairSelect,
             this.rearHairSelect,
             this.hairMirror,
-            this.rearHairMirror
+            this.rearHairMirror,
+            this.calMirranShapeSelect
         ]
     }
 }

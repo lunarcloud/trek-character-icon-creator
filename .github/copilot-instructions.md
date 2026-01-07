@@ -94,7 +94,7 @@ Manages uniform selection logic:
 
 #### BodyTypeManager (`js/body_type_manager.js`)
 Handles body-type-specific rendering:
-- Separate update methods for each body type (humanoid, cetaceous, medusan, sukhabelan, exocomp)
+- Separate update methods for each body type (humanoid, cetaceous, medusan, cal-mirran, sukhabelan, exocomp)
 - SVG asset loading and visibility management
 - Body-specific feature rendering
 - Reset logic for body changes

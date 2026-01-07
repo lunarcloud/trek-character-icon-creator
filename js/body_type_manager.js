@@ -92,6 +92,16 @@ export class BodyTypeManager {
             : DomUtil.GenerateSVGHTML('medusan/body/visible.svg')
     }
 
+
+    /**
+     * Update cal-mirran-specific features.
+     * @param {CharacterElements} elements Character elements
+     */
+    static updateCalMirran (elements) {
+        // Change the shape
+        elements.characterUniform.innerHTML = DomUtil.GenerateSVGHTML(`cal-mirran/shape/${elements.calMirranShapeSelect.value}.svg`)
+    }
+
     /**
      * Update sukhabelan-specific features.
      * @param {CharacterElements} elements Character elements

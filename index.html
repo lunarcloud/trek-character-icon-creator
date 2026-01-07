@@ -38,12 +38,12 @@
                 </bg>
                 <div id="character-rear-hair" class="humanoid-only"></div>
                 <div id="extra-underlay" class="humanoid-only"></div>
-                <div id="character-ears-or-nose" class="non-exocomp non-medusan"></div>
+                <div id="character-ears-or-nose" class="non-exocomp non-medusan non-cal-mirran"></div>
                 <div id="character-body"></div>
                 <div id="character-head-features-underuniform" class="humanoid-only"></div>
                 <div id="character-uniform"></div>
                 <div id="character-facial-hair" class="humanoid-only"></div>
-                <div id="character-head-features" class="non-exocomp non-medusan"></div>
+                <div id="character-head-features" class="non-exocomp non-medusan non-cal-mirran"></div>
                 <div id="character-hair" class="humanoid-only"></div>
                 <div id="character-head-features-overhair" class="humanoid-only"></div>
                 <div id="body-overlay" class="non-humanoid"></div>
@@ -59,12 +59,13 @@
                     <option value="cetaceous">Cetaceous</option>
                     <option value="exocomp">Exocomp</option>
                     <option value="medusan">Medusan</option>
-                    <optgroup label="Non-Canon" hidden>
-                        <option value="sukhabelan">Sukhabelan</option>
+                    <optgroup label="Non-Canon">
+                        <option value="cal-mirran">Cal-Mirran</option>
+                        <option value="sukhabelan" hidden>Sukhabelan</option>
                     </optgroup>
                 </select>
 
-                <div class="non-exocomp non-medusan">
+                <div class="non-exocomp non-medusan non-cal-mirran">
                     <input type="color" id="body-color" value="#FEE4B3">
                     <label for="body-color">Color</label>
                     <select id="std-body-colors">
@@ -81,11 +82,11 @@
                         <option value="#00B3B8" class="humanoid-only">Blue Orion</option>
                         <option value="#B3673D" class="humanoid-only">Caitian</option>
                         <option value="#A92902" class="humanoid-only">Kzinti</option>
-                        <option value="#B5BEC8" class="non-medusan non-sukhabelan">Grey</option>
-                        <option value="#D9CBD6" class="non-medusan non-sukhabelan">Reddish Grey</option>
-                        <option value="#ECC1DB" class="non-medusan non-sukhabelan">Pink</option>
+                        <option value="#B5BEC8" class="non-sukhabelan">Grey</option>
+                        <option value="#D9CBD6" class="non-sukhabelan">Reddish Grey</option>
+                        <option value="#ECC1DB" class="non-sukhabelan">Pink</option>
                         <option value="#020101">Black</option>
-                        <option value="#F4F4F6" class="non-medusan non-sukhabelan">White</option>
+                        <option value="#F4F4F6" class="non-sukhabelan">White</option>
                         <option value="#472865" class="non-cetaceous">Deep Purple</option>
                         <option value="#636997" class="non-cetaceous">Soft Purple</option>
                     </select>
@@ -113,6 +114,16 @@
                     <option value="thick" selected>Thick</option>
                     <option value="small">Small</option>
                     <option value="long">Long</option>
+                </select>
+            </group>
+
+            <group class="cal-mirran-only">
+                <h3>Shape</h3>
+                <select id="cal-mirran-shape">
+                    <option selected>Prismatic</option>
+                    <option>Spherical</option>
+                    <option>Pinwheel</option>
+                    <option>Cubical</option>
                 </select>
             </group>
 
@@ -183,7 +194,7 @@
                 </select>
             </group>
 
-            <group class="non-medusan non-exocomp non-cetaceous">
+            <group class="non-medusan non-exocomp non-cetaceous non-cal-mirran">
                 <h3>Hat<span class="non-sukhabelan"> &amp; Eyewear</span></h3>
                 <!-- Mutually-Exclusive Headgear options -->
                 <select id="hat-select">
@@ -251,7 +262,7 @@
 
             </group>
 
-            <group class="break-before">
+            <group class="break-before non-cal-mirran">
                 <h2 id="uniform-header">Uniform</h2>
                 <select id="uniform-select">
                     <optgroup label="Starfleet">

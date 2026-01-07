@@ -140,6 +140,9 @@ export class IndexController {
         case 'medusan':
             BodyTypeManager.updateMedusan(this.#elements)
             break
+        case 'cal-mirran':
+            BodyTypeManager.updateCalMirran(this.#elements)
+            break
         case 'exocomp':
             break
         case 'sukhabelan':

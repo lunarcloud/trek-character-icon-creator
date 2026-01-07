@@ -15,6 +15,7 @@ This project does not have automated tests. All testing is done manually through
   - [ ] Cetaceous
   - [ ] Exocomp
   - [ ] Medusan
+  - [ ] Cal-Mirran
   - [ ] Sukhabelan
 - [ ] Verify correct body SVG loads for each type
 - [ ] Verify UI options update appropriately for each body type
@@ -57,6 +58,7 @@ When making changes that affect multiple body types:
 - [ ] Test with cetaceous (aquatic features)
 - [ ] Test with exocomp (minimal features)
 - [ ] Test with medusan (containment suit)
+- [ ] Test with cal-mirran (sub-shape)
 - [ ] Test with sukhabelan (non-canon features)
 
 ## Browser Testing

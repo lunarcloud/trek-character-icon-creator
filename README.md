@@ -12,7 +12,7 @@ Icon-y Character Creator for Star Trek
 Character Creator for Star Trek style character icons
 
 ## Features
-- Multiple body types: Humanoid, Cetaceous, Exocomp, Medusan, and Sukhabelan (non-canon)
+- Multiple body types: Humanoid, Cetaceous, Exocomp, Medusan, and non-canon body types
 - Extensive uniform options from various Star Trek series
 - Customizable hair, facial hair, and facial features
 - Species-specific features (Vulcan ears, Klingon ridges, etc.)
@@ -74,7 +74,7 @@ npm run svglint     # SVG linting only
     - `type-helpers.js` - HTML element getters with runtime type checking
 - **Assets:**
   - `humanoid/` - SVG assets for humanoid characters
-  - `cetaceous/`, `exocomp/`, `medusan/`, `sukhabelan/` - Assets for other body types
+  - `cetaceous/`, `exocomp/`, `medusan/`, `cal-mirran/`, `sukhabelan/` - Assets for other body types
 
 ## Adding New Features
 
