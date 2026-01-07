@@ -71,6 +71,10 @@ body {
       margin-block-start: 0.5em;
       border-bottom: 0.25em solid rgb(13 81 102);
       width: fit-content;
+
+      &.cal-mirran-only {
+        break-before: avoid-column;
+      }
     }
   }
 

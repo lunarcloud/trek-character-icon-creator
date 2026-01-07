@@ -59,11 +59,21 @@
                     <option value="cetaceous">Cetaceous</option>
                     <option value="exocomp">Exocomp</option>
                     <option value="medusan">Medusan</option>
-                    <optgroup label="Non-Canon">
+                    <optgroup label="Shackelton Expanse">
                         <option value="cal-mirran">Cal-Mirran</option>
                         <option value="qofuari" hidden>Qofuari</option>
-                        <option value="sukhabelan" hidden>Sukhabelan</option>
                     </optgroup>
+                    <optgroup label="Sarelle Expanse" hidden>
+                        <option value="sukhabelan">Sukhabelan</option>
+                    </optgroup>
+                </select>
+
+                <h3 class="cal-mirran-only">Shape</h3>
+                <select id="cal-mirran-shape" class="cal-mirran-only">
+                    <option selected>Prismatic</option>
+                    <option>Spherical</option>
+                    <option>Pinwheel</option>
+                    <option>Cubical</option>
                 </select>
 
                 <div class="non-exocomp non-medusan non-cal-mirran">
@@ -107,6 +117,7 @@
                     <option value="bear">Bear</option>
                     <option value="horns">Horns</option>
                 </select>
+
             </group>
 
             <group class="cetaceous-only">
@@ -120,16 +131,6 @@
                     <option value="thick" selected>Thick</option>
                     <option value="small">Small</option>
                     <option value="long">Long</option>
-                </select>
-            </group>
-
-            <group class="cal-mirran-only">
-                <h3>Shape</h3>
-                <select id="cal-mirran-shape">
-                    <option selected>Prismatic</option>
-                    <option>Spherical</option>
-                    <option>Pinwheel</option>
-                    <option>Cubical</option>
                 </select>
             </group>
 
