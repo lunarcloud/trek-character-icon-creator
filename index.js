@@ -221,7 +221,6 @@ export class IndexController {
                 whiskersWithBody: this.#colorManager.syncWhiskersWithBodyCheck.checked
             },
             uniform: this.#elements.uniformSelect.value,
-            uniformColorFilter: this.#colorManager.uniformColorFilterCheck.checked,
             ears: this.#elements.earSelect.value,
             nose: this.#elements.noseSelect.value,
             foreheadBump: this.#elements.foreheadBumpCheck.checked,
@@ -283,9 +282,6 @@ export class IndexController {
 
             // Apply uniform and filter
             if (config.uniform) this.#elements.uniformSelect.value = config.uniform
-            if (typeof config.uniformColorFilter === 'boolean') {
-                this.#colorManager.uniformColorFilterCheck.checked = config.uniformColorFilter
-            }
 
             // Apply body-specific features
             if (config.ears) this.#elements.earSelect.value = config.ears
@@ -337,6 +333,7 @@ export class IndexController {
             return true
         } catch (error) {
             console.error('Failed to deserialize character:', error)
+            alert(`Failed to import character: ${error.message}`)
             return false
         }
     }
@@ -349,29 +346,20 @@ export class IndexController {
         const config = this.#serializeCharacter()
         const json = JSON.stringify(config, null, 2)
 
-        // Create a modal dialog
-        const dialog = document.createElement('dialog')
-        dialog.className = 'export-dialog'
-        dialog.innerHTML = `
-            <h2>Export Character</h2>
-            <p>Copy this JSON to save your character configuration:</p>
-            <textarea readonly rows="15" cols="50">${json}</textarea>
-            <div class="dialog-buttons">
-                <button id="copy-btn">Copy to Clipboard</button>
-                <button id="close-btn">Close</button>
-            </div>
-        `
-        document.body.appendChild(dialog)
+        // Get the dialog and elements
+        const dialog = document.getElementById('export-dialog')
+        const textarea = document.getElementById('export-json')
+        const copyBtn = document.getElementById('export-copy-btn')
+        const closeBtn = document.getElementById('export-close-btn')
 
-        const textarea = dialog.querySelector('textarea')
-        const copyBtn = dialog.querySelector('#copy-btn')
-        const closeBtn = dialog.querySelector('#close-btn')
+        // Set the JSON content
+        textarea.value = json
 
         // Select all text when dialog opens
         textarea.select()
 
-        // Copy to clipboard
-        copyBtn.addEventListener('click', async () => {
+        // Copy to clipboard handler
+        const handleCopy = async () => {
             try {
                 await navigator.clipboard.writeText(json)
                 copyBtn.textContent = '✓ Copied!'
@@ -382,21 +370,28 @@ export class IndexController {
                 console.error('Failed to copy:', err)
                 alert('Failed to copy to clipboard. Please copy manually.')
             }
-        })
+        }
 
-        // Close dialog
-        closeBtn.addEventListener('click', () => {
+        // Close dialog handler
+        const handleClose = () => {
             dialog.close()
-            dialog.remove()
-        })
+            // Clean up event listeners
+            copyBtn.removeEventListener('click', handleCopy)
+            closeBtn.removeEventListener('click', handleClose)
+            dialog.removeEventListener('keydown', handleKeydown)
+        }
 
-        // Close on Escape key
-        dialog.addEventListener('keydown', (e) => {
+        // Escape key handler
+        const handleKeydown = (e) => {
             if (e.key === 'Escape') {
-                dialog.close()
-                dialog.remove()
+                handleClose()
             }
-        })
+        }
+
+        // Add event listeners
+        copyBtn.addEventListener('click', handleCopy)
+        closeBtn.addEventListener('click', handleClose)
+        dialog.addEventListener('keydown', handleKeydown)
 
         dialog.showModal()
     }
@@ -406,26 +401,17 @@ export class IndexController {
      * Shows a dialog to paste JSON.
      */
     #importCharacter () {
-        // Create a modal dialog
-        const dialog = document.createElement('dialog')
-        dialog.className = 'import-dialog'
-        dialog.innerHTML = `
-            <h2>Import Character</h2>
-            <p>Paste your character JSON configuration here:</p>
-            <textarea rows="15" cols="50" placeholder="Paste JSON here..."></textarea>
-            <div class="dialog-buttons">
-                <button id="import-btn">Import</button>
-                <button id="cancel-btn">Cancel</button>
-            </div>
-        `
-        document.body.appendChild(dialog)
+        // Get the dialog and elements
+        const dialog = document.getElementById('import-dialog')
+        const textarea = document.getElementById('import-json')
+        const importBtn = document.getElementById('import-btn')
+        const cancelBtn = document.getElementById('import-cancel-btn')
 
-        const textarea = dialog.querySelector('textarea')
-        const importBtn = dialog.querySelector('#import-btn')
-        const cancelBtn = dialog.querySelector('#cancel-btn')
+        // Clear previous content
+        textarea.value = ''
 
-        // Import configuration
-        importBtn.addEventListener('click', () => {
+        // Import configuration handler
+        const handleImport = () => {
             try {
                 const json = textarea.value.trim()
                 if (!json) {
@@ -437,31 +423,35 @@ export class IndexController {
                 const success = this.#deserializeCharacter(config)
 
                 if (success) {
-                    dialog.close()
-                    dialog.remove()
+                    handleCancel()
                     alert('Character imported successfully!')
-                } else {
-                    alert('Failed to import character. Please check the configuration.')
                 }
             } catch (err) {
                 console.error('Import error:', err)
                 alert('Invalid JSON format. Please check your configuration.')
             }
-        })
+        }
 
-        // Cancel
-        cancelBtn.addEventListener('click', () => {
+        // Cancel handler
+        const handleCancel = () => {
             dialog.close()
-            dialog.remove()
-        })
+            // Clean up event listeners
+            importBtn.removeEventListener('click', handleImport)
+            cancelBtn.removeEventListener('click', handleCancel)
+            dialog.removeEventListener('keydown', handleKeydown)
+        }
 
-        // Close on Escape key
-        dialog.addEventListener('keydown', (e) => {
+        // Escape key handler
+        const handleKeydown = (e) => {
             if (e.key === 'Escape') {
-                dialog.close()
-                dialog.remove()
+                handleCancel()
             }
-        })
+        }
+
+        // Add event listeners
+        importBtn.addEventListener('click', handleImport)
+        cancelBtn.addEventListener('click', handleCancel)
+        dialog.addEventListener('keydown', handleKeydown)
 
         dialog.showModal()
         textarea.focus()
