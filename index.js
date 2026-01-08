@@ -92,20 +92,20 @@ export class IndexController {
 
             // Hide invalid hair options and ensure a valid one is selected
             if (this.#elements.hairSelect.checkVisibility()) {
-                if (DomUtil.IsOptionInvalid(this.#elements.hairSelect)) {
-                    this.#elements.hairSelect.selectedIndex = 1
+                if (bodyShape === 'qofuari') {
+                    this.#elements.hairSelect.selectedIndex = 0
                 }
             }
         }
 
         // Change the body
         this.#elements.characterBody.innerHTML = DomUtil.GenerateSVGHTML(`${bodyShape}/body.svg`)
-        this.#elements.bodyOverlay.innerHTML = ['medusan', 'cal-mirran', 'qofuari'].includes(bodyShape)
+        this.#elements.bodyOverlay.innerHTML = ['medusan'].includes(bodyShape)
             ? ''
             : DomUtil.GenerateSVGHTML(`${bodyShape}/body-overlay.svg`)
 
         // Change the uniform
-        const uniformBodyShape = ['sukhabelan', 'qofuari'].includes(bodyShape) ? 'humanoid' : bodyShape
+        const uniformBodyShape = ['sukhabelan'].includes(bodyShape) ? 'humanoid' : bodyShape
         this.#elements.characterUniform.innerHTML = DomUtil.GenerateSVGHTML(`${uniformBodyShape}/uniform/${this.#elements.uniformSelect.value}.svg`)
 
         const uniformClassList = this.#elements.uniformSelect.selectedOptions[0].classList

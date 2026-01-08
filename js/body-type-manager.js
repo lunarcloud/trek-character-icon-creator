@@ -107,11 +107,11 @@ export class BodyTypeManager {
      * @param {HTMLOptionElement} selectedUniform Selected uniform option
      */
     static updateQofuari (elements, selectedUniform) {
-        // Must have "bear" ears
-        elements.characterEarsOrNose.innerHTML = DomUtil.GenerateSVGHTML('humanoid/ears/bear.svg')
+        // ears are rear hair are part of the body
+        elements.characterEarsOrNose.innerHTML = ''
+        elements.rearHairSelect.innerHTML = ''
 
         // Update the hair
-        elements.characterRearHair.innerHTML = DomUtil.GenerateSVGHTML('humanoid/rear-hair/v.svg') // must have
         elements.characterHair.innerHTML = DomUtil.GenerateSVGHTML(`humanoid/hair/${elements.hairSelect.value}.svg`)
         elements.characterFacialHair.innerHTML = DomUtil.GenerateSVGHTML(`humanoid/facial-hair/${elements.facialHairSelect.value}.svg`)
 
@@ -128,28 +128,10 @@ export class BodyTypeManager {
             (accumulator, e) => {
                 accumulator += DomUtil.GenerateSVGHTML(`humanoid/head-features/${e.value}.svg`, e.className)
                 return accumulator
-            }, '') +
-            DomUtil.GenerateSVGHTML('humanoid/head-features/snout-nose.svg') // Must have snout nose
-
-        // Update extra overlay
-        elements.characterExtraOverlay.innerHTML = ''
-        if (selectedUniform?.hasAttribute('extra-overlay') ?? false)
-            elements.characterExtraOverlay.innerHTML += DomUtil.GenerateSVGHTML(`humanoid/extra/${selectedUniform.getAttribute('extra-overlay')}.svg`)
-
-        // Update extra underlay
-        elements.characterExtraUnderlay.innerHTML = ''
-        selections
-            .filter(e => e.hasAttribute('extra-underlay'))
-            .forEach((e, _i, _all) => {
-                elements.characterExtraUnderlay.innerHTML += DomUtil.GenerateSVGHTML(`humanoid/head-features/${e.getAttribute('extra-underlay')}.svg`)
-            })
+            }, '')
 
         // Update document style classes
         const selectionNames = selections.map(e => e.value)
-        if (selectionNames.includes('andorian-antennae'))
-            elements.mainEl.classList.add('andorian-antennae')
-        if (selectionNames.includes('bird-tuft'))
-            elements.mainEl.classList.add('bird-tuft')
         if (selectionNames.includes('gill-whiskers-or-feathers'))
             elements.mainEl.classList.add('whiskers')
     }
