@@ -92,7 +92,7 @@ export class IndexController {
 
             // Hide invalid hair options and ensure a valid one is selected
             if (this.#elements.hairSelect.checkVisibility()) {
-                if (bodyShape === 'qofuari') {
+                if (DomUtil.IsOptionInvalid(this.#elements.hairSelect)) {
                     this.#elements.hairSelect.selectedIndex = 0
                 }
             }

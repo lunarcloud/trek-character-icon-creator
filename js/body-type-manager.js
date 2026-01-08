@@ -102,14 +102,14 @@ export class BodyTypeManager {
     }
 
     /**
-     * Update qofuari-specific features, this is a variation on humanoid.
+     * Update qofuari-specific features, uses humanoid hair and hats.
      * @param {CharacterElements} elements Character elements
      * @param {HTMLOptionElement} selectedUniform Selected uniform option
      */
     static updateQofuari (elements, selectedUniform) {
         // ears are rear hair are part of the body
         elements.characterEarsOrNose.innerHTML = ''
-        elements.rearHairSelect.innerHTML = ''
+        elements.characterRearHair.innerHTML = ''
 
         // Update the hair
         elements.characterHair.innerHTML = DomUtil.GenerateSVGHTML(`humanoid/hair/${elements.hairSelect.value}.svg`)
@@ -121,7 +121,6 @@ export class BodyTypeManager {
 
         // Update the head & headgear features
         const selections = (Array.from(elements.headFeatureSelect.selectedOptions) ?? [])
-            .concat(Array.from(elements.eyewearFeatureSelect.selectedOptions) ?? [])
             .concat(Array.from(elements.hatFeatureSelect.selectedOptions) ?? [])
 
         elements.characterHeadFeatures.innerHTML = selections.reduce(
@@ -129,11 +128,6 @@ export class BodyTypeManager {
                 accumulator += DomUtil.GenerateSVGHTML(`humanoid/head-features/${e.value}.svg`, e.className)
                 return accumulator
             }, '')
-
-        // Update document style classes
-        const selectionNames = selections.map(e => e.value)
-        if (selectionNames.includes('gill-whiskers-or-feathers'))
-            elements.mainEl.classList.add('whiskers')
     }
 
     /**
