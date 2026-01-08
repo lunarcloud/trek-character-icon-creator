@@ -1,0 +1,21 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created using Krita: https://krita.org -->
+<svg xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:krita="http://krita.org/namespaces/svg/krita"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    width="512pt"
+    height="512pt"
+    viewBox="0 0 512 512">
+    <style>
+        .uniform-color {
+            color: #CE3C34;
+        }
+        .uniform-undershirt-color {
+            color: #5E5E5E;
+        }
+    </style>
+<defs/>
+<path id="shape0" transform="translate(17.4465814135037, 413.083053811871)" fill="currentColor" class="uniform-color" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M42.8269 1.77637L0 37.3098C7.32788 48.0469 15.6181 58.1948 32.1754 55.747L111.803 57.1044L109.058 98.9169L375.053 98.9173L375.615 58.9174L475.549 50.1457C484.635 49.7249 490.8 45.6524 494.553 38.5664L469.826 0L280.545 0.787434L238.553 42.9455L200.538 1.12027Z" sodipodi:nodetypes="cccccccccccccc"/><path id="shape1" transform="translate(196.49998724308, 413.828098099059)" fill="currentColor" class="uniform-undershirt-color" fill-rule="evenodd" d="M22.4687 0.328125L0 54.6719L59.5 41.9531L128 51.6719L101.016 0L59.5 41.4219Z" sodipodi:nodetypes="ccccccc"/><path id="shape2" transform="translate(40.7499997982721, 468.562497509099)" fill="currentColor" class="uniform-undershirt-color" fill-rule="evenodd" d="M9.375 0L89.4375 1.3125L87.1875 43.4375L0 43.4375Z" sodipodi:nodetypes="ccccc"/><path id="shape3" transform="translate(391.499974583549, 463.49996990926)" fill="currentColor" class="uniform-undershirt-color" fill-rule="evenodd" d="M0.75 6.75L0 48.5L107.25 48.5L101.25 0Z" sodipodi:nodetypes="ccccc"/>
+</svg>
