@@ -1,0 +1,21 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created using Krita: https://krita.org -->
+<svg xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:krita="http://krita.org/namespaces/svg/krita"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    width="512pt"
+    height="512pt"
+    viewBox="0 0 512 512">
+    <style>
+        .uniform-color {
+            color: #CE3C34;
+        }
+        .uniform-undershirt-color {
+            color: #5E5E5E;
+        }
+    </style>
+<defs/>
+<path id="shape0" transform="translate(41.2499975132963, 321.437482952415)" fill="currentColor" class="uniform-color" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M233.5 69.957L182.08 69.1695L161.862 7.96297L27.3725 50.2677L0 191.75L457.312 190.563L442.125 57.5L252.375 0Z" sodipodi:nodetypes="ccccccccc"/><path id="shape1" transform="translate(41.4999996332312, 451.999996005313)" fill="currentColor" class="uniform-undershirt-color" fill-rule="evenodd" d="M0 60L11 2L449.625 0L457.5 60Z" sodipodi:nodetypes="ccccc"/>
+</svg>
