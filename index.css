@@ -511,3 +511,71 @@ label.toggle-button {
         }
     }
 }
+
+/* Import/Export Dialog Styles */
+dialog.export-dialog,
+dialog.import-dialog {
+    padding: 1.5em;
+    border: 2px solid #333;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgb(0 0 0 / 30%);
+    background-color: #f5f5f5;
+    color: #111;
+    font-family: Roddenberry, sans-serif;
+
+    &::backdrop {
+        background-color: rgb(0 0 0 / 50%);
+    }
+
+    & h2 {
+        margin-top: 0;
+        color: #333;
+    }
+
+    & p {
+        margin: 0.5em 0;
+    }
+
+    & textarea {
+        width: 100%;
+        max-width: 50em;
+        font-family: monospace;
+        font-size: 0.9em;
+        padding: 0.5em;
+        border: 1px solid #999;
+        border-radius: 4px;
+        resize: vertical;
+    }
+
+    & .dialog-buttons {
+        margin-top: 1em;
+        display: flex;
+        gap: 0.5em;
+        justify-content: flex-end;
+
+        & button {
+            padding: 0.5em 1em;
+            border: 1px solid #666;
+            border-radius: 4px;
+            background-color: #e0e0e0;
+            color: #333;
+            cursor: pointer;
+            font-family: Roddenberry, sans-serif;
+
+            &:hover {
+                background-color: #d0d0d0;
+            }
+
+            &#copy-btn,
+            &#import-btn {
+                background-color: #4a90e2;
+                color: white;
+                border-color: #357abd;
+
+                &:hover {
+                    background-color: #357abd;
+                }
+            }
+        }
+    }
+}

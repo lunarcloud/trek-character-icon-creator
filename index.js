@@ -33,6 +33,7 @@ export class IndexController {
         this.#uniformManager = new UniformManager()
 
         this.#setupEventListeners()
+        this.#setupKeyboardShortcuts()
 
         // Trigger the change detection to begin, so we won't start in an unsupported/unusual state
         this.onChangeDetected()
@@ -59,6 +60,24 @@ export class IndexController {
 
         // Setup "Next" buttons
         this.#elements.setupNextButtons(() => this.onChangeDetected())
+    }
+
+    /**
+     * Setup keyboard shortcuts for import and export.
+     */
+    #setupKeyboardShortcuts () {
+        document.addEventListener('keydown', (e) => {
+            // Ctrl+E or Cmd+E for export
+            if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
+                e.preventDefault()
+                this.#exportCharacter()
+            }
+            // Ctrl+I or Cmd+I for import
+            if ((e.ctrlKey || e.metaKey) && e.key === 'i') {
+                e.preventDefault()
+                this.#importCharacter()
+            }
+        })
     }
 
     /**
@@ -177,6 +196,265 @@ export class IndexController {
 
         // Update the CSS styles for the character based on the choices
         this.#elements.characterStyleEl.innerHTML = this.#colorManager.generateColorStyles()
+    }
+
+    /**
+     * Serialize the current character configuration to JSON.
+     * @returns {object} The character configuration as a plain object
+     */
+    #serializeCharacter () {
+        const config = {
+            version: '1.0',
+            bodyShape: this.#elements.shapeSelect.value,
+            colors: {
+                body: this.#colorManager.bodyColorPicker.value,
+                hair: this.#colorManager.hairColorPicker.value,
+                uniform: this.#colorManager.uniformColorPicker.value,
+                uniformUndershirt: this.#colorManager.uniformUndershirtColorPicker.value,
+                antennae: this.#colorManager.antennaeColorPicker.value,
+                birdTuft: this.#colorManager.birdTuftColorPicker.value,
+                whiskers: this.#colorManager.whiskersColorPicker.value
+            },
+            colorSync: {
+                antennaeWithBody: this.#colorManager.syncAntennaeWithBodyCheck.checked,
+                birdTuftWithBody: this.#colorManager.syncBirdTuftWithBodyCheck.checked,
+                whiskersWithBody: this.#colorManager.syncWhiskersWithBodyCheck.checked
+            },
+            uniform: this.#elements.uniformSelect.value,
+            ears: this.#elements.earSelect.value,
+            nose: this.#elements.noseSelect.value,
+            foreheadBump: this.#elements.foreheadBumpCheck.checked,
+            medusanAltColor: this.#elements.medusanAltColorCheck.checked,
+            medusanBox: this.#elements.medusanBoxCheck.checked,
+            calMirranShape: this.#elements.calMirranShapeSelect.value,
+            headFeatures: Array.from(this.#elements.headFeatureSelect.selectedOptions).map(o => o.value),
+            hat: this.#elements.hatFeatureSelect.value,
+            eyewear: this.#elements.eyewearFeatureSelect.value,
+            facialHair: this.#elements.facialHairSelect.value,
+            hair: this.#elements.hairSelect.value,
+            hairMirror: this.#elements.hairMirror.checked,
+            rearHair: this.#elements.rearHairSelect.value,
+            rearHairMirror: this.#elements.rearHairMirror.checked
+        }
+        return config
+    }
+
+    /**
+     * Deserialize a character configuration from JSON and apply it.
+     * @param {object} config The character configuration object
+     * @returns {boolean} True if successful, false otherwise
+     */
+    #deserializeCharacter (config) {
+        try {
+            // Validate version
+            if (!config.version || config.version !== '1.0') {
+                throw new Error('Invalid or unsupported configuration version')
+            }
+
+            // Apply body shape first as it affects available options
+            if (config.bodyShape) {
+                this.#elements.shapeSelect.value = config.bodyShape
+            }
+
+            // Apply colors
+            if (config.colors) {
+                if (config.colors.body) this.#colorManager.bodyColorPicker.value = config.colors.body
+                if (config.colors.hair) this.#colorManager.hairColorPicker.value = config.colors.hair
+                if (config.colors.uniform) this.#colorManager.uniformColorPicker.value = config.colors.uniform
+                if (config.colors.uniformUndershirt) this.#colorManager.uniformUndershirtColorPicker.value = config.colors.uniformUndershirt
+                if (config.colors.antennae) this.#colorManager.antennaeColorPicker.value = config.colors.antennae
+                if (config.colors.birdTuft) this.#colorManager.birdTuftColorPicker.value = config.colors.birdTuft
+                if (config.colors.whiskers) this.#colorManager.whiskersColorPicker.value = config.colors.whiskers
+            }
+
+            // Apply color sync settings
+            if (config.colorSync) {
+                if (typeof config.colorSync.antennaeWithBody === 'boolean') {
+                    this.#colorManager.syncAntennaeWithBodyCheck.checked = config.colorSync.antennaeWithBody
+                }
+                if (typeof config.colorSync.birdTuftWithBody === 'boolean') {
+                    this.#colorManager.syncBirdTuftWithBodyCheck.checked = config.colorSync.birdTuftWithBody
+                }
+                if (typeof config.colorSync.whiskersWithBody === 'boolean') {
+                    this.#colorManager.syncWhiskersWithBodyCheck.checked = config.colorSync.whiskersWithBody
+                }
+            }
+
+            // Apply uniform and filter
+            if (config.uniform) this.#elements.uniformSelect.value = config.uniform
+
+            // Apply body-specific features
+            if (config.ears) this.#elements.earSelect.value = config.ears
+            if (config.nose) this.#elements.noseSelect.value = config.nose
+            if (typeof config.foreheadBump === 'boolean') {
+                this.#elements.foreheadBumpCheck.checked = config.foreheadBump
+            }
+            if (typeof config.medusanAltColor === 'boolean') {
+                this.#elements.medusanAltColorCheck.checked = config.medusanAltColor
+            }
+            if (typeof config.medusanBox === 'boolean') {
+                this.#elements.medusanBoxCheck.checked = config.medusanBox
+            }
+            if (config.calMirranShape) {
+                this.#elements.calMirranShapeSelect.value = config.calMirranShape
+            }
+
+            // Apply head features (multi-select)
+            if (Array.isArray(config.headFeatures)) {
+                // Clear current selections
+                for (const option of this.#elements.headFeatureSelect.options) {
+                    option.selected = false
+                }
+                // Apply new selections
+                for (const value of config.headFeatures) {
+                    const option = this.#elements.headFeatureSelect.querySelector(`option[value="${value}"]`)
+                    if (option) option.selected = true
+                }
+            }
+
+            // Apply hat and eyewear
+            if (config.hat) this.#elements.hatFeatureSelect.value = config.hat
+            if (config.eyewear) this.#elements.eyewearFeatureSelect.value = config.eyewear
+
+            // Apply hair options
+            if (config.facialHair) this.#elements.facialHairSelect.value = config.facialHair
+            if (config.hair) this.#elements.hairSelect.value = config.hair
+            if (typeof config.hairMirror === 'boolean') {
+                this.#elements.hairMirror.checked = config.hairMirror
+            }
+            if (config.rearHair) this.#elements.rearHairSelect.value = config.rearHair
+            if (typeof config.rearHairMirror === 'boolean') {
+                this.#elements.rearHairMirror.checked = config.rearHairMirror
+            }
+
+            // Trigger change detection to update the UI
+            this.onChangeDetected()
+
+            return true
+        } catch (error) {
+            console.error('Failed to deserialize character:', error)
+            alert(`Failed to import character: ${error.message}`)
+            return false
+        }
+    }
+
+    /**
+     * Export the current character configuration to JSON.
+     * Shows a dialog with the JSON that can be copied.
+     */
+    #exportCharacter () {
+        const config = this.#serializeCharacter()
+        const json = JSON.stringify(config, null, 2)
+
+        // Get the dialog and elements
+        const dialog = document.getElementById('export-dialog')
+        const textarea = document.getElementById('export-json')
+        const copyBtn = document.getElementById('export-copy-btn')
+        const closeBtn = document.getElementById('export-close-btn')
+
+        // Set the JSON content
+        textarea.value = json
+
+        // Select all text when dialog opens
+        textarea.select()
+
+        // Copy to clipboard handler
+        const handleCopy = async () => {
+            try {
+                await navigator.clipboard.writeText(json)
+                copyBtn.textContent = '✓ Copied!'
+                setTimeout(() => {
+                    copyBtn.textContent = 'Copy to Clipboard'
+                }, 2000)
+            } catch (err) {
+                console.error('Failed to copy:', err)
+                alert('Failed to copy to clipboard. Please copy manually.')
+            }
+        }
+
+        // Close dialog handler
+        const handleClose = () => {
+            dialog.close()
+            // Clean up event listeners
+            copyBtn.removeEventListener('click', handleCopy)
+            closeBtn.removeEventListener('click', handleClose)
+            dialog.removeEventListener('keydown', handleKeydown)
+        }
+
+        // Escape key handler
+        const handleKeydown = (e) => {
+            if (e.key === 'Escape') {
+                handleClose()
+            }
+        }
+
+        // Add event listeners
+        copyBtn.addEventListener('click', handleCopy)
+        closeBtn.addEventListener('click', handleClose)
+        dialog.addEventListener('keydown', handleKeydown)
+
+        dialog.showModal()
+    }
+
+    /**
+     * Import a character configuration from JSON.
+     * Shows a dialog to paste JSON.
+     */
+    #importCharacter () {
+        // Get the dialog and elements
+        const dialog = document.getElementById('import-dialog')
+        const textarea = document.getElementById('import-json')
+        const importBtn = document.getElementById('import-btn')
+        const cancelBtn = document.getElementById('import-cancel-btn')
+
+        // Clear previous content
+        textarea.value = ''
+
+        // Import configuration handler
+        const handleImport = () => {
+            try {
+                const json = textarea.value.trim()
+                if (!json) {
+                    alert('Please paste a JSON configuration.')
+                    return
+                }
+
+                const config = JSON.parse(json)
+                const success = this.#deserializeCharacter(config)
+
+                if (success) {
+                    handleCancel()
+                    alert('Character imported successfully!')
+                }
+            } catch (err) {
+                console.error('Import error:', err)
+                alert('Invalid JSON format. Please check your configuration.')
+            }
+        }
+
+        // Cancel handler
+        const handleCancel = () => {
+            dialog.close()
+            // Clean up event listeners
+            importBtn.removeEventListener('click', handleImport)
+            cancelBtn.removeEventListener('click', handleCancel)
+            dialog.removeEventListener('keydown', handleKeydown)
+        }
+
+        // Escape key handler
+        const handleKeydown = (e) => {
+            if (e.key === 'Escape') {
+                handleCancel()
+            }
+        }
+
+        // Add event listeners
+        importBtn.addEventListener('click', handleImport)
+        cancelBtn.addEventListener('click', handleCancel)
+        dialog.addEventListener('keydown', handleKeydown)
+
+        dialog.showModal()
+        textarea.focus()
     }
 }
 
