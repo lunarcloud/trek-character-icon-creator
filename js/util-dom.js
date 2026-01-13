@@ -111,13 +111,40 @@ export class DomUtil {
      * @returns {Promise<void>}             promise that resolves when export is complete.
      */
     static async SaveImageAsSVG (imageName, imageElement, saveBackground = true) {
-        // Get all SVG elements in z-index order (DOM order = z-index order)
-        // Filter to only include SVGs whose parent containers are visible
+        // Get all SVG elements and filter to only include those whose parent containers are visible
         const allSvgElements = Array.from(imageElement.querySelectorAll('svg[data-src]'))
-        const svgElements = allSvgElements.filter(svg => {
-            // Check if the parent element is visible (not hidden by CSS)
-            return svg.parentElement && svg.parentElement.offsetParent !== null
+        const visibleSvgElements = allSvgElements.filter(svg => {
+            // Check if the parent element is visible (not hidden by attribute, display:none, or other CSS)
+            const parent = svg.parentElement
+            if (!parent) return false
+
+            // Check for hidden attribute
+            if (parent.hasAttribute('hidden')) return false
+
+            // Check for display:none
+            const computedStyle = window.getComputedStyle(parent)
+            if (computedStyle.display === 'none') return false
+
+            // Check offsetParent (null means element is not rendered)
+            return parent.offsetParent !== null
         })
+
+        // Sort SVG elements by their computed z-index to respect CSS stacking order
+        // Elements with higher z-index should be rendered later (on top)
+        // Pre-compute z-index values to avoid redundant getComputedStyle calls in sort
+        const svgWithZIndex = visibleSvgElements.map(svg => {
+            const style = window.getComputedStyle(svg)
+            const parentStyle = window.getComputedStyle(svg.parentElement)
+            // Check element first then parent, defaulting to 0
+            // parseInt('auto') returns NaN (falsy), so we fall back to parent z-index
+            const zIndex = parseInt(style.zIndex) || parseInt(parentStyle.zIndex) || 0
+            return { svg, zIndex }
+        })
+
+        // Sort by z-index and extract the SVG elements
+        const svgElements = svgWithZIndex
+            .sort((a, b) => a.zIndex - b.zIndex)
+            .map(item => item.svg)
 
         // Get the style element with color classes
         const styleElement = imageElement.querySelector('style')
