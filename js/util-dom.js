@@ -120,20 +120,20 @@ export class DomUtil {
 
         // Sort SVG elements by their computed z-index to respect CSS stacking order
         // Elements with higher z-index should be rendered later (on top)
-        // Check both the SVG element itself and its parent container for z-index
-        const svgElements = visibleSvgElements.sort((a, b) => {
-            const styleA = window.getComputedStyle(a)
-            const styleB = window.getComputedStyle(b)
-            const parentStyleA = window.getComputedStyle(a.parentElement)
-            const parentStyleB = window.getComputedStyle(b.parentElement)
-
-            // Get z-index, checking element first then parent, defaulting to 0
+        // Pre-compute z-index values to avoid redundant getComputedStyle calls in sort
+        const svgWithZIndex = visibleSvgElements.map(svg => {
+            const style = window.getComputedStyle(svg)
+            const parentStyle = window.getComputedStyle(svg.parentElement)
+            // Check element first then parent, defaulting to 0
             // parseInt('auto') returns NaN (falsy), so we fall back to parent z-index
-            const zIndexA = parseInt(styleA.zIndex) || parseInt(parentStyleA.zIndex) || 0
-            const zIndexB = parseInt(styleB.zIndex) || parseInt(parentStyleB.zIndex) || 0
-
-            return zIndexA - zIndexB
+            const zIndex = parseInt(style.zIndex) || parseInt(parentStyle.zIndex) || 0
+            return { svg, zIndex }
         })
+
+        // Sort by z-index and extract the SVG elements
+        const svgElements = svgWithZIndex
+            .sort((a, b) => a.zIndex - b.zIndex)
+            .map(item => item.svg)
 
         // Get the style element with color classes
         const styleElement = imageElement.querySelector('style')
