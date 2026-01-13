@@ -114,8 +114,19 @@ export class DomUtil {
         // Get all SVG elements and filter to only include those whose parent containers are visible
         const allSvgElements = Array.from(imageElement.querySelectorAll('svg[data-src]'))
         const visibleSvgElements = allSvgElements.filter(svg => {
-            // Check if the parent element is visible (not hidden by CSS)
-            return svg.parentElement && svg.parentElement.offsetParent !== null
+            // Check if the parent element is visible (not hidden by attribute, display:none, or other CSS)
+            const parent = svg.parentElement
+            if (!parent) return false
+
+            // Check for hidden attribute
+            if (parent.hasAttribute('hidden')) return false
+
+            // Check for display:none
+            const computedStyle = window.getComputedStyle(parent)
+            if (computedStyle.display === 'none') return false
+
+            // Check offsetParent (null means element is not rendered)
+            return parent.offsetParent !== null
         })
 
         // Sort SVG elements by their computed z-index to respect CSS stacking order
