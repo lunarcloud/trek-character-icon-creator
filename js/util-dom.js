@@ -111,12 +111,22 @@ export class DomUtil {
      * @returns {Promise<void>}             promise that resolves when export is complete.
      */
     static async SaveImageAsSVG (imageName, imageElement, saveBackground = true) {
-        // Get all SVG elements in z-index order (DOM order = z-index order)
-        // Filter to only include SVGs whose parent containers are visible
+        // Get all SVG elements and filter to only include those whose parent containers are visible
         const allSvgElements = Array.from(imageElement.querySelectorAll('svg[data-src]'))
-        const svgElements = allSvgElements.filter(svg => {
+        const visibleSvgElements = allSvgElements.filter(svg => {
             // Check if the parent element is visible (not hidden by CSS)
             return svg.parentElement && svg.parentElement.offsetParent !== null
+        })
+
+        // Sort SVG elements by their computed z-index to respect CSS stacking order
+        // Elements with higher z-index should be rendered later (on top)
+        // Check both the SVG element itself and its parent container for z-index
+        const svgElements = visibleSvgElements.sort((a, b) => {
+            const styleA = window.getComputedStyle(a)
+            const styleB = window.getComputedStyle(b)
+            const zIndexA = parseInt(styleA.zIndex) || parseInt(window.getComputedStyle(a.parentElement).zIndex) || 0
+            const zIndexB = parseInt(styleB.zIndex) || parseInt(window.getComputedStyle(b.parentElement).zIndex) || 0
+            return zIndexA - zIndexB
         })
 
         // Get the style element with color classes
