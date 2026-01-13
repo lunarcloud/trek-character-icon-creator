@@ -124,8 +124,14 @@ export class DomUtil {
         const svgElements = visibleSvgElements.sort((a, b) => {
             const styleA = window.getComputedStyle(a)
             const styleB = window.getComputedStyle(b)
-            const zIndexA = parseInt(styleA.zIndex) || parseInt(window.getComputedStyle(a.parentElement).zIndex) || 0
-            const zIndexB = parseInt(styleB.zIndex) || parseInt(window.getComputedStyle(b.parentElement).zIndex) || 0
+            const parentStyleA = window.getComputedStyle(a.parentElement)
+            const parentStyleB = window.getComputedStyle(b.parentElement)
+
+            // Get z-index, checking element first then parent, defaulting to 0
+            // parseInt('auto') returns NaN (falsy), so we fall back to parent z-index
+            const zIndexA = parseInt(styleA.zIndex) || parseInt(parentStyleA.zIndex) || 0
+            const zIndexB = parseInt(styleB.zIndex) || parseInt(parentStyleB.zIndex) || 0
+
             return zIndexA - zIndexB
         })
 
