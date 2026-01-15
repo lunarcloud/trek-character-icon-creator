@@ -143,7 +143,7 @@ export class IndexController {
 
         // No uniform-specific options (mostly about color)
         this.#elements.mainEl.classList.toggle('no-uniform-color', uniformClassList.contains('no-color-choice'))
-        this.#elements.mainEl.classList.toggle('undershirt-color-choice', uniformClassList.contains('undershirt-color-choice'))
+        this.#elements.mainEl.classList.toggle('accent-color-choice', uniformClassList.contains('accent-color-choice'))
         const extraOverlay = this.#elements.mainEl.classList.toggle('orville-badge-choice', uniformClassList.contains('orville-badge-choice'))
         this.#elements.mainEl.classList.toggle('extra-overlay', extraOverlay)
 

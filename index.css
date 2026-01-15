@@ -127,7 +127,7 @@ body {
   &.qofuari .medusan-only,
   &.qofuari .cal-mirran-only,
   &.qofuari .sukhabelan-only,
-  &:not(.undershirt-color-choice) .undershirt-color-choice-only,
+  &:not(.accent-color-choice) .accent-color-choice-only,
   &:not(.orville-badge-choice) .orville-badge-choice-only,
   &:not(.extra-overlay) .extra-overlay-only,
   &:not(.andorian-antennae) .andorian-antennae-only,
@@ -175,11 +175,22 @@ body {
     }
 
     & > * {
+        grid-template-columns: var(--svg-size) 1fr;
+        grid-template-rows: var(--svg-size) 1fr;
         position: relative;
+
+        & > * {
+            position: absolute;
+            inset: 0;
+        }
     }
 
     #character-rear-hair {
         z-index: 1;
+    }
+
+    #extra-underlay > * {
+        z-index: 2;
     }
 
     #character-ears-or-nose {
@@ -198,21 +209,15 @@ body {
         z-index: 6;
     }
 
-    #character-head-features {
-        grid-template-columns: var(--svg-size) 1fr;
-        grid-template-rows: var(--svg-size) 1fr;
+    #character-head-features > * {
+        z-index: 7;
 
-        & > * {
-            position: relative;
-            z-index: 7;
+        &.underuniform {
+            z-index: 4;
+        }
 
-            &.underuniform {
-                z-index: 4;
-            }
-
-            &.overhair {
-                z-index: 9;
-            }
+        &.overhair {
+            z-index: 9;
         }
     }
 

@@ -34,6 +34,11 @@ export class BodyTypeManager {
                 return accumulator
             }, '')
 
+        // Enable accent color if hat chosen requires it
+        if (elements.hatFeatureSelect.selectedOptions[0].classList.contains('accent-color-choice')) {
+            elements.mainEl.classList.toggle('accent-color-choice', true)
+        }
+
         // Update extra overlay
         elements.characterExtraOverlay.innerHTML = ''
         if (selectedUniform?.hasAttribute('extra-overlay') ?? false)
@@ -128,6 +133,11 @@ export class BodyTypeManager {
                 accumulator += DomUtil.GenerateSVGHTML(`humanoid/head-features/${e.value}.svg`, e.className)
                 return accumulator
             }, '')
+
+        // Enable accent color if hat chosen requires it
+        if (elements.hatFeatureSelect.selectedOptions[0].classList.contains('accent-color-choice')) {
+            elements.mainEl.classList.toggle('accent-color-choice', true)
+        }
     }
 
     /**
@@ -150,6 +160,11 @@ export class BodyTypeManager {
                 accumulator += DomUtil.GenerateSVGHTML(`humanoid/head-features/${e.value}.svg`, e.className)
                 return accumulator
             }, '')
+
+        // Enable accent color if hat chosen requires it
+        if (elements.hatFeatureSelect.selectedOptions[0].classList.contains('accent-color-choice')) {
+            elements.mainEl.classList.toggle('accent-color-choice', true)
+        }
 
         // Update extra overlay
         elements.characterExtraOverlay.innerHTML = ''

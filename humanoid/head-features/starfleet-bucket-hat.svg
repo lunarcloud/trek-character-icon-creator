@@ -1,0 +1,24 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created using Krita: https://krita.org -->
+<svg xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:krita="http://krita.org/namespaces/svg/krita"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    width="512pt"
+    height="512pt"
+    viewBox="0 0 512 512">
+    <style>
+        .uniform-color {
+            color: #cd3b1e;
+        }
+        .uniform-undershirt-color {
+            color: #5E5E5E;
+        }
+    </style>
+<defs/>
+<path id="shape0" transform="translate(139.719376391982, 7.57015590200445)" fill="currentColor" class="uniform-undershirt-color" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M48.2739 7.10543e-15L172.726 0C199.387 1.77636e-15 221 21.613 221 48.2739L221 131.234C221 157.895 3.8404e-15 157.895 7.10543e-15 131.234L0 48.2739C3.21965e-15 21.613 21.613 5.32907e-15 48.2739 7.10543e-15Z" sodipodi:nodetypes="ccccccc"/><path id="shape1" transform="translate(141.398663697105, 141.398663697105)" fill="none" stroke="currentColor" class="uniform-undershirt-color" stroke-width="8" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="2" d="M0 0C1.8126 203.634 218.899 198.945 218.94 1.71047" sodipodi:nodetypes="cc"/><path id="shape2" transform="translate(165.9994447636, 19.0874938736924)" sodipodi:type="arc" sodipodi:rx="88" sodipodi:ry="11.5" sodipodi:cx="88.0005552363996" sodipodi:cy="7.41250612630757" sodipodi:start="5.62541481352742" sodipodi:end="3.84204781888645" sodipodi:open="true" d="M20.7203 0C-9.04803 4.61431 -6.45558 11.4509 26.6578 15.658C59.7712 19.8651 112.138 20.0111 146.595 15.9925C181.052 11.9739 185.874 5.15804 157.64 0.381935" fill="none" stroke="#3f3d3d" stroke-width="6" stroke-linecap="square" stroke-linejoin="bevel"/><g id="group0" transform="translate(228.623572912057, 69.2268900998821)" fill="none">
+  <circle id="shape31" transform="matrix(-0.0439386479422567 0 0 -0.0439386479422567 42.7083618733999 55.1093007916478)" r="485.999955318679" cx="485.999955318679" cy="485.999955318679" fill="none" stroke="currentColor" class="uniform-color" stroke-width="50.4" stroke-linecap="square" stroke-linejoin="bevel"/>
+  <path id="shape011" transform="matrix(-0.0439386479422567 0 0 -0.0439386479422567 45.1264082429237 60.2811886578997)" fill="currentColor" class="uniform-color" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M549.065 0C288.677 436.964 105.655 888.013 0 1353.15L36.8011 1371.94C240.478 1070.25 472.297 921.381 732.257 925.339C744.677 936.217 931.709 1051.71 990.954 1207.01C997.726 1204.64 1009.01 1202.86 1024.81 1201.65C928.711 808.63 770.128 408.079 549.065 0Z" sodipodi:nodetypes="ccccccc"/>
+ </g>
+</svg>
