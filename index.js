@@ -3,7 +3,6 @@ import { ColorManager } from './js/color-manager.js'
 import { UniformManager } from './js/uniform-manager.js'
 import { BodyTypeManager } from './js/body-type-manager.js'
 import { DomUtil } from './js/util-dom.js'
-import { DataUtil } from './js/util-data.js'
 
 /**
  * Controller for the Main, Index, Page.
@@ -51,10 +50,10 @@ export class IndexController {
                 this.#elements.saveBGCheck.checked, 'png'))
 
         // Setup the import and export functionality
-        document.getElementById('export-btn')
+        document.getElementById('show-export')
             .addEventListener('click', () => this.#exportCharacter())
 
-        document.getElementById('import-btn')
+        document.getElementById('show-import')
             .addEventListener('click', () => this.#importCharacter())
     }
 
@@ -321,7 +320,7 @@ export class IndexController {
                 // Apply new selections
                 for (const value of config.headFeatures) {
                     const option = this.#elements.headFeatureSelect.querySelector(`option[value="${value}"]`)
-                    if (option) option.selected = true
+                    if (option instanceof HTMLOptionElement) option.selected = true
                 }
             }
 
