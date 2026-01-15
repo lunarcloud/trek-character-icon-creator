@@ -696,17 +696,14 @@
 
         <footer>
             <span>
-                <button id="download">⇩ Save</button>
-                <span class="inline-block">
+                <button id="download-png" class="download" title="download as PNG raster image">⇩ PNG</button>
+                <button id="download-svg" class="download" title="download as SVG vector image">⇩ SVG</button>
+                <span class="inline-block" title="include background with downloaded image">
                     <input type="checkbox" id="save-with-bg-checkbox" checked >
-                    <label for="save-with-bg-checkbox">background</label>
+                    <label for="save-with-bg-checkbox">bg</label>
                 </span>
-                <span class="inline-block">
-                    <select id="save-format-select">
-                        <option value="png">PNG</option>
-                        <option value="svg" selected>SVG</option>
-                    </select>
-                </span>
+                <button id="export-btn" class="json" title="export">💾</button>
+                <button id="import-btn" class="json" title="import">📋 JSON</button>
             </span>
             <p>
                 Created by

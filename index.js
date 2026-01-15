@@ -3,6 +3,7 @@ import { ColorManager } from './js/color-manager.js'
 import { UniformManager } from './js/uniform-manager.js'
 import { BodyTypeManager } from './js/body-type-manager.js'
 import { DomUtil } from './js/util-dom.js'
+import { DataUtil } from './js/util-data.js'
 
 /**
  * Controller for the Main, Index, Page.
@@ -39,10 +40,22 @@ export class IndexController {
         this.onChangeDetected()
 
         // Setup the save as image functionality
-        document.getElementById('download')
-            .addEventListener('click', () => DomUtil.SaveImage('star-trek-officer.png',
+        document.getElementById('download-svg')
+            .addEventListener('click', () => DomUtil.SaveImage('star-trek-character.svg',
                 this.#elements.mainEl, this.#elements.mainEl.querySelector('character'),
-                this.#elements.saveBGCheck.checked, this.#elements.saveFormatSelect.value))
+                this.#elements.saveBGCheck.checked, 'svg'))
+
+        document.getElementById('download-png')
+            .addEventListener('click', () => DomUtil.SaveImage('star-trek-character.png',
+                this.#elements.mainEl, this.#elements.mainEl.querySelector('character'),
+                this.#elements.saveBGCheck.checked, 'png'))
+
+        // Setup the import and export functionality
+        document.getElementById('export-btn')
+            .addEventListener('click', () => this.#exportCharacter())
+
+        document.getElementById('import-btn')
+            .addEventListener('click', () => this.#importCharacter())
     }
 
     /**

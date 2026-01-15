@@ -194,7 +194,6 @@ export class CharacterElements {
         this.rearHairSelect = getSelectElement('rear-hair-select')
         this.rearHairMirror = getInputElement('rear-hair-mirror')
         this.saveBGCheck = getInputElement('save-with-bg-checkbox')
-        this.saveFormatSelect = getSelectElement('save-format-select')
     }
 
     /**

@@ -251,10 +251,30 @@ body {
     justify-content: space-around;
     align-items: flex-start;
 
-    #download {
-      padding: 0.75em 2.25em;
+    button {
+      padding: 0.75em 1em;
+      line-height: 1em;
       font-weight: bold;
-      border-radius: 1em;
+
+      &:nth-child(1),
+      &:nth-child(4) {
+        border-top-left-radius: 1em;
+        border-bottom-left-radius: 1em;
+        padding-right: 0.25em;
+        margin-right: -0.5em;
+      }
+
+      &:nth-child(2),
+      &:nth-child(5) {
+        border-top-right-radius: 1em;
+        border-bottom-right-radius: 1em;
+        padding-left: 0.25em;
+        margin-left: 0;
+      }
+    }
+
+    span + button {
+        margin-left: 2em;
     }
   }
 }
