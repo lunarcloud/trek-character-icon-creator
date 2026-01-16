@@ -165,6 +165,7 @@ body {
     background-color: transparent;
     padding: 1em 1em 0;
     width: var(--svg-size);
+    height: var(--svg-size);
     margin: 0 auto;
     text-align: center;
     position: relative;
