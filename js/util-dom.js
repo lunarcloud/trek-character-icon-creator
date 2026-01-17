@@ -213,7 +213,7 @@ export class DomUtil {
                     // Get the --mirror-offset CSS variable value (default 6px)
                     const computedStyle = window.getComputedStyle(parent)
                     const mirrorOffsetStr = computedStyle.getPropertyValue('--mirror-offset').trim() || '6px'
-                    const mirrorOffset = parseFloat(mirrorOffsetStr)
+                    const mirrorOffset = parseFloat(mirrorOffsetStr) || 6
 
                     // Apply SVG transform with transform-origin center
                     // CSS: transform: scaleX(-1) translateX(offset) with transform-origin: center
