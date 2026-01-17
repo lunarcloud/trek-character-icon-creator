@@ -217,9 +217,10 @@ export class DomUtil {
 
                     // Apply SVG transform with transform-origin center
                     // CSS: transform: scaleX(-1) translateX(offset) with transform-origin: center
-                    // In SVG: translate to center, scale, translate offset, translate back
+                    // In flipped coordinate space, +offset moves left (= right before flip)
+                    // So in SVG: translate(center - offset), scale(-1, 1), translate(-center)
                     const centerX = SVG_SIZE / 2
-                    group.setAttribute('transform', `translate(${centerX + mirrorOffset}, 0) scale(-1, 1) translate(${-centerX}, 0)`)
+                    group.setAttribute('transform', `translate(${centerX - mirrorOffset}, 0) scale(-1, 1) translate(${-centerX}, 0)`)
                 }
 
                 // Copy all child nodes from the loaded SVG
