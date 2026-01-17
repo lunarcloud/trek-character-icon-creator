@@ -215,10 +215,11 @@ export class DomUtil {
                     const mirrorOffsetStr = computedStyle.getPropertyValue('--mirror-offset').trim() || '6px'
                     const mirrorOffset = parseFloat(mirrorOffsetStr)
 
-                    // Apply SVG transform: scaleX(-1) translateX(offset)
-                    // Note: In SVG, we need to translate first then scale, and negate the offset
-                    // because the scale will flip the coordinate system
-                    group.setAttribute('transform', `translate(${mirrorOffset}, 0) scale(-1, 1)`)
+                    // Apply SVG transform with transform-origin center
+                    // CSS: transform: scaleX(-1) translateX(offset) with transform-origin: center
+                    // In SVG: translate to center, scale, translate offset, translate back
+                    const centerX = SVG_SIZE / 2
+                    group.setAttribute('transform', `translate(${centerX + mirrorOffset}, 0) scale(-1, 1) translate(${-centerX}, 0)`)
                 }
 
                 // Copy all child nodes from the loaded SVG
