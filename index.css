@@ -172,6 +172,7 @@ body {
     z-index: 0;
 
     & > .mirrored {
+        transform-origin: center;
         transform: scaleX(-1) translateX(var(--mirror-offset, 6px));
     }
 
