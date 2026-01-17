@@ -207,6 +207,20 @@ export class DomUtil {
                 // Clone the SVG's children into a group
                 const group = document.createElementNS('http://www.w3.org/2000/svg', 'g')
 
+                // Check if parent has mirrored class and apply transform
+                const parent = svgEl.parentElement
+                if (parent && parent.classList.contains('mirrored')) {
+                    // Get the --mirror-offset CSS variable value (default 6px)
+                    const computedStyle = window.getComputedStyle(parent)
+                    const mirrorOffsetStr = computedStyle.getPropertyValue('--mirror-offset').trim() || '6px'
+                    const mirrorOffset = parseFloat(mirrorOffsetStr)
+
+                    // Apply SVG transform: scaleX(-1) translateX(offset)
+                    // Note: In SVG, we need to translate first then scale, and negate the offset
+                    // because the scale will flip the coordinate system
+                    group.setAttribute('transform', `translate(${mirrorOffset}, 0) scale(-1, 1)`)
+                }
+
                 // Copy all child nodes from the loaded SVG
                 const children = Array.from(svgEl.children)
                 for (const child of children) {
