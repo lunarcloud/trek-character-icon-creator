@@ -36,17 +36,47 @@ function writeFile (filePath, content) {
  * @returns {string} Indented HTML content
  */
 function indentContent (content, spaces) {
+    if (spaces === 0) return content
+    
     const indent = ' '.repeat(spaces)
-    return content
-        .split('\n')
+    const lines = content.split('\n')
+    
+    // Add indentation to each non-empty line
+    return lines
         .map(line => {
             // Don't indent empty lines
             if (line.trim() === '') {
                 return ''
             }
+            // Add the specified indentation
             return indent + line
         })
         .join('\n')
+}
+
+/**
+ * Replace an INSERT comment with indented content.
+ * @param {string} template - The template string
+ * @param {string} filename - The filename to look for in INSERT comment
+ * @param {string} content - The content to insert
+ * @returns {string} Template with content inserted
+ */
+function replaceInsert (template, filename, content) {
+    // Find the INSERT comment and capture its indentation
+    // Match: optional newline, then spaces (not including newline), then the comment
+    const regex = new RegExp(`(^|\\n)( *)<!-- INSERT: ${filename.replace(/\./g, '\\.')} -->`, 'g')
+    const match = regex.exec(template)
+    
+    if (!match) {
+        console.warn(`Warning: INSERT comment for ${filename} not found`)
+        return template
+    }
+    
+    const indent = match[2].length  // match[2] is just the spaces, not including newline
+    const indentedContent = indentContent(content, indent)
+    
+    // Replace the comment but keep the newline if there was one
+    return template.replace(regex, match[1] + indentedContent)
 }
 
 /**
@@ -56,10 +86,10 @@ function buildIndexHTML () {
     console.log('Building index.html from partials...')
 
     // Read the template
-    const template = readFile('index.template.html')
+    let template = readFile('index.template.html')
 
     // Read all partials
-    const mainSection = readFile('html/main-section.html')
+    const characterDisplaySection = readFile('html/character-display-section.html')
     const bodySection = readFile('html/body-section.html')
     const featuresSection = readFile('html/features-section.html')
     const uniformSection = readFile('html/uniform-section.html')
@@ -67,18 +97,18 @@ function buildIndexHTML () {
     const footerSection = readFile('html/footer-section.html')
     const dialogs = readFile('html/dialogs.html')
 
-    // Replace placeholders with actual content (with proper indentation)
-    let output = template
-        .replace('<!-- INSERT: html/main-section.html -->', indentContent(mainSection, 8))
-        .replace('<!-- INSERT: html/body-section.html -->', indentContent(bodySection, 12))
-        .replace('<!-- INSERT: html/features-section.html -->', indentContent(featuresSection, 12))
-        .replace('<!-- INSERT: html/uniform-section.html -->', indentContent(uniformSection, 12))
-        .replace('<!-- INSERT: html/hair-section.html -->', indentContent(hairSection, 12))
-        .replace('<!-- INSERT: html/footer-section.html -->', indentContent(footerSection, 8))
-        .replace('<!-- INSERT: html/dialogs.html -->', indentContent(dialogs, 8))
+    // Replace placeholders with actual content
+    // The template already has the correct indentation for the INSERT comments
+    template = replaceInsert(template, 'html/main-section.html', characterDisplaySection)
+    template = replaceInsert(template, 'html/body-section.html', bodySection)
+    template = replaceInsert(template, 'html/features-section.html', featuresSection)
+    template = replaceInsert(template, 'html/uniform-section.html', uniformSection)
+    template = replaceInsert(template, 'html/hair-section.html', hairSection)
+    template = replaceInsert(template, 'html/footer-section.html', footerSection)
+    template = replaceInsert(template, 'html/dialogs.html', dialogs)
 
     // Write the output (to parent directory)
-    writeFile('../index.html', output)
+    writeFile('../index.html', template)
 
     console.log('✓ index.html built successfully')
 }
