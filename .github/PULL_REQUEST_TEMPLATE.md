@@ -63,7 +63,6 @@
 ## Documentation
 
 - [ ] README.md updated (if adding features)
-- [ ] AGENTS.md updated (if changing architecture)
 - [ ] TESTING.md updated (if new test scenarios needed)
 - [ ] Inline comments added for complex logic
 
