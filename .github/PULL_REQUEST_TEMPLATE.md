@@ -17,7 +17,7 @@
 - [ ] Refactoring (code improvement without changing functionality)
 - [ ] Documentation update
 - [ ] Performance improvement
-- [ ] SVG asset modification (technical fixes only)
+- [ ] SVG asset modification
 
 ## Testing Checklist
 
@@ -54,7 +54,8 @@
 ## SVG Changes (if applicable)
 
 <!-- Only check if SVG files were modified -->
-- [ ] Only technical fixes applied (no new artwork created)
+- [ ] Technical fixes applied (correcting classes, viewBox, xmlns, etc.)
+- [ ] New or updated artwork
 - [ ] SVG validation passed (`npm run svglint`)
 - [ ] Tested color customization classes work correctly
 - [ ] Tested visually in browser
@@ -75,7 +76,3 @@
 ## Additional Notes
 
 <!-- Any other context, implementation details, or discussion points -->
-
----
-
-**Note:** This is a personal project by @lunarcloud. PRs are reviewed at maintainer's discretion and may be accepted, modified, or closed based on project needs. Bug fixes are prioritized over feature additions.

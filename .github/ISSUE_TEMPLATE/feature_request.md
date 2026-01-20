@@ -59,5 +59,3 @@ assignees: ''
 ---
 
 **Note:** This is a personal project maintained by @lunarcloud. Feature requests are welcome but may not be implemented. The maintainer reserves the right to accept, modify, or decline any feature request based on project vision and priorities. Bug fixes are typically prioritized over new features.
-
-**Before submitting:** Please check existing issues to see if this feature has already been requested.

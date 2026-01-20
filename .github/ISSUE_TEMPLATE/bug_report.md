@@ -55,7 +55,3 @@ Paste console errors here
 ## Possible Fix
 
 <!-- If you have suggestions on how to fix the bug, mention them here -->
-
----
-
-**Note:** This is a personal project maintained by @lunarcloud. Bug reports are appreciated, but fixes may not be immediate. Issues are reviewed at maintainer's discretion.
