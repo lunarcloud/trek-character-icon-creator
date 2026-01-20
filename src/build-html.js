@@ -80,6 +80,23 @@ function replaceInsert (template, filename, content) {
 }
 
 /**
+ * Find all INSERT comments in the template.
+ * @param {string} template - The template string
+ * @returns {string[]} Array of filenames found in INSERT comments
+ */
+function findInsertComments (template) {
+    const insertRegex = /<!-- INSERT: ([^\s]+) -->/g
+    const matches = []
+    let match
+
+    while ((match = insertRegex.exec(template)) !== null) {
+        matches.push(match[1])
+    }
+
+    return matches
+}
+
+/**
  * Build the index.html file by assembling HTML partials.
  */
 function buildIndexHTML () {
@@ -88,24 +105,19 @@ function buildIndexHTML () {
     // Read the template
     let template = readFile('index.template.html')
 
-    // Read all partials
-    const characterDisplaySection = readFile('html/character-display-section.html')
-    const bodySection = readFile('html/body-section.html')
-    const featuresSection = readFile('html/features-section.html')
-    const uniformSection = readFile('html/uniform-section.html')
-    const hairSection = readFile('html/hair-section.html')
-    const footerSection = readFile('html/footer-section.html')
-    const dialogs = readFile('html/dialogs.html')
+    // Find all INSERT comments in the template
+    const insertFiles = findInsertComments(template)
 
-    // Replace placeholders with actual content
-    // The template already has the correct indentation for the INSERT comments
-    template = replaceInsert(template, 'html/main-section.html', characterDisplaySection)
-    template = replaceInsert(template, 'html/body-section.html', bodySection)
-    template = replaceInsert(template, 'html/features-section.html', featuresSection)
-    template = replaceInsert(template, 'html/uniform-section.html', uniformSection)
-    template = replaceInsert(template, 'html/hair-section.html', hairSection)
-    template = replaceInsert(template, 'html/footer-section.html', footerSection)
-    template = replaceInsert(template, 'html/dialogs.html', dialogs)
+    // Process each INSERT comment
+    for (const filename of insertFiles) {
+        try {
+            const content = readFile(filename)
+            template = replaceInsert(template, filename, content)
+        } catch (error) {
+            console.error(`Error reading ${filename}: ${error.message}`)
+            process.exit(1)
+        }
+    }
 
     // Write the output (to parent directory)
     writeFile('../index.html', template)
