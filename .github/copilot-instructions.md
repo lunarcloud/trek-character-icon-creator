@@ -32,9 +32,12 @@ This document provides coding standards and best practices for AI agents working
 - HTML structure should use semantic tags and `<group>` elements
 
 ### Documentation Preferences
-- **Use Mermaid diagrams, not ASCII** - All block diagrams, flowcharts, and structure diagrams should use Mermaid syntax
-  - ✅ Good: Mermaid code blocks with proper syntax
-  - ❌ Bad: ASCII art diagrams using `├──`, `│`, `└──` characters
+- **Use Mermaid diagrams for flowcharts and architecture diagrams** - Process flows, state machines, and architecture diagrams should use Mermaid syntax
+  - ✅ Good: Mermaid flowcharts, sequence diagrams, state diagrams
+  - ❌ Bad: ASCII art flowcharts or architecture boxes
+- **Use ASCII for file/directory tree structures** - File system hierarchies are clear and concise in ASCII tree format
+  - ✅ Good: ASCII tree using `├──`, `│`, `└──` characters for directory listings
+  - ❌ Bad: Mermaid graphs for simple file structures
 
 ### SVG Asset Rules
 **CRITICAL:** AI agents are **forbidden** from creating new SVG artwork. All SVG assets must be hand-crafted by human artists.
@@ -217,34 +220,32 @@ A character icon creator for Star Trek-style characters with extensive customiza
 
 ### Project Structure
 
-```mermaid
-graph TD
-    ROOT["/"] --> index.html["index.html - Main application UI"]
-    ROOT --> index.js["index.js - Main controller"]
-    ROOT --> index.css["index.css - Main stylesheet"]
-    ROOT --> js["js/ - JavaScript modules folder"]
-    ROOT --> body_type["{body-type}/ - SVG asset directories"]
-    ROOT --> fonts["fonts/ - Custom fonts"]
-    
-    js --> char_elements["character-elements.js - DOM element references"]
-    js --> color_mgr["color-manager.js - Color pickers & synchronization"]
-    js --> uniform_mgr["uniform-manager.js - Uniform validation & filtering"]
-    js --> body_type_mgr["body-type-manager.js - Body-type-specific rendering"]
-    js --> type_helpers["type-helpers.js - HTML element getters with type checking"]
-    js --> util_data["util-data.js - Data manipulation utilities"]
-    js --> util_dom["util-dom.js - DOM manipulation utilities"]
-    
-    body_type --> body_svg["body.svg - Base body SVG (required)"]
-    body_type --> body_overlay["body-overlay.svg - Optional overlay layer"]
-    body_type --> body_dir["body/ - Alternative: body parts subdirectory"]
-    body_type --> ears["ears/ - Species-specific ear variations"]
-    body_type --> extra["extra/ - Additional customization options"]
-    body_type --> facial_hair["facial-hair/ - Facial hair styles"]
-    body_type --> hair["hair/ - Hair styles"]
-    body_type --> head_features["head-features/ - Species-specific head features"]
-    body_type --> nose["nose/ - Nose variations"]
-    body_type --> rear_hair["rear-hair/ - Back hair/ponytails"]
-    body_type --> uniform["uniform/ - Uniform styles for this body type"]
+```
+/
+├── index.html          # Main application UI
+├── index.js            # Main controller (orchestrates modules)
+├── index.css           # Main stylesheet
+├── js/                 # JavaScript modules folder
+│   ├── character-elements.js  # DOM element references and initialization
+│   ├── color-manager.js    # Color pickers, synchronization, and color state
+│   ├── uniform-manager.js  # Uniform validation, filtering, and defaults
+│   ├── body-type-manager.js   # Body-type-specific rendering logic
+│   ├── type-helpers.js     # HTML element getters with runtime type checking
+│   ├── util-data.js        # Data manipulation utilities (DataUtil class)
+│   └── util-dom.js         # DOM manipulation utilities (DomUtil class)
+├── {body-type}/        # SVG asset directories for each character body type
+│   ├── body.svg        # Base body SVG (required)
+│   ├── body-overlay.svg # Optional overlay layer
+│   ├── body/           # Alternative: body parts as subdirectory
+│   ├── ears/           # Species-specific ear variations
+│   ├── extra/          # Additional customization options
+│   ├── facial-hair/    # Facial hair styles
+│   ├── hair/           # Hair styles
+│   ├── head-features/  # Species-specific head features (ridges, antennae, etc.)
+│   ├── nose/           # Nose variations
+│   ├── rear-hair/      # Back hair/ponytails
+│   └── uniform/        # Uniform styles for this body type
+└── fonts/              # Custom fonts
 ```
 
 **Note:** Body type directories vary in structure. Each contains `body.svg` or `body/` subdirectory. Subdirectories for customization options (ears, hair, uniform, etc.) differ per body type based on what's applicable. Filenames should be kebob-case, no underscores or spaces.
