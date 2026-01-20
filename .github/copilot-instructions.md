@@ -35,9 +35,9 @@ This document provides coding standards and best practices for AI agents working
 - **Use Mermaid diagrams for flowcharts and architecture diagrams** - Process flows, state machines, and architecture diagrams should use Mermaid syntax
   - ✅ Good: Mermaid flowcharts, sequence diagrams, state diagrams
   - ❌ Bad: ASCII art flowcharts or architecture boxes
-- **Use ASCII for file/directory tree structures** - File system hierarchies are clear and concise in ASCII tree format
-  - ✅ Good: ASCII tree using `├──`, `│`, `└──` characters for directory listings
-  - ❌ Bad: Mermaid graphs for simple file structures
+- **Use bullet point lists for file/directory tree structures** - File system hierarchies are clear and concise in heirarchical bullet list format.
+  - ✅ Good: Markdown lists for directory listings
+  - ❌ Bad: Mermaid graphs for simple file structures or ASCII tree using `├──`, `│`, `└──` characters for directory listings
 
 ### SVG Asset Rules
 **CRITICAL:** AI agents are **forbidden** from creating new SVG artwork. All SVG assets must be hand-crafted by human artists.
