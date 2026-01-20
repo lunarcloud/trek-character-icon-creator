@@ -8,7 +8,7 @@
         "dev": "npm run build && npm run watch & npm run serve",
         "eslint-fix": "npx eslint --ignore-path .gitignore --ext .js . --fix",
         "eslint": "npx eslint --ignore-path .gitignore --ext .js .",
-        "htmllint": "npx linthtml \"**/*.html\"",
+        "htmllint": "npm run build && npx linthtml \"index.html\"",
         "csslint": "npx stylelint \"**/*.css\" --quiet-deprecation-warnings",
         "csslint-fix": "npx stylelint \"**/*.css\" --quiet-deprecation-warnings --fix",
         "svglint": "npx svglint --ci ./*.svg ./*/*.svg ./*/*/*.svg",

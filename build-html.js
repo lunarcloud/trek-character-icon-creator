@@ -37,7 +37,16 @@ function writeFile (filePath, content) {
  */
 function indentContent (content, spaces) {
     const indent = ' '.repeat(spaces)
-    return content.split('\n').map(line => line ? indent + line : line).join('\n')
+    return content
+        .split('\n')
+        .map(line => {
+            // Don't indent empty lines
+            if (line.trim() === '') {
+                return ''
+            }
+            return indent + line
+        })
+        .join('\n')
 }
 
 /**
