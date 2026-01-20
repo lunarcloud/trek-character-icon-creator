@@ -3,7 +3,6 @@ import { ColorManager } from './js/color-manager.js'
 import { UniformManager } from './js/uniform-manager.js'
 import { BodyTypeManager } from './js/body-type-manager.js'
 import { DomUtil } from './js/util-dom.js'
-import { initializeHTMLFragments } from './js/html-loader.js'
 
 /**
  * Controller for the Main, Index, Page.
@@ -471,12 +470,5 @@ export class IndexController {
     }
 }
 
-// Initialize HTML fragments first, then create controller
-initializeHTMLFragments()
-    .then(() => {
-        globalThis.Controller = new IndexController()
-    })
-    .catch(error => {
-        console.error('Failed to initialize application:', error)
-        alert('Failed to load application. Please refresh the page.')
-    })
+// Create the controller when DOM is ready
+globalThis.Controller = new IndexController()

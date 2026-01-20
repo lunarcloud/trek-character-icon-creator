@@ -1,2 +1,4 @@
 lib/**/*.html
 html/**/*.html
+src/**/*.html
+index.html
