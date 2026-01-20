@@ -59,18 +59,22 @@ function buildIndexHTML () {
     const template = readFile('index.template.html')
 
     // Read all partials
+    const mainSection = readFile('html/main-section.html')
     const bodySection = readFile('html/body-section.html')
     const featuresSection = readFile('html/features-section.html')
     const uniformSection = readFile('html/uniform-section.html')
     const hairSection = readFile('html/hair-section.html')
+    const footerSection = readFile('html/footer-section.html')
     const dialogs = readFile('html/dialogs.html')
 
     // Replace placeholders with actual content (with proper indentation)
     let output = template
+        .replace('<!-- INSERT: html/main-section.html -->', indentContent(mainSection, 8))
         .replace('<!-- INSERT: html/body-section.html -->', indentContent(bodySection, 12))
         .replace('<!-- INSERT: html/features-section.html -->', indentContent(featuresSection, 12))
         .replace('<!-- INSERT: html/uniform-section.html -->', indentContent(uniformSection, 12))
         .replace('<!-- INSERT: html/hair-section.html -->', indentContent(hairSection, 12))
+        .replace('<!-- INSERT: html/footer-section.html -->', indentContent(footerSection, 8))
         .replace('<!-- INSERT: html/dialogs.html -->', indentContent(dialogs, 8))
 
     // Write the output (to parent directory)
