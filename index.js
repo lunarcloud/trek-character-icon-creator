@@ -3,6 +3,7 @@ import { ColorManager } from './js/color-manager.js'
 import { UniformManager } from './js/uniform-manager.js'
 import { BodyTypeManager } from './js/body-type-manager.js'
 import { DomUtil } from './js/util-dom.js'
+import { saveTextAs } from './js/save-file-utils.js'
 
 /**
  * Controller for the Main, Index, Page.
@@ -49,12 +50,12 @@ export class IndexController {
                 this.#elements.mainEl, this.#elements.mainEl.querySelector('character'),
                 this.#elements.saveBGCheck.checked, 'png'))
 
-        // Setup the import and export functionality
-        document.getElementById('show-export')
-            .addEventListener('click', () => this.#exportCharacter())
+        // Setup the file-based save and load functionality
+        document.getElementById('save-character')
+            .addEventListener('click', () => this.#saveCharacter())
 
-        document.getElementById('show-import')
-            .addEventListener('click', () => this.#importCharacter())
+        document.getElementById('load-character')
+            .addEventListener('click', () => this.#loadCharacter())
     }
 
     /**
@@ -75,19 +76,19 @@ export class IndexController {
     }
 
     /**
-     * Setup keyboard shortcuts for import and export.
+     * Setup keyboard shortcuts for save and load.
      */
     #setupKeyboardShortcuts () {
         document.addEventListener('keydown', (e) => {
-            // Ctrl+E or Cmd+E for export
-            if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
+            // Ctrl+S or Cmd+S for save
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
                 e.preventDefault()
-                this.#exportCharacter()
+                this.#saveCharacter()
             }
-            // Ctrl+I or Cmd+I for import
-            if ((e.ctrlKey || e.metaKey) && e.key === 'i') {
+            // Ctrl+O or Cmd+O for open/load
+            if ((e.ctrlKey || e.metaKey) && e.key === 'o') {
                 e.preventDefault()
-                this.#importCharacter()
+                this.#loadCharacter()
             }
         })
     }
@@ -351,122 +352,70 @@ export class IndexController {
     }
 
     /**
-     * Export the current character configuration to JSON.
-     * Shows a dialog with the JSON that can be copied.
+     * Save the current character configuration to a JSON file.
      */
-    #exportCharacter () {
+    async #saveCharacter () {
         const config = this.#serializeCharacter()
         const json = JSON.stringify(config, null, 2)
 
-        // Get the dialog and elements
-        const dialog = document.getElementById('export-dialog')
-        const textarea = document.getElementById('export-json')
-        const copyBtn = document.getElementById('export-copy-btn')
-        const closeBtn = document.getElementById('export-close-btn')
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-').substring(0, 19)
+        const filename = `star-trek-character-${timestamp}.json`
 
-        // Set the JSON content
-        textarea.value = json
-
-        // Select all text when dialog opens
-        textarea.select()
-
-        // Copy to clipboard handler
-        const handleCopy = async () => {
-            try {
-                await navigator.clipboard.writeText(json)
-                copyBtn.textContent = '✓ Copied!'
-                setTimeout(() => {
-                    copyBtn.textContent = 'Copy to Clipboard'
-                }, 2000)
-            } catch (err) {
-                console.error('Failed to copy:', err)
-                alert('Failed to copy to clipboard. Please copy manually.')
-            }
+        try {
+            await saveTextAs(filename, json, {
+                description: 'Star Trek Character JSON',
+                mimes: [{ 'application/json': '.json' }]
+            })
+        } catch (err) {
+            console.error('Failed to save character:', err)
+            alert('Failed to save character file. Please try again.')
         }
-
-        // Close dialog handler
-        const handleClose = () => {
-            dialog.close()
-            // Clean up event listeners
-            copyBtn.removeEventListener('click', handleCopy)
-            closeBtn.removeEventListener('click', handleClose)
-            dialog.removeEventListener('keydown', handleKeydown)
-        }
-
-        // Escape key handler
-        const handleKeydown = (e) => {
-            if (e.key === 'Escape') {
-                handleClose()
-            }
-        }
-
-        // Add event listeners
-        copyBtn.addEventListener('click', handleCopy)
-        closeBtn.addEventListener('click', handleClose)
-        dialog.addEventListener('keydown', handleKeydown)
-
-        dialog.showModal()
     }
 
     /**
-     * Import a character configuration from JSON.
-     * Shows a dialog to paste JSON.
+     * Load a character configuration from a JSON file.
      */
-    #importCharacter () {
-        // Get the dialog and elements
-        const dialog = document.getElementById('import-dialog')
-        const textarea = document.getElementById('import-json')
-        const importBtn = document.getElementById('import-btn')
-        const cancelBtn = document.getElementById('import-cancel-btn')
+    #loadCharacter () {
+        const fileInput = document.getElementById('load-character-input')
+        if (!(fileInput instanceof HTMLInputElement)) {
+            console.error('File input element not found')
+            alert('An error occurred. Please refresh the page.')
+            return
+        }
 
-        // Clear previous content
-        textarea.value = ''
+        // Set up the file input change handler
+        const handleFileLoad = async () => {
+            if (fileInput.files.length === 0) {
+                return
+            }
 
-        // Import configuration handler
-        const handleImport = () => {
+            const file = fileInput.files[0]
             try {
-                const json = textarea.value.trim()
-                if (!json) {
-                    alert('Please paste a JSON configuration.')
-                    return
+                if (!file.name.endsWith('.json')) {
+                    throw new Error('File must be a JSON file')
                 }
 
-                const config = JSON.parse(json)
+                const text = await file.text()
+                const config = JSON.parse(text)
                 const success = this.#deserializeCharacter(config)
 
                 if (success) {
-                    handleCancel()
-                    alert('Character imported successfully!')
+                    alert('Character loaded successfully!')
                 }
             } catch (err) {
-                console.error('Import error:', err)
-                alert('Invalid JSON format. Please check your configuration.')
+                console.error('Failed to load character:', err)
+                alert(`Failed to load character: ${err.message}`)
+            } finally {
+                // Clear the file input so the same file can be loaded again
+                fileInput.value = ''
+                // Remove the event listener
+                fileInput.removeEventListener('change', handleFileLoad)
             }
         }
 
-        // Cancel handler
-        const handleCancel = () => {
-            dialog.close()
-            // Clean up event listeners
-            importBtn.removeEventListener('click', handleImport)
-            cancelBtn.removeEventListener('click', handleCancel)
-            dialog.removeEventListener('keydown', handleKeydown)
-        }
-
-        // Escape key handler
-        const handleKeydown = (e) => {
-            if (e.key === 'Escape') {
-                handleCancel()
-            }
-        }
-
-        // Add event listeners
-        importBtn.addEventListener('click', handleImport)
-        cancelBtn.addEventListener('click', handleCancel)
-        dialog.addEventListener('keydown', handleKeydown)
-
-        dialog.showModal()
-        textarea.focus()
+        // Add the event listener and trigger the file picker
+        fileInput.addEventListener('change', handleFileLoad)
+        fileInput.click()
     }
 }
 
