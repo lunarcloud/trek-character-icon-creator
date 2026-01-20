@@ -1,0 +1,14 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Documentation
+    url: https://github.com/lunarcloud/trek-character-icon-creator/blob/main/README.md
+    about: Read the project documentation
+  - name: Testing Checklist
+    url: https://github.com/lunarcloud/trek-character-icon-creator/blob/main/TESTING.md
+    about: Manual testing checklist for contributors
+  - name: Contributing Guidelines
+    url: https://github.com/lunarcloud/trek-character-icon-creator/blob/main/CONTRIBUTING.md
+    about: Guidelines for contributing to this project
+  - name: Live Application
+    url: https://samsarette.itch.io/simple-trekkie-character-creator
+    about: Try the character creator on itch.io
