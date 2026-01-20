@@ -5,7 +5,7 @@
     "scripts": {
         "build": "node src/build-html.js",
         "watch": "node src/watch-html.js",
-        "dev": "npm run build && npm run watch & npm run serve",
+        "serve": "npm run build && npm run watch & npx serve",
         "eslint-fix": "npx eslint --ignore-path .gitignore --ext .js . --fix",
         "eslint": "npx eslint --ignore-path .gitignore --ext .js .",
         "htmllint": "npm run build && npx linthtml \"index.html\"",
@@ -14,26 +14,25 @@
         "svglint": "npx svglint --ci ./*.svg ./*/*.svg ./*/*/*.svg",
         "lint": "npm run eslint; npm run htmllint; npm run csslint;  npm run svglint",
         "lint-fix": "npm run eslint-fix; npm run htmllint; npm run csslint-fix; npm run svglint",
-        "serve": "serve",
         "copy-deps": "sh copy-deps.sh"
     },
     "dependencies": {
         "external-svg-loader": "^1.7.1",
         "html2canvas": "^1.4.1",
-        "svglint": "^3.0.0"
+        "svglint": "^3.1.0"
     },
     "devDependencies": {
-        "@linthtml/linthtml": "^0.10.1",
+        "@linthtml/linthtml": "^0.10.2",
         "eslint": "^8.57.1",
         "eslint-config-standard": "^17.1.0",
         "eslint-plugin-editorconfig": "^4.0.3",
-        "eslint-plugin-import": "^2.31.0",
+        "eslint-plugin-import": "^2.32.0",
         "eslint-plugin-jsdoc": "^46.10.1",
         "eslint-plugin-n": "^16.6.2",
         "eslint-plugin-promise": "^6.6.0",
         "serve": "^14.2.4",
         "shx": "^0.3.4",
-        "stylelint": "^16.10.0",
+        "stylelint": "^16.26.1",
         "stylelint-config-standard": "^35.0.0"
     }
 }
