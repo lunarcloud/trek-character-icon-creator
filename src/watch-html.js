@@ -17,7 +17,7 @@ const __dirname = dirname(__filename)
  */
 function runBuild () {
     console.log('Change detected, rebuilding...')
-    exec('node build-html.js', (error, stdout, stderr) => {
+    exec('node src/build-html.js', (error, stdout, stderr) => {
         if (error) {
             console.error('Build failed:', stderr)
             return
@@ -29,15 +29,8 @@ function runBuild () {
 console.log('👀 Watching HTML files for changes...')
 console.log('Press Ctrl+C to stop')
 
-// Watch the template file
-watch(join(__dirname, 'src'), { recursive: true }, (eventType, filename) => {
-    if (filename && filename.endsWith('.html')) {
-        runBuild()
-    }
-})
-
-// Watch the HTML partials directory
-watch(join(__dirname, 'html'), { recursive: true }, (eventType, filename) => {
+// Watch the src directory (includes template and partials)
+watch(join(__dirname, '..', 'src'), { recursive: true }, (eventType, filename) => {
     if (filename && filename.endsWith('.html')) {
         runBuild()
     }

@@ -56,7 +56,7 @@ function buildIndexHTML () {
     console.log('Building index.html from partials...')
 
     // Read the template
-    const template = readFile('src/index.template.html')
+    const template = readFile('index.template.html')
 
     // Read all partials
     const bodySection = readFile('html/body-section.html')
@@ -73,8 +73,8 @@ function buildIndexHTML () {
         .replace('<!-- INSERT: html/hair-section.html -->', indentContent(hairSection, 12))
         .replace('<!-- INSERT: html/dialogs.html -->', indentContent(dialogs, 8))
 
-    // Write the output
-    writeFile('index.html', output)
+    // Write the output (to parent directory)
+    writeFile('../index.html', output)
 
     console.log('✓ index.html built successfully')
 }

@@ -3,8 +3,8 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "node build-html.js",
-        "watch": "node watch-html.js",
+        "build": "node src/build-html.js",
+        "watch": "node src/watch-html.js",
         "dev": "npm run build && npm run watch & npm run serve",
         "eslint-fix": "npx eslint --ignore-path .gitignore --ext .js . --fix",
         "eslint": "npx eslint --ignore-path .gitignore --ext .js .",
