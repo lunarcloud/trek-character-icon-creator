@@ -1,6 +1,193 @@
-# AGENTS.md
+# Copilot Instructions for Trek Character Icon Creator
 
-This document provides detailed information about the Trek Character Icon Creator project for AI agents and automated tools.
+This document provides coding standards and best practices for AI agents working on this project. For comprehensive project documentation, see AGENTS.md in the repository root.
+
+## Quick Reference
+
+**Primary Maintainer:** @lunarcloud (personal project)
+**Tech Stack:** Vanilla JavaScript ES6+ (no TypeScript), HTML5, CSS3
+**Target Viewport:** 980px × 800px (itch.io hosting)
+**Testing:** Manual only (see TESTING.md)
+**Key Requirement:** All code must pass linters before PR approval
+
+## Critical Rules from Past PR Feedback
+
+### Code Structure Preferences
+1. **HTML over JavaScript DOM creation** - Prefer defining structure in HTML and updating content with JS
+   - ✅ Good: `<dialog>` in HTML, JS updates content
+   - ❌ Bad: Creating entire `<dialog>` structure dynamically in JS
+   
+2. **User-facing error messages** - Always alert users about errors, don't just console.log
+   - ✅ Good: `alert('Error: ' + message); console.error(details);`
+   - ❌ Bad: `console.error('Error:', details);` (user never sees it)
+
+3. **Clean data separation** - Don't include UI state in character/data JSON
+   - ✅ Good: Only character attributes in export JSON
+   - ❌ Bad: Including filter checkboxes or UI preferences in JSON
+
+### File Naming & Organization
+- JavaScript files: kebab-case (e.g., `color-manager.js`)
+- SVG files: kebab-case, no underscores or spaces
+- All modules go in `/js` directory
+- HTML structure should use semantic tags and `<group>` elements
+
+### Documentation Preferences
+- **Use Mermaid diagrams for flowcharts and architecture diagrams** - Process flows, state machines, and architecture diagrams should use Mermaid syntax
+  - ✅ Good: Mermaid flowcharts, sequence diagrams, state diagrams
+  - ❌ Bad: ASCII art flowcharts or architecture boxes
+- **Use ASCII for file/directory tree structures** - File system hierarchies are clear and concise in ASCII tree format
+  - ✅ Good: ASCII tree using `├──`, `│`, `└──` characters for directory listings
+  - ❌ Bad: Mermaid graphs for simple file structures
+
+### SVG Asset Rules
+**CRITICAL:** AI agents are **forbidden** from creating new SVG artwork. All SVG assets must be hand-crafted by human artists.
+
+**Allowed SVG modifications:**
+- Fix incorrect CSS class references (`.body-color`, `.hair-color`, etc.)
+- Repair malformed XML or syntax errors
+- Correct viewBox dimensions
+- Fix xmlns declarations
+- Correct style block CSS syntax
+
+**After any SVG modification:**
+1. Run `npm run svglint`
+2. Test visually in browser
+3. Verify color customization still works
+4. Test in all relevant body type contexts
+
+## JSDoc Requirements
+
+All public functions, methods, and classes **must** have JSDoc comments:
+
+```javascript
+/**
+ * Get an element by id and validate its type.
+ * @param {string} id - The element ID to retrieve
+ * @param {Function} type - The expected constructor/class
+ * @returns {HTMLElement} The validated element
+ * @throws {Error} If element type doesn't match expected type
+ */
+export function getElementOfType(id, type) {
+    // implementation
+}
+```
+
+**Required JSDoc elements:**
+- Brief description
+- `@param` for each parameter with type and description
+- `@returns` with type and return value description
+- `@throws` if function can throw errors
+- Use proper JSDoc types: `{string}`, `{number}`, `{HTMLElement}`, `{Array<string>}`, etc.
+
+## Code Quality Standards
+
+### Linting is Non-Negotiable
+All code must pass all linters before PR approval:
+```bash
+npm run lint        # Run all linters
+npm run lint-fix    # Auto-fix issues where possible
+npm run eslint      # JavaScript only
+npm run htmllint    # HTML only
+npm run csslint     # CSS only
+npm run svglint     # SVG only
+```
+
+### JavaScript Standard Style
+- **No semicolons** (JavaScript Standard Style)
+- **4-space indentation** (per .editorconfig)
+- ES6+ modules required
+- Use const/let, never var
+
+### Code Improvement Checklist
+- [ ] Remove duplicate code
+- [ ] Extract magic numbers to named constants (e.g., `SVG_SIZE = 512`)
+- [ ] Fix any invalid HTML attributes (e.g., `tab-index` → `tabindex="0"`)
+- [ ] Enhance error messages with actionable guidance
+- [ ] Add console.error for debugging alongside user alerts
+
+## Testing Requirements
+
+**No automated tests exist.** All testing is manual via browser interface.
+
+1. **Before making changes:** Run existing app to understand baseline
+2. **After making changes:** 
+   - Run all linters
+   - Test manually with `npm run serve`
+   - Follow checklist in TESTING.md
+   - Test at **980px × 800px viewport**
+   - Take screenshots for UI changes
+
+3. **Body type testing:** When changes affect rendering, test:
+   - Humanoid (full feature set)
+   - At least 2 other body types
+   - Export functionality
+
+## Common Tasks
+
+### Adding New Features
+1. Update HTML structure first
+2. Add JavaScript behavior second
+3. Add JSDoc comments for new functions
+4. Update documentation (README.md, AGENTS.md if architecture changes)
+5. Test at 980px × 800px viewport
+6. Update TESTING.md with new test scenarios
+
+### Fixing Bugs
+1. Reproduce the bug
+2. Make minimal fix
+3. Test the specific scenario
+4. Ensure no regression in other areas
+5. Add user-facing error messages where appropriate
+
+### Refactoring
+1. Ensure all linters pass before starting
+2. Make changes incrementally
+3. Test after each significant change
+4. Maintain backward compatibility
+5. Update JSDoc comments
+6. Don't break existing functionality
+
+## Maintainer Preferences
+
+Based on past PR feedback:
+
+1. **Separation of concerns:** Keep HTML structure, CSS styling, and JS behavior separate
+2. **User experience:** Always consider the user - show errors, provide feedback
+3. **Code readability:** Prefer verbose, clear code over clever shortcuts
+4. **Consistency:** Follow established patterns in the codebase
+5. **Documentation:** Keep README, AGENTS.md, and TESTING.md up to date
+6. **Minimal changes:** Make surgical, targeted changes rather than wholesale rewrites
+
+## PR Submission Guidelines
+
+1. **PR Description:**
+   - Use detailed checklists showing progress
+   - Explain reasoning for changes
+   - Include "Fixes #issue-number" if applicable
+   - Add screenshots for UI changes
+
+2. **Commit Messages:**
+   - Short, descriptive summaries
+   - Use imperative mood ("Add feature" not "Added feature")
+
+3. **Review Process:**
+   - Address all feedback promptly
+   - PRs reviewed at maintainer's discretion
+   - May be accepted, modified, or closed based on project needs
+   - Bug fixes prioritized over feature additions
+
+## Resources
+
+- **Full Documentation:** See `AGENTS.md` in repository root
+- **Testing Checklist:** See `TESTING.md`
+- **Contributing Guidelines:** See `CONTRIBUTING.md`
+- **Repository:** https://github.com/lunarcloud/trek-character-icon-creator
+- **Live App:** https://samsarette.itch.io/simple-trekkie-character-creator
+
+---
+
+**Remember:** This is a personal project by @lunarcloud. Contributions are considered but not actively solicited. Be respectful of the maintainer's time and preferences.
+
 
 ## Project Overview
 
