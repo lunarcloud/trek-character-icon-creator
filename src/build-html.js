@@ -37,10 +37,10 @@ function writeFile (filePath, content) {
  */
 function indentContent (content, spaces) {
     if (spaces === 0) return content
-    
+
     const indent = ' '.repeat(spaces)
     const lines = content.split('\n')
-    
+
     // Add indentation to each non-empty line
     return lines
         .map(line => {
@@ -66,15 +66,15 @@ function replaceInsert (template, filename, content) {
     // Match: optional newline, then spaces (not including newline), then the comment
     const regex = new RegExp(`(^|\\n)( *)<!-- INSERT: ${filename.replace(/\./g, '\\.')} -->`, 'g')
     const match = regex.exec(template)
-    
+
     if (!match) {
         console.warn(`Warning: INSERT comment for ${filename} not found`)
         return template
     }
-    
-    const indent = match[2].length  // match[2] is just the spaces, not including newline
+
+    const indent = match[2].length // match[2] is just the spaces, not including newline
     const indentedContent = indentContent(content, indent)
-    
+
     // Replace the comment but keep the newline if there was one
     return template.replace(regex, match[1] + indentedContent)
 }
