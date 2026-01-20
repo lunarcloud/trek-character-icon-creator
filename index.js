@@ -352,19 +352,19 @@ export class IndexController {
     }
 
     /**
-     * Save the current character configuration to a JSON file.
+     * Save the current character configuration to a STCC file.
      */
     async #saveCharacter () {
         const config = this.#serializeCharacter()
         const json = JSON.stringify(config, null, 2)
 
         const timestamp = new Date().toISOString().replace(/[:.]/g, '-').substring(0, 19)
-        const filename = `star-trek-character-${timestamp}.json`
+        const filename = `character-${timestamp}.stcc`
 
         try {
             await saveTextAs(filename, json, {
-                description: 'Star Trek Character JSON',
-                mimes: [{ 'application/json': '.json' }]
+                description: 'Star Trek Character Creator',
+                mimes: [{ 'application/stcc': '.stcc' }]
             })
         } catch (err) {
             console.error('Failed to save character:', err)
@@ -373,7 +373,7 @@ export class IndexController {
     }
 
     /**
-     * Load a character configuration from a JSON file.
+     * Load a character configuration from a STCC file.
      */
     #loadCharacter () {
         const fileInput = document.getElementById('load-character-input')
@@ -391,8 +391,8 @@ export class IndexController {
 
             const file = fileInput.files[0]
             try {
-                if (!file.name.endsWith('.json')) {
-                    throw new Error('File must be a JSON file')
+                if (!file.name.endsWith('.stcc') && !file.name.endsWith('.json')) {
+                    throw new Error('File must be a .stcc or .json file')
                 }
 
                 const text = await file.text()
