@@ -270,7 +270,8 @@ export class IndexController {
             }
 
             // Validate body shape before applying to prevent onChangeDetected errors
-            const validBodyShapes = ['humanoid', 'cetaceous', 'exocomp', 'medusan', 'cal-mirran', 'qofuari', 'sukhabelan']
+            // Extract valid body shapes from the select element options
+            const validBodyShapes = Array.from(this.#elements.shapeSelect.options).map(option => option.value)
             if (config.bodyShape && !validBodyShapes.includes(config.bodyShape)) {
                 throw new Error(`Invalid body shape: "${config.bodyShape}"`)
             }
