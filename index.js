@@ -269,6 +269,12 @@ export class IndexController {
                 throw new Error('Invalid or unsupported configuration version')
             }
 
+            // Validate body shape before applying to prevent onChangeDetected errors
+            const validBodyShapes = ['humanoid', 'cetaceous', 'exocomp', 'medusan', 'cal-mirran', 'qofuari', 'sukhabelan']
+            if (config.bodyShape && !validBodyShapes.includes(config.bodyShape)) {
+                throw new Error(`Invalid body shape: "${config.bodyShape}"`)
+            }
+
             // Apply body shape first as it affects available options
             if (config.bodyShape) {
                 this.#elements.shapeSelect.value = config.bodyShape
