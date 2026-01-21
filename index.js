@@ -263,103 +263,98 @@ export class IndexController {
      * @returns {boolean} True if successful, false otherwise
      */
     #deserializeCharacter (config) {
-        try {
-            // Validate version
-            if (!config.version || config.version !== '1.0') {
-                throw new Error('Invalid or unsupported configuration version')
-            }
-
-            // Validate body shape before applying to prevent onChangeDetected errors
-            // Extract valid body shapes from the select element options
-            const validBodyShapes = Array.from(this.#elements.shapeSelect.options).map(option => option.value)
-            if (config.bodyShape && !validBodyShapes.includes(config.bodyShape)) {
-                throw new Error(`Invalid body shape: "${config.bodyShape}"`)
-            }
-
-            // Apply body shape first as it affects available options
-            if (config.bodyShape) {
-                this.#elements.shapeSelect.value = config.bodyShape
-            }
-
-            // Apply colors
-            if (config.colors) {
-                if (config.colors.body) this.#colorManager.bodyColorPicker.value = config.colors.body
-                if (config.colors.hair) this.#colorManager.hairColorPicker.value = config.colors.hair
-                if (config.colors.uniform) this.#colorManager.uniformColorPicker.value = config.colors.uniform
-                if (config.colors.uniformUndershirt) this.#colorManager.uniformUndershirtColorPicker.value = config.colors.uniformUndershirt
-                if (config.colors.antennae) this.#colorManager.antennaeColorPicker.value = config.colors.antennae
-                if (config.colors.birdTuft) this.#colorManager.birdTuftColorPicker.value = config.colors.birdTuft
-                if (config.colors.whiskers) this.#colorManager.whiskersColorPicker.value = config.colors.whiskers
-            }
-
-            // Apply color sync settings
-            if (config.colorSync) {
-                if (typeof config.colorSync.antennaeWithBody === 'boolean') {
-                    this.#colorManager.syncAntennaeWithBodyCheck.checked = config.colorSync.antennaeWithBody
-                }
-                if (typeof config.colorSync.birdTuftWithBody === 'boolean') {
-                    this.#colorManager.syncBirdTuftWithBodyCheck.checked = config.colorSync.birdTuftWithBody
-                }
-                if (typeof config.colorSync.whiskersWithBody === 'boolean') {
-                    this.#colorManager.syncWhiskersWithBodyCheck.checked = config.colorSync.whiskersWithBody
-                }
-            }
-
-            // Apply uniform and filter
-            if (config.uniform) this.#elements.uniformSelect.value = config.uniform
-
-            // Apply body-specific features
-            if (config.ears) this.#elements.earSelect.value = config.ears
-            if (config.nose) this.#elements.noseSelect.value = config.nose
-            if (typeof config.foreheadBump === 'boolean') {
-                this.#elements.foreheadBumpCheck.checked = config.foreheadBump
-            }
-            if (typeof config.medusanAltColor === 'boolean') {
-                this.#elements.medusanAltColorCheck.checked = config.medusanAltColor
-            }
-            if (typeof config.medusanBox === 'boolean') {
-                this.#elements.medusanBoxCheck.checked = config.medusanBox
-            }
-            if (config.calMirranShape) {
-                this.#elements.calMirranShapeSelect.value = config.calMirranShape
-            }
-
-            // Apply head features (multi-select)
-            if (Array.isArray(config.headFeatures)) {
-                // Clear current selections
-                for (const option of this.#elements.headFeatureSelect.options) {
-                    option.selected = false
-                }
-                // Apply new selections
-                for (const value of config.headFeatures) {
-                    const option = this.#elements.headFeatureSelect.querySelector(`option[value="${value}"]`)
-                    if (option instanceof HTMLOptionElement) option.selected = true
-                }
-            }
-
-            // Apply hat and eyewear
-            if (config.hat) this.#elements.hatFeatureSelect.value = config.hat
-            if (config.eyewear) this.#elements.eyewearFeatureSelect.value = config.eyewear
-
-            // Apply hair options
-            if (config.facialHair) this.#elements.facialHairSelect.value = config.facialHair
-            if (config.hair) this.#elements.hairSelect.value = config.hair
-            if (typeof config.hairMirror === 'boolean') {
-                this.#elements.hairMirror.checked = config.hairMirror
-            }
-            if (config.rearHair) this.#elements.rearHairSelect.value = config.rearHair
-            if (typeof config.rearHairMirror === 'boolean') {
-                this.#elements.rearHairMirror.checked = config.rearHairMirror
-            }
-
-            // Trigger change detection to update the UI
-            this.onChangeDetected()
-
-            return true
-        } catch (error) {
-            console.error('Failed to deserialize character:', error)
-            return false
+        // Validate version
+        if (!config.version || config.version !== '1.0') {
+            throw new Error('Invalid or unsupported configuration version')
         }
+
+        // Validate body shape before applying to prevent onChangeDetected errors
+        // Extract valid body shapes from the select element options
+        const validBodyShapes = Array.from(this.#elements.shapeSelect.options).map(option => option.value)
+        if (config.bodyShape && !validBodyShapes.includes(config.bodyShape)) {
+            throw new Error(`Invalid body shape: "${config.bodyShape}"`)
+        }
+
+        // Apply body shape first as it affects available options
+        if (config.bodyShape) {
+            this.#elements.shapeSelect.value = config.bodyShape
+        }
+
+        // Apply colors
+        if (config.colors) {
+            if (config.colors.body) this.#colorManager.bodyColorPicker.value = config.colors.body
+            if (config.colors.hair) this.#colorManager.hairColorPicker.value = config.colors.hair
+            if (config.colors.uniform) this.#colorManager.uniformColorPicker.value = config.colors.uniform
+            if (config.colors.uniformUndershirt) this.#colorManager.uniformUndershirtColorPicker.value = config.colors.uniformUndershirt
+            if (config.colors.antennae) this.#colorManager.antennaeColorPicker.value = config.colors.antennae
+            if (config.colors.birdTuft) this.#colorManager.birdTuftColorPicker.value = config.colors.birdTuft
+            if (config.colors.whiskers) this.#colorManager.whiskersColorPicker.value = config.colors.whiskers
+        }
+
+        // Apply color sync settings
+        if (config.colorSync) {
+            if (typeof config.colorSync.antennaeWithBody === 'boolean') {
+                this.#colorManager.syncAntennaeWithBodyCheck.checked = config.colorSync.antennaeWithBody
+            }
+            if (typeof config.colorSync.birdTuftWithBody === 'boolean') {
+                this.#colorManager.syncBirdTuftWithBodyCheck.checked = config.colorSync.birdTuftWithBody
+            }
+            if (typeof config.colorSync.whiskersWithBody === 'boolean') {
+                this.#colorManager.syncWhiskersWithBodyCheck.checked = config.colorSync.whiskersWithBody
+            }
+        }
+
+        // Apply uniform and filter
+        if (config.uniform) this.#elements.uniformSelect.value = config.uniform
+
+        // Apply body-specific features
+        if (config.ears) this.#elements.earSelect.value = config.ears
+        if (config.nose) this.#elements.noseSelect.value = config.nose
+        if (typeof config.foreheadBump === 'boolean') {
+            this.#elements.foreheadBumpCheck.checked = config.foreheadBump
+        }
+        if (typeof config.medusanAltColor === 'boolean') {
+            this.#elements.medusanAltColorCheck.checked = config.medusanAltColor
+        }
+        if (typeof config.medusanBox === 'boolean') {
+            this.#elements.medusanBoxCheck.checked = config.medusanBox
+        }
+        if (config.calMirranShape) {
+            this.#elements.calMirranShapeSelect.value = config.calMirranShape
+        }
+
+        // Apply head features (multi-select)
+        if (Array.isArray(config.headFeatures)) {
+            // Clear current selections
+            for (const option of this.#elements.headFeatureSelect.options) {
+                option.selected = false
+            }
+            // Apply new selections
+            for (const value of config.headFeatures) {
+                const option = this.#elements.headFeatureSelect.querySelector(`option[value="${value}"]`)
+                if (option instanceof HTMLOptionElement) option.selected = true
+            }
+        }
+
+        // Apply hat and eyewear
+        if (config.hat) this.#elements.hatFeatureSelect.value = config.hat
+        if (config.eyewear) this.#elements.eyewearFeatureSelect.value = config.eyewear
+
+        // Apply hair options
+        if (config.facialHair) this.#elements.facialHairSelect.value = config.facialHair
+        if (config.hair) this.#elements.hairSelect.value = config.hair
+        if (typeof config.hairMirror === 'boolean') {
+            this.#elements.hairMirror.checked = config.hairMirror
+        }
+        if (config.rearHair) this.#elements.rearHairSelect.value = config.rearHair
+        if (typeof config.rearHairMirror === 'boolean') {
+            this.#elements.rearHairMirror.checked = config.rearHairMirror
+        }
+
+        // Trigger change detection to update the UI
+        this.onChangeDetected()
+
+        return true
     }
 
     /**
@@ -411,12 +406,7 @@ export class IndexController {
 
                 const text = await file.text()
                 const config = JSON.parse(text)
-                const success = this.#deserializeCharacter(config)
-                
-                if (!success) {
-                    // Restore previous state if deserialization failed
-                    this.#deserializeCharacter(savedState)
-                }
+                this.#deserializeCharacter(config)
             } catch (err) {
                 console.error('Failed to load character:', err)
                 alert(`Failed to load character: ${err.message}`)
