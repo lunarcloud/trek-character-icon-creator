@@ -398,7 +398,7 @@ export class IndexController {
             const file = fileInput.files[0]
             // Save current state before attempting to load
             const savedState = this.#serializeCharacter()
-            
+
             try {
                 if (!file.name.endsWith('.stcc') && !file.name.endsWith('.json')) {
                     throw new Error('File must be a .stcc or .json file')
