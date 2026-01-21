@@ -108,19 +108,10 @@ function copyDependencies () {
     const nodeModulesDir = join(__dirname, '..', 'node_modules')
 
     // Remove existing lib directory if it exists
-    try {
-        rmSync(libDir, { recursive: true, force: true })
-    } catch (error) {
-        // Ignore errors if directory doesn't exist
-    }
+    rmSync(libDir, { recursive: true, force: true })
 
     // Create lib directory
-    try {
-        mkdirSync(libDir, { recursive: true })
-    } catch (error) {
-        console.error(`Error creating lib directory: ${error.message}`)
-        process.exit(1)
-    }
+    mkdirSync(libDir, { recursive: true })
 
     // Copy html2canvas
     try {
