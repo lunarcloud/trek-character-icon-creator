@@ -1,5 +1,5 @@
 import { getInputElement, getSelectElement } from './type-helpers.js'
-import html2canvas from '../lib/html2canvas.esm.js'
+import html2canvas from './lib/html2canvas.esm.js'
 
 /** SVG canvas size in pixels */
 const SVG_SIZE = 512
