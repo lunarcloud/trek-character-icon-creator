@@ -708,8 +708,8 @@
                     <input type="checkbox" id="save-with-bg-checkbox" checked >
                     <label for="save-with-bg-checkbox">bg</label>
                 </span>
-                <button id="show-export" class="json" title="export">💾</button>
-                <button id="show-import" class="json" title="import">📋 JSON</button>
+                <button id="save-character" class="json" title="save character to file">💾</button>
+                <button id="load-character" class="json" title="load character from file">📂 Options</button>
             </span>
             <p>
                 Created by
@@ -718,27 +718,7 @@
             </p>
         </footer>
 
-        <dialogs>
-            <dialog id="export-dialog" class="export-dialog">
-                <h2>Export Character</h2>
-                <p>Copy this JSON to save your character configuration:</p>
-                <textarea id="export-json" readonly rows="15" cols="50"></textarea>
-                <div class="dialog-buttons">
-                    <button id="export-copy-btn">Copy to Clipboard</button>
-                    <button id="export-close-btn">Close</button>
-                </div>
-            </dialog>
-
-            <dialog id="import-dialog" class="import-dialog">
-                <h2>Import Character</h2>
-                <p>Paste your character JSON configuration here:</p>
-                <textarea id="import-json" rows="15" cols="50" placeholder="Paste JSON here..."></textarea>
-                <div class="dialog-buttons">
-                    <button id="import-btn">Import</button>
-                    <button id="import-cancel-btn">Cancel</button>
-                </div>
-            </dialog>
-        </dialogs>
+        <input type="file" id="load-character-input" accept=".stcc" style="display: none;" />
 
         <script type="text/javascript" src="lib/svg-loader.min.js" async></script>
         <script type="module" src="index.js" crossorigin="anonymous"></script>

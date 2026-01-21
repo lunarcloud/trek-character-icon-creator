@@ -3,6 +3,7 @@ import { ColorManager } from './js/color-manager.js'
 import { UniformManager } from './js/uniform-manager.js'
 import { BodyTypeManager } from './js/body-type-manager.js'
 import { DomUtil } from './js/util-dom.js'
+import { saveTextAs } from './js/save-file-utils.js'
 
 /**
  * Controller for the Main, Index, Page.
@@ -49,12 +50,12 @@ export class IndexController {
                 this.#elements.mainEl, this.#elements.mainEl.querySelector('character'),
                 this.#elements.saveBGCheck.checked, 'png'))
 
-        // Setup the import and export functionality
-        document.getElementById('show-export')
-            .addEventListener('click', () => this.#exportCharacter())
+        // Setup the file-based save and load functionality
+        document.getElementById('save-character')
+            .addEventListener('click', () => this.#saveCharacter())
 
-        document.getElementById('show-import')
-            .addEventListener('click', () => this.#importCharacter())
+        document.getElementById('load-character')
+            .addEventListener('click', () => this.#loadCharacter())
     }
 
     /**
@@ -75,19 +76,19 @@ export class IndexController {
     }
 
     /**
-     * Setup keyboard shortcuts for import and export.
+     * Setup keyboard shortcuts for save and load.
      */
     #setupKeyboardShortcuts () {
         document.addEventListener('keydown', (e) => {
-            // Ctrl+E or Cmd+E for export
-            if ((e.ctrlKey || e.metaKey) && e.key === 'e') {
+            // Ctrl+S or Cmd+S for save
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
                 e.preventDefault()
-                this.#exportCharacter()
+                this.#saveCharacter()
             }
-            // Ctrl+I or Cmd+I for import
-            if ((e.ctrlKey || e.metaKey) && e.key === 'i') {
+            // Ctrl+O or Cmd+O for open/load
+            if ((e.ctrlKey || e.metaKey) && e.key === 'o') {
                 e.preventDefault()
-                this.#importCharacter()
+                this.#loadCharacter()
             }
         })
     }
@@ -256,217 +257,172 @@ export class IndexController {
      * @param {object} config The character configuration object
      * @returns {boolean} True if successful, false otherwise
      */
+    /**
+     * Deserialize a character configuration from JSON and apply it.
+     * @param {object} config The character configuration object
+     * @returns {boolean} True if successful, false otherwise
+     */
     #deserializeCharacter (config) {
-        try {
-            // Validate version
-            if (!config.version || config.version !== '1.0') {
-                throw new Error('Invalid or unsupported configuration version')
-            }
-
-            // Apply body shape first as it affects available options
-            if (config.bodyShape) {
-                this.#elements.shapeSelect.value = config.bodyShape
-            }
-
-            // Apply colors
-            if (config.colors) {
-                if (config.colors.body) this.#colorManager.bodyColorPicker.value = config.colors.body
-                if (config.colors.hair) this.#colorManager.hairColorPicker.value = config.colors.hair
-                if (config.colors.uniform) this.#colorManager.uniformColorPicker.value = config.colors.uniform
-                if (config.colors.uniformUndershirt) this.#colorManager.uniformUndershirtColorPicker.value = config.colors.uniformUndershirt
-                if (config.colors.antennae) this.#colorManager.antennaeColorPicker.value = config.colors.antennae
-                if (config.colors.birdTuft) this.#colorManager.birdTuftColorPicker.value = config.colors.birdTuft
-                if (config.colors.whiskers) this.#colorManager.whiskersColorPicker.value = config.colors.whiskers
-            }
-
-            // Apply color sync settings
-            if (config.colorSync) {
-                if (typeof config.colorSync.antennaeWithBody === 'boolean') {
-                    this.#colorManager.syncAntennaeWithBodyCheck.checked = config.colorSync.antennaeWithBody
-                }
-                if (typeof config.colorSync.birdTuftWithBody === 'boolean') {
-                    this.#colorManager.syncBirdTuftWithBodyCheck.checked = config.colorSync.birdTuftWithBody
-                }
-                if (typeof config.colorSync.whiskersWithBody === 'boolean') {
-                    this.#colorManager.syncWhiskersWithBodyCheck.checked = config.colorSync.whiskersWithBody
-                }
-            }
-
-            // Apply uniform and filter
-            if (config.uniform) this.#elements.uniformSelect.value = config.uniform
-
-            // Apply body-specific features
-            if (config.ears) this.#elements.earSelect.value = config.ears
-            if (config.nose) this.#elements.noseSelect.value = config.nose
-            if (typeof config.foreheadBump === 'boolean') {
-                this.#elements.foreheadBumpCheck.checked = config.foreheadBump
-            }
-            if (typeof config.medusanAltColor === 'boolean') {
-                this.#elements.medusanAltColorCheck.checked = config.medusanAltColor
-            }
-            if (typeof config.medusanBox === 'boolean') {
-                this.#elements.medusanBoxCheck.checked = config.medusanBox
-            }
-            if (config.calMirranShape) {
-                this.#elements.calMirranShapeSelect.value = config.calMirranShape
-            }
-
-            // Apply head features (multi-select)
-            if (Array.isArray(config.headFeatures)) {
-                // Clear current selections
-                for (const option of this.#elements.headFeatureSelect.options) {
-                    option.selected = false
-                }
-                // Apply new selections
-                for (const value of config.headFeatures) {
-                    const option = this.#elements.headFeatureSelect.querySelector(`option[value="${value}"]`)
-                    if (option instanceof HTMLOptionElement) option.selected = true
-                }
-            }
-
-            // Apply hat and eyewear
-            if (config.hat) this.#elements.hatFeatureSelect.value = config.hat
-            if (config.eyewear) this.#elements.eyewearFeatureSelect.value = config.eyewear
-
-            // Apply hair options
-            if (config.facialHair) this.#elements.facialHairSelect.value = config.facialHair
-            if (config.hair) this.#elements.hairSelect.value = config.hair
-            if (typeof config.hairMirror === 'boolean') {
-                this.#elements.hairMirror.checked = config.hairMirror
-            }
-            if (config.rearHair) this.#elements.rearHairSelect.value = config.rearHair
-            if (typeof config.rearHairMirror === 'boolean') {
-                this.#elements.rearHairMirror.checked = config.rearHairMirror
-            }
-
-            // Trigger change detection to update the UI
-            this.onChangeDetected()
-
-            return true
-        } catch (error) {
-            console.error('Failed to deserialize character:', error)
-            alert(`Failed to import character: ${error.message}`)
-            return false
+        // Validate version
+        if (!config.version || config.version !== '1.0') {
+            throw new Error('Invalid or unsupported configuration version')
         }
+
+        // Validate body shape before applying to prevent onChangeDetected errors
+        // Extract valid body shapes from the select element options
+        const validBodyShapes = Array.from(this.#elements.shapeSelect.options).map(option => option.value)
+        if (config.bodyShape && !validBodyShapes.includes(config.bodyShape)) {
+            throw new Error(`Invalid body shape: "${config.bodyShape}"`)
+        }
+
+        // Apply body shape first as it affects available options
+        if (config.bodyShape) {
+            this.#elements.shapeSelect.value = config.bodyShape
+        }
+
+        // Apply colors
+        if (config.colors) {
+            if (config.colors.body) this.#colorManager.bodyColorPicker.value = config.colors.body
+            if (config.colors.hair) this.#colorManager.hairColorPicker.value = config.colors.hair
+            if (config.colors.uniform) this.#colorManager.uniformColorPicker.value = config.colors.uniform
+            if (config.colors.uniformUndershirt) this.#colorManager.uniformUndershirtColorPicker.value = config.colors.uniformUndershirt
+            if (config.colors.antennae) this.#colorManager.antennaeColorPicker.value = config.colors.antennae
+            if (config.colors.birdTuft) this.#colorManager.birdTuftColorPicker.value = config.colors.birdTuft
+            if (config.colors.whiskers) this.#colorManager.whiskersColorPicker.value = config.colors.whiskers
+        }
+
+        // Apply color sync settings
+        if (config.colorSync) {
+            if (typeof config.colorSync.antennaeWithBody === 'boolean') {
+                this.#colorManager.syncAntennaeWithBodyCheck.checked = config.colorSync.antennaeWithBody
+            }
+            if (typeof config.colorSync.birdTuftWithBody === 'boolean') {
+                this.#colorManager.syncBirdTuftWithBodyCheck.checked = config.colorSync.birdTuftWithBody
+            }
+            if (typeof config.colorSync.whiskersWithBody === 'boolean') {
+                this.#colorManager.syncWhiskersWithBodyCheck.checked = config.colorSync.whiskersWithBody
+            }
+        }
+
+        // Apply uniform and filter
+        if (config.uniform) this.#elements.uniformSelect.value = config.uniform
+
+        // Apply body-specific features
+        if (config.ears) this.#elements.earSelect.value = config.ears
+        if (config.nose) this.#elements.noseSelect.value = config.nose
+        if (typeof config.foreheadBump === 'boolean') {
+            this.#elements.foreheadBumpCheck.checked = config.foreheadBump
+        }
+        if (typeof config.medusanAltColor === 'boolean') {
+            this.#elements.medusanAltColorCheck.checked = config.medusanAltColor
+        }
+        if (typeof config.medusanBox === 'boolean') {
+            this.#elements.medusanBoxCheck.checked = config.medusanBox
+        }
+        if (config.calMirranShape) {
+            this.#elements.calMirranShapeSelect.value = config.calMirranShape
+        }
+
+        // Apply head features (multi-select)
+        if (Array.isArray(config.headFeatures)) {
+            // Clear current selections
+            for (const option of this.#elements.headFeatureSelect.options) {
+                option.selected = false
+            }
+            // Apply new selections
+            for (const value of config.headFeatures) {
+                const option = this.#elements.headFeatureSelect.querySelector(`option[value="${value}"]`)
+                if (option instanceof HTMLOptionElement) option.selected = true
+            }
+        }
+
+        // Apply hat and eyewear
+        if (config.hat) this.#elements.hatFeatureSelect.value = config.hat
+        if (config.eyewear) this.#elements.eyewearFeatureSelect.value = config.eyewear
+
+        // Apply hair options
+        if (config.facialHair) this.#elements.facialHairSelect.value = config.facialHair
+        if (config.hair) this.#elements.hairSelect.value = config.hair
+        if (typeof config.hairMirror === 'boolean') {
+            this.#elements.hairMirror.checked = config.hairMirror
+        }
+        if (config.rearHair) this.#elements.rearHairSelect.value = config.rearHair
+        if (typeof config.rearHairMirror === 'boolean') {
+            this.#elements.rearHairMirror.checked = config.rearHairMirror
+        }
+
+        // Trigger change detection to update the UI
+        this.onChangeDetected()
+
+        return true
     }
 
     /**
-     * Export the current character configuration to JSON.
-     * Shows a dialog with the JSON that can be copied.
+     * Save the current character configuration to a STCC file.
      */
-    #exportCharacter () {
+    async #saveCharacter () {
         const config = this.#serializeCharacter()
         const json = JSON.stringify(config, null, 2)
 
-        // Get the dialog and elements
-        const dialog = document.getElementById('export-dialog')
-        const textarea = document.getElementById('export-json')
-        const copyBtn = document.getElementById('export-copy-btn')
-        const closeBtn = document.getElementById('export-close-btn')
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-').substring(0, 19)
+        const filename = `character-${timestamp}.stcc`
 
-        // Set the JSON content
-        textarea.value = json
-
-        // Select all text when dialog opens
-        textarea.select()
-
-        // Copy to clipboard handler
-        const handleCopy = async () => {
-            try {
-                await navigator.clipboard.writeText(json)
-                copyBtn.textContent = '✓ Copied!'
-                setTimeout(() => {
-                    copyBtn.textContent = 'Copy to Clipboard'
-                }, 2000)
-            } catch (err) {
-                console.error('Failed to copy:', err)
-                alert('Failed to copy to clipboard. Please copy manually.')
-            }
+        try {
+            await saveTextAs(filename, json, {
+                description: 'Star Trek Character Creator',
+                mimes: [{ 'application/stcc': '.stcc' }]
+            })
+        } catch (err) {
+            console.error('Failed to save character:', err)
+            alert('Failed to save character file. Please try again.')
         }
-
-        // Close dialog handler
-        const handleClose = () => {
-            dialog.close()
-            // Clean up event listeners
-            copyBtn.removeEventListener('click', handleCopy)
-            closeBtn.removeEventListener('click', handleClose)
-            dialog.removeEventListener('keydown', handleKeydown)
-        }
-
-        // Escape key handler
-        const handleKeydown = (e) => {
-            if (e.key === 'Escape') {
-                handleClose()
-            }
-        }
-
-        // Add event listeners
-        copyBtn.addEventListener('click', handleCopy)
-        closeBtn.addEventListener('click', handleClose)
-        dialog.addEventListener('keydown', handleKeydown)
-
-        dialog.showModal()
     }
 
     /**
-     * Import a character configuration from JSON.
-     * Shows a dialog to paste JSON.
+     * Load a character configuration from a STCC file.
      */
-    #importCharacter () {
-        // Get the dialog and elements
-        const dialog = document.getElementById('import-dialog')
-        const textarea = document.getElementById('import-json')
-        const importBtn = document.getElementById('import-btn')
-        const cancelBtn = document.getElementById('import-cancel-btn')
+    #loadCharacter () {
+        const fileInput = document.getElementById('load-character-input')
+        if (!(fileInput instanceof HTMLInputElement)) {
+            console.error('File input element not found')
+            alert('An error occurred. Please refresh the page.')
+            return
+        }
 
-        // Clear previous content
-        textarea.value = ''
+        // Set up the file input change handler
+        const handleFileLoad = async () => {
+            if (fileInput.files.length === 0) {
+                return
+            }
 
-        // Import configuration handler
-        const handleImport = () => {
+            const file = fileInput.files[0]
+            // Save current state before attempting to load
+            const savedState = this.#serializeCharacter()
+
             try {
-                const json = textarea.value.trim()
-                if (!json) {
-                    alert('Please paste a JSON configuration.')
-                    return
+                if (!file.name.endsWith('.stcc') && !file.name.endsWith('.json')) {
+                    throw new Error('File must be a .stcc or .json file')
                 }
 
-                const config = JSON.parse(json)
-                const success = this.#deserializeCharacter(config)
-
-                if (success) {
-                    handleCancel()
-                    alert('Character imported successfully!')
-                }
+                const text = await file.text()
+                const config = JSON.parse(text)
+                this.#deserializeCharacter(config)
             } catch (err) {
-                console.error('Import error:', err)
-                alert('Invalid JSON format. Please check your configuration.')
+                console.error('Failed to load character:', err)
+                alert(`Failed to load character: ${err.message}`)
+                // Restore previous state on error
+                this.#deserializeCharacter(savedState)
+            } finally {
+                // Clear the file input so the same file can be loaded again
+                fileInput.value = ''
+                // Remove the event listener
+                fileInput.removeEventListener('change', handleFileLoad)
             }
         }
 
-        // Cancel handler
-        const handleCancel = () => {
-            dialog.close()
-            // Clean up event listeners
-            importBtn.removeEventListener('click', handleImport)
-            cancelBtn.removeEventListener('click', handleCancel)
-            dialog.removeEventListener('keydown', handleKeydown)
-        }
-
-        // Escape key handler
-        const handleKeydown = (e) => {
-            if (e.key === 'Escape') {
-                handleCancel()
-            }
-        }
-
-        // Add event listeners
-        importBtn.addEventListener('click', handleImport)
-        cancelBtn.addEventListener('click', handleCancel)
-        dialog.addEventListener('keydown', handleKeydown)
-
-        dialog.showModal()
-        textarea.focus()
+        // Add the event listener and trigger the file picker
+        fileInput.addEventListener('change', handleFileLoad)
+        fileInput.click()
     }
 }
 
