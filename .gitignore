@@ -2,6 +2,9 @@ node_modules
 lib
 export
 
+# Build artifacts
+index.html
+
 # Logs
 logs
 *.log

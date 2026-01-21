@@ -426,4 +426,5 @@ export class IndexController {
     }
 }
 
+// Create the controller when DOM is ready
 globalThis.Controller = new IndexController()
