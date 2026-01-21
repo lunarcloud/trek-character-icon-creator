@@ -2,9 +2,10 @@
 /**
  * Build script to assemble index.html from HTML partials.
  * This is a minimal build tool that concatenates HTML fragments into the main index.html file.
+ * Also copies external dependencies to the js/lib directory.
  */
 
-import { readFileSync, writeFileSync } from 'fs'
+import { readFileSync, writeFileSync, mkdirSync, cpSync, rmSync } from 'fs'
 import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
 
@@ -97,6 +98,56 @@ function findInsertComments (template) {
 }
 
 /**
+ * Copy external dependencies to js/lib directory.
+ * This replaces the functionality of copy-deps.sh script.
+ */
+function copyDependencies () {
+    console.log('Copying external dependencies...')
+
+    const libDir = join(__dirname, '..', 'js', 'lib')
+    const nodeModulesDir = join(__dirname, '..', 'node_modules')
+
+    // Remove existing lib directory if it exists
+    try {
+        rmSync(libDir, { recursive: true, force: true })
+    } catch (error) {
+        // Ignore errors if directory doesn't exist
+    }
+
+    // Create lib directory
+    try {
+        mkdirSync(libDir, { recursive: true })
+    } catch (error) {
+        console.error(`Error creating lib directory: ${error.message}`)
+        process.exit(1)
+    }
+
+    // Copy html2canvas
+    try {
+        const html2canvasSrc = join(nodeModulesDir, 'html2canvas', 'dist', 'html2canvas.esm.js')
+        const html2canvasDest = join(libDir, 'html2canvas.esm.js')
+        cpSync(html2canvasSrc, html2canvasDest)
+        console.log('  ✓ Copied html2canvas.esm.js')
+    } catch (error) {
+        console.error(`Error copying html2canvas: ${error.message}`)
+        process.exit(1)
+    }
+
+    // Copy external-svg-loader
+    try {
+        const svgLoaderSrc = join(nodeModulesDir, 'external-svg-loader', 'svg-loader.min.js')
+        const svgLoaderDest = join(libDir, 'svg-loader.min.js')
+        cpSync(svgLoaderSrc, svgLoaderDest)
+        console.log('  ✓ Copied svg-loader.min.js')
+    } catch (error) {
+        console.error(`Error copying external-svg-loader: ${error.message}`)
+        process.exit(1)
+    }
+
+    console.log('✓ Dependencies copied successfully')
+}
+
+/**
  * Build the index.html file by assembling HTML partials.
  */
 function buildIndexHTML () {
@@ -127,6 +178,7 @@ function buildIndexHTML () {
 
 // Run the build
 try {
+    copyDependencies()
     buildIndexHTML()
 } catch (error) {
     console.error('Build failed:', error.message)

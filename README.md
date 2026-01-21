@@ -28,7 +28,6 @@ Character Creator for Star Trek style character icons
 ### Installation
 ```sh
 npm install
-npm run copy-deps
 ```
 
 ### Running Locally

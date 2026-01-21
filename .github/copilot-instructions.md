@@ -303,7 +303,6 @@ Utility class for DOM operations:
 ### Setup
 ```bash
 npm install
-npm run copy-deps  # Copy external dependencies to lib/
 ```
 
 ### Running Locally
