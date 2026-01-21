@@ -131,14 +131,14 @@ export class IndexController {
         }
 
         // Change the body
-        this.#elements.characterBody.innerHTML = DomUtil.GenerateSVGHTML(`${bodyShape}/body.svg`)
+        this.#elements.characterBody.innerHTML = DomUtil.GenerateSVGHTML(`svg/${bodyShape}/body.svg`)
         this.#elements.bodyOverlay.innerHTML = ['medusan'].includes(bodyShape)
             ? ''
-            : DomUtil.GenerateSVGHTML(`${bodyShape}/body-overlay.svg`)
+            : DomUtil.GenerateSVGHTML(`svg/${bodyShape}/body-overlay.svg`)
 
         // Change the uniform
         const uniformBodyShape = ['sukhabelan'].includes(bodyShape) ? 'humanoid' : bodyShape
-        this.#elements.characterUniform.innerHTML = DomUtil.GenerateSVGHTML(`${uniformBodyShape}/uniform/${this.#elements.uniformSelect.value}.svg`)
+        this.#elements.characterUniform.innerHTML = DomUtil.GenerateSVGHTML(`svg/${uniformBodyShape}/uniform/${this.#elements.uniformSelect.value}.svg`)
 
         const uniformClassList = this.#elements.uniformSelect.selectedOptions[0].classList
 

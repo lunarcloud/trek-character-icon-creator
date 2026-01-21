@@ -233,18 +233,19 @@ A character icon creator for Star Trek-style characters with extensive customiza
 │   ├── type-helpers.js     # HTML element getters with runtime type checking
 │   ├── util-data.js        # Data manipulation utilities (DataUtil class)
 │   └── util-dom.js         # DOM manipulation utilities (DomUtil class)
-├── {body-type}/        # SVG asset directories for each character body type
-│   ├── body.svg        # Base body SVG (required)
-│   ├── body-overlay.svg # Optional overlay layer
-│   ├── body/           # Alternative: body parts as subdirectory
-│   ├── ears/           # Species-specific ear variations
-│   ├── extra/          # Additional customization options
-│   ├── facial-hair/    # Facial hair styles
-│   ├── hair/           # Hair styles
-│   ├── head-features/  # Species-specific head features (ridges, antennae, etc.)
-│   ├── nose/           # Nose variations
-│   ├── rear-hair/      # Back hair/ponytails
-│   └── uniform/        # Uniform styles for this body type
+├── svg/                # SVG asset directory
+│   └── {body-type}/    # SVG asset directories for each character body type
+│       ├── body.svg        # Base body SVG (required)
+│       ├── body-overlay.svg # Optional overlay layer
+│       ├── body/           # Alternative: body parts as subdirectory
+│       ├── ears/           # Species-specific ear variations
+│       ├── extra/          # Additional customization options
+│       ├── facial-hair/    # Facial hair styles
+│       ├── hair/           # Hair styles
+│       ├── head-features/  # Species-specific head features (ridges, antennae, etc.)
+│       ├── nose/           # Nose variations
+│       ├── rear-hair/      # Back hair/ponytails
+│       └── uniform/        # Uniform styles for this body type
 └── fonts/              # Custom fonts
 ```
 

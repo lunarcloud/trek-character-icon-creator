@@ -97,7 +97,7 @@ export class DomUtil {
      */
     static GenerateSVGHTML (path, className = '') {
         if (path.toLowerCase().endsWith('none.svg') ||
-            path === 'humanoid/body-overlay.svg')
+            path === 'svg/humanoid/body-overlay.svg')
             return ''
 
         return `<svg data-src="${path}" class="${className}" data-cache="disabled" width="${SVG_SIZE}" height="${SVG_SIZE}"></svg>`

@@ -12,12 +12,12 @@ export class BodyTypeManager {
      */
     static updateHumanoid (elements, selectedUniform) {
         // Change the ears
-        elements.characterEarsOrNose.innerHTML = DomUtil.GenerateSVGHTML(`humanoid/ears/${elements.earSelect.value}.svg`)
+        elements.characterEarsOrNose.innerHTML = DomUtil.GenerateSVGHTML(`svg/humanoid/ears/${elements.earSelect.value}.svg`)
 
         // Update the hair
-        elements.characterHair.innerHTML = DomUtil.GenerateSVGHTML(`humanoid/hair/${elements.hairSelect.value}.svg`)
-        elements.characterRearHair.innerHTML = DomUtil.GenerateSVGHTML(`humanoid/rear-hair/${elements.rearHairSelect.value}.svg`)
-        elements.characterFacialHair.innerHTML = DomUtil.GenerateSVGHTML(`humanoid/facial-hair/${elements.facialHairSelect.value}.svg`)
+        elements.characterHair.innerHTML = DomUtil.GenerateSVGHTML(`svg/humanoid/hair/${elements.hairSelect.value}.svg`)
+        elements.characterRearHair.innerHTML = DomUtil.GenerateSVGHTML(`svg/humanoid/rear-hair/${elements.rearHairSelect.value}.svg`)
+        elements.characterFacialHair.innerHTML = DomUtil.GenerateSVGHTML(`svg/humanoid/facial-hair/${elements.facialHairSelect.value}.svg`)
 
         // Handle hair mirroring
         elements.characterHair.classList.toggle('mirrored', elements.hairMirror.checked)
@@ -30,7 +30,7 @@ export class BodyTypeManager {
 
         elements.characterHeadFeatures.innerHTML = selections.reduce(
             (accumulator, e) => {
-                accumulator += DomUtil.GenerateSVGHTML(`humanoid/head-features/${e.value}.svg`, e.className)
+                accumulator += DomUtil.GenerateSVGHTML(`svg/humanoid/head-features/${e.value}.svg`, e.className)
                 return accumulator
             }, '')
 
@@ -42,14 +42,14 @@ export class BodyTypeManager {
         // Update extra overlay
         elements.characterExtraOverlay.innerHTML = ''
         if (selectedUniform?.hasAttribute('extra-overlay') ?? false)
-            elements.characterExtraOverlay.innerHTML += DomUtil.GenerateSVGHTML(`humanoid/extra/${selectedUniform.getAttribute('extra-overlay')}.svg`)
+            elements.characterExtraOverlay.innerHTML += DomUtil.GenerateSVGHTML(`svg/humanoid/extra/${selectedUniform.getAttribute('extra-overlay')}.svg`)
 
         // Update extra underlay
         elements.characterExtraUnderlay.innerHTML = ''
         selections
             .filter(e => e.hasAttribute('extra-underlay'))
             .forEach((e, _i, _all) => {
-                elements.characterExtraUnderlay.innerHTML += DomUtil.GenerateSVGHTML(`humanoid/head-features/${e.getAttribute('extra-underlay')}.svg`)
+                elements.characterExtraUnderlay.innerHTML += DomUtil.GenerateSVGHTML(`svg/humanoid/head-features/${e.getAttribute('extra-underlay')}.svg`)
             })
 
         // Update document style classes
@@ -68,10 +68,10 @@ export class BodyTypeManager {
      */
     static updateCetaceous (elements) {
         // Change the nose
-        elements.characterEarsOrNose.innerHTML = DomUtil.GenerateSVGHTML(`cetaceous/nose/${elements.noseSelect.value}.svg`)
+        elements.characterEarsOrNose.innerHTML = DomUtil.GenerateSVGHTML(`svg/cetaceous/nose/${elements.noseSelect.value}.svg`)
 
         elements.characterHeadFeatures.innerHTML = elements.foreheadBumpCheck.checked
-            ? DomUtil.GenerateSVGHTML('cetaceous/head-features/forehead-bump.svg')
+            ? DomUtil.GenerateSVGHTML('svg/cetaceous/head-features/forehead-bump.svg')
             : ''
     }
 
@@ -93,8 +93,8 @@ export class BodyTypeManager {
 
         // Character body set to box or normal style
         elements.characterBody.innerHTML = elements.medusanBoxCheck.checked
-            ? DomUtil.GenerateSVGHTML('medusan/body/box.svg')
-            : DomUtil.GenerateSVGHTML('medusan/body/visible.svg')
+            ? DomUtil.GenerateSVGHTML('svg/medusan/body/box.svg')
+            : DomUtil.GenerateSVGHTML('svg/medusan/body/visible.svg')
     }
 
     /**
@@ -103,7 +103,7 @@ export class BodyTypeManager {
      */
     static updateCalMirran (elements) {
         // Change the shape
-        elements.characterUniform.innerHTML = DomUtil.GenerateSVGHTML(`cal-mirran/shape/${elements.calMirranShapeSelect.value}.svg`)
+        elements.characterUniform.innerHTML = DomUtil.GenerateSVGHTML(`svg/cal-mirran/shape/${elements.calMirranShapeSelect.value}.svg`)
     }
 
     /**
@@ -117,8 +117,8 @@ export class BodyTypeManager {
         elements.characterRearHair.innerHTML = ''
 
         // Update the hair
-        elements.characterHair.innerHTML = DomUtil.GenerateSVGHTML(`humanoid/hair/${elements.hairSelect.value}.svg`)
-        elements.characterFacialHair.innerHTML = DomUtil.GenerateSVGHTML(`humanoid/facial-hair/${elements.facialHairSelect.value}.svg`)
+        elements.characterHair.innerHTML = DomUtil.GenerateSVGHTML(`svg/humanoid/hair/${elements.hairSelect.value}.svg`)
+        elements.characterFacialHair.innerHTML = DomUtil.GenerateSVGHTML(`svg/humanoid/facial-hair/${elements.facialHairSelect.value}.svg`)
 
         // Handle hair mirroring
         elements.characterHair.classList.toggle('mirrored', elements.hairMirror.checked)
@@ -130,7 +130,7 @@ export class BodyTypeManager {
 
         elements.characterHeadFeatures.innerHTML = selections.reduce(
             (accumulator, e) => {
-                accumulator += DomUtil.GenerateSVGHTML(`humanoid/head-features/${e.value}.svg`, e.className)
+                accumulator += DomUtil.GenerateSVGHTML(`svg/humanoid/head-features/${e.value}.svg`, e.className)
                 return accumulator
             }, '')
 
@@ -157,7 +157,7 @@ export class BodyTypeManager {
 
         elements.characterHeadFeatures.innerHTML = selections.reduce(
             (accumulator, e) => {
-                accumulator += DomUtil.GenerateSVGHTML(`humanoid/head-features/${e.value}.svg`, e.className)
+                accumulator += DomUtil.GenerateSVGHTML(`svg/humanoid/head-features/${e.value}.svg`, e.className)
                 return accumulator
             }, '')
 
@@ -169,14 +169,14 @@ export class BodyTypeManager {
         // Update extra overlay
         elements.characterExtraOverlay.innerHTML = ''
         if (selectedUniform?.hasAttribute('extra-overlay') ?? false)
-            elements.characterExtraOverlay.innerHTML += DomUtil.GenerateSVGHTML(`humanoid/extra/${selectedUniform.getAttribute('extra-overlay')}.svg`)
+            elements.characterExtraOverlay.innerHTML += DomUtil.GenerateSVGHTML(`svg/humanoid/extra/${selectedUniform.getAttribute('extra-overlay')}.svg`)
 
         // Update extra underlay
         elements.characterExtraUnderlay.innerHTML = ''
         selections
             .filter(e => e.hasAttribute('extra-underlay'))
             .forEach((e, _i, _all) => {
-                elements.characterExtraUnderlay.innerHTML += DomUtil.GenerateSVGHTML(`humanoid/head-features/${e.getAttribute('extra-underlay')}.svg`)
+                elements.characterExtraUnderlay.innerHTML += DomUtil.GenerateSVGHTML(`svg/humanoid/head-features/${e.getAttribute('extra-underlay')}.svg`)
             })
     }
 
