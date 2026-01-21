@@ -100,6 +100,9 @@ function findInsertComments (template) {
 /**
  * Copy external dependencies to js/lib directory.
  * This replaces the functionality of copy-deps.sh script.
+ * Removes any existing lib directory, creates a fresh one, and copies
+ * html2canvas.esm.js and svg-loader.min.js from node_modules.
+ * @throws {Error} If copying dependencies fails, logs error and exits with code 1
  */
 function copyDependencies () {
     console.log('Copying external dependencies...')
@@ -140,6 +143,9 @@ function copyDependencies () {
 
 /**
  * Build the index.html file by assembling HTML partials.
+ * Reads the template file, finds all INSERT comments, and replaces them
+ * with the contents of the referenced HTML partial files.
+ * @throws {Error} If reading a partial file fails, logs error and exits with code 1
  */
 function buildIndexHTML () {
     console.log('Building index.html from partials...')
