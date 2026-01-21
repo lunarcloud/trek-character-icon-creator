@@ -15,11 +15,9 @@ assignees: ''
 <!-- Is your feature request related to a problem? Please describe. -->
 <!-- E.g., "I'm always frustrated when..." -->
 
-## Proposed Solution
+## Proposed Solution(s)
 
 <!-- Describe the solution you'd like -->
-
-## Alternative Solutions
 
 <!-- Describe any alternative solutions or features you've considered -->
 
@@ -34,6 +32,7 @@ assignees: ''
 ## Body Types Affected
 
 <!-- Which body types would this feature apply to? -->
+- [ ] None (N/A)
 - [ ] All body types
 - [ ] Humanoid only
 - [ ] Specific body types (list them):
@@ -55,7 +54,3 @@ assignees: ''
 - [ ] I can submit a PR for this feature
 - [ ] I can help test this feature
 - [ ] I'm just suggesting the idea
-
----
-
-**Note:** This is a personal project maintained by @lunarcloud. Feature requests are welcome but may not be implemented. The maintainer reserves the right to accept, modify, or decline any feature request based on project vision and priorities. Bug fixes are typically prioritized over new features.

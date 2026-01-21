@@ -15,7 +15,8 @@
         "curly": 0,
         "jsdoc/no-undefined-types": [1, {
             "definedTypes": [
-              "NodeListOf"
+              "NodeListOf",
+              "FileSystemFileHandle"
             ]
           }],
           "require-jsdoc": ["error", {
