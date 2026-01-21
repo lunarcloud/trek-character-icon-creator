@@ -73,8 +73,9 @@ npm run svglint     # SVG linting only
     - `util-dom.js` - DOM manipulation utilities
     - `type-helpers.js` - HTML element getters with runtime type checking
 - **Assets:**
-  - `humanoid/` - SVG assets for humanoid characters
-  - `cetaceous/`, `exocomp/`, `medusan/`, `cal-mirran/`, `qofuari`, `sukhabelan/` - Assets for other body types
+  - `svg/` - SVG asset directory containing body type folders
+    - `svg/humanoid/` - SVG assets for humanoid characters
+    - `svg/cetaceous/`, `svg/exocomp/`, `svg/medusan/`, `svg/cal-mirran/`, `svg/qofuari/`, `svg/sukhabelan/` - Assets for other body types
 
 ## Adding New Features
 
