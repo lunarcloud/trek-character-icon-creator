@@ -397,11 +397,7 @@ export class IndexController {
 
                 const text = await file.text()
                 const config = JSON.parse(text)
-                const success = this.#deserializeCharacter(config)
-
-                if (success) {
-                    alert('Character loaded successfully!')
-                }
+                this.#deserializeCharacter(config)
             } catch (err) {
                 console.error('Failed to load character:', err)
                 alert(`Failed to load character: ${err.message}`)
