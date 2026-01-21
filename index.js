@@ -257,6 +257,11 @@ export class IndexController {
      * @param {object} config The character configuration object
      * @returns {boolean} True if successful, false otherwise
      */
+    /**
+     * Deserialize a character configuration from JSON and apply it.
+     * @param {object} config The character configuration object
+     * @returns {boolean} True if successful, false otherwise
+     */
     #deserializeCharacter (config) {
         try {
             // Validate version
@@ -346,7 +351,6 @@ export class IndexController {
             return true
         } catch (error) {
             console.error('Failed to deserialize character:', error)
-            alert(`Failed to import character: ${error.message}`)
             return false
         }
     }
@@ -390,6 +394,9 @@ export class IndexController {
             }
 
             const file = fileInput.files[0]
+            // Save current state before attempting to load
+            const savedState = this.#serializeCharacter()
+            
             try {
                 if (!file.name.endsWith('.stcc') && !file.name.endsWith('.json')) {
                     throw new Error('File must be a .stcc or .json file')
@@ -397,10 +404,17 @@ export class IndexController {
 
                 const text = await file.text()
                 const config = JSON.parse(text)
-                this.#deserializeCharacter(config)
+                const success = this.#deserializeCharacter(config)
+                
+                if (!success) {
+                    // Restore previous state if deserialization failed
+                    this.#deserializeCharacter(savedState)
+                }
             } catch (err) {
                 console.error('Failed to load character:', err)
                 alert(`Failed to load character: ${err.message}`)
+                // Restore previous state on error
+                this.#deserializeCharacter(savedState)
             } finally {
                 // Clear the file input so the same file can be loaded again
                 fileInput.value = ''
