@@ -13,8 +13,7 @@
         "csslint-fix": "npx stylelint \"**/*.css\" --quiet-deprecation-warnings --fix",
         "svglint": "npx svglint --ci ./*.svg ./svg/*/*.svg ./svg/*/*/*.svg",
         "lint": "npm run eslint; npm run htmllint; npm run csslint;  npm run svglint",
-        "lint-fix": "npm run eslint-fix; npm run htmllint; npm run csslint-fix; npm run svglint",
-        "copy-deps": "sh copy-deps.sh"
+        "lint-fix": "npm run eslint-fix; npm run htmllint; npm run csslint-fix; npm run svglint"
     },
     "dependencies": {
         "external-svg-loader": "^1.7.1",
@@ -31,7 +30,6 @@
         "eslint-plugin-n": "^16.6.2",
         "eslint-plugin-promise": "^6.6.0",
         "serve": "^14.2.4",
-        "shx": "^0.3.4",
         "stylelint": "^16.26.1",
         "stylelint-config-standard": "^35.0.0"
     }
