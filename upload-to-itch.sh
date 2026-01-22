@@ -2,6 +2,9 @@
 CURRENT_DIR=$(dirname "$(readlink -f "$0")")
 EXPORT="$CURRENT_DIR/export/"
 
+echo Building...
+npm run build
+
 echo Preparing...
 rm -r $EXPORT
 mkdir $EXPORT
