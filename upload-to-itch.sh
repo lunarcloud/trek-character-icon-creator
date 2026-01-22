@@ -6,16 +6,9 @@ echo Preparing...
 rm -r $EXPORT
 mkdir $EXPORT
 cp index.* $EXPORT
-cp *.js $EXPORT
 cp -r js $EXPORT
-cp -r lib $EXPORT
 cp -r fonts $EXPORT
-cp -r cetaceous $EXPORT
-cp -r humanoid $EXPORT
-cp -r exocomp $EXPORT
-cp -r medusan $EXPORT
-cp -r cal-mirran $EXPORT
-cp -r qofuari $EXPORT
+cp -r svg $EXPORT
 
 echo Uploading to Itch...
 butler -v push $EXPORT "samsarette/simple-trekkie-character-creator:web" --if-changed
