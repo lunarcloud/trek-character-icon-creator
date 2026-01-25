@@ -67,12 +67,24 @@ export class BodyTypeManager {
      * @param {CharacterElements} elements Character elements
      */
     static updateCetaceous (elements) {
-        // Change the nose
-        elements.characterEarsOrNose.innerHTML = DomUtil.GenerateSVGHTML(`svg/cetaceous/nose/${elements.noseSelect.value}.svg`)
+        const isHumpback = elements.noseSelect.value === 'humpback'
+        elements.foreheadBumpCheck.parentElement.classList.toggle('hidden', isHumpback)
+        elements.mainEl.classList.toggle('rotated-270', isHumpback)
 
-        elements.characterHeadFeatures.innerHTML = elements.foreheadBumpCheck.checked
-            ? DomUtil.GenerateSVGHTML('svg/cetaceous/head-features/forehead-bump.svg')
-            : ''
+        if (isHumpback) {
+            elements.bodyOverlay.innerHTML = ''
+            elements.characterHeadFeatures.innerHTML = DomUtil.GenerateSVGHTML(`svg/cetaceous/nose/${elements.noseSelect.value}.svg`, 'underuniform')
+            //elements.characterHeadFeatures.innerHTML = ''
+            elements.characterEarsOrNose.innerHTML = ''
+        } else {
+            // Include forehead bump if checked
+            elements.characterHeadFeatures.innerHTML = elements.foreheadBumpCheck.checked
+                ? DomUtil.GenerateSVGHTML('svg/cetaceous/head-features/forehead-bump.svg')
+                : ''
+
+            // Change the nose
+            elements.characterEarsOrNose.innerHTML = DomUtil.GenerateSVGHTML(`svg/cetaceous/nose/${elements.noseSelect.value}.svg`, '')
+        }
     }
 
     /**

@@ -157,6 +157,10 @@ body {
     height: var(--svg-size);
   }
 
+  &.rotated-270 character svg {
+    rotate: 270deg;
+  }
+
   &.medusan #character-body {
       z-index: 6; /* draw in front of the suit by taking the "facial hair" spot */
   }

@@ -1,0 +1,18 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created using Krita: https://krita.org -->
+<svg xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:krita="http://krita.org/namespaces/svg/krita"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    width="512pt"
+    height="512pt"
+    viewBox="0 0 512 512">
+    <style>
+        .uniform-undershirt-color {
+            color: #5E5E5E;
+        }
+    </style>
+<defs/>
+<path id="shape1" transform="translate(77.4478239631458, 0.105513567442828)" fill="currentColor" class="uniform-undershirt-color" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M31.3647 357.082C26.8281 357.775 -9.76219 313.759 2.50028 275.604C12.2603 245.236 6.71822 204.074 4.30022 156.573C-0.155879 99.3934 9.18036 -0.796722 178.552 0.00477977C347.924 0.806282 349.907 141.081 346.747 190.503C360.667 222.41 397.436 337.725 345.095 357.549C305.11 358.829 239.953 367.787 217.604 319.941C216.118 293.248 215.857 278.719 216.82 276.352C261.78 250.098 267.973 225.091 278.399 209.529C279.022 209.827 282.671 212.155 283.467 212.495C262.834 163.881 225.656 105.055 178.552 87.7745C124.233 112.351 85.815 166.076 68.4637 211.693C82.2419 242.467 112.684 264.743 126.01 272.295C126.65 274.358 126.817 294.002 126.513 331.228C92.532 356.25 40.4826 371.868 31.3647 357.082Z" sodipodi:nodetypes="ccczccccccccccc"/><path id="shape0" transform="translate(133.996216928163, 210.499985844937)" fill="#000000" fill-opacity="0.486274509803922" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M11.0038 0C22.0158 29.8639 50.4081 52.018 69.0038 62C69.9746 100.158 70.11 119.762 69.41 120.812C65.2328 50.1728 20.5349 80.7562 6.00378 70.25C-4.13821 55.2974 -0.736356 32.7735 11.0038 0Z" sodipodi:nodetypes="ccccc"/><path id="shape2" transform="translate(294.124980471429, 204.361954802186)" fill="#000000" fill-opacity="0.486274509803922" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M0 72.513C19.8738 64.7669 53.4771 26.8645 63.6165 0C70.0396 7.73353 92.4282 81.893 78.625 84.013C23.1751 79.4915 18.8016 83.0769 1 117.138Z" sodipodi:nodetypes="ccccc"/>
+</svg>
