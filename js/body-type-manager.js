@@ -74,7 +74,7 @@ export class BodyTypeManager {
         if (isHumpback) {
             elements.bodyOverlay.innerHTML = ''
             elements.characterHeadFeatures.innerHTML = DomUtil.GenerateSVGHTML(`svg/cetaceous/nose/${elements.noseSelect.value}.svg`, 'underuniform')
-            //elements.characterHeadFeatures.innerHTML = ''
+            // elements.characterHeadFeatures.innerHTML = ''
             elements.characterEarsOrNose.innerHTML = ''
         } else {
             // Include forehead bump if checked
