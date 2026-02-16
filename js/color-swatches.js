@@ -106,7 +106,7 @@ export class ColorSwatches {
             swatch.addEventListener('click', (e) => {
                 e.preventDefault()
                 picker.value = color
-                
+
                 // Find and select the matching option in the dropdown
                 const matchingOption = Array.from(selectElement.options).find(
                     opt => opt.value === color
