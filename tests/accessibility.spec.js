@@ -16,65 +16,81 @@ test.describe('Accessibility Tests', () => {
     test('all interactive elements should have accessible names', async ({ page }) => {
         // Body shape selector
         const bodyShape = await page.locator('#body-shape')
-        await expect(bodyShape).toHaveAccessibleName()
+        const bodyShapeName = await bodyShape.getAttribute('aria-label')
+        expect(bodyShapeName).toBeTruthy()
 
         // Color pickers should have labels (only check if visible)
         const bodyColor = await page.locator('#body-color')
         if (await bodyColor.isVisible()) {
-            await expect(bodyColor).toHaveAccessibleName()
+            const bodyColorName = await bodyColor.getAttribute('aria-label')
+            const bodyColorLabelFor = await page.locator('label[for="body-color"]').count()
+            expect(bodyColorName || bodyColorLabelFor > 0).toBeTruthy()
         }
 
         const hairColor = await page.locator('#hair-color')
         if (await hairColor.isVisible()) {
-            await expect(hairColor).toHaveAccessibleName()
+            const hairColorName = await hairColor.getAttribute('aria-label')
+            const hairColorLabelFor = await page.locator('label[for="hair-color"]').count()
+            expect(hairColorName || hairColorLabelFor > 0).toBeTruthy()
         }
 
         const uniformColor = await page.locator('#uniform-color')
         if (await uniformColor.isVisible()) {
-            await expect(uniformColor).toHaveAccessibleName()
+            const uniformColorName = await uniformColor.getAttribute('aria-label')
+            const uniformColorLabelFor = await page.locator('label[for="uniform-color"]').count()
+            expect(uniformColorName || uniformColorLabelFor > 0).toBeTruthy()
         }
 
         // Feature selectors
         const earSelect = await page.locator('#ear-select')
         if (await earSelect.isVisible()) {
-            await expect(earSelect).toHaveAccessibleName()
+            const earName = await earSelect.getAttribute('aria-label')
+            expect(earName).toBeTruthy()
         }
 
         const headFeatureSelect = await page.locator('#head-feature-select')
         if (await headFeatureSelect.isVisible()) {
-            await expect(headFeatureSelect).toHaveAccessibleName()
+            const headFeatureName = await headFeatureSelect.getAttribute('aria-label')
+            expect(headFeatureName).toBeTruthy()
         }
 
         // Uniform selector
         const uniformSelect = await page.locator('#uniform-select')
         if (await uniformSelect.isVisible()) {
-            await expect(uniformSelect).toHaveAccessibleName()
+            const uniformName = await uniformSelect.getAttribute('aria-label')
+            expect(uniformName).toBeTruthy()
         }
 
         // Hair selectors
         const hairSelect = await page.locator('#hair-select')
         if (await hairSelect.isVisible()) {
-            await expect(hairSelect).toHaveAccessibleName()
+            const hairName = await hairSelect.getAttribute('aria-label')
+            expect(hairName).toBeTruthy()
         }
 
         const facialHairSelect = await page.locator('#facial-hair-select')
         if (await facialHairSelect.isVisible()) {
-            await expect(facialHairSelect).toHaveAccessibleName()
+            const facialHairName = await facialHairSelect.getAttribute('aria-label')
+            expect(facialHairName).toBeTruthy()
         }
 
         // Download buttons
         const downloadPng = await page.locator('#download-png')
-        await expect(downloadPng).toHaveAccessibleName()
+        const downloadPngName = await downloadPng.getAttribute('aria-label')
+        expect(downloadPngName).toBeTruthy()
 
         const downloadSvg = await page.locator('#download-svg')
-        await expect(downloadSvg).toHaveAccessibleName()
+        const downloadSvgName = await downloadSvg.getAttribute('aria-label')
+        expect(downloadSvgName).toBeTruthy()
 
         // Save/Load buttons
         const saveCharacter = await page.locator('#save-character')
-        await expect(saveCharacter).toHaveAccessibleName()
+        const saveName = await saveCharacter.getAttribute('aria-label')
+        expect(saveName).toBeTruthy()
 
         const loadCharacter = await page.locator('#load-character')
-        await expect(loadCharacter).toHaveAccessibleName()
+        const loadName = await loadCharacter.getAttribute('aria-label')
+        expect(loadName).toBeTruthy()
     })
 
     test('all interactive elements should be keyboard accessible', async ({ page }) => {
@@ -96,29 +112,39 @@ test.describe('Accessibility Tests', () => {
     })
 
     test('checkboxes should have proper ARIA labels', async ({ page }) => {
-        // Check sync checkboxes
+        // Check sync checkboxes - only if visible
         const syncAntennae = await page.locator('#sync-antennae-with-body')
         if (await syncAntennae.isVisible()) {
-            await expect(syncAntennae).toHaveAccessibleName()
+            const ariaLabel = await syncAntennae.getAttribute('aria-label')
+            const labelFor = await page.locator('label[for="sync-antennae-with-body"]').count()
+            expect(ariaLabel || labelFor > 0).toBeTruthy()
         }
 
         const syncBirdTuft = await page.locator('#sync-bird-tuft-with-body')
         if (await syncBirdTuft.isVisible()) {
-            await expect(syncBirdTuft).toHaveAccessibleName()
+            const ariaLabel = await syncBirdTuft.getAttribute('aria-label')
+            const labelFor = await page.locator('label[for="sync-bird-tuft-with-body"]').count()
+            expect(ariaLabel || labelFor > 0).toBeTruthy()
         }
 
         const syncWhiskers = await page.locator('#sync-whiskers-with-body')
         if (await syncWhiskers.isVisible()) {
-            await expect(syncWhiskers).toHaveAccessibleName()
+            const ariaLabel = await syncWhiskers.getAttribute('aria-label')
+            const labelFor = await page.locator('label[for="sync-whiskers-with-body"]').count()
+            expect(ariaLabel || labelFor > 0).toBeTruthy()
         }
 
         // Save with background checkbox
         const saveBgCheck = await page.locator('#save-with-bg-checkbox')
-        await expect(saveBgCheck).toHaveAccessibleName()
+        const saveBgAriaLabel = await saveBgCheck.getAttribute('aria-label')
+        const saveBgLabelFor = await page.locator('label[for="save-with-bg-checkbox"]').count()
+        expect(saveBgAriaLabel || saveBgLabelFor > 0).toBeTruthy()
 
         // Filter checkbox
         const filterColorSelection = await page.locator('#filter-color-selection')
-        await expect(filterColorSelection).toHaveAccessibleName()
+        const filterAriaLabel = await filterColorSelection.getAttribute('aria-label')
+        const filterLabelText = await page.locator('label:has(#filter-color-selection)').textContent()
+        expect(filterAriaLabel || filterLabelText).toBeTruthy()
     })
 
     test('character preview should have appropriate role and label', async ({ page }) => {
@@ -152,17 +178,20 @@ test.describe('Accessibility Tests', () => {
     test('next buttons should have proper ARIA labels', async ({ page }) => {
         const hairNext = await page.locator('#hair-next')
         if (await hairNext.isVisible()) {
-            await expect(hairNext).toHaveAccessibleName()
+            const ariaLabel = await hairNext.getAttribute('aria-label')
+            expect(ariaLabel).toBeTruthy()
         }
 
         const facialHairNext = await page.locator('#facial-hair-next')
         if (await facialHairNext.isVisible()) {
-            await expect(facialHairNext).toHaveAccessibleName()
+            const ariaLabel = await facialHairNext.getAttribute('aria-label')
+            expect(ariaLabel).toBeTruthy()
         }
 
         const rearHairNext = await page.locator('#rear-hair-next')
         if (await rearHairNext.isVisible()) {
-            await expect(rearHairNext).toHaveAccessibleName()
+            const ariaLabel = await rearHairNext.getAttribute('aria-label')
+            expect(ariaLabel).toBeTruthy()
         }
     })
 
@@ -232,5 +261,26 @@ test.describe('Accessibility Tests', () => {
                 }
             }
         }
+    })
+
+    test('aria-live region should announce body type changes', async ({ page }) => {
+        const announcements = await page.locator('#character-announcements')
+        await expect(announcements).toBeAttached()
+        
+        const ariaLive = await announcements.getAttribute('aria-live')
+        expect(ariaLive).toBe('polite')
+        
+        const ariaAtomic = await announcements.getAttribute('aria-atomic')
+        expect(ariaAtomic).toBe('true')
+        
+        // Change body type and check if announcement is made
+        const bodyShapeSelect = await page.locator('#body-shape')
+        await bodyShapeSelect.selectOption('cetaceous')
+        
+        // Wait a bit for the announcement to be made
+        await page.waitForTimeout(200)
+        
+        const announcementText = await announcements.textContent()
+        expect(announcementText).toContain('Cetaceous')
     })
 })

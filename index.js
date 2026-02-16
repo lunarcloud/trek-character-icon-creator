@@ -25,6 +25,11 @@ export class IndexController {
     #uniformManager
 
     /**
+     * @type {string|null}
+     */
+    #lastBodyShape = null
+
+    /**
      * Constructor.
      */
     constructor () {
@@ -94,12 +99,33 @@ export class IndexController {
     }
 
     /**
+     * Announce a change to screen readers via the aria-live region.
+     * @param {string} message - The message to announce
+     */
+    #announce (message) {
+        if (!this.#elements.characterAnnouncements) return
+        
+        // Clear and set with a small delay to ensure screen readers pick up the change
+        this.#elements.characterAnnouncements.textContent = ''
+        setTimeout(() => {
+            this.#elements.characterAnnouncements.textContent = message
+        }, 100)
+    }
+
+    /**
      * Handle when a change in options occurs.
      * This will setup all the SVG html and CSS styles for the current options.
      */
     onChangeDetected () {
         const bodyShape = this.#elements.shapeSelect.value
         const bodyShapeChanged = !this.#elements.mainEl.classList.contains(bodyShape)
+
+        // Announce body shape changes to screen readers
+        if (bodyShapeChanged && this.#lastBodyShape !== null) {
+            const bodyShapeName = this.#elements.shapeSelect.selectedOptions[0]?.textContent || bodyShape
+            this.#announce(`Character body type changed to ${bodyShapeName}`)
+        }
+        this.#lastBodyShape = bodyShape
 
         // Update the classes at the top for hiding/showing elements
         this.#elements.mainEl.className = bodyShape // first one clears the list
