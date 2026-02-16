@@ -19,7 +19,7 @@ Character Creator for Star Trek style character icons
 - Species-specific features (Vulcan ears, Klingon ridges, etc.)
 - Color customization for body, uniform, and hair
 - Export as PNG image with optional background
-- **Fully accessible**: ARIA labels, keyboard navigation, and screen reader support
+- **Fully accessible**: ARIA labels, keyboard navigation, and screen reader support ([see ACCESSIBILITY.md](ACCESSIBILITY.md))
 
 ## Development Setup
 
