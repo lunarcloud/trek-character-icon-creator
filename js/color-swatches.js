@@ -9,8 +9,9 @@ export class ColorSwatches {
      * @param {string} pickerId - Color input element ID
      * @param {string} selectorId - Color select element ID
      * @param {string} swatchesContainerId - Container element ID for swatches
+     * @param {HTMLInputElement|null} filterCheckbox - Optional filter checkbox that affects visibility
      */
-    static initialize (pickerId, selectorId, swatchesContainerId) {
+    static initialize (pickerId, selectorId, swatchesContainerId, filterCheckbox = null) {
         const picker = getInputElement(pickerId)
         const selector = getSelectElement(selectorId)
         const container = document.getElementById(swatchesContainerId)
@@ -33,6 +34,13 @@ export class ColorSwatches {
                 ColorSwatches.updateSelectedSwatch(container, selector.value)
             }
         })
+
+        // Regenerate swatches when filter checkbox changes
+        if (filterCheckbox) {
+            filterCheckbox.addEventListener('change', () => {
+                ColorSwatches.regenerate(pickerId, selectorId, swatchesContainerId)
+            })
+        }
 
         // Initial update
         ColorSwatches.updateSelectedSwatch(container, picker.value)

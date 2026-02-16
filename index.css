@@ -332,11 +332,30 @@ select[multiple] option {
 }
 
 /* Color Swatches */
+.color-picker-details {
+  margin: 0.25em 0 0.5em;
+}
+
+.color-picker-details summary {
+  cursor: pointer;
+  user-select: none;
+  padding: 0.25em 0.5em;
+  background-color: rgb(0 0 0 / 10%);
+  border-radius: 4px;
+  font-size: 0.9em;
+  display: inline-block;
+  margin-bottom: 0.5em;
+
+  &:hover {
+    background-color: rgb(0 0 0 / 20%);
+  }
+}
+
 .color-swatches {
   display: flex;
   flex-wrap: wrap;
   gap: 0.25em;
-  margin: 0.5em 0 0.75em;
+  margin: 0.5em 0;
   max-width: 100%;
 }
 

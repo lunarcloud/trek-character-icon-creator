@@ -46,7 +46,7 @@ export class IndexController {
         // Initialize color swatches
         ColorSwatches.initialize('body-color', 'std-body-colors', 'body-color-swatches')
         ColorSwatches.initialize('hair-color', 'std-hair-colors', 'hair-color-swatches')
-        ColorSwatches.initialize('uniform-color', 'std-uniform-colors', 'uniform-color-swatches')
+        ColorSwatches.initialize('uniform-color', 'std-uniform-colors', 'uniform-color-swatches', this.#colorManager.uniformColorFilterCheck)
         ColorSwatches.initialize('uniform-undershirt-color', 'std-uniform-undershirt-colors', 'uniform-undershirt-color-swatches')
 
         this.#setupEventListeners()
@@ -195,6 +195,9 @@ export class IndexController {
         const filteringColors = this.#colorManager.uniformColorFilterCheck.checked
         const colorsFilter = this.#elements.uniformSelect.selectedOptions[0].getAttribute('colors-filter')
         UniformManager.filterColorOptions(this.#elements.mainEl, this.#colorManager.uniformColorSelect, filteringColors, colorsFilter)
+
+        // Regenerate uniform color swatches to reflect filter changes
+        ColorSwatches.regenerate('uniform-color', 'std-uniform-colors', 'uniform-color-swatches')
 
         // Get selected uniform
         let selectedUniform = this.#colorManager.uniformColorSelect.selectedOptions[0]
