@@ -15,23 +15,39 @@ export class ColorSwatches {
         const picker = getInputElement(pickerId)
         const selector = getSelectElement(selectorId)
         const container = document.getElementById(swatchesContainerId)
+        const colorButton = document.getElementById(pickerId + '-button')
 
         if (!container) {
             console.error(`Swatches container not found: ${swatchesContainerId}`)
             return
         }
 
+        // Initialize color display button
+        if (colorButton) {
+            ColorSwatches.updateColorButton(colorButton, picker.value)
+
+            // Update button when picker changes
+            picker.addEventListener('change', () => {
+                ColorSwatches.updateColorButton(colorButton, picker.value)
+                ColorSwatches.updateSelectedSwatch(container, picker.value)
+            })
+
+            // Button click opens custom color dialog
+            colorButton.addEventListener('click', () => {
+                ColorSwatches.openCustomColorDialog(picker, selector, container)
+            })
+        }
+
         // Generate swatches from selector options
         ColorSwatches.generateSwatches(selector, container, picker, selector)
 
-        // Update selected swatch when picker or selector changes
-        picker.addEventListener('change', () => {
-            ColorSwatches.updateSelectedSwatch(container, picker.value)
-        })
-
+        // Update selected swatch when selector changes
         selector.addEventListener('change', () => {
             if (selector.value !== 'custom') {
                 ColorSwatches.updateSelectedSwatch(container, selector.value)
+                if (colorButton) {
+                    ColorSwatches.updateColorButton(colorButton, selector.value)
+                }
             }
         })
 
@@ -44,6 +60,71 @@ export class ColorSwatches {
 
         // Initial update
         ColorSwatches.updateSelectedSwatch(container, picker.value)
+    }
+
+    /**
+     * Update the color display button to show current color.
+     * @param {HTMLElement} button - The color display button
+     * @param {string} color - The color to display
+     */
+    static updateColorButton (button, color) {
+        button.style.backgroundColor = color
+        button.setAttribute('aria-label', `Current color: ${color}`)
+    }
+
+    /**
+     * Open custom color picker dialog.
+     * @param {HTMLInputElement} picker - The hidden color picker input
+     * @param {HTMLSelectElement} selector - The select element
+     * @param {HTMLElement} swatchContainer - The swatches container
+     */
+    static openCustomColorDialog (picker, selector, swatchContainer) {
+        // Create backdrop
+        const backdrop = document.createElement('div')
+        backdrop.className = 'dialog-backdrop'
+
+        // Create dialog
+        const dialog = document.createElement('div')
+        dialog.className = 'custom-color-dialog'
+        dialog.innerHTML = `
+            <h3>Choose Custom Color</h3>
+            <input type="color" id="temp-color-picker" value="${picker.value}">
+            <div class="custom-color-dialog-buttons">
+                <button type="button" class="cancel-button">Cancel</button>
+                <button type="button" class="ok-button">OK</button>
+            </div>
+        `
+
+        document.body.appendChild(backdrop)
+        document.body.appendChild(dialog)
+
+        const tempPicker = dialog.querySelector('#temp-color-picker')
+        const okButton = dialog.querySelector('.ok-button')
+        const cancelButton = dialog.querySelector('.cancel-button')
+
+        const closeDialog = () => {
+            backdrop.remove()
+            dialog.remove()
+        }
+
+        okButton.addEventListener('click', () => {
+            picker.value = tempPicker.value
+            selector.value = 'custom'
+
+            // Trigger change events
+            const changeEvent = new Event('change', { bubbles: true })
+            picker.dispatchEvent(changeEvent)
+            selector.dispatchEvent(changeEvent)
+
+            ColorSwatches.updateSelectedSwatch(swatchContainer, tempPicker.value)
+            closeDialog()
+        })
+
+        cancelButton.addEventListener('click', closeDialog)
+        backdrop.addEventListener('click', closeDialog)
+
+        // Focus the temp picker
+        tempPicker.focus()
     }
 
     /**
@@ -91,6 +172,20 @@ export class ColorSwatches {
 
             container.appendChild(swatch)
         })
+
+        // Add custom color picker swatch (question mark)
+        const customSwatch = document.createElement('button')
+        customSwatch.type = 'button'
+        customSwatch.className = 'color-swatch custom-picker'
+        customSwatch.setAttribute('aria-label', 'Choose custom color')
+        customSwatch.title = 'Custom color picker'
+
+        customSwatch.addEventListener('click', (e) => {
+            e.preventDefault()
+            ColorSwatches.openCustomColorDialog(picker, selectElement, container)
+        })
+
+        container.appendChild(customSwatch)
     }
 
     /**
@@ -99,7 +194,7 @@ export class ColorSwatches {
      * @param {string} selectedColor - The currently selected color
      */
     static updateSelectedSwatch (container, selectedColor) {
-        const swatches = container.querySelectorAll('.color-swatch')
+        const swatches = container.querySelectorAll('.color-swatch:not(.custom-picker)')
         swatches.forEach(swatch => {
             const swatchColor = swatch.getAttribute('data-color')
             if (swatchColor && swatchColor.toUpperCase() === selectedColor.toUpperCase()) {
