@@ -106,7 +106,16 @@ export class ColorSwatches {
             swatch.addEventListener('click', (e) => {
                 e.preventDefault()
                 picker.value = color
-                selectElement.value = color
+                
+                // Find and select the matching option in the dropdown
+                const matchingOption = Array.from(selectElement.options).find(
+                    opt => opt.value === color
+                )
+                if (matchingOption) {
+                    selectElement.value = color
+                } else {
+                    console.warn(`No matching option found for color: ${color}`)
+                }
 
                 // Trigger change events to update the character
                 const changeEvent = new Event('change', { bubbles: true })
