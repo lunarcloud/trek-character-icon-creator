@@ -15,25 +15,25 @@ export class ColorSwatches {
         const picker = getInputElement(pickerId)
         const selector = getSelectElement(selectorId)
         const container = document.getElementById(swatchesContainerId)
-        const colorButton = document.getElementById(pickerId + '-button')
+        const colorDisplay = document.getElementById(pickerId + '-display')
 
         if (!container) {
             console.error(`Swatches container not found: ${swatchesContainerId}`)
             return
         }
 
-        // Initialize color display button
-        if (colorButton) {
-            ColorSwatches.updateColorButton(colorButton, picker.value)
+        // Initialize color display
+        if (colorDisplay) {
+            ColorSwatches.updateColorDisplay(colorDisplay, picker.value)
 
-            // Update button when picker changes
+            // Update display when picker changes
             picker.addEventListener('change', () => {
-                ColorSwatches.updateColorButton(colorButton, picker.value)
+                ColorSwatches.updateColorDisplay(colorDisplay, picker.value)
                 ColorSwatches.updateSelectedSwatch(container, picker.value)
             })
 
-            // Button click should not open dialog anymore
-            // (Color button is just for display now)
+            // Color display is just for showing the current color
+            // (It's not interactive - clicking the summary opens/closes the details)
         }
 
         // Generate swatches from selector options
@@ -43,8 +43,8 @@ export class ColorSwatches {
         selector.addEventListener('change', () => {
             if (selector.value !== 'custom') {
                 ColorSwatches.updateSelectedSwatch(container, selector.value)
-                if (colorButton) {
-                    ColorSwatches.updateColorButton(colorButton, selector.value)
+                if (colorDisplay) {
+                    ColorSwatches.updateColorDisplay(colorDisplay, selector.value)
                 }
             }
         })
@@ -61,14 +61,14 @@ export class ColorSwatches {
     }
 
     /**
-     * Update the color display button to show current color.
-     * @param {HTMLElement} button - The color display button
+     * Update the color display element to show current color.
+     * @param {HTMLElement} display - The color display element
      * @param {string} color - The color to display
      */
-    static updateColorButton (button, color) {
-        button.style.backgroundColor = color
-        button.setAttribute('aria-label', 'Current selected color')
-        button.title = color
+    static updateColorDisplay (display, color) {
+        display.style.backgroundColor = color
+        display.setAttribute('aria-label', 'Current selected color')
+        display.title = color
     }
 
     /**

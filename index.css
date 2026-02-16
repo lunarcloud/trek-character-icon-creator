@@ -373,11 +373,11 @@ select[multiple] option {
     display: none;
   }
 
-  & button {
+  & .color-display {
     flex-shrink: 0;
   }
 
-  & label {
+  & span {
     flex-shrink: 0;
   }
 }
