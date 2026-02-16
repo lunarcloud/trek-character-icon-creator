@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test'
 
 test.describe('Tooltip Tests', () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto('http://localhost:8765')
+        await page.goto('/')
         // Wait for JavaScript to fully initialize
         await page.waitForLoadState('networkidle')
         await page.waitForTimeout(1500)
@@ -52,11 +52,13 @@ test.describe('Tooltip Tests', () => {
     test('uniform options should have tooltips', async ({ page }) => {
         const uniformSelect = page.locator('#uniform-select')
 
-        const tosTooltip = await uniformSelect.locator('option[value="TOS"]').getAttribute('title')
+        // TOS option uses text content, not value attribute
+        const tosTooltip = await uniformSelect.locator('option', { hasText: 'TOS' }).first().getAttribute('title')
         expect(tosTooltip).toBeTruthy()
         expect(tosTooltip).toContain('Original Series')
 
-        const tngTooltip = await uniformSelect.locator('option[value="TNG"]').getAttribute('title')
+        // TNG option also uses text content
+        const tngTooltip = await uniformSelect.locator('option', { hasText: 'TNG' }).first().getAttribute('title')
         expect(tngTooltip).toBeTruthy()
         expect(tngTooltip).toContain('Next Generation')
     })
