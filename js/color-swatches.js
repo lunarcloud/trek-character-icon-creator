@@ -32,10 +32,8 @@ export class ColorSwatches {
                 ColorSwatches.updateSelectedSwatch(container, picker.value)
             })
 
-            // Button click opens custom color dialog
-            colorButton.addEventListener('click', () => {
-                ColorSwatches.openCustomColorDialog(picker, selector, container)
-            })
+            // Button click should not open dialog anymore
+            // (Color button is just for display now)
         }
 
         // Generate swatches from selector options
@@ -71,85 +69,6 @@ export class ColorSwatches {
         button.style.backgroundColor = color
         button.setAttribute('aria-label', 'Current selected color')
         button.title = color
-    }
-
-    /**
-     * Open custom color picker dialog.
-     * @param {HTMLInputElement} picker - The hidden color picker input
-     * @param {HTMLSelectElement} selector - The select element
-     * @param {HTMLElement} swatchContainer - The swatches container
-     */
-    static openCustomColorDialog (picker, selector, swatchContainer) {
-        // Create backdrop
-        const backdrop = document.createElement('div')
-        backdrop.className = 'dialog-backdrop'
-
-        // Create dialog
-        const dialog = document.createElement('div')
-        dialog.className = 'custom-color-dialog'
-        dialog.setAttribute('role', 'dialog')
-        dialog.setAttribute('aria-modal', 'true')
-        dialog.setAttribute('aria-labelledby', 'dialog-title')
-        dialog.innerHTML = `
-            <h3 id="dialog-title">Choose Custom Color</h3>
-            <input type="color" id="temp-color-picker" value="${picker.value}">
-            <div class="custom-color-dialog-buttons">
-                <button type="button" class="cancel-button">Cancel</button>
-                <button type="button" class="ok-button">OK</button>
-            </div>
-        `
-
-        document.body.appendChild(backdrop)
-        document.body.appendChild(dialog)
-
-        const tempPicker = dialog.querySelector('#temp-color-picker')
-        const okButton = dialog.querySelector('.ok-button')
-        const cancelButton = dialog.querySelector('.cancel-button')
-
-        const closeDialog = () => {
-            backdrop.remove()
-            dialog.remove()
-            document.removeEventListener('keydown', handleKeyDown)
-        }
-
-        const handleKeyDown = (e) => {
-            if (e.key === 'Escape') {
-                closeDialog()
-            } else if (e.key === 'Tab') {
-                // Trap focus within dialog
-                const focusableElements = dialog.querySelectorAll('button, input, [tabindex]:not([tabindex="-1"])')
-                const firstElement = focusableElements[0]
-                const lastElement = focusableElements[focusableElements.length - 1]
-
-                if (e.shiftKey && document.activeElement === firstElement) {
-                    e.preventDefault()
-                    lastElement.focus()
-                } else if (!e.shiftKey && document.activeElement === lastElement) {
-                    e.preventDefault()
-                    firstElement.focus()
-                }
-            }
-        }
-
-        okButton.addEventListener('click', () => {
-            picker.value = tempPicker.value
-            selector.value = 'custom'
-
-            // Trigger change events
-            const changeEvent = new Event('change', { bubbles: true })
-            picker.dispatchEvent(changeEvent)
-            selector.dispatchEvent(changeEvent)
-
-            ColorSwatches.updateSelectedSwatch(swatchContainer, tempPicker.value)
-            closeDialog()
-        })
-
-        cancelButton.addEventListener('click', closeDialog)
-        backdrop.addEventListener('click', closeDialog)
-        document.addEventListener('keydown', handleKeyDown)
-
-        // Focus the temp picker
-        tempPicker.focus()
     }
 
     /**
@@ -198,19 +117,40 @@ export class ColorSwatches {
             container.appendChild(swatch)
         })
 
-        // Add custom color picker swatch (question mark)
-        const customSwatch = document.createElement('button')
-        customSwatch.type = 'button'
-        customSwatch.className = 'color-swatch custom-picker'
-        customSwatch.setAttribute('aria-label', 'Choose custom color')
-        customSwatch.title = 'Custom color picker'
+        // Add custom color picker swatch (color input with question mark overlay)
+        const customSwatchWrapper = document.createElement('div')
+        customSwatchWrapper.className = 'color-swatch-wrapper custom-picker'
+        customSwatchWrapper.style.position = 'relative'
+        customSwatchWrapper.style.display = 'inline-block'
 
-        customSwatch.addEventListener('click', (e) => {
+        const customColorInput = document.createElement('input')
+        customColorInput.type = 'color'
+        customColorInput.className = 'color-swatch custom-picker-input'
+        customColorInput.value = picker.value
+        customColorInput.setAttribute('aria-label', 'Choose custom color')
+        customColorInput.title = 'Custom color picker'
+
+        const questionMark = document.createElement('span')
+        questionMark.className = 'custom-picker-label'
+        questionMark.textContent = '?'
+        questionMark.setAttribute('aria-hidden', 'true')
+
+        customColorInput.addEventListener('change', (e) => {
             e.preventDefault()
-            ColorSwatches.openCustomColorDialog(picker, selectElement, container)
+            picker.value = customColorInput.value
+            selectElement.value = 'custom'
+
+            // Trigger change events to update the character
+            const changeEvent = new Event('change', { bubbles: true })
+            picker.dispatchEvent(changeEvent)
+            selectElement.dispatchEvent(changeEvent)
+
+            ColorSwatches.updateSelectedSwatch(container, customColorInput.value)
         })
 
-        container.appendChild(customSwatch)
+        customSwatchWrapper.appendChild(customColorInput)
+        customSwatchWrapper.appendChild(questionMark)
+        container.appendChild(customSwatchWrapper)
     }
 
     /**
