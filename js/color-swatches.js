@@ -135,8 +135,7 @@ export class ColorSwatches {
         questionMark.textContent = '?'
         questionMark.setAttribute('aria-hidden', 'true')
 
-        customColorInput.addEventListener('change', (e) => {
-            e.preventDefault()
+        customColorInput.addEventListener('change', () => {
             picker.value = customColorInput.value
             selectElement.value = 'custom'
 

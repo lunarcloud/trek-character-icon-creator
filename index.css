@@ -453,12 +453,8 @@ select[multiple] option {
   font-size: 1.5em;
   font-weight: bold;
   color: #fff;
-  text-shadow: 
-    -1px -1px 0 #000,
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-    1px 1px 0 #000,
-    0 0 3px #000;
+  -webkit-text-stroke: 2px #000;
+  paint-order: stroke fill;
   pointer-events: none;
   user-select: none;
 }
