@@ -65,6 +65,11 @@ export class CharacterElements {
     bodyOverlay
 
     /**
+     * @type {HTMLElement}
+     */
+    characterAnnouncements
+
+    /**
      * @type {HTMLSelectElement}
      */
     shapeSelect
@@ -171,6 +176,7 @@ export class CharacterElements {
         this.bodyOverlay = document.getElementById('body-overlay')
         this.characterExtraOverlay = document.getElementById('extra-overlay')
         this.characterExtraUnderlay = document.getElementById('extra-underlay')
+        this.characterAnnouncements = document.getElementById('character-announcements')
 
         // Selection Elements
         this.shapeSelect = getSelectElement('body-shape')

@@ -1,9 +1,34 @@
-# Manual Testing Checklist
+# Testing Guide
 
-This project does not have automated tests. All testing is done manually through the browser interface. Use this checklist when testing changes.
+This project includes both automated accessibility tests and manual testing procedures.
+
+## Automated Tests
+
+### Running Automated Tests
+```sh
+npm test              # Run all accessibility tests
+npm run test:headed   # Run tests with browser visible
+npm run test:ui       # Run tests in Playwright UI mode
+```
+
+### Test Coverage
+The automated test suite includes 12 accessibility tests covering:
+- ARIA labels on all interactive elements
+- Keyboard navigation and tabindex attributes
+- Screen reader support and announcements
+- Semantic HTML structure
+- Color picker labeling
+- WCAG compliance (via axe-core)
+
+All tests must pass before merging PRs.
+
+## Manual Testing Checklist
+
+Use this checklist for comprehensive manual testing through the browser interface.
 
 ## Before Testing
 - [ ] Run `npm run lint` to ensure code quality
+- [ ] Run `npm test` to ensure all automated tests pass
 - [ ] Start dev server with `npm run serve`
 - [ ] Open browser to http://localhost:3000
 
@@ -82,6 +107,29 @@ The app is designed for 980px × 800px viewport (itch.io hosting):
 - [ ] Test rapid selection changes
 - [ ] Test switching body types multiple times
 - [ ] Test browser back/forward buttons (should not affect state)
+
+## Accessibility Testing
+Manual accessibility checks to complement automated tests:
+- [ ] **Keyboard Navigation**
+  - [ ] Tab through all interactive elements in logical order
+  - [ ] Verify all buttons, selects, and inputs are keyboard accessible
+  - [ ] Test toggle buttons can be activated with Space/Enter
+  - [ ] Verify focus indicators are visible
+  - [ ] Test Ctrl/Cmd+S for save, Ctrl/Cmd+O for open
+- [ ] **Screen Reader Testing** (if available)
+  - [ ] Use VoiceOver (Mac), NVDA (Windows), or another screen reader
+  - [ ] Verify all controls announce their purpose
+  - [ ] Test that character type changes are announced
+  - [ ] Verify form labels are properly associated
+  - [ ] Check that character preview has proper role
+- [ ] **Color Contrast** (visual inspection or tool like aXe DevTools)
+  - [ ] Verify text has sufficient contrast
+  - [ ] Check button labels are readable
+  - [ ] Ensure focus indicators are visible
+- [ ] **Zoom Testing**
+  - [ ] Test at 200% zoom level
+  - [ ] Verify no content is cut off
+  - [ ] Check that interactive elements remain usable
 
 ## SVG Asset Changes
 When modifying SVG files:

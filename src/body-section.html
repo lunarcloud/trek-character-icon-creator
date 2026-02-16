@@ -1,6 +1,6 @@
 <group>
     <h2>Body</h2>
-    <select id="body-shape">
+    <select id="body-shape" aria-label="Body type">
         <option value="humanoid">Humanoid</option>
         <option value="cetaceous">Cetaceous</option>
         <option value="exocomp">Exocomp</option>
@@ -15,7 +15,7 @@
     </select>
 
     <h3 class="cal-mirran-only">Shape</h3>
-    <select id="cal-mirran-shape" class="cal-mirran-only">
+    <select id="cal-mirran-shape" class="cal-mirran-only" aria-label="Cal-Mirran shape">
         <option selected>Prismatic</option>
         <option>Spherical</option>
         <option>Pinwheel</option>
@@ -25,7 +25,7 @@
     <div class="non-exocomp non-medusan non-cal-mirran">
         <input type="color" id="body-color" value="#FEE4B3">
         <label for="body-color">Color</label>
-        <select id="std-body-colors">
+        <select id="std-body-colors" aria-label="Preset body colors">
             <option value="custom" hidden selected></option>
             <option value="#FEE4B3" class="non-cetaceous non-sukhabelan non-qofuari">Lighter Human</option>
             <option value="#A68854" class="non-cetaceous non-sukhabelan non-qofuari">Olive Human</option>
@@ -56,7 +56,7 @@
     </div>
 
     <h3 class="humanoid-only non-qofuari non-sukhabelan">Ears</h3>
-    <select id="ear-select" class="humanoid-only non-qofuari non-sukhabelan">
+    <select id="ear-select" class="humanoid-only non-qofuari non-sukhabelan" aria-label="Ear type">
         <option value="none">None (Edosian, Saurian, etc)</option>
         <option value="round" selected>Round (Human)</option>
         <option value="pointy">Pointy (Vulcan, Romulan)</option>
@@ -75,7 +75,7 @@
     </label>
 
     <h3>Nose</h3>
-    <select id="nose-select">
+    <select id="nose-select" aria-label="Nose type">
         <option value="thick" selected>Thick</option>
         <option value="small">Small</option>
         <option value="long">Long</option>
