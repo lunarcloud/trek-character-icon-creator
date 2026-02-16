@@ -69,7 +69,8 @@ export class ColorSwatches {
      */
     static updateColorButton (button, color) {
         button.style.backgroundColor = color
-        button.setAttribute('aria-label', `Current color: ${color}`)
+        button.setAttribute('aria-label', 'Current selected color')
+        button.title = color
     }
 
     /**
@@ -86,8 +87,11 @@ export class ColorSwatches {
         // Create dialog
         const dialog = document.createElement('div')
         dialog.className = 'custom-color-dialog'
+        dialog.setAttribute('role', 'dialog')
+        dialog.setAttribute('aria-modal', 'true')
+        dialog.setAttribute('aria-labelledby', 'dialog-title')
         dialog.innerHTML = `
-            <h3>Choose Custom Color</h3>
+            <h3 id="dialog-title">Choose Custom Color</h3>
             <input type="color" id="temp-color-picker" value="${picker.value}">
             <div class="custom-color-dialog-buttons">
                 <button type="button" class="cancel-button">Cancel</button>
@@ -105,6 +109,26 @@ export class ColorSwatches {
         const closeDialog = () => {
             backdrop.remove()
             dialog.remove()
+            document.removeEventListener('keydown', handleKeyDown)
+        }
+
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') {
+                closeDialog()
+            } else if (e.key === 'Tab') {
+                // Trap focus within dialog
+                const focusableElements = dialog.querySelectorAll('button, input, [tabindex]:not([tabindex="-1"])')
+                const firstElement = focusableElements[0]
+                const lastElement = focusableElements[focusableElements.length - 1]
+
+                if (e.shiftKey && document.activeElement === firstElement) {
+                    e.preventDefault()
+                    lastElement.focus()
+                } else if (!e.shiftKey && document.activeElement === lastElement) {
+                    e.preventDefault()
+                    firstElement.focus()
+                }
+            }
         }
 
         okButton.addEventListener('click', () => {
@@ -122,6 +146,7 @@ export class ColorSwatches {
 
         cancelButton.addEventListener('click', closeDialog)
         backdrop.addEventListener('click', closeDialog)
+        document.addEventListener('keydown', handleKeyDown)
 
         // Focus the temp picker
         tempPicker.focus()
