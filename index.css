@@ -428,8 +428,8 @@ select[multiple] option {
 .color-swatch-wrapper.custom-picker {
   position: relative;
   display: inline-block;
-  width: 2em;
-  height: 2em;
+  aspect-ratio: 1;
+  height: calc(2em - 4px);
 }
 
 .color-swatch.custom-picker-input {
