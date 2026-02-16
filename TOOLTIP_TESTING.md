@@ -47,7 +47,7 @@ Navigate to `http://localhost:3000` in your browser.
 **Expected Results:**
 - **Humanoid**: "Standard bipedal form with two arms, two legs, and a head. Most Star Trek species are humanoid."
 - **Cetaceous**: "Aquatic dolphin-like species. The Xindi-Aquatic are the primary cetaceous species in Star Trek."
-- **Medusan**: "Non-corporeal energy beings whose appearance is so alien it can drive humanoids insane. They are housed in protective containers."
+- **Medusan**: "Non-corporeal energy beings whose appearance is so alien it can drive humanoids insane. They are housed in protective containers." (Note: Canon species from TOS)
 
 #### Ear Type Tooltips
 1. Locate the "Ears" dropdown (visible when Humanoid body type is selected)

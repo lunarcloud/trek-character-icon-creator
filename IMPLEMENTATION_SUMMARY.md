@@ -215,7 +215,7 @@ If desired in the future:
 - ✅ Tooltips added for all species options
 - ✅ Tooltips explain Star Trek terminology
 - ✅ Helps users unfamiliar with Trek canon
-- ✅ Covers non-canon species (Qofuari, Medusan, etc.)
+- ✅ Covers non-canon species (Qofuari, Cal-Mirran, Sukhabelan) and canon species (Medusan, etc.)
 - ✅ Data separated into external file
 - ✅ No HTML modifications (as requested in comments)
 - ✅ All linters pass
