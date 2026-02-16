@@ -298,7 +298,7 @@ input, select, button, .body-radio-option {
 select:not([multiple]) {
     width: fit-content;
     margin-block: 0.25em 0.75em;
-    display: inline-block;
+    display: block;
     padding: 0.5em 2em 0.5em 0.25em;
     vertical-align: middle;
 }
