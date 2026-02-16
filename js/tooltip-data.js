@@ -254,7 +254,7 @@ export const tooltipData = {
         'Civilian Federation H': 'Federation civilian clothing style H',
         'Civilian Federation I': 'Federation civilian clothing style I',
         'Civilian Federation J': 'Federation civilian clothing style J',
-        'Leather Jacket Courrier': 'Leather jacket courier style (note: "Courrier" is a misspelling in the original)',
+        'Leather Jacket Courrier': 'Leather jacket courier style',
         'Leather Jacket Spy': 'Leather jacket spy style',
         'Leather Light Jacket': 'Light leather jacket',
         'VinShari Coat': 'VinShari species traditional coat',

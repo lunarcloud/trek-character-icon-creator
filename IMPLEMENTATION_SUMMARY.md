@@ -165,19 +165,20 @@ Uses native HTML `title` attributes, supported by:
 
 ```
 Added:
-  js/tooltip-data.js              +450 lines
-  js/tooltip-manager.js           +163 lines
-  TOOLTIP_TESTING.md              +200 lines
-  TOOLTIP_GUIDE.md                +250 lines
-  validate-tooltips.mjs           +50 lines
-  test-tooltips-inline.mjs        +30 lines
-  tests/tooltip.spec.js           +85 lines
-  verify-tooltips.html            +20 lines
+  js/tooltip-data.js              +269 lines
+  js/tooltip-manager.js           +153 lines
+  TOOLTIP_TESTING.md              +176 lines
+  TOOLTIP_GUIDE.md                +192 lines
+  IMPLEMENTATION_SUMMARY.md       +253 lines
+  validate-tooltips.mjs           +42 lines
+  test-tooltips-inline.mjs        +31 lines
+  tests/tooltip.spec.js           +81 lines
+  verify-tooltips.html            +32 lines
 
 Modified:
   index.js                        +3 lines (import + initialization)
 
-Total: ~1,251 lines added, 3 lines modified
+Total: ~1,229 lines added, 3 lines modified
 ```
 
 ## Maintainer Notes

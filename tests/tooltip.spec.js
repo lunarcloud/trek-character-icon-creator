@@ -71,10 +71,10 @@ test.describe('Tooltip Tests', () => {
         expect(commandTooltip).toContain('Command')
     })
 
-    test('hat options should have tooltips', async ({ page }) => {
-        const hatSelect = page.locator('#hat-select')
+    test('eyewear options should have tooltips', async ({ page }) => {
+        const eyewearSelect = page.locator('#eyewear-select')
 
-        const visorTooltip = await page.locator('#eyewear-select option[value="visor"]').getAttribute('title')
+        const visorTooltip = await eyewearSelect.locator('option[value="visor"]').getAttribute('title')
         expect(visorTooltip).toBeTruthy()
         expect(visorTooltip).toContain('La Forge')
     })
