@@ -7,6 +7,7 @@ Icon-y Character Creator for Star Trek
 [![environment](https://img.shields.io/badge/env-Browser-green)](https://developer.mozilla.org/en-US/docs/Glossary/Browser)
 
 ![Code Quality](https://github.com/lunarcloud/trek-character-icon-creator/actions/workflows/lint.yml/badge.svg)
+![Accessibility Tests](https://github.com/lunarcloud/trek-character-icon-creator/actions/workflows/accessibility-tests.yml/badge.svg)
 
 
 Character Creator for Star Trek style character icons
@@ -18,6 +19,7 @@ Character Creator for Star Trek style character icons
 - Species-specific features (Vulcan ears, Klingon ridges, etc.)
 - Color customization for body, uniform, and hair
 - Export as PNG image with optional background
+- **Fully accessible**: ARIA labels, keyboard navigation, and screen reader support
 
 ## Development Setup
 
@@ -56,6 +58,33 @@ npm run svglint     # SVG linting only
 - **jsconfig.json** enables JavaScript type checking in editors with IntelliSense
 - Code uses ES6+ modules with 4-space indentation
 - No semicolons (JavaScript Standard Style)
+
+## Testing
+
+### Running Tests
+The project includes automated accessibility tests using Playwright and axe-core.
+
+```sh
+npm test          # Run all tests
+npm run test:headed  # Run tests with browser visible
+npm run test:ui      # Run tests in Playwright UI mode
+```
+
+### Test Suite
+- **12 automated accessibility tests** covering:
+  - ARIA labels on all interactive elements
+  - Keyboard navigation and focus management
+  - Screen reader announcements via aria-live regions
+  - Proper semantic structure and landmarks
+  - Color picker and form labeling
+  - No automatically detectable WCAG violations (via axe-core)
+
+### Manual Testing
+For comprehensive testing, refer to `TESTING.md` which includes:
+- Browser compatibility testing
+- Viewport testing (980px × 800px for itch.io)
+- Feature testing across all body types
+- Export functionality validation
 
 ## Project Structure
 - `index.html` - Main HTML file with character creator UI
