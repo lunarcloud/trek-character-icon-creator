@@ -26,8 +26,12 @@ export class DomUtil {
         // create changed event handlers
         const onChangePicker = () => {
             // Set the "standard" colors selector to what's selected or 'custom'
-            const el = selector.querySelector(`[value="${picker.value}"]`) ??
-                selector.querySelector('[value="custom"]')
+            // Use case-insensitive comparison to find matching option
+            const pickerValueLower = picker.value.toLowerCase()
+            const matchingOption = Array.from(selector.options).find(
+                opt => opt.value.toLowerCase() === pickerValueLower
+            )
+            const el = matchingOption ?? selector.querySelector('[value="custom"]')
             if (el instanceof HTMLOptionElement)
                 selector.value = el.value
 
@@ -45,8 +49,12 @@ export class DomUtil {
         selector.addEventListener('change', onChangeSelector)
 
         // Update the selector if the current picker is one of the values
-        const el = selector.querySelector(`[value="${picker.value.toUpperCase()}"]`) ??
-                    selector.querySelector('[value="custom"]')
+        // Use case-insensitive comparison to find matching option
+        const initialPickerValueLower = picker.value.toLowerCase()
+        const initialMatchingOption = Array.from(selector.options).find(
+            opt => opt.value.toLowerCase() === initialPickerValueLower
+        )
+        const el = initialMatchingOption ?? selector.querySelector('[value="custom"]')
         if (el instanceof HTMLOptionElement)
             selector.value = el.value
 
