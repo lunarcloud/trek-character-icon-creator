@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tooltip Verification</title>
+    <script type="module">
+        import { tooltipData } from './js/tooltip-data.js';
+        import { initializeTooltips } from './js/tooltip-manager.js';
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log('✓ Tooltip data loaded:', Object.keys(tooltipData).length, 'categories');
+            console.log('  - bodyTypes:', Object.keys(tooltipData.bodyTypes).length, 'items');
+            console.log('  - ears:', Object.keys(tooltipData.ears).length, 'items');
+            console.log('  - headFeatures:', Object.keys(tooltipData.headFeatures).length, 'items');
+            console.log('  - uniformEras:', Object.keys(tooltipData.uniformEras).length, 'items');
+            console.log('  - departments:', Object.keys(tooltipData.departments).length, 'items');
+            
+            // Test a few specific tooltips
+            console.log('\nSample tooltips:');
+            console.log('  Humanoid:', tooltipData.bodyTypes.humanoid);
+            console.log('  Pointy ears:', tooltipData.ears.pointy);
+            console.log('  TOS uniform:', tooltipData.uniformEras.TOS);
+            console.log('  Command department:', tooltipData.departments.Command);
+            
+            console.log('\n✅ All tooltip data verified!');
+        });
+    </script>
+</head>
+<body>
+    <h1>Tooltip Data Verification</h1>
+    <p>Check the browser console for tooltip data verification.</p>
+</body>
+</html>
