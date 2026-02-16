@@ -2,41 +2,42 @@
     <h2 id="hair-header">Hair</h2>
 
     <div>
-        <button type="button" id="hair-color-button" class="color-display-button" aria-label="Current hair color"></button>
         <input type="color" id="hair-color" value="#270D02" hidden>
-        <label for="hair-color">Color</label>
-        <select id="std-hair-colors" aria-label="Preset hair colors">
-            <option value="custom" hidden></option>
-            <option value="#010101" selected>Black</option>
-            <option value="#270D02">Walnut</option>
-            <option value="#271C02">Darker Brown</option>
-            <option value="#2E230A">Lighter Brown</option>
-            <option value="#944123">Darker Ginger</option>
-            <option value="#DB8239">Mid Ginger</option>
-            <option value="#F0A53D">Light Ginger</option>
-            <option value="#9A6450">Auburn</option>
-            <option value="#DC9176">Strawberry Blonde</option>
-            <option value="#CB9944">Dirty Blonde</option>
-            <option value="#C1B14E">Blonde</option>
-            <option value="#DCCF7A">Platinum Blonde</option>
-            <option value="#BCB480">Grey Blonde</option>
-            <option value="#B5BEC8">Grey</option>
-            <option value="#CCCCFF">Blue Grey</option>
-            <option value="#F4F4F6">White</option>
-            <option value="#CF52BE">Pink</option>
-            <option value="#CE789D">Bubblegum</option>
-            <option value="#290D6B">Purple</option>
-            <option value="#5F072D">Red Purple</option>
-            <option value="#5F1007">Fire Red</option>
-            <option value="#222154">Darker Blue</option>
-            <option value="#2D439A">Blue</option>
-            <option value="#002E2B">Dark Blue-Green</option>
-            <option value="#06220C">Darker Green</option>
-            <option value="#2D9A43">Mid Green</option>
-            <option value="#78CE89">Lighter Green</option>
-        </select>
         <details class="color-picker-details">
-            <summary>Color Swatches</summary>
+            <summary>
+                <button type="button" id="hair-color-button" class="color-display-button" aria-label="Current hair color"></button>
+                <label for="hair-color">Color</label>
+            </summary>
+            <select id="std-hair-colors" aria-label="Preset hair colors">
+                <option value="custom" hidden></option>
+                <option value="#010101" selected>Black</option>
+                <option value="#270D02">Walnut</option>
+                <option value="#271C02">Darker Brown</option>
+                <option value="#2E230A">Lighter Brown</option>
+                <option value="#944123">Darker Ginger</option>
+                <option value="#DB8239">Mid Ginger</option>
+                <option value="#F0A53D">Light Ginger</option>
+                <option value="#9A6450">Auburn</option>
+                <option value="#DC9176">Strawberry Blonde</option>
+                <option value="#CB9944">Dirty Blonde</option>
+                <option value="#C1B14E">Blonde</option>
+                <option value="#DCCF7A">Platinum Blonde</option>
+                <option value="#BCB480">Grey Blonde</option>
+                <option value="#B5BEC8">Grey</option>
+                <option value="#CCCCFF">Blue Grey</option>
+                <option value="#F4F4F6">White</option>
+                <option value="#CF52BE">Pink</option>
+                <option value="#CE789D">Bubblegum</option>
+                <option value="#290D6B">Purple</option>
+                <option value="#5F072D">Red Purple</option>
+                <option value="#5F1007">Fire Red</option>
+                <option value="#222154">Darker Blue</option>
+                <option value="#2D439A">Blue</option>
+                <option value="#002E2B">Dark Blue-Green</option>
+                <option value="#06220C">Darker Green</option>
+                <option value="#2D9A43">Mid Green</option>
+                <option value="#78CE89">Lighter Green</option>
+            </select>
             <div class="color-swatches" id="hair-color-swatches" aria-label="Hair color swatches"></div>
         </details>
     </div>

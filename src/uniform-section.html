@@ -131,125 +131,127 @@
     </select>
     
     <div id="uniform-color-section">
-        <button type="button" id="uniform-color-button" class="color-display-button" aria-label="Current uniform color"></button>
         <input type="color" id="uniform-color" value="#CE3C35" hidden>
-        <label for="uniform-color">Color</label>
-        <label>
-            <input id="filter-color-selection" type="checkbox" checked />
-            Filter
-        </label>
-        <select id="std-uniform-colors" aria-label="Preset uniform colors">
-            <option value="custom" hidden selected></option>
-            <optgroup label="22nd–23rd (ENT-TAS)" filtergroup="TOS">
-                <option value="#A6A81F">Command</option>
-                <option value="#CE3C34">Ops / Security / Engineering</option>
-                <option value="#476795">Science</option>
-                <option value="#DAE8EC">Medical</option>
-            </optgroup>
-            <optgroup label="23rd Metal (DISCO)" filtergroup="DISCO">
-                <option value="#968013">Command</option>
-                <option value="#BE7639">Ops / Security / Engineering</option>
-                <option value="#B0B0B0">Science / Medical</option>
-            </optgroup>
-            <optgroup label="23rd–24th (TOS Films)" filtergroup="TOF">
-                <option value="#EEEEEE">Command</option>
-                <option value="#B68247">Ops</option>
-                <option value="#625B6D">Science</option>
-                <option value="#566752">Medical</option>
-                <option value="#192F20">Security</option>
-                <option value="#9D0F02">Cadet</option>
-                <option value="#111111">Enlisted</option>
-            </optgroup>
-            <optgroup label="24th (TNG)" filtergroup="TNG">
-                <option value="#CE3C35">Command</option>
-                <option value="#CEBD37">Ops / Security / Engineering</option>
-                <option value="#23BDC0">Science / Medical</option>
-            </optgroup>
-            <optgroup label="24th/32nd (TNG/VOY/DS9/DISCO)" filtergroup="VOY">
-                <option value="#83002C">Command</option>
-                <option value="#CDAE38">Ops / Security / Engineering</option>
-                <option value="#2492C2">Science / Medical</option>
-                <option value="#5c5c5c">B&W / Undecided Cadet</option>
-            </optgroup>
-            <optgroup label="24th Dark (Picard)" filtergroup="Picard">
-                <option value="#6C1C25">Command</option>
-                <option value="#6C651E">Ops / Security / Engineering</option>
-                <option value="#1E6C6A">Science / Medical</option>
-            </optgroup>
-            <optgroup label="Timeship (29th)" filtergroup="Timeship">
-                <option value="#222360">Command</option>
-                <option value="#9B5411">Ops / Security / Engineering</option>
-                <option value="#505050">Science / Medical</option>
-                <option value="#232D25">Other</option>
-            </optgroup>
-            <optgroup label="Romulan (23rd)" filtergroup="Romulan">
-                <option value="#C70021">Command</option>
-                <option value="#7e1848">Alt Command</option>
-                <option value="#00AD91" label="Technical">Ops / Engineering / Science</option>
-                <option value="#00AD08" label="Tal Shiar">Security</option>
-            </optgroup>
-            <optgroup label="Other" filtergroup="Other">
-                <option value="#222222">Intelligence</option>
-                <option value="#515274">STO Intelligence</option>
-                <option value="#E7E6FC">White</option>
-                <option value="#F1578B">Pink</option>
-                <option value="#62226c">Purple</option>
-                <option value="#ae3208">Orange</option>
-                <option value="#de6a62">Salmon</option>
-                <option value="#2f4a2f">Forest Green</option>
-                <option value="#363e6a">Midnight Blue</option>
-                <option value="#6ba09f">Blue Fog</option>
-                <option value="#cd3b1e">Red Orange</option>
-                <option value="#866741">Beige</option>
-            </optgroup>
-            <optgroup label="Sarell Expanse" filtergroup="Sarell" hidden-until-filter>
-                <option value="#761E2B">Command</option>
-                <option value="#A48104">Ops / Engineering / Security</option>
-                <option value="#096168">Science</option>
-                <option value="#5E4384">Medical</option>
-                <option value="#252525">Stealth / Intelligence</option>
-            </optgroup>
-            <optgroup label="Galaxy Quest" filtergroup="GalaxyQuest">
-                <option value="#A92321">Command</option>
-                <option value="#421D84" label="Science">Science / Medical</option>
-                <option value="#2A44A5" label="Other">Ops / Security / Engineering</option>
-            </optgroup>
-            <optgroup label="Orville" filtergroup="Orville">
-                <option value="#2678B3" extra-overlay="Orville Command">Command</option>
-                <option value="#8C2029" extra-overlay="Orville Security">Security</option>
-                <option value="#0B523F" extra-overlay="Orville Science">Science</option>
-                <option value="#0B523E" extra-overlay="Orville Medical">Medical</option>
-                <option value="#E55C41" extra-overlay="Orville Engineering">Engineering</option>
-            </optgroup>
-            <optgroup label="Stargate Atlantis" filtergroup="Stargate">
-                <option value="#622A38" label="Admin">Command</option>
-                <option value="#212322" label="Military">Security</option>
-                <option value="#1D433C" label="Technician">Ops / Engineering</option>
-                <option value="#3D5667">Science</option>
-                <option value="#B1A867">Medical</option>
-            </optgroup>
-        </select>
         <details class="color-picker-details">
-            <summary>Color Swatches</summary>
+            <summary>
+                <button type="button" id="uniform-color-button" class="color-display-button" aria-label="Current uniform color"></button>
+                <label for="uniform-color">Color</label>
+            </summary>
+            <label>
+                <input id="filter-color-selection" type="checkbox" checked />
+                Filter
+            </label>
+            <select id="std-uniform-colors" aria-label="Preset uniform colors">
+                <option value="custom" hidden selected></option>
+                <optgroup label="22nd–23rd (ENT-TAS)" filtergroup="TOS">
+                    <option value="#A6A81F">Command</option>
+                    <option value="#CE3C34">Ops / Security / Engineering</option>
+                    <option value="#476795">Science</option>
+                    <option value="#DAE8EC">Medical</option>
+                </optgroup>
+                <optgroup label="23rd Metal (DISCO)" filtergroup="DISCO">
+                    <option value="#968013">Command</option>
+                    <option value="#BE7639">Ops / Security / Engineering</option>
+                    <option value="#B0B0B0">Science / Medical</option>
+                </optgroup>
+                <optgroup label="23rd–24th (TOS Films)" filtergroup="TOF">
+                    <option value="#EEEEEE">Command</option>
+                    <option value="#B68247">Ops</option>
+                    <option value="#625B6D">Science</option>
+                    <option value="#566752">Medical</option>
+                    <option value="#192F20">Security</option>
+                    <option value="#9D0F02">Cadet</option>
+                    <option value="#111111">Enlisted</option>
+                </optgroup>
+                <optgroup label="24th (TNG)" filtergroup="TNG">
+                    <option value="#CE3C35">Command</option>
+                    <option value="#CEBD37">Ops / Security / Engineering</option>
+                    <option value="#23BDC0">Science / Medical</option>
+                </optgroup>
+                <optgroup label="24th/32nd (TNG/VOY/DS9/DISCO)" filtergroup="VOY">
+                    <option value="#83002C">Command</option>
+                    <option value="#CDAE38">Ops / Security / Engineering</option>
+                    <option value="#2492C2">Science / Medical</option>
+                    <option value="#5c5c5c">B&W / Undecided Cadet</option>
+                </optgroup>
+                <optgroup label="24th Dark (Picard)" filtergroup="Picard">
+                    <option value="#6C1C25">Command</option>
+                    <option value="#6C651E">Ops / Security / Engineering</option>
+                    <option value="#1E6C6A">Science / Medical</option>
+                </optgroup>
+                <optgroup label="Timeship (29th)" filtergroup="Timeship">
+                    <option value="#222360">Command</option>
+                    <option value="#9B5411">Ops / Security / Engineering</option>
+                    <option value="#505050">Science / Medical</option>
+                    <option value="#232D25">Other</option>
+                </optgroup>
+                <optgroup label="Romulan (23rd)" filtergroup="Romulan">
+                    <option value="#C70021">Command</option>
+                    <option value="#7e1848">Alt Command</option>
+                    <option value="#00AD91" label="Technical">Ops / Engineering / Science</option>
+                    <option value="#00AD08" label="Tal Shiar">Security</option>
+                </optgroup>
+                <optgroup label="Other" filtergroup="Other">
+                    <option value="#222222">Intelligence</option>
+                    <option value="#515274">STO Intelligence</option>
+                    <option value="#E7E6FC">White</option>
+                    <option value="#F1578B">Pink</option>
+                    <option value="#62226c">Purple</option>
+                    <option value="#ae3208">Orange</option>
+                    <option value="#de6a62">Salmon</option>
+                    <option value="#2f4a2f">Forest Green</option>
+                    <option value="#363e6a">Midnight Blue</option>
+                    <option value="#6ba09f">Blue Fog</option>
+                    <option value="#cd3b1e">Red Orange</option>
+                    <option value="#866741">Beige</option>
+                </optgroup>
+                <optgroup label="Sarell Expanse" filtergroup="Sarell" hidden-until-filter>
+                    <option value="#761E2B">Command</option>
+                    <option value="#A48104">Ops / Engineering / Security</option>
+                    <option value="#096168">Science</option>
+                    <option value="#5E4384">Medical</option>
+                    <option value="#252525">Stealth / Intelligence</option>
+                </optgroup>
+                <optgroup label="Galaxy Quest" filtergroup="GalaxyQuest">
+                    <option value="#A92321">Command</option>
+                    <option value="#421D84" label="Science">Science / Medical</option>
+                    <option value="#2A44A5" label="Other">Ops / Security / Engineering</option>
+                </optgroup>
+                <optgroup label="Orville" filtergroup="Orville">
+                    <option value="#2678B3" extra-overlay="Orville Command">Command</option>
+                    <option value="#8C2029" extra-overlay="Orville Security">Security</option>
+                    <option value="#0B523F" extra-overlay="Orville Science">Science</option>
+                    <option value="#0B523E" extra-overlay="Orville Medical">Medical</option>
+                    <option value="#E55C41" extra-overlay="Orville Engineering">Engineering</option>
+                </optgroup>
+                <optgroup label="Stargate Atlantis" filtergroup="Stargate">
+                    <option value="#622A38" label="Admin">Command</option>
+                    <option value="#212322" label="Military">Security</option>
+                    <option value="#1D433C" label="Technician">Ops / Engineering</option>
+                    <option value="#3D5667">Science</option>
+                    <option value="#B1A867">Medical</option>
+                </optgroup>
+            </select>
             <div class="color-swatches" id="uniform-color-swatches" aria-label="Uniform color swatches"></div>
         </details>
     </div>
     
     <div class="accent-color-choice-only">
-        <button type="button" id="uniform-undershirt-color-button" class="color-display-button" aria-label="Current undershirt color"></button>
         <input type="color" id="uniform-undershirt-color" value="#718085" hidden>
-        <label for="uniform-undershirt-color">Undershirt / Accent</label>
-        <select id="std-uniform-undershirt-colors" aria-label="Preset undershirt colors">
-            <option value="custom" hidden></option>
-            <option value="#c9d5d9">White</option>
-            <option value="#718085" selected>Stone Grey</option>
-            <option value="#847C8A">Nearly Grey Purple</option>
-            <option value="#736576">Purplish</option>
-            <option value="#AE90BE">Purple</option>
-            <option value="#765221">Brown</option>
-        </select>
         <details class="color-picker-details">
-            <summary>Color Swatches</summary>
+            <summary>
+                <button type="button" id="uniform-undershirt-color-button" class="color-display-button" aria-label="Current undershirt color"></button>
+                <label for="uniform-undershirt-color">Undershirt / Accent</label>
+            </summary>
+            <select id="std-uniform-undershirt-colors" aria-label="Preset undershirt colors">
+                <option value="custom" hidden></option>
+                <option value="#c9d5d9">White</option>
+                <option value="#718085" selected>Stone Grey</option>
+                <option value="#847C8A">Nearly Grey Purple</option>
+                <option value="#736576">Purplish</option>
+                <option value="#AE90BE">Purple</option>
+                <option value="#765221">Brown</option>
+            </select>
             <div class="color-swatches" id="uniform-undershirt-color-swatches" aria-label="Undershirt color swatches"></div>
         </details>
     </div>
