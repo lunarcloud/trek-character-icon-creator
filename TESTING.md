@@ -139,6 +139,13 @@ When modifying SVG files:
 - [ ] Check SVG viewBox is correct (typically `0 0 512 512`)
 - [ ] Verify no visual artifacts or distortion
 
+## Tooltip Checks
+
+1. Open the app in a browser
+2. Hover over your new options
+3. You should see the tooltip text stored in separate data file (`js/tooltip-data.js`)
+
+
 ## Performance Checks
 - [ ] Monitor browser console for errors or warnings
 - [ ] Check initial load time is reasonable
