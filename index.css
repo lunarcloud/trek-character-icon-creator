@@ -331,6 +331,41 @@ select[multiple] option {
   }
 }
 
+/* Color Swatches */
+.color-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25em;
+  margin: 0.5em 0 0.75em;
+  max-width: 100%;
+}
+
+.color-swatch {
+  width: 2em;
+  height: 2em;
+  border: 2px solid #666;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+
+  &:hover {
+    border-color: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 2px 4px rgb(0 0 0 / 30%);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &.selected {
+    border-color: #fff;
+    border-width: 3px;
+    box-shadow: 0 0 8px rgb(255 255 255 / 60%);
+  }
+}
+
 @media (pointer: fine) {
   #head-feature-select {
     height: 12em;
