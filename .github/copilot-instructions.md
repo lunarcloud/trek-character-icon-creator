@@ -531,6 +531,8 @@ This is primarily a personal project by @lunarcloud. Contributions are considere
 - Don't break the uniform/department color system
 - Don't introduce external API dependencies
 - Don't modify the core export functionality without extensive testing
+- Don't add a document that solely describes the PR changes
+- Don't add "tests" which are manual web pages to demonstrate a newly-added feature. (Use "spec" unit tests instead)
 - **NEVER create new SVG artwork** - all SVG assets are hand-crafted by humans
 
 ### Best Practices for AI Agents

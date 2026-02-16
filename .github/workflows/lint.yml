@@ -41,3 +41,7 @@ jobs:
       - name: Lint SVG
         if: ${{ ! cancelled() }}
         run: npm run svglint
+
+      - name: Validate Tooltips
+        if: ${{ ! cancelled() }}
+        run: node tests/validate-tooltips.mjs

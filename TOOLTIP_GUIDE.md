@@ -17,7 +17,7 @@ Here are a few examples of the tooltips users will see:
 |--------|---------|
 | Humanoid (Body Type) | "Standard bipedal form with two arms, two legs, and a head. Most Star Trek species are humanoid." |
 | Pointy (Ears) | "Distinctive pointed ears typical of Vulcans, Romulans, and related species" |
-| TOS (Uniform) | "The Original Series (2260s) - Classic colored tunics with black pants" |
+| TOS (Uniform) | "The Original Series (2260s) - Classic colored tunics" |
 
 ## How to See Tooltips
 

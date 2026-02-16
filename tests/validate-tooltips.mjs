@@ -1,5 +1,5 @@
 // Validate tooltip data structure
-import { tooltipData } from './js/tooltip-data.js';
+import { tooltipData } from '../js/tooltip-data.js';
 
 console.log('🔍 Validating Tooltip Data Structure\n');
 
