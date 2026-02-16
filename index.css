@@ -375,6 +375,11 @@ select[multiple] option {
 
   & .color-display {
     flex-shrink: 0;
+
+    /* Give it body */
+    width: 1em;
+    height: 1em;
+    border-radius: .25em;
   }
 
   & span {
