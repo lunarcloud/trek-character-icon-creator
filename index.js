@@ -4,7 +4,7 @@ import { UniformManager } from './js/uniform-manager.js'
 import { BodyTypeManager } from './js/body-type-manager.js'
 import { DomUtil } from './js/util-dom.js'
 import { saveTextAs } from './js/save-file-utils.js'
-import { initializeTooltips } from './js/tooltip-manager.js'
+import { TooltipManager } from './js/tooltip-manager.js'
 
 /**
  * Controller for the Main, Index, Page.
@@ -40,7 +40,7 @@ export class IndexController {
         this.#uniformManager = new UniformManager()
 
         // Initialize tooltips
-        initializeTooltips()
+        TooltipManager.initialize()
 
         this.#setupEventListeners()
         this.#setupKeyboardShortcuts()
