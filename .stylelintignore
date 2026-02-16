@@ -1,2 +1,4 @@
 lib/**/*.css
+playwright-report/**/*.css
+js/lib/**/*.css
 

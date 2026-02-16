@@ -1,6 +1,6 @@
 <group class="break-before non-cal-mirran">
     <h2 id="uniform-header">Uniform</h2>
-    <select id="uniform-select">
+    <select id="uniform-select" aria-label="Uniform style">
         <optgroup label="Starfleet" class="non-qofuari">
             <option class="humanoid-only" colors-filter="TOS">ENT</option>
             <option class="humanoid-only" colors-filter="TOS">Mid 22nd</option>
@@ -137,7 +137,7 @@
             <input id="filter-color-selection" type="checkbox" checked />
             Filter
         </label>
-        <select id="std-uniform-colors">
+        <select id="std-uniform-colors" aria-label="Preset uniform colors">
             <option value="custom" hidden selected></option>
             <optgroup label="22nd–23rd (ENT-TAS)" filtergroup="TOS">
                 <option value="#A6A81F">Command</option>
@@ -233,7 +233,7 @@
     <div class="accent-color-choice-only">
         <input type="color" id="uniform-undershirt-color" value="#718085">
         <label for="uniform-undershirt-color">Undershirt / Accent</label>
-        <select id="std-uniform-undershirt-colors">
+        <select id="std-uniform-undershirt-colors" aria-label="Preset undershirt colors">
             <option value="custom" hidden></option>
             <option value="#c9d5d9">White</option>
             <option value="#718085" selected>Stone Grey</option>

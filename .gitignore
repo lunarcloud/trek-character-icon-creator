@@ -5,6 +5,11 @@ export
 # Build artifacts
 index.html
 
+# Test artifacts
+playwright-report
+test-results
+.playwright
+
 # Logs
 logs
 *.log

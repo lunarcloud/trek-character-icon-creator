@@ -4,7 +4,7 @@
     <div>
         <input type="color" id="hair-color" value="#270D02">
         <label for="hair-color">Color</label>
-        <select id="std-hair-colors">
+        <select id="std-hair-colors" aria-label="Preset hair colors">
             <option value="custom" hidden></option>
             <option value="#010101" selected>Black</option>
             <option value="#270D02">Walnut</option>
@@ -38,7 +38,7 @@
 
     <h3>Facial</h3>
     <div class="index-list">
-        <select id="facial-hair-select">
+        <select id="facial-hair-select" aria-label="Facial hair style">
             <option value="none" selected>None</option>
             <option value="mustache-a">Mustache A</option>
             <option value="mustache-b">Mustache B</option>
@@ -70,12 +70,12 @@
             <option value="five-o-clock-shadow">Five O'Clock Shadow</option>
             <option value="cat-mouth-beard" class="non-qofuari">Cat Mouth Beard</option>
         </select>
-        <button id="facial-hair-next" title="Next option">➜</button>
+        <button id="facial-hair-next" title="Next option" aria-label="Next facial hair option">➜</button>
     </div>
 
     <h3>Head</h3>
     <div class="index-list">
-        <select id="hair-select">
+        <select id="hair-select" aria-label="Head hair style">
             <option value="none">None</option>
             <option value="a">A</option>
             <option value="b">B</option>
@@ -129,14 +129,14 @@
             <option value="ax">AX</option>
             <option value="ay">AY</option>
         </select>
-        <button id="hair-next" title="Next option">➜</button>
-        <label class="toggle-button" title="Mirror horizontally">
-            <input id="hair-mirror" type="checkbox" />
+        <button id="hair-next" title="Next option" aria-label="Next head hair option">➜</button>
+        <label class="toggle-button" title="Mirror horizontally" tabindex="0">
+            <input id="hair-mirror" type="checkbox" aria-label="Mirror hair horizontally" />
             <span>⎅</span>
         </label>
     </div>
     <div class="index-list non-qofuari">
-        <select id="rear-hair-select">
+        <select id="rear-hair-select" aria-label="Rear hair style">
             <option value="none" selected>None</option>
             <option value="a">A</option>
             <option value="b">B</option>
@@ -162,9 +162,9 @@
             <option value="v">V</option>
             <option value="w">W</option>
         </select>
-        <button id="rear-hair-next" title="Next option">➜</button>
+        <button id="rear-hair-next" title="Next option" aria-label="Next rear hair option">➜</button>
         <label class="toggle-button" title="Mirror horizontally" tabindex="0">
-            <input id="rear-hair-mirror" type="checkbox" />
+            <input id="rear-hair-mirror" type="checkbox" aria-label="Mirror rear hair horizontally" />
             <span>⎅</span>
         </label>
     </div>
