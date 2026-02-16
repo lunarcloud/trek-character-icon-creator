@@ -141,7 +141,7 @@ export class ColorSwatches {
 
         const questionMark = document.createElement('span')
         questionMark.className = 'custom-picker-label'
-        questionMark.textContent = '?'
+        questionMark.textContent = '🎛️'
         questionMark.setAttribute('aria-hidden', 'true')
 
         customColorInput.addEventListener('change', () => {

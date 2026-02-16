@@ -377,9 +377,10 @@ select[multiple] option {
     flex-shrink: 0;
 
     /* Give it body */
-    width: 1em;
+    aspect-ratio: 1;
     height: 1em;
     border-radius: .25em;
+    box-shadow: 0 0 2px 0 #bebebe, inset 0 0 2px 0px #000000
   }
 
   & span {
