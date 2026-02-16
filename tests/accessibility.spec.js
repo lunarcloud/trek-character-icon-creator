@@ -150,11 +150,11 @@ test.describe('Accessibility Tests', () => {
     test('character preview should have appropriate role and label', async ({ page }) => {
         const characterPreview = await page.locator('character')
         await expect(characterPreview).toBeVisible()
-        
+
         // Check if it has a role or aria-label
         const role = await characterPreview.getAttribute('role')
         const ariaLabel = await characterPreview.getAttribute('aria-label')
-        
+
         expect(role || ariaLabel).toBeTruthy()
     })
 
@@ -225,11 +225,11 @@ test.describe('Accessibility Tests', () => {
 
     test('color pickers should have associated labels', async ({ page }) => {
         const colorInputs = await page.locator('input[type="color"]').all()
-        
+
         for (const input of colorInputs) {
             const isVisible = await input.isVisible()
             if (!isVisible) continue
-            
+
             const id = await input.getAttribute('id')
             if (id) {
                 const label = await page.locator(`label[for="${id}"]`)
@@ -244,7 +244,7 @@ test.describe('Accessibility Tests', () => {
 
     test('select dropdowns should have proper context', async ({ page }) => {
         const selects = await page.locator('select').all()
-        
+
         for (const select of selects) {
             const isVisible = await select.isVisible()
             if (isVisible) {
@@ -252,11 +252,11 @@ test.describe('Accessibility Tests', () => {
                 const id = await select.getAttribute('id')
                 const ariaLabel = await select.getAttribute('aria-label')
                 const ariaLabelledby = await select.getAttribute('aria-labelledby')
-                
+
                 if (id) {
                     const label = await page.locator(`label[for="${id}"]`)
                     const labelExists = await label.count() > 0
-                    
+
                     expect(labelExists || ariaLabel || ariaLabelledby).toBeTruthy()
                 }
             }
@@ -266,20 +266,20 @@ test.describe('Accessibility Tests', () => {
     test('aria-live region should announce body type changes', async ({ page }) => {
         const announcements = await page.locator('#character-announcements')
         await expect(announcements).toBeAttached()
-        
+
         const ariaLive = await announcements.getAttribute('aria-live')
         expect(ariaLive).toBe('polite')
-        
+
         const ariaAtomic = await announcements.getAttribute('aria-atomic')
         expect(ariaAtomic).toBe('true')
-        
+
         // Change body type and check if announcement is made
         const bodyShapeSelect = await page.locator('#body-shape')
         await bodyShapeSelect.selectOption('cetaceous')
-        
+
         // Wait a bit for the announcement to be made
         await page.waitForTimeout(200)
-        
+
         const announcementText = await announcements.textContent()
         expect(announcementText).toContain('Cetaceous')
     })

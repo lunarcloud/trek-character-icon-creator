@@ -4,6 +4,7 @@ import { UniformManager } from './js/uniform-manager.js'
 import { BodyTypeManager } from './js/body-type-manager.js'
 import { DomUtil } from './js/util-dom.js'
 import { saveTextAs } from './js/save-file-utils.js'
+import { TooltipManager } from './js/tooltip-manager.js'
 
 /**
  * Controller for the Main, Index, Page.
@@ -37,6 +38,9 @@ export class IndexController {
         this.#elements = new CharacterElements()
         this.#colorManager = new ColorManager(() => this.onChangeDetected())
         this.#uniformManager = new UniformManager()
+
+        // Initialize tooltips
+        TooltipManager.initialize()
 
         this.#setupEventListeners()
         this.#setupKeyboardShortcuts()
@@ -104,7 +108,7 @@ export class IndexController {
      */
     #announce (message) {
         if (!this.#elements.characterAnnouncements) return
-        
+
         // Clear and set with a small delay to ensure screen readers pick up the change
         this.#elements.characterAnnouncements.textContent = ''
         setTimeout(() => {
