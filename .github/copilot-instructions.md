@@ -122,6 +122,46 @@ npm run svglint     # SVG only
    - At least 2 other body types
    - Export functionality
 
+## Build Process
+
+**IMPORTANT:** This project uses a build system to generate `index.html` from partials.
+
+### Initial Setup
+```bash
+npm install  # Install dependencies (required before first build)
+```
+
+### Building the HTML
+```bash
+npm run build  # Generates index.html from src/ partials
+```
+
+The build process:
+- Runs `node src/build-html.js`
+- Combines HTML partials from `src/` directory
+- Copies external dependencies (html2canvas, svg-loader)
+- Outputs `index.html` to repository root
+
+### Development Workflow
+```bash
+npm run serve  # Build + watch + start local server
+```
+
+This command:
+1. Runs `npm run build` to generate index.html
+2. Starts `npm run watch` to rebuild on file changes
+3. Starts `npx serve` on http://localhost:3000
+
+### Testing Changes
+- Navigate to `http://localhost:3000/index.html` (not just `http://localhost:3000/`)
+- The serve command shows a directory listing by default
+- Always test UI changes in the actual built `index.html`
+
+### Common Build Issues
+- **"Cannot find index.html"**: Run `npm run build` first
+- **Dependencies missing**: Run `npm install` then `npm run build`
+- **Changes not appearing**: Ensure watch is running or rebuild manually
+
 ## Common Tasks
 
 ### Adding New Features
