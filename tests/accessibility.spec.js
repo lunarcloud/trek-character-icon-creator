@@ -14,6 +14,11 @@ test.describe('Accessibility Tests', () => {
     })
 
     test('all interactive elements should have accessible names', async ({ page }) => {
+        // Character name input
+        const characterName = await page.locator('#character-name')
+        const characterNameAriaLabel = await characterName.getAttribute('aria-label')
+        expect(characterNameAriaLabel).toBeTruthy()
+
         // Body shape selector
         const bodyShape = await page.locator('#body-shape')
         const bodyShapeName = await bodyShape.getAttribute('aria-label')
@@ -94,7 +99,12 @@ test.describe('Accessibility Tests', () => {
     })
 
     test('all interactive elements should be keyboard accessible', async ({ page }) => {
-        // Test body shape selector is focusable
+        // First tab goes to character name input
+        await page.keyboard.press('Tab')
+        const characterName = await page.locator('#character-name')
+        await expect(characterName).toBeFocused()
+
+        // Second tab goes to body shape selector
         await page.keyboard.press('Tab')
         const bodyShape = await page.locator('#body-shape')
         await expect(bodyShape).toBeFocused()
