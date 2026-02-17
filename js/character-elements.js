@@ -160,6 +160,11 @@ export class CharacterElements {
     saveFormatSelect
 
     /**
+     * @type {HTMLInputElement}
+     */
+    characterNameInput
+
+    /**
      * Constructor - Initialize all DOM element references.
      */
     constructor () {
@@ -200,6 +205,7 @@ export class CharacterElements {
         this.rearHairSelect = getSelectElement('rear-hair-select')
         this.rearHairMirror = getInputElement('rear-hair-mirror')
         this.saveBGCheck = getInputElement('save-with-bg-checkbox')
+        this.characterNameInput = getInputElement('character-name')
     }
 
     /**
@@ -247,7 +253,8 @@ export class CharacterElements {
             this.rearHairSelect,
             this.hairMirror,
             this.rearHairMirror,
-            this.calMirranShapeSelect
+            this.calMirranShapeSelect,
+            this.characterNameInput
         ]
     }
 }
