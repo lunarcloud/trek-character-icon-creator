@@ -70,14 +70,20 @@ export class IndexController {
 
         // Setup the save as image functionality
         document.getElementById('download-svg')
-            .addEventListener('click', () => DomUtil.SaveImage('star-trek-character.svg',
-                this.#elements.mainEl, this.#elements.mainEl.querySelector('character'),
-                this.#elements.saveBGCheck.checked, 'svg'))
+            .addEventListener('click', () => {
+                const filename = this.#getImageFilename('svg')
+                DomUtil.SaveImage(filename,
+                    this.#elements.mainEl, this.#elements.mainEl.querySelector('character'),
+                    this.#elements.saveBGCheck.checked, 'svg')
+            })
 
         document.getElementById('download-png')
-            .addEventListener('click', () => DomUtil.SaveImage('star-trek-character.png',
-                this.#elements.mainEl, this.#elements.mainEl.querySelector('character'),
-                this.#elements.saveBGCheck.checked, 'png'))
+            .addEventListener('click', () => {
+                const filename = this.#getImageFilename('png')
+                DomUtil.SaveImage(filename,
+                    this.#elements.mainEl, this.#elements.mainEl.querySelector('character'),
+                    this.#elements.saveBGCheck.checked, 'png')
+            })
 
         // Setup the file-based save and load functionality
         document.getElementById('save-character')
@@ -301,6 +307,7 @@ export class IndexController {
     #serializeCharacter () {
         const config = {
             version: '1.0',
+            name: this.#elements.characterNameInput.value || 'Trek Character',
             bodyShape: this.#elements.shapeSelect.value,
             colors: {
                 body: this.#colorManager.bodyColorPicker.value,
@@ -361,6 +368,11 @@ export class IndexController {
         // Apply body shape first as it affects available options
         if (config.bodyShape) {
             this.#elements.shapeSelect.value = config.bodyShape
+        }
+
+        // Apply character name
+        if (config.name) {
+            this.#elements.characterNameInput.value = config.name
         }
 
         // Pre-seed last-used body color so onChangeDetected's body-shape-change
@@ -550,14 +562,33 @@ export class IndexController {
     }
 
     /**
+     * Generate a filename for image export based on character name.
+     * @param {string} extension - File extension (e.g., 'png', 'svg')
+     * @returns {string} Sanitized filename
+     */
+    #getImageFilename (extension) {
+        const characterName = this.#elements.characterNameInput.value || 'trek-character'
+        const sanitizedName = characterName
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '')
+        return `${sanitizedName}-icon.${extension}`
+    }
+
+    /**
      * Save the current character configuration to a STCC file.
      */
     async #saveCharacter () {
         const config = this.#serializeCharacter()
         const json = JSON.stringify(config, null, 2)
 
+        const characterName = this.#elements.characterNameInput.value || 'Trek Character'
+        const sanitizedName = characterName
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '')
         const timestamp = new Date().toISOString().replace(/[:.]/g, '-').substring(0, 19)
-        const filename = `character-${timestamp}.stcc`
+        const filename = `${sanitizedName}-${timestamp}.stcc`
 
         try {
             await saveTextAs(filename, json, {

@@ -256,6 +256,33 @@ body {
     }
   }
 
+  #character-name-container {
+    margin: 0.5em auto;
+    text-align: center;
+
+    #character-name {
+      font-family: Roddenberry, sans-serif;
+      font-size: 1.25em;
+      padding: 0.25em 0.5em;
+      border: 2px solid rgb(13 81 102);
+      border-radius: 0.25em;
+      background-color: #fff;
+      color: #111;
+      text-align: center;
+      width: min(20em, 90%);
+
+      &::placeholder {
+        color: #888;
+        font-style: italic;
+      }
+
+      &:focus {
+        outline: 2px solid rgb(102 13 31);
+        outline-offset: 2px;
+      }
+    }
+  }
+
   footer {
     padding: 0.25em;
     display: flex;
