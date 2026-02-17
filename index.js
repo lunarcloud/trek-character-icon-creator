@@ -489,7 +489,7 @@ export class IndexController {
             const confirmBtn = document.getElementById('confirm-action-btn')
             const cancelBtn = document.getElementById('cancel-action-btn')
 
-            if (!(dialog instanceof HTMLDialogElement)) {
+            if (!(dialog instanceof HTMLDialogElement) || !messageEl || !confirmBtn || !cancelBtn) {
                 console.error('Dialog element not found')
                 // Fallback to browser confirm if dialog not available
                 resolve(confirm(message))
@@ -512,21 +512,20 @@ export class IndexController {
                 resolve(false)
             }
 
-            const handleEscape = (e) => {
-                if (e.key === 'Escape') {
-                    handleCancel()
-                }
+            const handleDialogCancel = (e) => {
+                e.preventDefault()
+                handleCancel()
             }
 
             const cleanup = () => {
                 confirmBtn.removeEventListener('click', handleConfirm)
                 cancelBtn.removeEventListener('click', handleCancel)
-                dialog.removeEventListener('keydown', handleEscape)
+                dialog.removeEventListener('cancel', handleDialogCancel)
             }
 
             confirmBtn.addEventListener('click', handleConfirm)
             cancelBtn.addEventListener('click', handleCancel)
-            dialog.addEventListener('keydown', handleEscape)
+            dialog.addEventListener('cancel', handleDialogCancel)
 
             dialog.showModal()
         })
@@ -577,6 +576,14 @@ export class IndexController {
      * Load a character configuration from a STCC file.
      */
     async #loadCharacter () {
+        // Validate file input exists first
+        const fileInput = document.getElementById('load-character-input')
+        if (!(fileInput instanceof HTMLInputElement)) {
+            console.error('File input element not found')
+            alert('An error occurred. Please refresh the page.')
+            return
+        }
+
         // Check for unsaved changes before opening file picker
         if (this.#hasUnsavedChanges()) {
             const confirmed = await this.#showConfirmationDialog(
@@ -585,13 +592,6 @@ export class IndexController {
             if (!confirmed) {
                 return
             }
-        }
-
-        const fileInput = document.getElementById('load-character-input')
-        if (!(fileInput instanceof HTMLInputElement)) {
-            console.error('File input element not found')
-            alert('An error occurred. Please refresh the page.')
-            return
         }
 
         // Set up the file input change handler
