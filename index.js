@@ -6,6 +6,7 @@ import { BodyTypeManager } from './js/body-type-manager.js'
 import { DomUtil } from './js/util-dom.js'
 import { saveTextAs } from './js/save-file-utils.js'
 import { TooltipManager } from './js/tooltip-manager.js'
+import { AutosaveManager } from './js/autosave-manager.js'
 
 /**
  * Controller for the Main, Index, Page.
@@ -32,6 +33,11 @@ export class IndexController {
     #lastBodyShape = null
 
     /**
+     * @type {AutosaveManager}
+     */
+    #autosaveManager
+
+    /**
      * Constructor.
      */
     constructor () {
@@ -39,6 +45,7 @@ export class IndexController {
         this.#elements = new CharacterElements()
         this.#colorManager = new ColorManager(() => this.onChangeDetected())
         this.#uniformManager = new UniformManager()
+        this.#autosaveManager = new AutosaveManager()
 
         // Initialize tooltips
         TooltipManager.initialize()
@@ -52,8 +59,8 @@ export class IndexController {
         this.#setupEventListeners()
         this.#setupKeyboardShortcuts()
 
-        // Trigger the change detection to begin, so we won't start in an unsupported/unusual state
-        this.onChangeDetected()
+        // Restore autosaved state or trigger initial change detection
+        this.#restoreAutosave()
 
         // Setup the save as image functionality
         document.getElementById('download-svg')
@@ -72,6 +79,10 @@ export class IndexController {
 
         document.getElementById('load-character')
             .addEventListener('click', () => this.#loadCharacter())
+
+        // Setup the reset button to clear autosave and reload
+        document.getElementById('reset-character')
+            .addEventListener('click', () => this.#resetCharacter())
     }
 
     /**
@@ -255,6 +266,9 @@ export class IndexController {
 
         // Update the CSS styles for the character based on the choices
         this.#elements.characterStyleEl.innerHTML = this.#colorManager.generateColorStyles()
+
+        // Autosave current state to localStorage
+        this.#autosaveManager.save(this.#serializeCharacter())
     }
 
     /**
@@ -401,6 +415,32 @@ export class IndexController {
         this.onChangeDetected()
 
         return true
+    }
+
+    /**
+     * Attempt to restore autosaved character state from localStorage.
+     * Falls back to initial change detection if no autosave exists or restore fails.
+     */
+    #restoreAutosave () {
+        const saved = this.#autosaveManager.load()
+        if (saved) {
+            try {
+                this.#deserializeCharacter(saved)
+                return
+            } catch (err) {
+                console.error('Failed to restore autosave:', err)
+            }
+        }
+        // Trigger the change detection to begin, so we won't start in an unsupported/unusual state
+        this.onChangeDetected()
+    }
+
+    /**
+     * Reset the character to default state and clear autosaved data.
+     */
+    #resetCharacter () {
+        this.#autosaveManager.clear()
+        location.reload()
     }
 
     /**
