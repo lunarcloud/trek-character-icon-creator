@@ -270,7 +270,7 @@ body {
       border: none;
       background-color: transparent;
       color: #111;
-      text-shadow: 1px 1px 6px #ffffff;
+      text-shadow: 1px 1px 6px #fff;
       text-align: inline-start;
       padding-inline-start: 1.25em;
       width: min(20em, 90%);
