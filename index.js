@@ -272,6 +272,20 @@ export class IndexController {
     }
 
     /**
+     * Apply color values from a config object to the color pickers.
+     * @param {object} colors - The colors object from a character config
+     */
+    #applyColorPickers (colors) {
+        if (colors.body) this.#colorManager.bodyColorPicker.value = colors.body
+        if (colors.hair) this.#colorManager.hairColorPicker.value = colors.hair
+        if (colors.uniform) this.#colorManager.uniformColorPicker.value = colors.uniform
+        if (colors.uniformUndershirt) this.#colorManager.uniformUndershirtColorPicker.value = colors.uniformUndershirt
+        if (colors.antennae) this.#colorManager.antennaeColorPicker.value = colors.antennae
+        if (colors.birdTuft) this.#colorManager.birdTuftColorPicker.value = colors.birdTuft
+        if (colors.whiskers) this.#colorManager.whiskersColorPicker.value = colors.whiskers
+    }
+
+    /**
      * Serialize the current character configuration to JSON.
      * @returns {object} The character configuration as a plain object
      */
@@ -348,13 +362,7 @@ export class IndexController {
 
         // Apply colors
         if (config.colors) {
-            if (config.colors.body) this.#colorManager.bodyColorPicker.value = config.colors.body
-            if (config.colors.hair) this.#colorManager.hairColorPicker.value = config.colors.hair
-            if (config.colors.uniform) this.#colorManager.uniformColorPicker.value = config.colors.uniform
-            if (config.colors.uniformUndershirt) this.#colorManager.uniformUndershirtColorPicker.value = config.colors.uniformUndershirt
-            if (config.colors.antennae) this.#colorManager.antennaeColorPicker.value = config.colors.antennae
-            if (config.colors.birdTuft) this.#colorManager.birdTuftColorPicker.value = config.colors.birdTuft
-            if (config.colors.whiskers) this.#colorManager.whiskersColorPicker.value = config.colors.whiskers
+            this.#applyColorPickers(config.colors)
         }
 
         // Apply color sync settings
@@ -423,13 +431,7 @@ export class IndexController {
         // Re-apply colors that onChangeDetected may have overwritten
         // (e.g. uniform color filtering/validation replaces the picker value)
         if (config.colors) {
-            if (config.colors.body) this.#colorManager.bodyColorPicker.value = config.colors.body
-            if (config.colors.hair) this.#colorManager.hairColorPicker.value = config.colors.hair
-            if (config.colors.uniform) this.#colorManager.uniformColorPicker.value = config.colors.uniform
-            if (config.colors.uniformUndershirt) this.#colorManager.uniformUndershirtColorPicker.value = config.colors.uniformUndershirt
-            if (config.colors.antennae) this.#colorManager.antennaeColorPicker.value = config.colors.antennae
-            if (config.colors.birdTuft) this.#colorManager.birdTuftColorPicker.value = config.colors.birdTuft
-            if (config.colors.whiskers) this.#colorManager.whiskersColorPicker.value = config.colors.whiskers
+            this.#applyColorPickers(config.colors)
         }
         this.#colorManager.updateSynchronizedColors()
         this.#elements.characterStyleEl.innerHTML = this.#colorManager.generateColorStyles()
