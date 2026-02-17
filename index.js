@@ -6,6 +6,7 @@ import { BodyTypeManager } from './js/body-type-manager.js'
 import { DomUtil } from './js/util-dom.js'
 import { saveTextAs } from './js/save-file-utils.js'
 import { TooltipManager } from './js/tooltip-manager.js'
+import { AutosaveManager } from './js/autosave-manager.js'
 
 /**
  * Controller for the Main, Index, Page.
@@ -32,6 +33,11 @@ export class IndexController {
     #lastBodyShape = null
 
     /**
+     * @type {AutosaveManager}
+     */
+    #autosaveManager
+
+    /**
      * Constructor.
      */
     constructor () {
@@ -39,6 +45,7 @@ export class IndexController {
         this.#elements = new CharacterElements()
         this.#colorManager = new ColorManager(() => this.onChangeDetected())
         this.#uniformManager = new UniformManager()
+        this.#autosaveManager = new AutosaveManager()
 
         // Initialize tooltips
         TooltipManager.initialize()
@@ -52,8 +59,8 @@ export class IndexController {
         this.#setupEventListeners()
         this.#setupKeyboardShortcuts()
 
-        // Trigger the change detection to begin, so we won't start in an unsupported/unusual state
-        this.onChangeDetected()
+        // Restore autosaved state or trigger initial change detection
+        this.#restoreAutosave()
 
         // Setup the save as image functionality
         document.getElementById('download-svg')
@@ -72,6 +79,10 @@ export class IndexController {
 
         document.getElementById('load-character')
             .addEventListener('click', () => this.#loadCharacter())
+
+        // Setup the reset button to clear autosave and reload
+        document.getElementById('reset-character')
+            .addEventListener('click', () => this.#resetCharacter())
     }
 
     /**
@@ -255,6 +266,23 @@ export class IndexController {
 
         // Update the CSS styles for the character based on the choices
         this.#elements.characterStyleEl.innerHTML = this.#colorManager.generateColorStyles()
+
+        // Autosave current state to localStorage
+        this.#autosaveManager.save(this.#serializeCharacter())
+    }
+
+    /**
+     * Apply color values from a config object to the color pickers.
+     * @param {object} colors - The colors object from a character config
+     */
+    #applyColorPickers (colors) {
+        if (colors.body) this.#colorManager.bodyColorPicker.value = colors.body
+        if (colors.hair) this.#colorManager.hairColorPicker.value = colors.hair
+        if (colors.uniform) this.#colorManager.uniformColorPicker.value = colors.uniform
+        if (colors.uniformUndershirt) this.#colorManager.uniformUndershirtColorPicker.value = colors.uniformUndershirt
+        if (colors.antennae) this.#colorManager.antennaeColorPicker.value = colors.antennae
+        if (colors.birdTuft) this.#colorManager.birdTuftColorPicker.value = colors.birdTuft
+        if (colors.whiskers) this.#colorManager.whiskersColorPicker.value = colors.whiskers
     }
 
     /**
@@ -326,15 +354,15 @@ export class IndexController {
             this.#elements.shapeSelect.value = config.bodyShape
         }
 
+        // Pre-seed last-used body color so onChangeDetected's body-shape-change
+        // path preserves the saved color instead of using the hardcoded default
+        if (config.colors?.body && config.bodyShape) {
+            this.#colorManager.setLastUsedBodyColor(config.bodyShape, config.colors.body)
+        }
+
         // Apply colors
         if (config.colors) {
-            if (config.colors.body) this.#colorManager.bodyColorPicker.value = config.colors.body
-            if (config.colors.hair) this.#colorManager.hairColorPicker.value = config.colors.hair
-            if (config.colors.uniform) this.#colorManager.uniformColorPicker.value = config.colors.uniform
-            if (config.colors.uniformUndershirt) this.#colorManager.uniformUndershirtColorPicker.value = config.colors.uniformUndershirt
-            if (config.colors.antennae) this.#colorManager.antennaeColorPicker.value = config.colors.antennae
-            if (config.colors.birdTuft) this.#colorManager.birdTuftColorPicker.value = config.colors.birdTuft
-            if (config.colors.whiskers) this.#colorManager.whiskersColorPicker.value = config.colors.whiskers
+            this.#applyColorPickers(config.colors)
         }
 
         // Apply color sync settings
@@ -400,7 +428,42 @@ export class IndexController {
         // Trigger change detection to update the UI
         this.onChangeDetected()
 
+        // Re-apply colors that onChangeDetected may have overwritten
+        // (e.g. uniform color filtering/validation replaces the picker value)
+        if (config.colors) {
+            this.#applyColorPickers(config.colors)
+        }
+        this.#colorManager.updateSynchronizedColors()
+        this.#elements.characterStyleEl.innerHTML = this.#colorManager.generateColorStyles()
+        this.#autosaveManager.save(this.#serializeCharacter())
+
         return true
+    }
+
+    /**
+     * Attempt to restore autosaved character state from localStorage.
+     * Falls back to initial change detection if no autosave exists or restore fails.
+     */
+    #restoreAutosave () {
+        const saved = this.#autosaveManager.load()
+        if (saved) {
+            try {
+                this.#deserializeCharacter(saved)
+                return
+            } catch (err) {
+                console.error('Failed to restore autosave:', err)
+            }
+        }
+        // Trigger the change detection to begin, so we won't start in an unsupported/unusual state
+        this.onChangeDetected()
+    }
+
+    /**
+     * Reset the character to default state and clear autosaved data.
+     */
+    #resetCharacter () {
+        this.#autosaveManager.clear()
+        location.reload()
     }
 
     /**
