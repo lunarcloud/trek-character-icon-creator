@@ -38,6 +38,12 @@ export class IndexController {
     #autosaveManager
 
     /**
+     * Track whether changes have been made since last save/load.
+     * @type {boolean}
+     */
+    #hasChanges = false
+
+    /**
      * Constructor.
      */
     constructor () {
@@ -267,6 +273,9 @@ export class IndexController {
         // Update the CSS styles for the character based on the choices
         this.#elements.characterStyleEl.innerHTML = this.#colorManager.generateColorStyles()
 
+        // Mark that changes have been made
+        this.#hasChanges = true
+
         // Autosave current state to localStorage
         this.#autosaveManager.save(this.#serializeCharacter())
     }
@@ -449,6 +458,8 @@ export class IndexController {
         if (saved) {
             try {
                 this.#deserializeCharacter(saved)
+                // Clear the changes flag after restoring autosave
+                this.#hasChanges = false
                 return
             } catch (err) {
                 console.error('Failed to restore autosave:', err)
@@ -459,9 +470,81 @@ export class IndexController {
     }
 
     /**
+     * Check if there are unsaved changes since last save/load.
+     * @returns {boolean} True if there are unsaved changes
+     */
+    #hasUnsavedChanges () {
+        return this.#hasChanges
+    }
+
+    /**
+     * Show confirmation dialog for unsaved changes.
+     * @param {string} message - The message to display in the dialog
+     * @returns {Promise<boolean>} True if user confirms, false if cancelled
+     */
+    #showConfirmationDialog (message) {
+        return new Promise((resolve) => {
+            const dialog = document.getElementById('unsaved-changes-dialog')
+            const messageEl = document.getElementById('unsaved-changes-message')
+            const confirmBtn = document.getElementById('confirm-action-btn')
+            const cancelBtn = document.getElementById('cancel-action-btn')
+
+            if (!(dialog instanceof HTMLDialogElement) || !messageEl || !confirmBtn || !cancelBtn) {
+                console.error('Dialog element not found')
+                // Fallback to browser confirm if dialog not available
+                resolve(confirm(message))
+                return
+            }
+
+            // Set the message
+            messageEl.textContent = message
+
+            // Setup event handlers
+            const handleConfirm = () => {
+                cleanup()
+                dialog.close()
+                resolve(true)
+            }
+
+            const handleCancel = () => {
+                cleanup()
+                dialog.close()
+                resolve(false)
+            }
+
+            const handleDialogCancel = (e) => {
+                e.preventDefault()
+                handleCancel()
+            }
+
+            const cleanup = () => {
+                confirmBtn.removeEventListener('click', handleConfirm)
+                cancelBtn.removeEventListener('click', handleCancel)
+                dialog.removeEventListener('cancel', handleDialogCancel)
+            }
+
+            confirmBtn.addEventListener('click', handleConfirm)
+            cancelBtn.addEventListener('click', handleCancel)
+            dialog.addEventListener('cancel', handleDialogCancel)
+
+            dialog.showModal()
+        })
+    }
+
+    /**
      * Reset the character to default state and clear autosaved data.
      */
-    #resetCharacter () {
+    async #resetCharacter () {
+        // Check for unsaved changes
+        if (this.#hasUnsavedChanges()) {
+            const confirmed = await this.#showConfirmationDialog(
+                'You have unsaved changes. Resetting will lose all your current work. Do you want to continue?'
+            )
+            if (!confirmed) {
+                return
+            }
+        }
+
         this.#autosaveManager.clear()
         location.reload()
     }
@@ -481,6 +564,8 @@ export class IndexController {
                 description: 'Star Trek Character Creator',
                 mimes: [{ 'application/stcc': '.stcc' }]
             })
+            // Clear the changes flag after successful save
+            this.#hasChanges = false
         } catch (err) {
             console.error('Failed to save character:', err)
             alert('Failed to save character file. Please try again.')
@@ -490,12 +575,23 @@ export class IndexController {
     /**
      * Load a character configuration from a STCC file.
      */
-    #loadCharacter () {
+    async #loadCharacter () {
+        // Validate file input exists first
         const fileInput = document.getElementById('load-character-input')
         if (!(fileInput instanceof HTMLInputElement)) {
             console.error('File input element not found')
             alert('An error occurred. Please refresh the page.')
             return
+        }
+
+        // Check for unsaved changes before opening file picker
+        if (this.#hasUnsavedChanges()) {
+            const confirmed = await this.#showConfirmationDialog(
+                'You have unsaved changes. Loading a character will replace your current work. Do you want to continue?'
+            )
+            if (!confirmed) {
+                return
+            }
         }
 
         // Set up the file input change handler
@@ -516,6 +612,8 @@ export class IndexController {
                 const text = await file.text()
                 const config = JSON.parse(text)
                 this.#deserializeCharacter(config)
+                // Clear the changes flag after successful load
+                this.#hasChanges = false
             } catch (err) {
                 console.error('Failed to load character:', err)
                 alert(`Failed to load character: ${err.message}`)

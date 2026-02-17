@@ -782,7 +782,8 @@ dialog.import-dialog {
             }
 
             &#copy-btn,
-            &#import-btn {
+            &#import-btn,
+            &#confirm-action-btn {
                 background-color: #4a90e2;
                 color: white;
                 border-color: #357abd;
