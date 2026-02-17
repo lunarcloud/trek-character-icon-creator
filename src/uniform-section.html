@@ -44,7 +44,7 @@
             <option class="non-medusan" colors-filter="VOY">Academy Staff</option>
             <option class="non-medusan" colors-filter="VOY">DISCO 33rd</option>
         </optgroup>
-    
+
         <optgroup label="Casual">
             <option class="no-color-choice">None</option>
             <option class="medusan-only" colors-filter="Other">Civilian Casual</option>
@@ -81,7 +81,7 @@
             <option class="non-cetaceous non-exocomp non-medusan non-sukhabelan accent-color-choice" colors-filter="Other">Eighteenth Century C</option>
             <option class="non-cetaceous non-exocomp non-medusan non-sukhabelan accent-color-choice" colors-filter="Other">Eighteenth Century D</option>
         </optgroup>
-    
+
         <optgroup label="Other Militia" class="humanoid-only">
             <option class="humanoid-only no-color-choice">Andorian 22nd</option>
             <option class="humanoid-only no-color-choice">Andorian 23rd</option>
@@ -104,7 +104,7 @@
             <option class="humanoid-only no-color-choice">Breen 24th</option>
             <option class="humanoid-only no-color-choice">Breen 32nd</option>
         </optgroup>
-    
+
         <optgroup label="Non-Canon Starfleet" class="non-qofuari">
             <option class="non-medusan non-sukhabelan" colors-filter="TNG">IDW 2378</option>
             <option class="humanoid-only" colors-filter="VOY" value="IDW Last Starship A">IDW 3069 A</option>
@@ -119,7 +119,7 @@
             <option class="non-qofuari" colors-filter="Sarell">Sarell Expanse</option>
             <option class="non-medusan non-qofuari" colors-filter="Sarell">Sarell Expanse Alt</option>
         </optgroup>
-    
+
         <optgroup label="Other Series" class="humanoid-only">
             <option class="humanoid-only no-color-choice">Galaxy Quest Captain</option>
             <option class="humanoid-only" colors-filter="GalaxyQuest">Galaxy Quest Crew</option>
@@ -129,18 +129,18 @@
             <option class="humanoid-only" colors-filter="Stargate">Stargate Atlantis Late</option>
         </optgroup>
     </select>
-    
+
     <div id="uniform-color-section">
         <input type="color" id="uniform-color" value="#CE3C35" hidden>
         <details class="color-picker-details">
             <summary>
                 <div id="uniform-color-display" class="color-display" aria-label="Current uniform color"></div>
                 <span>Color</span>
+                <label id="filter-uniform-colors-option">
+                    <input id="filter-color-selection" type="checkbox" checked />
+                    Filter
+                </label>
             </summary>
-            <label>
-                <input id="filter-color-selection" type="checkbox" checked />
-                Filter
-            </label>
             <select id="std-uniform-colors" aria-label="Preset uniform colors">
                 <option value="custom" hidden selected></option>
                 <optgroup label="22nd–23rd (ENT-TAS)" filtergroup="TOS">
@@ -235,7 +235,7 @@
             <div class="color-swatches" id="uniform-color-swatches" aria-label="Uniform color swatches"></div>
         </details>
     </div>
-    
+
     <div class="accent-color-choice-only">
         <input type="color" id="uniform-undershirt-color" value="#718085" hidden>
         <details class="color-picker-details">
@@ -255,5 +255,5 @@
             <div class="color-swatches" id="uniform-undershirt-color-swatches" aria-label="Undershirt color swatches"></div>
         </details>
     </div>
-    
+
 </group>
