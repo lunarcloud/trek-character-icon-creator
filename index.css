@@ -359,9 +359,13 @@ select[multiple] option {
     padding: 0.25em;
     border-radius: 0.5em;
     background: transparent;
+    display: grid;
+    grid-template-rows: auto 0fr;
+    transition: grid-template-rows 0.3s ease-out;
 
     &[open] {
         background: linear-gradient(180deg, oklab(0.25 0 0 / 50%) 1.5em, oklab(0 0 0 / 0%) 1em, oklab(1 0 0 / 0%) 2em, oklab(1 0 0 / 11%) 0);
+        grid-template-rows: auto 1fr;
 
         #filter-uniform-colors-option {
             display: unset;
@@ -369,8 +373,9 @@ select[multiple] option {
         }
     }
 
-    & > * {
+    & > :not(summary) {
         overflow: hidden;
+        min-height: 0;
     }
 
     #filter-uniform-colors-option {
@@ -381,7 +386,7 @@ select[multiple] option {
         transition: opacity 0.6s ease-in-out;
     }
 
-    &[open] summary:after {
+    &[open] summary::after {
         content: " ▼";
     }
 
