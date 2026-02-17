@@ -563,7 +563,7 @@ This is primarily a personal project by @lunarcloud. Contributions are considere
 
 ### When Making Changes
 1. **Always run linters** before and after changes
-2. **Test manually** in browser - no automated tests exist (see TESTING.md)
+2. **Test manually** there are some unit tests in the tests/ folder. Much of the testing is still manual. Make sure to `npm run build` before any type of testing.
 3. **Maintain minimal dependencies** - avoid adding new packages unless essential
 4. **Follow existing patterns** - consistency is critical
 5. **Update documentation** if adding features
