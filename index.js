@@ -340,6 +340,12 @@ export class IndexController {
             this.#elements.shapeSelect.value = config.bodyShape
         }
 
+        // Pre-seed last-used body color so onChangeDetected's body-shape-change
+        // path preserves the saved color instead of using the hardcoded default
+        if (config.colors?.body && config.bodyShape) {
+            this.#colorManager.setLastUsedBodyColor(config.bodyShape, config.colors.body)
+        }
+
         // Apply colors
         if (config.colors) {
             if (config.colors.body) this.#colorManager.bodyColorPicker.value = config.colors.body
@@ -413,6 +419,21 @@ export class IndexController {
 
         // Trigger change detection to update the UI
         this.onChangeDetected()
+
+        // Re-apply colors that onChangeDetected may have overwritten
+        // (e.g. uniform color filtering/validation replaces the picker value)
+        if (config.colors) {
+            if (config.colors.body) this.#colorManager.bodyColorPicker.value = config.colors.body
+            if (config.colors.hair) this.#colorManager.hairColorPicker.value = config.colors.hair
+            if (config.colors.uniform) this.#colorManager.uniformColorPicker.value = config.colors.uniform
+            if (config.colors.uniformUndershirt) this.#colorManager.uniformUndershirtColorPicker.value = config.colors.uniformUndershirt
+            if (config.colors.antennae) this.#colorManager.antennaeColorPicker.value = config.colors.antennae
+            if (config.colors.birdTuft) this.#colorManager.birdTuftColorPicker.value = config.colors.birdTuft
+            if (config.colors.whiskers) this.#colorManager.whiskersColorPicker.value = config.colors.whiskers
+        }
+        this.#colorManager.updateSynchronizedColors()
+        this.#elements.characterStyleEl.innerHTML = this.#colorManager.generateColorStyles()
+        this.#autosaveManager.save(this.#serializeCharacter())
 
         return true
     }
