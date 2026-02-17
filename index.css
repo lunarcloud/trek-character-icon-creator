@@ -359,23 +359,24 @@ select[multiple] option {
     padding: 0.25em;
     border-radius: 0.5em;
     background: transparent;
-    display: grid;
-    grid-template-rows: auto 0fr;
-    transition: grid-template-rows 0.3s ease-out;
+
+    & > :not(summary) {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+    }
 
     &[open] {
         background: linear-gradient(180deg, oklab(0.25 0 0 / 50%) 1.5em, oklab(0 0 0 / 0%) 1em, oklab(1 0 0 / 0%) 2em, oklab(1 0 0 / 11%) 0);
-        grid-template-rows: auto 1fr;
+
+        & > :not(summary) {
+            max-height: 100vh;
+        }
 
         #filter-uniform-colors-option {
             display: unset;
             opacity: 1;
         }
-    }
-
-    & > :not(summary) {
-        overflow: hidden;
-        min-height: 0;
     }
 
     #filter-uniform-colors-option {
