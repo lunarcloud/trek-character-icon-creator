@@ -25,6 +25,12 @@ This document provides coding standards and best practices for AI agents working
    - ✅ Good: Only character attributes in export JSON
    - ❌ Bad: Including filter checkboxes or UI preferences in JSON
 
+4. **CSS animations over JavaScript animations** - Strong preference for pure CSS animations
+   - ✅ Good: CSS transitions/animations (`transition: max-height 0.3s ease-out`)
+   - ❌ Bad: JavaScript-driven animations (`element.animate()`, manual height calculations)
+   - Use CSS properties like `max-height`, `opacity`, `transform` for transitions
+   - Only use JavaScript for animation when CSS cannot achieve the effect
+
 ### File Naming & Organization
 - JavaScript files: kebab-case (e.g., `color-manager.js`)
 - SVG files: kebab-case, no underscores or spaces
