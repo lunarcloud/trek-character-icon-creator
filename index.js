@@ -572,10 +572,12 @@ export class IndexController {
      * @returns {string} Sanitized filename-safe string
      */
     #sanitizeFilename (name) {
-        return name
+        const sanitized = name
             .toLowerCase()
             .replace(/[^a-z0-9]+/g, '-')
             .replace(/^-+|-+$/g, '')
+        // Return default if sanitization results in empty string
+        return sanitized || 'trek-character'
     }
 
     /**
