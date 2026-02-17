@@ -9,6 +9,11 @@ import { TooltipManager } from './js/tooltip-manager.js'
 import { AutosaveManager } from './js/autosave-manager.js'
 
 /**
+ * Default character name used when no name is provided.
+ */
+const DEFAULT_CHARACTER_NAME = 'Trek Character'
+
+/**
  * Controller for the Main, Index, Page.
  */
 export class IndexController {
@@ -307,7 +312,7 @@ export class IndexController {
     #serializeCharacter () {
         const config = {
             version: '1.0',
-            name: this.#elements.characterNameInput.value || 'Trek Character',
+            name: this.#elements.characterNameInput.value || DEFAULT_CHARACTER_NAME,
             bodyShape: this.#elements.shapeSelect.value,
             colors: {
                 body: this.#colorManager.bodyColorPicker.value,
@@ -562,16 +567,25 @@ export class IndexController {
     }
 
     /**
+     * Sanitize a character name for use in filenames.
+     * @param {string} name - The character name to sanitize
+     * @returns {string} Sanitized filename-safe string
+     */
+    #sanitizeFilename (name) {
+        return name
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '')
+    }
+
+    /**
      * Generate a filename for image export based on character name.
      * @param {string} extension - File extension (e.g., 'png', 'svg')
      * @returns {string} Sanitized filename
      */
     #getImageFilename (extension) {
-        const characterName = this.#elements.characterNameInput.value || 'trek-character'
-        const sanitizedName = characterName
-            .toLowerCase()
-            .replace(/[^a-z0-9]+/g, '-')
-            .replace(/^-+|-+$/g, '')
+        const characterName = this.#elements.characterNameInput.value || DEFAULT_CHARACTER_NAME
+        const sanitizedName = this.#sanitizeFilename(characterName)
         return `${sanitizedName}-icon.${extension}`
     }
 
@@ -582,11 +596,8 @@ export class IndexController {
         const config = this.#serializeCharacter()
         const json = JSON.stringify(config, null, 2)
 
-        const characterName = this.#elements.characterNameInput.value || 'Trek Character'
-        const sanitizedName = characterName
-            .toLowerCase()
-            .replace(/[^a-z0-9]+/g, '-')
-            .replace(/^-+|-+$/g, '')
+        const characterName = this.#elements.characterNameInput.value || DEFAULT_CHARACTER_NAME
+        const sanitizedName = this.#sanitizeFilename(characterName)
         const timestamp = new Date().toISOString().replace(/[:.]/g, '-').substring(0, 19)
         const filename = `${sanitizedName}-${timestamp}.stcc`
 
