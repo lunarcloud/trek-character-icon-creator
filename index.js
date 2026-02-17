@@ -1,5 +1,6 @@
 import { CharacterElements } from './js/character-elements.js'
 import { ColorManager } from './js/color-manager.js'
+import { ColorSwatches } from './js/color-swatches.js'
 import { UniformManager } from './js/uniform-manager.js'
 import { BodyTypeManager } from './js/body-type-manager.js'
 import { DomUtil } from './js/util-dom.js'
@@ -41,6 +42,12 @@ export class IndexController {
 
         // Initialize tooltips
         TooltipManager.initialize()
+
+        // Initialize color swatches
+        ColorSwatches.initialize('body-color', 'std-body-colors', 'body-color-swatches')
+        ColorSwatches.initialize('hair-color', 'std-hair-colors', 'hair-color-swatches')
+        ColorSwatches.initialize('uniform-color', 'std-uniform-colors', 'uniform-color-swatches', this.#colorManager.uniformColorFilterCheck)
+        ColorSwatches.initialize('uniform-undershirt-color', 'std-uniform-undershirt-colors', 'uniform-undershirt-color-swatches')
 
         this.#setupEventListeners()
         this.#setupKeyboardShortcuts()
@@ -145,6 +152,12 @@ export class IndexController {
                     DomUtil.hideInvalidSelectOptions(selector)
             }
 
+            // Regenerate color swatches to reflect visibility changes
+            ColorSwatches.regenerate('body-color', 'std-body-colors', 'body-color-swatches')
+            ColorSwatches.regenerate('hair-color', 'std-hair-colors', 'hair-color-swatches')
+            ColorSwatches.regenerate('uniform-color', 'std-uniform-colors', 'uniform-color-swatches')
+            ColorSwatches.regenerate('uniform-undershirt-color', 'std-uniform-undershirt-colors', 'uniform-undershirt-color-swatches')
+
             // Reset color so we don't have oddly-fleshy dolphins by default
             this.#colorManager.bodyColorPicker.value = this.#colorManager.getLastUsedBodyColor(bodyShape)
 
@@ -182,6 +195,9 @@ export class IndexController {
         const filteringColors = this.#colorManager.uniformColorFilterCheck.checked
         const colorsFilter = this.#elements.uniformSelect.selectedOptions[0].getAttribute('colors-filter')
         UniformManager.filterColorOptions(this.#elements.mainEl, this.#colorManager.uniformColorSelect, filteringColors, colorsFilter)
+
+        // Regenerate uniform color swatches to reflect filter changes
+        ColorSwatches.regenerate('uniform-color', 'std-uniform-colors', 'uniform-color-swatches')
 
         // Get selected uniform
         let selectedUniform = this.#colorManager.uniformColorSelect.selectedOptions[0]

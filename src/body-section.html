@@ -23,36 +23,42 @@
     </select>
 
     <div class="non-exocomp non-medusan non-cal-mirran">
-        <input type="color" id="body-color" value="#FEE4B3">
-        <label for="body-color">Color</label>
-        <select id="std-body-colors" aria-label="Preset body colors">
-            <option value="custom" hidden selected></option>
-            <option value="#FEE4B3" class="non-cetaceous non-sukhabelan non-qofuari">Lighter Human</option>
-            <option value="#A68854" class="non-cetaceous non-sukhabelan non-qofuari">Olive Human</option>
-            <option value="#936948" class="non-cetaceous non-sukhabelan non-qofuari">Mid Human</option>
-            <option value="#36200C" class="non-cetaceous non-sukhabelan non-qofuari">Mid-Dark Human</option>
-            <option value="#210F03" class="non-cetaceous non-sukhabelan non-qofuari">Darker Human</option>
-            <option value="#765321" class="qofuari-only">Brown Fur</option>
-            <option value="#b3b3fe" class="non-cetaceous non-sukhabelan non-qofuari">Bolian</option>
-            <option value="#A6F3A8" class="non-cetaceous non-sukhabelan non-qofuari">Lighter Orion</option>
-            <option value="#98C851" class="non-cetaceous non-sukhabelan non-qofuari">Mid Orion</option>
-            <option value="#758322" class="non-cetaceous non-sukhabelan non-qofuari">Darker Orion</option>
-            <option value="#00B3B8" class="non-cetaceous non-sukhabelan non-qofuari">Blue Orion</option>
-            <option value="#41AACC" class="non-cetaceous non-sukhabelan non-qofuari">Andorian</option>
-            <option value="#B6AEAC" class="non-cetaceous non-sukhabelan non-qofuari">Aenar</option>
-            <option value="#B3673D" class="non-cetaceous non-sukhabelan">Caitian</option>
-            <option value="#A92902" class="non-cetaceous non-sukhabelan non-qofuari">Kzinti</option>
-            <option value="#C80909" class="non-cetaceous non-sukhabelan non-qofuari">VinShari</option>
-            <option value="#B5BEC8" class="non-sukhabelan">Grey</option>
-            <option value="#D9CBD6" class="non-sukhabelan">Reddish Grey</option>
-            <option value="#ECC1DB" class="non-sukhabelan">Pink</option>
-            <option value="#00B8E9" class="">Blue</option>
-            <option value="#546469" class="">Slate</option>
-            <option value="#F4F4F6" class="non-sukhabelan">White</option>
-            <option value="#636997" class="non-cetaceous">Soft Purple</option>
-            <option value="#472865" class="non-cetaceous non-qofuari">Deep Purple</option>
-            <option value="#0A0A0A">Black</option>
-        </select>
+        <input type="color" id="body-color" value="#FEE4B3" hidden>
+        <details class="color-picker-details">
+            <summary>
+                <div id="body-color-display" class="color-display" aria-label="Current body color"></div>
+                <span>Color</span>
+            </summary>
+            <select id="std-body-colors" aria-label="Preset body colors">
+                <option value="custom" hidden selected></option>
+                <option value="#FEE4B3" class="non-cetaceous non-sukhabelan non-qofuari">Lighter Human</option>
+                <option value="#A68854" class="non-cetaceous non-sukhabelan non-qofuari">Olive Human</option>
+                <option value="#936948" class="non-cetaceous non-sukhabelan non-qofuari">Mid Human</option>
+                <option value="#36200C" class="non-cetaceous non-sukhabelan non-qofuari">Mid-Dark Human</option>
+                <option value="#210F03" class="non-cetaceous non-sukhabelan non-qofuari">Darker Human</option>
+                <option value="#765321" class="qofuari-only">Brown Fur</option>
+                <option value="#b3b3fe" class="non-cetaceous non-sukhabelan non-qofuari">Bolian</option>
+                <option value="#A6F3A8" class="non-cetaceous non-sukhabelan non-qofuari">Lighter Orion</option>
+                <option value="#98C851" class="non-cetaceous non-sukhabelan non-qofuari">Mid Orion</option>
+                <option value="#758322" class="non-cetaceous non-sukhabelan non-qofuari">Darker Orion</option>
+                <option value="#00B3B8" class="non-cetaceous non-sukhabelan non-qofuari">Blue Orion</option>
+                <option value="#41AACC" class="non-cetaceous non-sukhabelan non-qofuari">Andorian</option>
+                <option value="#B6AEAC" class="non-cetaceous non-sukhabelan non-qofuari">Aenar</option>
+                <option value="#B3673D" class="non-cetaceous non-sukhabelan">Caitian</option>
+                <option value="#A92902" class="non-cetaceous non-sukhabelan non-qofuari">Kzinti</option>
+                <option value="#C80909" class="non-cetaceous non-sukhabelan non-qofuari">VinShari</option>
+                <option value="#B5BEC8" class="non-sukhabelan">Grey</option>
+                <option value="#D9CBD6" class="non-sukhabelan">Reddish Grey</option>
+                <option value="#ECC1DB" class="non-sukhabelan">Pink</option>
+                <option value="#00B8E9" class="">Blue</option>
+                <option value="#546469" class="">Slate</option>
+                <option value="#F4F4F6" class="non-sukhabelan">White</option>
+                <option value="#636997" class="non-cetaceous">Soft Purple</option>
+                <option value="#472865" class="non-cetaceous non-qofuari">Deep Purple</option>
+                <option value="#0A0A0A">Black</option>
+            </select>
+            <div class="color-swatches" id="body-color-swatches" aria-label="Body color swatches"></div>
+        </details>
     </div>
 
     <h3 class="humanoid-only non-qofuari non-sukhabelan">Ears</h3>

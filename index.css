@@ -300,6 +300,7 @@ select:not([multiple]) {
     margin-block: 0.25em 0.75em;
     display: block;
     padding: 0.5em 2em 0.5em 0.25em;
+    vertical-align: middle;
 }
 
 .body-radio-option {
@@ -329,6 +330,189 @@ select[multiple] option {
   &:hover {
     background-color: cornflowerblue;
   }
+}
+
+/* Color Swatches */
+.color-display-button {
+  width: 2.5em;
+  height: 2.5em;
+  border: 2px solid #666;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 0;
+  vertical-align: middle;
+  margin-right: 0.5em;
+  box-sizing: border-box;
+
+  &:hover {
+    border-color: #fff;
+  }
+
+  &:focus {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+}
+
+.color-picker-details {
+    margin: 0.25em 0 0.5em;
+    padding: 0.25em;
+    border-radius: 0.5em;
+    background: transparent;
+
+    & > :not(summary) {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+    }
+
+    &[open] {
+        background: linear-gradient(180deg, oklab(0.25 0 0 / 50%) 1.5em, oklab(0 0 0 / 0%) 1em, oklab(1 0 0 / 0%) 2em, oklab(1 0 0 / 11%) 0);
+
+        & > :not(summary) {
+            max-height: 100vh;
+        }
+
+        #filter-uniform-colors-option {
+            display: unset;
+            opacity: 1;
+        }
+    }
+
+    #filter-uniform-colors-option {
+        margin-inline-start: auto;
+        float: right;
+        display: none;
+        opacity: 0;
+        transition: opacity 0.6s ease-in-out;
+    }
+
+    &[open] summary::after {
+        content: " ▼";
+    }
+
+    & summary {
+        cursor: pointer;
+        user-select: none;
+        padding: 1px 0 0 1px;
+        align-items: center;
+        list-style: none;
+        gap: 0.5em;
+        padding-bottom: 0.5em;
+
+        &::marker,
+        ::-webkit-details-marker {
+            display: none
+        }
+
+        &::after {
+            color: #333;
+            content: ' ►';
+            vertical-align: 2px;
+            line-height: 0;
+        }
+
+        & .color-display {
+            display: inline-block;
+            flex-shrink: 0;
+
+            /* Give it body */
+            aspect-ratio: 1;
+            height: 1em;
+            border-radius: .25em;
+            box-shadow: 0 0 2px 0 #bebebe, inset 0 0 2px #000
+        }
+
+        & span {
+            flex-shrink: 0;
+        }
+    }
+}
+
+.color-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25em;
+  margin: 0.5em 0;
+  max-width: 100%;
+}
+
+.color-swatch {
+  width: 2em;
+  height: 2em;
+  border: 2px solid #666;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+
+  &:hover {
+    border-color: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 2px 4px rgb(0 0 0 / 30%);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &.selected {
+    border-color: #fff;
+    border-width: 3px;
+    box-shadow: 0 0 8px rgb(255 255 255 / 60%);
+  }
+}
+
+.color-swatch-wrapper.custom-picker {
+  position: relative;
+  display: inline-block;
+  aspect-ratio: 1;
+  height: calc(2em - 4px);
+}
+
+.color-swatch.custom-picker-input {
+  width: 100%;
+  height: 100%;
+  border: 2px solid #666;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 0;
+  box-sizing: border-box;
+
+  &:hover {
+    border-color: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 2px 4px rgb(0 0 0 / 30%);
+  }
+
+  &::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+
+  &::-webkit-color-swatch {
+    border: none;
+    border-radius: 2px;
+  }
+
+  &::-moz-color-swatch {
+    border: none;
+    border-radius: 2px;
+  }
+}
+
+.custom-picker-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #fff;
+  -webkit-text-stroke: 2px #000;
+  paint-order: stroke fill;
+  pointer-events: none;
+  user-select: none;
 }
 
 @media (pointer: fine) {
@@ -609,6 +793,7 @@ dialog.import-dialog {
             }
         }
     }
+}
 
 /* Screen reader only class for accessibility */
 .sr-only {
@@ -621,5 +806,4 @@ dialog.import-dialog {
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border-width: 0;
-}
 }
