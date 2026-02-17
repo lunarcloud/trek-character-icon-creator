@@ -148,6 +148,7 @@ body {
     margin-bottom: 1em;
     padding: 1em 0;
     display: flex;
+    position: relative;
     height: auto;
     height: fit-content;
   }
@@ -257,18 +258,21 @@ body {
   }
 
   #character-name-container {
+    position: absolute;
+    left: 0.25em;
+    top: -0.25em;
     margin: 0.5em auto;
     text-align: center;
 
     #character-name {
       font-family: Roddenberry, sans-serif;
-      font-size: 1.25em;
-      padding: 0.25em 0.5em;
-      border: 2px solid rgb(13 81 102);
-      border-radius: 0.25em;
-      background-color: #fff;
+      font-size: 1.5em;
+      border: none;
+      background-color: transparent;
       color: #111;
-      text-align: center;
+      text-shadow: 1px 1px 6px #ffffff;
+      text-align: inline-start;
+      padding-inline-start: 1.25em;
       width: min(20em, 90%);
 
       &::placeholder {
@@ -277,8 +281,7 @@ body {
       }
 
       &:focus {
-        outline: 2px solid rgb(102 13 31);
-        outline-offset: 2px;
+        border-bottom: 2px solid rgb(102 13 31);
       }
     }
   }
