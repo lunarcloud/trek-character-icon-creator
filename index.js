@@ -7,6 +7,7 @@ import { DomUtil } from './js/util-dom.js'
 import { saveTextAs } from './js/save-file-utils.js'
 import { TooltipManager } from './js/tooltip-manager.js'
 import { AutosaveManager } from './js/autosave-manager.js'
+import { Randomizer } from './js/randomizer.js'
 
 /**
  * Default character name used when no name is provided.
@@ -100,6 +101,10 @@ export class IndexController {
         // Setup the reset button to clear autosave and reload
         document.getElementById('reset-character')
             .addEventListener('click', () => this.#resetCharacter())
+
+        // Setup the randomize button
+        document.getElementById('randomize-character')
+            .addEventListener('click', () => this.#randomizeCharacter())
     }
 
     /**
@@ -564,6 +569,31 @@ export class IndexController {
 
         this.#autosaveManager.clear()
         location.reload()
+    }
+
+    /**
+     * Randomize the character with a random species and features.
+     */
+    #randomizeCharacter () {
+        try {
+            // Use the Randomizer to select random species and features
+            const species = Randomizer.randomizeCharacter(this.#elements)
+
+            // Randomize uniform
+            Randomizer.randomizeUniform(this.#elements.uniformSelect)
+
+            // Randomize colors
+            Randomizer.randomizeColors(this.#colorManager)
+
+            // Trigger change detection to update the UI
+            this.onChangeDetected()
+
+            // Announce to screen readers
+            this.#announce(`Character randomized as ${species.name}`)
+        } catch (err) {
+            console.error('Failed to randomize character:', err)
+            alert('An error occurred while randomizing. Please try again.')
+        }
     }
 
     /**
