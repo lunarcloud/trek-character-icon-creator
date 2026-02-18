@@ -19,6 +19,8 @@ Character Creator for Star Trek style character icons
 - Species-specific features (Vulcan ears, Klingon ridges, etc.)
 - Color customization for body, uniform, and hair
 - Export as PNG image with optional background
+- **Save and load characters** to/from .stcc files
+- **Share characters via URL** - copy a shareable link to clipboard that encodes your character
 - **Fully accessible**: ARIA labels, keyboard navigation, and screen reader support ([see ACCESSIBILITY.md](ACCESSIBILITY.md))
 
 ## Development Setup
@@ -96,10 +98,13 @@ For comprehensive testing, refer to `TESTING.md` which includes:
     - `color-manager.js` - Color pickers, synchronization, and color state management
     - `uniform-manager.js` - Uniform validation, filtering, and default selection
     - `body-type-manager.js` - Body-type-specific rendering logic
+    - `autosave-manager.js` - Automatic saving to localStorage
+    - `url-share-manager.js` - URL encoding/decoding for character sharing
   - **Utilities:**
     - `util-data.js` - Data manipulation utilities
     - `util-dom.js` - DOM manipulation utilities
     - `type-helpers.js` - HTML element getters with runtime type checking
+    - `save-file-utils.js` - File save/load utilities
 - **Assets:**
   - `svg/` - SVG asset directory containing body type folders
     - `svg/humanoid/` - SVG assets for humanoid characters

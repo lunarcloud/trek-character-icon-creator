@@ -78,6 +78,26 @@ Test for humanoid body type (most complete feature set):
 - [ ] Verify exported image is 512x512 pixels
 - [ ] Test export with various character configurations
 
+### Save/Load Functionality
+- [ ] Test save character to .stcc file
+- [ ] Verify saved file contains all character configuration
+- [ ] Test load character from .stcc file
+- [ ] Verify character loads correctly with all features intact
+- [ ] Test keyboard shortcuts: Ctrl/Cmd+S for save, Ctrl/Cmd+O for load
+
+### Share URL Functionality
+- [ ] Click "🔗 Share" button
+- [ ] Verify alert appears with success message
+- [ ] Verify URL is copied to clipboard
+- [ ] Test share URL in new browser tab/window
+- [ ] Verify character loads correctly from shared URL
+- [ ] Verify URL hash is cleared after loading (doesn't reload on refresh)
+- [ ] Test keyboard shortcut: Ctrl/Cmd+Shift+S for share
+- [ ] Test sharing various body types
+- [ ] Test sharing with complex configurations
+- [ ] Test error handling with corrupted URL hashes
+- [ ] Verify shared URL prioritizes over autosaved data
+
 ## Cross-Body Type Testing
 When making changes that affect multiple body types:
 - [ ] Test with humanoid (full feature set)
@@ -115,7 +135,7 @@ Manual accessibility checks to complement automated tests:
   - [ ] Verify all buttons, selects, and inputs are keyboard accessible
   - [ ] Test toggle buttons can be activated with Space/Enter
   - [ ] Verify focus indicators are visible
-  - [ ] Test Ctrl/Cmd+S for save, Ctrl/Cmd+O for open
+  - [ ] Test Ctrl/Cmd+S for save, Ctrl/Cmd+O for load, Ctrl/Cmd+Shift+S for share
 - [ ] **Screen Reader Testing** (if available)
   - [ ] Use VoiceOver (Mac), NVDA (Windows), or another screen reader
   - [ ] Verify all controls announce their purpose
