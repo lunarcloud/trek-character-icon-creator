@@ -96,6 +96,11 @@ test.describe('Accessibility Tests', () => {
         const loadCharacter = await page.locator('#load-character')
         const loadName = await loadCharacter.getAttribute('aria-label')
         expect(loadName).toBeTruthy()
+
+        // Share button
+        const shareCharacter = await page.locator('#share-character')
+        const shareName = await shareCharacter.getAttribute('aria-label')
+        expect(shareName).toBeTruthy()
     })
 
     test('all interactive elements should be keyboard accessible', async ({ page }) => {
