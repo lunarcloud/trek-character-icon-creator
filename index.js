@@ -7,6 +7,7 @@ import { DomUtil } from './js/util-dom.js'
 import { saveTextAs } from './js/save-file-utils.js'
 import { TooltipManager } from './js/tooltip-manager.js'
 import { AutosaveManager } from './js/autosave-manager.js'
+import { UrlShareManager } from './js/url-share-manager.js'
 
 /**
  * Default character name used when no name is provided.
@@ -97,6 +98,10 @@ export class IndexController {
         document.getElementById('load-character')
             .addEventListener('click', () => this.#loadCharacter())
 
+        // Setup the share button
+        document.getElementById('share-character')
+            .addEventListener('click', () => this.#shareCharacter())
+
         // Setup the reset button to clear autosave and reload
         document.getElementById('reset-character')
             .addEventListener('click', () => this.#resetCharacter())
@@ -120,14 +125,19 @@ export class IndexController {
     }
 
     /**
-     * Setup keyboard shortcuts for save and load.
+     * Setup keyboard shortcuts for save, load, and share.
      */
     #setupKeyboardShortcuts () {
         document.addEventListener('keydown', (e) => {
             // Ctrl+S or Cmd+S for save
-            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+            if ((e.ctrlKey || e.metaKey) && e.key === 's' && !e.shiftKey) {
                 e.preventDefault()
                 this.#saveCharacter()
+            }
+            // Ctrl+Shift+S or Cmd+Shift+S for share
+            if ((e.ctrlKey || e.metaKey) && e.key === 's' && e.shiftKey) {
+                e.preventDefault()
+                this.#shareCharacter()
             }
             // Ctrl+O or Cmd+O for open/load
             if ((e.ctrlKey || e.metaKey) && e.key === 'o') {
@@ -467,10 +477,28 @@ export class IndexController {
     }
 
     /**
-     * Attempt to restore autosaved character state from localStorage.
-     * Falls back to initial change detection if no autosave exists or restore fails.
+     * Attempt to restore character state from URL or autosave.
+     * Priority: 1. URL share parameter, 2. Autosaved state, 3. Default state
+     * Falls back to initial change detection if no restore source exists or restore fails.
      */
     #restoreAutosave () {
+        // First, check if there's a shared character in the URL
+        try {
+            const sharedConfig = UrlShareManager.parseFromUrl()
+            if (sharedConfig) {
+                this.#deserializeCharacter(sharedConfig)
+                // Clear the changes flag after loading shared character
+                this.#hasChanges = false
+                // Clear the URL hash to avoid re-loading on refresh
+                window.history.replaceState(null, '', window.location.pathname + window.location.search)
+                return
+            }
+        } catch (err) {
+            console.error('Failed to load character from URL:', err)
+            alert(`Failed to load shared character: ${err.message}`)
+        }
+
+        // If no URL share, try autosave
         const saved = this.#autosaveManager.load()
         if (saved) {
             try {
@@ -674,6 +702,24 @@ export class IndexController {
         // Add the event listener and trigger the file picker
         fileInput.addEventListener('change', handleFileLoad)
         fileInput.click()
+    }
+
+    /**
+     * Generate and copy a shareable URL to the clipboard.
+     */
+    async #shareCharacter () {
+        try {
+            const config = this.#serializeCharacter()
+            const shareUrl = UrlShareManager.generateShareUrl(config)
+            await UrlShareManager.copyToClipboard(shareUrl)
+
+            // Show success message to user
+            alert('Share URL copied to clipboard! You can now paste it anywhere to share your character.')
+            console.log('Share URL copied:', shareUrl)
+        } catch (err) {
+            console.error('Failed to copy share URL:', err)
+            alert(`Failed to copy share URL: ${err.message}. Please try again.`)
+        }
     }
 }
 
