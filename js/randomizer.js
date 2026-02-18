@@ -148,6 +148,22 @@ export class Randomizer {
             facialHair: 'any'
         },
         {
+            name: 'Kelpian',
+            weight: 5,
+            bodyType: 'humanoid',
+            ears: 'none',
+            requiredHeadFeatures: ['kelpian-lines'],
+            facialHair: ['none']
+        },
+        {
+            name: 'Zakdorn',
+            weight: 4,
+            bodyType: 'humanoid',
+            ears: 'round',
+            requiredHeadFeatures: ['zakdorn-cheeks'],
+            facialHair: ['goatee-a', 'goatee-b', 'none']
+        },
+        {
             name: 'Cetaceous',
             weight: 8,
             bodyType: 'cetaceous'
@@ -185,22 +201,6 @@ export class Randomizer {
             name: 'Sukhabelan',
             weight: 1,
             bodyType: 'sukhabelan'
-        },
-        {
-            name: 'Zakdorn',
-            weight: 4,
-            bodyType: 'humanoid',
-            ears: 'round',
-            requiredHeadFeatures: ['zakdorn-cheeks'],
-            facialHair: ['goatee-a', 'goatee-b', 'none']
-        },
-        {
-            name: 'Kelpian',
-            weight: 5,
-            bodyType: 'humanoid',
-            ears: 'none',
-            requiredHeadFeatures: ['kelpian-lines'],
-            facialHair: ['none']
         }
     ]
 
