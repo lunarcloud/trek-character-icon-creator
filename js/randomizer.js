@@ -255,13 +255,38 @@ export class Randomizer {
      * @returns {HTMLOptionElement[]} Array of visible options
      */
     static #getVisibleOptions (selectEl) {
+        // Get current body shape from document body classes
+        const bodyEl = document.body
+        const bodyClasses = Array.from(bodyEl.classList)
+
         return Array.from(selectEl.options).filter(option => {
             // Check if option or its optgroup parent is hidden
             const isHidden = option.hidden ||
                            (option.parentElement instanceof HTMLOptGroupElement && option.parentElement.hidden)
 
-            // Check if option has CSS classes that would hide it based on current body type
-            return !isHidden && option.checkVisibility()
+            if (isHidden) return false
+
+            // Check option classes against body classes
+            const optionClasses = Array.from(option.classList)
+
+            // Check for exclusion classes (e.g., "non-humanoid" when body has "humanoid")
+            for (const bodyClass of bodyClasses) {
+                if (optionClasses.includes(`non-${bodyClass}`)) {
+                    return false // This option should be hidden for this body type
+                }
+            }
+
+            // Check for required classes (e.g., "humanoid-only" requires body to have "humanoid")
+            for (const optClass of optionClasses) {
+                if (optClass.endsWith('-only')) {
+                    const requiredClass = optClass.replace('-only', '')
+                    if (!bodyClasses.includes(requiredClass)) {
+                        return false // This option requires a class the body doesn't have
+                    }
+                }
+            }
+
+            return true
         })
     }
 
