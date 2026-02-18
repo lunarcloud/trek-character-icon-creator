@@ -7,6 +7,7 @@ import { DomUtil } from './js/util-dom.js'
 import { saveTextAs } from './js/save-file-utils.js'
 import { TooltipManager } from './js/tooltip-manager.js'
 import { AutosaveManager } from './js/autosave-manager.js'
+import { Randomizer } from './js/randomizer.js'
 
 /**
  * Default character name used when no name is provided.
@@ -571,157 +572,15 @@ export class IndexController {
     }
 
     /**
-     * Get all valid (non-hidden) options from a select element.
-     * @param {HTMLSelectElement} selectEl - The select element
-     * @returns {HTMLOptionElement[]} Array of valid options
-     */
-    #getValidOptions (selectEl) {
-        const options = Array.from(selectEl.options)
-        return options.filter(option => !option.hidden && option.value !== '')
-    }
-
-    /**
-     * Randomize a select element by choosing a random valid option.
-     * @param {HTMLSelectElement} selectEl - The select element to randomize
-     * @returns {boolean} True if randomized, false if no valid options
-     */
-    #randomizeSelect (selectEl) {
-        const validOptions = this.#getValidOptions(selectEl)
-        if (validOptions.length === 0) return false
-
-        const randomOption = validOptions[Math.floor(Math.random() * validOptions.length)]
-        selectEl.value = randomOption.value
-        return true
-    }
-
-    /**
-     * Randomize a color picker by choosing a random value.
-     * Uses a selection of pre-defined colors for variety.
-     * @param {HTMLInputElement} colorPicker - The color input element
-     */
-    #randomizeColorPicker (colorPicker) {
-        // Generate a random color from a curated palette
-        const colorPalettes = {
-            body: ['#FEE4B3', '#F4C28F', '#D9A066', '#C68642', '#8D5524', '#654321', '#4A2511'],
-            hair: ['#000000', '#1C1C1C', '#3D2314', '#5C4033', '#8B4513', '#A0522D', '#CD853F', '#DEB887', '#F5DEB3', '#FFE4B5', '#FFFFFF'],
-            uniform: ['#CC0C00', '#B30000', '#990000', '#FF6347', '#FFA500', '#FFD700', '#0047AB', '#0066CC', '#4169E1', '#6495ED', '#008080', '#20B2AA', '#32CD32', '#00FF00', '#800080', '#9370DB', '#696969', '#A9A9A9']
-        }
-
-        // Determine which palette to use based on the color picker's ID
-        let palette = colorPalettes.uniform
-        if (colorPicker.id.includes('body')) {
-            palette = colorPalettes.body
-        } else if (colorPicker.id.includes('hair')) {
-            palette = colorPalettes.hair
-        }
-
-        const randomColor = palette[Math.floor(Math.random() * palette.length)]
-        colorPicker.value = randomColor
-    }
-
-    /**
-     * Check if a species-specific feature combination is valid.
-     * @param {string} earValue - Selected ear value
-     * @param {string} headFeatureValue - Selected head feature value
-     * @param {string} facialHairValue - Selected facial hair value
-     * @returns {boolean} True if combination is valid
-     */
-    #isValidFeatureCombination (earValue, headFeatureValue, facialHairValue) {
-        // Ferengi brow requires Ferengi ears
-        if (headFeatureValue === 'ferengi-brow' && earValue !== 'ferengi') {
-            return false
-        }
-
-        // Cat beard requires cat ears
-        if (facialHairValue === 'cat-mouth-beard' && earValue !== 'cat') {
-            return false
-        }
-
-        // Klingon ridges should go with bifurcated forehead (checkbox)
-        // Since the forehead bump is a checkbox, not a select, we allow any combination
-        // Users can manually check it if desired
-
-        return true
-    }
-
-    /**
      * Randomize all character features to create a random valid character.
      */
     #randomizeCharacter () {
-        // First, randomize body shape to determine which options are valid
-        this.#randomizeSelect(this.#elements.shapeSelect)
-
-        // Trigger change to update hidden options
-        this.#elements.shapeSelect.dispatchEvent(new Event('change'))
-
-        // Small delay to ensure DOM updates
-        setTimeout(() => {
-            // Randomize uniform
-            this.#randomizeSelect(this.#elements.uniformSelect)
-
-            // Randomize colors
-            this.#randomizeColorPicker(this.#colorManager.bodyColorPicker)
-            this.#randomizeColorPicker(this.#colorManager.hairColorPicker)
-            this.#randomizeColorPicker(this.#colorManager.uniformColorPicker)
-            this.#randomizeColorPicker(this.#colorManager.uniformUndershirtColorPicker)
-
-            // Randomize features with validation
-            let attempts = 0
-            const maxAttempts = 50
-            let validCombination = false
-
-            while (!validCombination && attempts < maxAttempts) {
-                this.#randomizeSelect(this.#elements.earSelect)
-                this.#randomizeSelect(this.#elements.noseSelect)
-                this.#randomizeSelect(this.#elements.headFeatureSelect)
-                this.#randomizeSelect(this.#elements.facialHairSelect)
-
-                const earValue = this.#elements.earSelect.value
-                const headFeatureValue = this.#elements.headFeatureSelect.value
-                const facialHairValue = this.#elements.facialHairSelect.value
-
-                validCombination = this.#isValidFeatureCombination(earValue, headFeatureValue, facialHairValue)
-                attempts++
-            }
-
-            // Randomize other features
-            this.#randomizeSelect(this.#elements.hatFeatureSelect)
-            this.#randomizeSelect(this.#elements.eyewearFeatureSelect)
-            this.#randomizeSelect(this.#elements.hairSelect)
-            this.#randomizeSelect(this.#elements.rearHairSelect)
-
-            // Randomize checkboxes
-            if (this.#elements.foreheadBumpCheck.checkVisibility()) {
-                this.#elements.foreheadBumpCheck.checked = Math.random() > 0.5
-            }
-
-            if (this.#elements.hairMirror.checkVisibility()) {
-                this.#elements.hairMirror.checked = Math.random() > 0.5
-            }
-
-            if (this.#elements.rearHairMirror.checkVisibility()) {
-                this.#elements.rearHairMirror.checked = Math.random() > 0.5
-            }
-
-            // Randomize body-specific features
-            if (this.#elements.medusanAltColorCheck.checkVisibility()) {
-                this.#elements.medusanAltColorCheck.checked = Math.random() > 0.5
-            }
-
-            if (this.#elements.medusanBoxCheck.checkVisibility()) {
-                this.#elements.medusanBoxCheck.checked = Math.random() > 0.5
-            }
-
-            if (this.#elements.calMirranShapeSelect.checkVisibility()) {
-                this.#randomizeSelect(this.#elements.calMirranShapeSelect)
-            }
-
-            // Trigger final change detection to update the character
-            this.onChangeDetected()
-
-            // Announce to screen readers
-            this.#announce('Character randomized')
-        }, 100)
+        Randomizer.randomizeCharacter(
+            this.#elements,
+            this.#colorManager,
+            () => this.onChangeDetected(),
+            (message) => this.#announce(message)
+        )
     }
 
     /**
