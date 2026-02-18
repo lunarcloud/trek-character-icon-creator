@@ -14,6 +14,14 @@ export class Randomizer {
         'cat-mouth-beard': {
             requiredEar: 'cat',
             description: 'Cat mouth beard requires cat ears'
+        },
+        'klingon-ridges': {
+            requiredHeadFeature: ['bifurcated-forehead-a', 'bifurcated-forehead-b'],
+            description: 'Klingon Ridges A requires a bifurcated forehead'
+        },
+        'klingon-ridges-2': {
+            requiredHeadFeature: ['bifurcated-forehead-a', 'bifurcated-forehead-b'],
+            description: 'Klingon Ridges B requires a bifurcated forehead'
         }
     }
 
@@ -153,16 +161,33 @@ export class Randomizer {
      * Check if a species-specific feature combination is valid.
      * Uses a rule-based system for easy expansion.
      * @param {string} earValue - Selected ear value
-     * @param {string} headFeatureValue - Selected head feature value
+     * @param {string[]} headFeatureValues - Array of selected head feature values
      * @param {string} facialHairValue - Selected facial hair value
      * @returns {boolean} True if combination is valid
      */
-    static isValidFeatureCombination (earValue, headFeatureValue, facialHairValue) {
+    static isValidFeatureCombination (earValue, headFeatureValues, facialHairValue) {
+        // Ensure headFeatureValues is an array
+        const features = Array.isArray(headFeatureValues) ? headFeatureValues : [headFeatureValues].filter(Boolean)
+
         // Check head feature rules
-        if (headFeatureValue && Randomizer.#validationRules[headFeatureValue]) {
-            const rule = Randomizer.#validationRules[headFeatureValue]
-            if (rule.requiredEar && earValue !== rule.requiredEar) {
-                return false
+        for (const headFeatureValue of features) {
+            if (headFeatureValue && Randomizer.#validationRules[headFeatureValue]) {
+                const rule = Randomizer.#validationRules[headFeatureValue]
+
+                // Check if required ear is present
+                if (rule.requiredEar && earValue !== rule.requiredEar) {
+                    return false
+                }
+
+                // Check if required head feature is present
+                if (rule.requiredHeadFeature) {
+                    const hasRequiredFeature = rule.requiredHeadFeature.some(required =>
+                        features.includes(required)
+                    )
+                    if (!hasRequiredFeature) {
+                        return false
+                    }
+                }
             }
         }
 
@@ -222,10 +247,36 @@ export class Randomizer {
                 Randomizer.randomizeSelect(elements.facialHairSelect)
 
                 const earValue = elements.earSelect.value
-                const headFeatureValue = elements.headFeatureSelect.value
+                // Get all selected head features for multi-select
+                const headFeatureValues = Array.from(elements.headFeatureSelect.selectedOptions)
+                    .map(option => option.value)
                 const facialHairValue = elements.facialHairSelect.value
 
-                validCombination = Randomizer.isValidFeatureCombination(earValue, headFeatureValue, facialHairValue)
+                // Auto-add required head features if needed
+                const updatedHeadFeatures = [...headFeatureValues]
+                for (const feature of headFeatureValues) {
+                    const rule = Randomizer.#validationRules[feature]
+                    if (rule && rule.requiredHeadFeature) {
+                        // Check if we have at least one of the required features
+                        const hasRequired = rule.requiredHeadFeature.some(req => updatedHeadFeatures.includes(req))
+                        if (!hasRequired) {
+                            // Randomly pick one of the required features to add
+                            const randomRequired = rule.requiredHeadFeature[
+                                Math.floor(Math.random() * rule.requiredHeadFeature.length)
+                            ]
+                            updatedHeadFeatures.push(randomRequired)
+                        }
+                    }
+                }
+
+                // Update the select element if we added features
+                if (updatedHeadFeatures.length > headFeatureValues.length) {
+                    for (const option of elements.headFeatureSelect.options) {
+                        option.selected = updatedHeadFeatures.includes(option.value)
+                    }
+                }
+
+                validCombination = Randomizer.isValidFeatureCombination(earValue, updatedHeadFeatures, facialHairValue)
                 attempts++
             }
 
