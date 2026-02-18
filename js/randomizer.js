@@ -13,6 +13,7 @@ import { CharacterElements } from './character-elements.js'
  * @property {string[]} [facialHair] - Compatible facial hair options
  * @property {string[]} [preferredUniforms] - Preferred uniform options for this species
  * @property {string} [preferredBodyColor] - Preferred body color for this species
+ * @property {string[]} [preferredHairColors] - Preferred hair color options for this species
  */
 
 /**
@@ -64,7 +65,8 @@ export class Randomizer {
             bodyType: 'humanoid',
             ears: 'round',
             requiredHeadFeatures: ['andorian-antennae'],
-            facialHair: ['none']
+            facialHair: ['none'],
+            preferredHairColors: ['#B5BEC8', '#F4F4F6', '#CCCCFF', '#BCB480']
         },
         {
             name: 'Aenar',
@@ -73,7 +75,8 @@ export class Randomizer {
             ears: 'round',
             requiredHeadFeatures: ['andorian-antennae'],
             facialHair: ['none'],
-            preferredBodyColor: '#B6AEAC'
+            preferredBodyColor: '#B6AEAC',
+            preferredHairColors: ['#B5BEC8', '#F4F4F6', '#CCCCFF', '#BCB480']
         },
         {
             name: 'Bajoran',
@@ -132,7 +135,8 @@ export class Randomizer {
             bodyType: 'humanoid',
             ears: 'round',
             compatibleHeadFeatures: ['orion-head-bolting'],
-            facialHair: 'any'
+            facialHair: 'any',
+            preferredHairColors: ['#944123', '#DB8239', '#F0A53D', '#5F1007', '#78CE89', '#2D9A43', '#002E2B', '#2D439A', '#222154']
         },
         {
             name: 'Tellarite',
@@ -332,9 +336,10 @@ export class Randomizer {
     /**
      * Select a random preset color from a color select element.
      * @param {HTMLSelectElement} colorSelect - Color preset select element
+     * @param {string[]} [preferredColors] - Optional array of preferred color hex values
      * @returns {string} Selected color hex value
      */
-    static #selectRandomPresetColor (colorSelect) {
+    static #selectRandomPresetColor (colorSelect, preferredColors = null) {
         const visibleOptions = this.#getVisibleOptions(colorSelect)
         const nonCustomOptions = visibleOptions.filter(opt => opt.value !== 'custom' && opt.value)
 
@@ -342,6 +347,16 @@ export class Randomizer {
             return this.#randomColor()
         }
 
+        // If preferred colors are specified, try to use them
+        if (preferredColors && preferredColors.length > 0) {
+            const preferredOptions = nonCustomOptions.filter(opt => preferredColors.includes(opt.value))
+            if (preferredOptions.length > 0) {
+                const randomIndex = Math.floor(Math.random() * preferredOptions.length)
+                return preferredOptions[randomIndex].value
+            }
+        }
+
+        // Fall back to random selection from all options
         const randomIndex = Math.floor(Math.random() * nonCustomOptions.length)
         return nonCustomOptions[randomIndex].value
     }
@@ -545,9 +560,10 @@ export class Randomizer {
             }
         }
 
-        // Randomize hair color from presets
+        // Randomize hair color from presets (use preferred colors if species has them)
         if (hairColorSelect instanceof HTMLSelectElement) {
-            colorManager.hairColorPicker.value = this.#selectRandomPresetColor(hairColorSelect)
+            const preferredHairColors = species?.preferredHairColors || null
+            colorManager.hairColorPicker.value = this.#selectRandomPresetColor(hairColorSelect, preferredHairColors)
         }
 
         // Randomize uniform color from presets
