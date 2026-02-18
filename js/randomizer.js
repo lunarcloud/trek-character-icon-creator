@@ -12,7 +12,8 @@ import { CharacterElements } from './character-elements.js'
  * @property {string[]} [excludedHeadFeatures] - Head features that should not be selected
  * @property {string[]} [facialHair] - Compatible facial hair options
  * @property {string[]} [preferredUniforms] - Preferred uniform options for this species
- * @property {string} [preferredBodyColor] - Preferred body color for this species
+ * @property {string} [preferredBodyColor] - Preferred body color for this species (exact match)
+ * @property {string[]} [preferredBodyColors] - Preferred body colors for this species (weighted selection)
  * @property {string[]} [preferredHairColors] - Preferred hair color options for this species
  */
 
@@ -32,7 +33,8 @@ export class Randomizer {
             bodyType: 'humanoid',
             ears: 'round',
             compatibleHeadFeatures: ['nose-ridges', 'trill-spots', 'bolian-line', 'denobulan-ridges'],
-            facialHair: 'any'
+            facialHair: 'any',
+            preferredBodyColors: ['#FEE4B3', '#A68854', '#936948', '#36200C', '#210F03']
         },
         {
             name: 'Klingon',
@@ -334,6 +336,36 @@ export class Randomizer {
     }
 
     /**
+     * Get department colors for a specific uniform filter group.
+     * @param {HTMLSelectElement} colorSelect - Uniform color select element
+     * @param {string|null} filterGroup - Filter group name (e.g., 'TOS', 'VOY', 'TNG')
+     * @returns {string[]|null} Array of color hex values or null
+     */
+    static #getDepartmentColorsForFilter (colorSelect, filterGroup) {
+        if (!filterGroup || filterGroup === 'Other') {
+            return null // No filtering for 'Other' or if no filter specified
+        }
+
+        const colors = []
+        const optgroups = colorSelect.querySelectorAll('optgroup')
+
+        for (const optgroup of optgroups) {
+            const groupFilter = optgroup.getAttribute('filtergroup')
+            if (groupFilter === filterGroup) {
+                const options = optgroup.querySelectorAll('option')
+                for (const option of options) {
+                    if (option.value && option.value !== 'custom') {
+                        colors.push(option.value)
+                    }
+                }
+                break
+            }
+        }
+
+        return colors.length > 0 ? colors : null
+    }
+
+    /**
      * Select a random preset color from a color select element.
      * @param {HTMLSelectElement} colorSelect - Color preset select element
      * @param {string[]} [preferredColors] - Optional array of preferred color hex values
@@ -543,8 +575,9 @@ export class Randomizer {
      * Randomize all color pickers with preset colors.
      * @param {object} colorManager - Color manager instance
      * @param {SpeciesDefinition} [species] - Optional species with preferred colors
+     * @param {HTMLSelectElement} [uniformSelect] - Optional uniform select to read filter from
      */
-    static randomizeColors (colorManager, species = null) {
+    static randomizeColors (colorManager, species = null, uniformSelect = null) {
         // Get preset color selects
         const bodyColorSelect = document.getElementById('std-body-colors')
         const hairColorSelect = document.getElementById('std-hair-colors')
@@ -554,7 +587,11 @@ export class Randomizer {
         // Randomize body color from presets (use preferred color if species has one)
         if (bodyColorSelect instanceof HTMLSelectElement) {
             if (species?.preferredBodyColor) {
+                // Exact match for species like Aenar
                 colorManager.bodyColorPicker.value = species.preferredBodyColor
+            } else if (species?.preferredBodyColors && species.preferredBodyColors.length > 0) {
+                // Weighted preference for species like Human
+                colorManager.bodyColorPicker.value = this.#selectRandomPresetColor(bodyColorSelect, species.preferredBodyColors)
             } else {
                 colorManager.bodyColorPicker.value = this.#selectRandomPresetColor(bodyColorSelect)
             }
@@ -566,14 +603,22 @@ export class Randomizer {
             colorManager.hairColorPicker.value = this.#selectRandomPresetColor(hairColorSelect, preferredHairColors)
         }
 
-        // Randomize uniform color from presets
+        // Get the uniform's color filter to select appropriate department colors
+        let uniformColorFilter = null
+        if (uniformSelect && uniformSelect.selectedOptions.length > 0) {
+            uniformColorFilter = uniformSelect.selectedOptions[0].getAttribute('colors-filter')
+        }
+
+        // Randomize uniform color from presets (prefer colors from the uniform's filter group)
         if (uniformColorSelect instanceof HTMLSelectElement) {
-            colorManager.uniformColorPicker.value = this.#selectRandomPresetColor(uniformColorSelect)
+            const departmentColors = this.#getDepartmentColorsForFilter(uniformColorSelect, uniformColorFilter)
+            colorManager.uniformColorPicker.value = this.#selectRandomPresetColor(uniformColorSelect, departmentColors)
         }
 
         // Randomize uniform undershirt color from presets
         if (uniformUndershirtColorSelect instanceof HTMLSelectElement) {
-            colorManager.uniformUndershirtColorPicker.value = this.#selectRandomPresetColor(uniformUndershirtColorSelect)
+            const undershirtColors = this.#getDepartmentColorsForFilter(uniformUndershirtColorSelect, uniformColorFilter)
+            colorManager.uniformUndershirtColorPicker.value = this.#selectRandomPresetColor(uniformUndershirtColorSelect, undershirtColors)
         }
 
         // Randomize special colors

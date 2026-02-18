@@ -582,8 +582,8 @@ export class IndexController {
             // Randomize uniform (pass species for preferred uniforms)
             Randomizer.randomizeUniform(this.#elements.uniformSelect, species)
 
-            // Randomize colors (pass species for preferred body color)
-            Randomizer.randomizeColors(this.#colorManager, species)
+            // Randomize colors (pass species for preferred body color and uniform for department colors)
+            Randomizer.randomizeColors(this.#colorManager, species, this.#elements.uniformSelect)
 
             // Trigger change detection to update the UI
             this.onChangeDetected()
