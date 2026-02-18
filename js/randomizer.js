@@ -350,6 +350,22 @@ export class Randomizer {
     }
 
     /**
+     * Get facial hair options that should be excluded based on selected head features.
+     * @param {string[]} selectedHeadFeatures - Array of selected head feature values
+     * @returns {string[]} Array of facial hair values to exclude
+     */
+    static #getExcludedFacialHair (selectedHeadFeatures) {
+        const excluded = []
+
+        // cat-mouth-beard requires cat-nose head feature
+        if (!selectedHeadFeatures.includes('cat-nose')) {
+            excluded.push('cat-mouth-beard')
+        }
+
+        return excluded
+    }
+
+    /**
      * Generate a random color value.
      * @returns {string} Hex color string
      */
@@ -488,7 +504,9 @@ export class Randomizer {
 
         // Set facial hair
         if (species.facialHair === 'any') {
-            elements.facialHairSelect.value = this.#selectRandomOption(elements.facialHairSelect)
+            // Get excluded facial hair based on selected head features
+            const excludedFacialHair = this.#getExcludedFacialHair(selectedHeadFeatures)
+            elements.facialHairSelect.value = this.#selectRandomOption(elements.facialHairSelect, null, excludedFacialHair)
         } else if (Array.isArray(species.facialHair)) {
             elements.facialHairSelect.value = this.#selectRandomOption(
                 elements.facialHairSelect,
@@ -611,21 +629,30 @@ export class Randomizer {
 
         // Randomize body color from presets (use preferred color if species has one)
         if (bodyColorSelect instanceof HTMLSelectElement) {
+            let selectedColor
             if (species?.preferredBodyColor) {
                 // Exact match for species like Aenar
-                colorManager.bodyColorPicker.value = species.preferredBodyColor
+                selectedColor = species.preferredBodyColor
             } else if (species?.preferredBodyColors && species.preferredBodyColors.length > 0) {
                 // Weighted preference for species like Human
-                colorManager.bodyColorPicker.value = this.#selectRandomPresetColor(bodyColorSelect, species.preferredBodyColors)
+                selectedColor = this.#selectRandomPresetColor(bodyColorSelect, species.preferredBodyColors)
             } else {
-                colorManager.bodyColorPicker.value = this.#selectRandomPresetColor(bodyColorSelect)
+                selectedColor = this.#selectRandomPresetColor(bodyColorSelect)
             }
+            // Update both picker and select, then dispatch change events
+            colorManager.bodyColorPicker.value = selectedColor
+            bodyColorSelect.value = selectedColor
+            bodyColorSelect.dispatchEvent(new Event('change', { bubbles: true }))
         }
 
         // Randomize hair color from presets (use preferred colors if species has them)
         if (hairColorSelect instanceof HTMLSelectElement) {
             const preferredHairColors = species?.preferredHairColors || null
-            colorManager.hairColorPicker.value = this.#selectRandomPresetColor(hairColorSelect, preferredHairColors)
+            const selectedColor = this.#selectRandomPresetColor(hairColorSelect, preferredHairColors)
+            // Update both picker and select, then dispatch change events
+            colorManager.hairColorPicker.value = selectedColor
+            hairColorSelect.value = selectedColor
+            hairColorSelect.dispatchEvent(new Event('change', { bubbles: true }))
         }
 
         // Get the uniform's color filter to select appropriate department colors
@@ -637,13 +664,21 @@ export class Randomizer {
         // Randomize uniform color from presets (prefer colors from the uniform's filter group)
         if (uniformColorSelect instanceof HTMLSelectElement) {
             const departmentColors = this.#getDepartmentColorsForFilter(uniformColorSelect, uniformColorFilter)
-            colorManager.uniformColorPicker.value = this.#selectRandomPresetColor(uniformColorSelect, departmentColors)
+            const selectedColor = this.#selectRandomPresetColor(uniformColorSelect, departmentColors)
+            // Update both picker and select, then dispatch change events
+            colorManager.uniformColorPicker.value = selectedColor
+            uniformColorSelect.value = selectedColor
+            uniformColorSelect.dispatchEvent(new Event('change', { bubbles: true }))
         }
 
         // Randomize uniform undershirt color from presets
         if (uniformUndershirtColorSelect instanceof HTMLSelectElement) {
             const undershirtColors = this.#getDepartmentColorsForFilter(uniformUndershirtColorSelect, uniformColorFilter)
-            colorManager.uniformUndershirtColorPicker.value = this.#selectRandomPresetColor(uniformUndershirtColorSelect, undershirtColors)
+            const selectedColor = this.#selectRandomPresetColor(uniformUndershirtColorSelect, undershirtColors)
+            // Update both picker and select, then dispatch change events
+            colorManager.uniformUndershirtColorPicker.value = selectedColor
+            uniformUndershirtColorSelect.value = selectedColor
+            uniformUndershirtColorSelect.dispatchEvent(new Event('change', { bubbles: true }))
         }
 
         // Randomize special colors
