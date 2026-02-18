@@ -11,6 +11,8 @@ import { CharacterElements } from './character-elements.js'
  * @property {string[]} [compatibleHeadFeatures] - Head features that can be selected
  * @property {string[]} [excludedHeadFeatures] - Head features that should not be selected
  * @property {string[]} [facialHair] - Compatible facial hair options
+ * @property {string[]} [preferredUniforms] - Preferred uniform options for this species
+ * @property {string} [preferredBodyColor] - Preferred body color for this species
  */
 
 /**
@@ -63,6 +65,15 @@ export class Randomizer {
             ears: 'round',
             requiredHeadFeatures: ['andorian-antennae'],
             facialHair: ['none']
+        },
+        {
+            name: 'Aenar',
+            weight: 3,
+            bodyType: 'humanoid',
+            ears: 'round',
+            requiredHeadFeatures: ['andorian-antennae'],
+            facialHair: ['none'],
+            preferredBodyColor: '#B6AEAC'
         },
         {
             name: 'Bajoran',
@@ -179,6 +190,15 @@ export class Randomizer {
             bodyType: 'medusan'
         },
         // Rare non-canon species
+        {
+            name: 'Akaru',
+            weight: 2,
+            bodyType: 'humanoid',
+            ears: 'pointy',
+            compatibleHeadFeatures: [],
+            facialHair: ['goatee-a', 'goatee-b', 'mustache-a', 'none'],
+            preferredUniforms: ['Civilian Simple 1', 'Civilian Simple 2', 'Civilian Simple 3', 'Civilian Federation G', 'Civilian Federation H', 'Civilian Federation I']
+        },
         {
             name: 'VinShari',
             weight: 2,
@@ -497,25 +517,32 @@ export class Randomizer {
     /**
      * Randomize uniform selection.
      * @param {HTMLSelectElement} uniformSelect - Uniform select element
+     * @param {SpeciesDefinition} [species] - Optional species with preferred uniforms
      */
-    static randomizeUniform (uniformSelect) {
-        uniformSelect.value = this.#selectRandomOption(uniformSelect)
+    static randomizeUniform (uniformSelect, species = null) {
+        const preferredUniforms = species?.preferredUniforms || null
+        uniformSelect.value = this.#selectRandomOption(uniformSelect, preferredUniforms)
     }
 
     /**
      * Randomize all color pickers with preset colors.
      * @param {object} colorManager - Color manager instance
+     * @param {SpeciesDefinition} [species] - Optional species with preferred colors
      */
-    static randomizeColors (colorManager) {
+    static randomizeColors (colorManager, species = null) {
         // Get preset color selects
         const bodyColorSelect = document.getElementById('std-body-colors')
         const hairColorSelect = document.getElementById('std-hair-colors')
         const uniformColorSelect = document.getElementById('std-uniform-colors')
         const uniformUndershirtColorSelect = document.getElementById('std-uniform-undershirt-colors')
 
-        // Randomize body color from presets
+        // Randomize body color from presets (use preferred color if species has one)
         if (bodyColorSelect instanceof HTMLSelectElement) {
-            colorManager.bodyColorPicker.value = this.#selectRandomPresetColor(bodyColorSelect)
+            if (species?.preferredBodyColor) {
+                colorManager.bodyColorPicker.value = species.preferredBodyColor
+            } else {
+                colorManager.bodyColorPicker.value = this.#selectRandomPresetColor(bodyColorSelect)
+            }
         }
 
         // Randomize hair color from presets

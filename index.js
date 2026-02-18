@@ -579,11 +579,11 @@ export class IndexController {
             // Use the Randomizer to select random species and features
             const species = Randomizer.randomizeCharacter(this.#elements)
 
-            // Randomize uniform
-            Randomizer.randomizeUniform(this.#elements.uniformSelect)
+            // Randomize uniform (pass species for preferred uniforms)
+            Randomizer.randomizeUniform(this.#elements.uniformSelect, species)
 
-            // Randomize colors
-            Randomizer.randomizeColors(this.#colorManager)
+            // Randomize colors (pass species for preferred body color)
+            Randomizer.randomizeColors(this.#colorManager, species)
 
             // Trigger change detection to update the UI
             this.onChangeDetected()
