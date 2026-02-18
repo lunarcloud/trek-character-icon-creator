@@ -1,6 +1,18 @@
 /**
  * URL Share Manager
  * Handles encoding/decoding of character configurations for URL sharing.
+ *
+ * IFRAME COMPATIBILITY:
+ * This implementation works correctly when the app is embedded in an iframe
+ * (e.g., on itch.io) because it only accesses the iframe's own window.location,
+ * which is always allowed. Cross-origin restrictions prevent parent↔child access
+ * but do NOT prevent an iframe from accessing its own location properties.
+ *
+ * When embedded:
+ * - The iframe can read/write its own window.location.hash ✓
+ * - The iframe can use window.history.replaceState() ✓
+ * - URL hash fragments are preserved when loading the iframe ✓
+ * - Share URLs work whether opened directly or via itch.io embed ✓
  */
 export class UrlShareManager {
     /**
