@@ -29,7 +29,6 @@ test.describe('Species Selection Tests', () => {
 
     test('selecting Ferengi should render ferengi-brow as forced feature', async ({ page }) => {
         await page.selectOption('#body-shape', { label: 'Ferengi' })
-        await page.waitForTimeout(500)
         // The ferengi-brow SVG should be rendered in the character head features
         const ferengiSvg = page.locator('#character-head-features svg[data-src*="ferengi-brow"]')
         await expect(ferengiSvg).toBeAttached()
@@ -51,7 +50,6 @@ test.describe('Species Selection Tests', () => {
 
     test('selecting Klingon should render klingon ridges as forced feature', async ({ page }) => {
         await page.selectOption('#body-shape', { label: 'Klingon' })
-        await page.waitForTimeout(500)
         const klingonSvg = page.locator('#character-head-features svg[data-src*="klingon-ridges"]')
         await expect(klingonSvg).toBeAttached()
     })
@@ -72,7 +70,6 @@ test.describe('Species Selection Tests', () => {
 
     test('selecting Bird-like should render whiskers as forced feature', async ({ page }) => {
         await page.selectOption('#body-shape', { label: 'Bird-like' })
-        await page.waitForTimeout(500)
         const whiskersSvg = page.locator('#character-head-features svg[data-src*="gill-whiskers-or-feathers"]')
         await expect(whiskersSvg).toBeAttached()
     })
@@ -109,7 +106,6 @@ test.describe('Species Selection Tests', () => {
 
     test('Cardassian should render both forehead and neck as forced features', async ({ page }) => {
         await page.selectOption('#body-shape', { label: 'Cardassian' })
-        await page.waitForTimeout(500)
         const foreheadSvg = page.locator('#character-head-features svg[data-src*="cardassian-forehead"]')
         const neckSvg = page.locator('#character-head-features svg[data-src*="cardassian-neck"]')
         await expect(foreheadSvg).toBeAttached()
@@ -118,7 +114,6 @@ test.describe('Species Selection Tests', () => {
 
     test('Andorian should render andorian-antennae as forced feature', async ({ page }) => {
         await page.selectOption('#body-shape', { label: 'Andorian / Aenar' })
-        await page.waitForTimeout(500)
         const antennaeSvg = page.locator('#character-head-features svg[data-src*="andorian-antennae"]')
         await expect(antennaeSvg).toBeAttached()
     })
@@ -132,7 +127,6 @@ test.describe('Species Selection Tests', () => {
 
     test('Tellarite should render selected nose as forced feature', async ({ page }) => {
         await page.selectOption('#body-shape', { label: 'Tellarite' })
-        await page.waitForTimeout(500)
         const noseSvg = page.locator('#character-head-features svg[data-src*="tellarite-nose"]')
         await expect(noseSvg).toBeAttached()
     })
