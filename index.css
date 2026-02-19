@@ -54,6 +54,7 @@ body {
     max-width: inherit;
     padding-left: 0.5em;
     gap: 0.5em;
+
     /* min-height: 40em; */
 
     h2, h3 {
@@ -357,6 +358,7 @@ select:not([multiple]) {
     select:not([multiple]) {
         width: fit-content;
     }
+
     select:last-child, input:last-child {
         width: fit-content;
         width: fill-available;
@@ -432,6 +434,7 @@ select[multiple] option {
         opacity: 0;
         transition: opacity 0.6s ease-in-out;
     }
+
     &[open] ~ #filter-uniform-colors-option {
         display: unset;
         opacity: 1;
@@ -480,18 +483,11 @@ select[multiple] option {
 uniform-color-group {
     display: flex;
     flex-direction: row;
-    flex-basis: 45%;
-    flex-shrink: 0;
-    flex-grow: 1;
+    flex: 1 0 45%;
     gap: 0.25em;
 
     & > * {
         width: 100%;
-    }
-}
-.accent-color-choice {
-    uniform-color-group {
-
     }
 }
 
