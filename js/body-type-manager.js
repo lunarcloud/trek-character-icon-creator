@@ -84,7 +84,9 @@ export class BodyTypeManager {
 
         elements.characterHeadFeatures.innerHTML = allSelections.reduce(
             (accumulator, e) => {
-                accumulator += DomUtil.GenerateSVGHTML(`svg/humanoid/head-features/${e.value}.svg`, e.className)
+                // Strip forced-species class - it's only for hiding <option> elements, not rendered SVGs
+                const svgClass = e.className.replace(/\bforced-species\b/g, '').replace(/\s+/g, ' ').trim()
+                accumulator += DomUtil.GenerateSVGHTML(`svg/humanoid/head-features/${e.value}.svg`, svgClass)
                 return accumulator
             }, '')
 
