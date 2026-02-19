@@ -211,24 +211,24 @@ export class IndexController {
         const uniformBodyShape = ['sukhabelan'].includes(bodyShape) ? 'humanoid' : bodyShape
         this.#elements.characterUniform.innerHTML = DomUtil.GenerateSVGHTML(`svg/${uniformBodyShape}/uniform/${this.#elements.uniformSelect.value}.svg`)
 
-        const uniformClassList = this.#elements.uniformSelect.selectedOptions[0].classList
+        const uniformClassList = this.#elements.uniformSelect.selectedOptions?.[0].classList
 
         // No uniform-specific options (mostly about color)
-        this.#elements.mainEl.classList.toggle('no-uniform-color', uniformClassList.contains('no-color-choice'))
-        this.#elements.mainEl.classList.toggle('accent-color-choice', uniformClassList.contains('accent-color-choice'))
-        const extraOverlay = this.#elements.mainEl.classList.toggle('orville-badge-choice', uniformClassList.contains('orville-badge-choice'))
+        this.#elements.mainEl.classList.toggle('no-uniform-color', uniformClassList?.contains('no-color-choice') ?? false)
+        this.#elements.mainEl.classList.toggle('accent-color-choice', uniformClassList?.contains('accent-color-choice') ?? false)
+        const extraOverlay = this.#elements.mainEl.classList.toggle('orville-badge-choice', uniformClassList?.contains('orille-badge-choice') ?? false)
         this.#elements.mainEl.classList.toggle('extra-overlay', extraOverlay)
 
         // Filter color selector by uniform's colors
         const filteringColors = this.#colorManager.uniformColorFilterCheck.checked
-        const colorsFilter = this.#elements.uniformSelect.selectedOptions[0].getAttribute('colors-filter')
+        const colorsFilter = this.#elements.uniformSelect.selectedOptions?.[0].getAttribute('colors-filter')
         UniformManager.filterColorOptions(this.#elements.mainEl, this.#colorManager.uniformColorSelect, filteringColors, colorsFilter)
 
         // Regenerate uniform color swatches to reflect filter changes
         ColorSwatches.regenerate('uniform-color', 'std-uniform-colors', 'uniform-color-swatches')
 
         // Get selected uniform
-        let selectedUniform = this.#colorManager.uniformColorSelect.selectedOptions[0]
+        let selectedUniform = this.#colorManager.uniformColorSelect.selectedOptions?.[0]
 
         // If currently selecting a hidden/non-existent uniform
         if (this.#colorManager.isCurrentColorInvalid()) {
