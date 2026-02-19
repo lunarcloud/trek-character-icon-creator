@@ -120,7 +120,9 @@ export class ColorManager {
 
         // When user changes the uniform color, update the "last known uniform list"
         this.uniformColorSelect.addEventListener('change', () => {
-            const selectedColorNames = DataUtil.ListStringToArray(this.uniformColorSelect.selectedOptions[0].textContent)
+            const selectedOption = this.uniformColorSelect.selectedOptions?.[0]
+            if (!selectedOption) return
+            const selectedColorNames = DataUtil.ListStringToArray(selectedOption.textContent)
             if (!this.isUniformColorCustom() && !DataUtil.ListInList(selectedColorNames, UNIFORM_DEPARTMENTS))
                 return
             this.#lastUsedBodyColors.uniform = selectedColorNames
@@ -145,7 +147,7 @@ export class ColorManager {
      * @returns {boolean} True if custom color is selected
      */
     isUniformColorCustom () {
-        return this.uniformColorSelect.selectedOptions?.[0].value === 'custom'
+        return this.uniformColorSelect.selectedOptions?.[0]?.value === 'custom'
     }
 
     /**
