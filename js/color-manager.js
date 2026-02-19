@@ -56,6 +56,11 @@ export class ColorManager {
     uniformColorSelect
 
     /**
+     * @type {HTMLSelectElement}
+     */
+    bodyColorSelect
+
+    /**
      * @type {HTMLInputElement}
      */
     hairColorPicker
@@ -98,6 +103,7 @@ export class ColorManager {
         this.birdTuftColorPicker = getInputElement('bird-tuft-color')
         this.whiskersColorPicker = getInputElement('whiskers-color')
         this.uniformColorSelect = getSelectElement('std-uniform-colors')
+        this.bodyColorSelect = getSelectElement('std-body-colors')
         this.uniformColorFilterCheck = getInputElement('filter-color-selection')
 
         this.syncAntennaeWithBodyCheck = getInputElement('sync-antennae-with-body')

@@ -2,15 +2,53 @@ import { DomUtil } from './util-dom.js'
 import { CharacterElements } from './character-elements.js'
 
 /**
+ * Species-specific forced feature configurations.
+ * Maps species specify values to arrays of head-feature values that are always applied.
+ * @type {Record<string, string[]>}
+ */
+const FORCED_FEATURES = {
+    andor: ['andorian-antennae'],
+    bird: ['bird-beak', 'bird-tuft', 'gill-whiskers-or-feathers'],
+    cardassian: ['cardassian-forehead', 'cardassian-neck'],
+    cat: ['cat-nose', 'gill-whiskers-or-feathers'],
+    ferengi: ['ferengi-brow']
+}
+
+/**
  * Manages body-type-specific rendering and updates.
  */
 export class BodyTypeManager {
     /**
+     * Get the forced head-feature values for a species, plus species-specific
+     * dropdown selections (klingon ridges/forehead, tellarite nose).
+     * @param {CharacterElements} elements Character elements
+     * @param {string} specify The species specify value
+     * @returns {string[]} Array of forced feature values
+     */
+    static getForcedFeatures (elements, specify) {
+        const forced = [...(FORCED_FEATURES[specify] ?? [])]
+
+        if (specify === 'klingon') {
+            forced.push(elements.klingonRidgesSelect.value)
+            if (elements.klingonForeheadSelect.value !== 'none') {
+                forced.push(elements.klingonForeheadSelect.value)
+            }
+        }
+
+        if (specify === 'tellarite') {
+            forced.push(elements.tellariteNoseSelect.value)
+        }
+
+        return forced
+    }
+
+    /**
      * Update humanoid-specific features.
      * @param {CharacterElements} elements Character elements
      * @param {HTMLOptionElement} selectedUniform Selected uniform option
+     * @param {string} specify The species specify value
      */
-    static updateHumanoid (elements, selectedUniform) {
+    static updateHumanoid (elements, selectedUniform, specify) {
         // Change the ears
         elements.characterEarsOrNose.innerHTML = DomUtil.GenerateSVGHTML(`svg/humanoid/ears/${elements.earSelect.value}.svg`)
 
@@ -29,7 +67,22 @@ export class BodyTypeManager {
             .concat(Array.from(elements.eyewearFeatureSelect.selectedOptions) ?? [])
             .concat(Array.from(elements.hatFeatureSelect.selectedOptions) ?? [])
 
-        elements.characterHeadFeatures.innerHTML = selections.reduce(
+        // Get forced features for the current species (rendered but hidden from multi-select)
+        const forcedValues = BodyTypeManager.getForcedFeatures(elements, specify)
+        const selectedValues = new Set(selections.map(e => e.value))
+
+        // Build forced feature options that aren't already in selections
+        const forcedOptions = forcedValues
+            .filter(v => !selectedValues.has(v))
+            .map(v => {
+                const opt = elements.headFeatureSelect.querySelector(`option[value="${v}"]`)
+                return opt instanceof HTMLOptionElement ? opt : null
+            })
+            .filter(opt => opt !== null)
+
+        const allSelections = selections.concat(forcedOptions)
+
+        elements.characterHeadFeatures.innerHTML = allSelections.reduce(
             (accumulator, e) => {
                 accumulator += DomUtil.GenerateSVGHTML(`svg/humanoid/head-features/${e.value}.svg`, e.className)
                 return accumulator
@@ -47,19 +100,19 @@ export class BodyTypeManager {
 
         // Update extra underlay
         elements.characterExtraUnderlay.innerHTML = ''
-        selections
+        allSelections
             .filter(e => e.hasAttribute('extra-underlay'))
             .forEach((e, _i, _all) => {
                 elements.characterExtraUnderlay.innerHTML += DomUtil.GenerateSVGHTML(`svg/humanoid/head-features/${e.getAttribute('extra-underlay')}.svg`)
             })
 
         // Update document style classes
-        const selectionNames = selections.map(e => e.value)
-        if (selectionNames.includes('andorian-antennae'))
+        const allSelectionNames = allSelections.map(e => e.value)
+        if (allSelectionNames.includes('andorian-antennae'))
             elements.mainEl.classList.add('andorian-antennae')
-        if (selectionNames.includes('bird-tuft'))
+        if (allSelectionNames.includes('bird-tuft'))
             elements.mainEl.classList.add('bird-tuft')
-        if (selectionNames.includes('gill-whiskers-or-feathers'))
+        if (allSelectionNames.includes('gill-whiskers-or-feathers'))
             elements.mainEl.classList.add('whiskers')
     }
 
@@ -207,8 +260,8 @@ export class BodyTypeManager {
 
     /**
      * Enforce species-specific defaults when a humanoid subspecies is selected.
-     * Auto-selects matching ears and required head features, and deselects
-     * head features that are hidden for the current species.
+     * Auto-selects matching ears and deselects head features that are
+     * hidden for the current species.
      * @param {CharacterElements} elements Character elements
      * @param {string} specify The species specify value (e.g., 'ferengi', 'klingon', '')
      */
@@ -229,20 +282,6 @@ export class BodyTypeManager {
         for (const option of elements.headFeatureSelect.options) {
             if (option.selected && option.hidden) {
                 option.selected = false
-            }
-        }
-
-        // Auto-select species-specific head features if none are currently selected
-        const speciesClass = `specific-${specify}`
-        const speciesFeatures = Array.from(elements.headFeatureSelect.options)
-            .filter(opt => opt.classList.contains(speciesClass))
-        const hasSpeciesFeatureSelected = speciesFeatures.some(opt => opt.selected)
-
-        if (!hasSpeciesFeatureSelected && speciesFeatures.length > 0) {
-            // Select the first available species-specific feature
-            const firstVisible = speciesFeatures.find(opt => !opt.hidden)
-            if (firstVisible) {
-                firstVisible.selected = true
             }
         }
     }

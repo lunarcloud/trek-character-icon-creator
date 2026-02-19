@@ -234,6 +234,13 @@ export class IndexController {
             ? ''
             : DomUtil.GenerateSVGHTML(`svg/${bodyShape}/body-overlay.svg`)
 
+        // Filter body color options by species
+        const bodyColorsFilter = this.#elements.shapeSelect.selectedOptions?.[0]?.getAttribute('body-colors-filter')
+        UniformManager.filterColorOptions(this.#elements.mainEl, this.#colorManager.bodyColorSelect, !!bodyColorsFilter, bodyColorsFilter)
+
+        // Regenerate body color swatches to reflect filter changes
+        ColorSwatches.regenerate('body-color', 'std-body-colors', 'body-color-swatches')
+
         // Change the uniform
         const uniformBodyShape = ['sukhabelan'].includes(bodyShape) ? 'humanoid' : bodyShape
         this.#elements.characterUniform.innerHTML = DomUtil.GenerateSVGHTML(`svg/${uniformBodyShape}/uniform/${this.#elements.uniformSelect.value}.svg`)
@@ -275,7 +282,7 @@ export class IndexController {
         // Perform body-specific actions
         switch (bodyShape) {
         case 'humanoid':
-            BodyTypeManager.updateHumanoid(this.#elements, selectedUniform)
+            BodyTypeManager.updateHumanoid(this.#elements, selectedUniform, bodyShapeSpecify)
             break
         case 'cetaceous':
             BodyTypeManager.updateCetaceous(this.#elements)
@@ -369,6 +376,9 @@ export class IndexController {
             medusanAltColor: this.#elements.medusanAltColorCheck.checked,
             medusanBox: this.#elements.medusanBoxCheck.checked,
             calMirranShape: this.#elements.calMirranShapeSelect.value,
+            klingonRidges: this.#elements.klingonRidgesSelect.value,
+            klingonForehead: this.#elements.klingonForeheadSelect.value,
+            tellariteNose: this.#elements.tellariteNoseSelect.value,
             headFeatures: Array.from(this.#elements.headFeatureSelect.selectedOptions).map(o => o.value),
             jewelry: Array.from(this.#elements.jewelrySelect.selectedOptions).map(o => o.value),
             hat: this.#elements.hatFeatureSelect.value,
@@ -475,6 +485,15 @@ export class IndexController {
         }
         if (config.calMirranShape) {
             this.#elements.calMirranShapeSelect.value = config.calMirranShape
+        }
+        if (config.klingonRidges) {
+            this.#elements.klingonRidgesSelect.value = config.klingonRidges
+        }
+        if (config.klingonForehead) {
+            this.#elements.klingonForeheadSelect.value = config.klingonForehead
+        }
+        if (config.tellariteNose) {
+            this.#elements.tellariteNoseSelect.value = config.tellariteNose
         }
 
         // Apply head features (multi-select)

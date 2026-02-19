@@ -153,6 +153,9 @@ body {
   &.specify-ferengi [class*="specific-"]:not(.specific-ferengi),
   &.specify-klingon [class*="specific-"]:not(.specific-klingon),
   &.specify-tellarite [class*="specific-"]:not(.specific-tellarite),
+  &[class*="specify-"] .forced-species,
+  &:not(.specify-klingon) .specify-klingon-only,
+  &:not(.specify-tellarite) .specify-tellarite-only,
   &.no-uniform-color #uniform-color-section {
     display: none;
     visibility: hidden;
