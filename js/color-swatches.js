@@ -194,4 +194,23 @@ export class ColorSwatches {
         ColorSwatches.generateSwatches(selector, container, picker, selector)
         ColorSwatches.updateSelectedSwatch(container, picker.value)
     }
+
+    /**
+     * Sync the color display and selected swatch highlight to the current picker value.
+     * Useful after programmatically changing a color picker value without dispatching events.
+     * @param {string} pickerId - Color input element ID
+     * @param {string} swatchesContainerId - Container element ID for swatches
+     */
+    static syncDisplay (pickerId, swatchesContainerId) {
+        const picker = getInputElement(pickerId)
+        const container = document.getElementById(swatchesContainerId)
+        const colorDisplay = document.getElementById(pickerId + '-display')
+
+        if (colorDisplay) {
+            ColorSwatches.updateColorDisplay(colorDisplay, picker.value)
+        }
+        if (container) {
+            ColorSwatches.updateSelectedSwatch(container, picker.value)
+        }
+    }
 }
