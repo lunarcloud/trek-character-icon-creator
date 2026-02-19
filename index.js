@@ -116,11 +116,11 @@ export class IndexController {
         }
 
         /* Ensure that the two uniform color sections open and close together */
-        const uniformColorDetails = document.querySelectorAll('uniform-color-group details');
-        for (let details of uniformColorDetails) {
+        const uniformColorDetails = document.querySelectorAll('uniform-color-group details')
+        for (const details of uniformColorDetails) {
             if (details instanceof HTMLDetailsElement) {
-                details.addEventListener('toggle', ( /** @type {ToggleEvent} */ evt) => {
-                    for (let el of uniformColorDetails) {
+                details.addEventListener('toggle', (/** @type {ToggleEvent} */ evt) => {
+                    for (const el of uniformColorDetails) {
                         el.toggleAttribute('open', evt.newState === 'open')
                     }
                 })
@@ -380,16 +380,16 @@ export class IndexController {
     #deserializeCharacter (config) {
         // Validate version
         switch (config?.version) {
-            case '2.0':
-                console.debug('loaded a v 2.0 config')
-                break;
-            case '1.0':
-                config.jewelry = config.headFeatures
+        case '2.0':
+            console.debug('loaded a v 2.0 config')
+            break
+        case '1.0':
+            config.jewelry = config.headFeatures
 
-                console.debug('loaded a v 1.0 config')
-                break;
-            default:
-                throw new Error(`Invalid or unsupported configuration version ${config?.version}`)
+            console.debug('loaded a v 1.0 config')
+            break
+        default:
+            throw new Error(`Invalid or unsupported configuration version ${config?.version}`)
         }
         // Validate body shape before applying to prevent onChangeDetected errors
         // Extract valid body shapes from the select element options
@@ -399,17 +399,17 @@ export class IndexController {
         }
 
         const validBodyShapeSpecifies = Array.from(this.#elements.shapeSelect.options).map(option => option.getAttribute('specify'))
-        let bodyShapeSpecify = '';
+        let bodyShapeSpecify = ''
         if (config.bodyShapeSpecify && validBodyShapeSpecifies.includes(config.bodyShapeSpecify)) {
-            bodyShapeSpecify = config.bodyShapeSpecify ?? '';
+            bodyShapeSpecify = config.bodyShapeSpecify ?? ''
         }
 
         // Apply body shape first as it affects available options
         if (config.bodyShape) {
-            for (let option of this.#elements.shapeSelect.options) {
-                let specified = option.getAttribute('specify') ?? ''
+            for (const option of this.#elements.shapeSelect.options) {
+                const specified = option.getAttribute('specify') ?? ''
                 if (option.value === config.bodyShape && specified === bodyShapeSpecify) {
-                    option.selected = true;
+                    option.selected = true
                 }
             }
         }
