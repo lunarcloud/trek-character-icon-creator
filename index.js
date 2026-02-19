@@ -296,6 +296,12 @@ export class IndexController {
         // Update the CSS styles for the character based on the choices
         this.#elements.characterStyleEl.innerHTML = this.#colorManager.generateColorStyles()
 
+        // Sync color displays after any programmatic color changes (e.g. body shape reset, uniform validation)
+        ColorSwatches.syncDisplay('body-color', 'body-color-swatches')
+        ColorSwatches.syncDisplay('hair-color', 'hair-color-swatches')
+        ColorSwatches.syncDisplay('uniform-color', 'uniform-color-swatches')
+        ColorSwatches.syncDisplay('uniform-undershirt-color', 'uniform-undershirt-color-swatches')
+
         // Mark that changes have been made
         this.#hasChanges = true
 
@@ -507,6 +513,13 @@ export class IndexController {
         }
         this.#colorManager.updateSynchronizedColors()
         this.#elements.characterStyleEl.innerHTML = this.#colorManager.generateColorStyles()
+
+        // Sync color displays after re-applying loaded colors
+        ColorSwatches.syncDisplay('body-color', 'body-color-swatches')
+        ColorSwatches.syncDisplay('hair-color', 'hair-color-swatches')
+        ColorSwatches.syncDisplay('uniform-color', 'uniform-color-swatches')
+        ColorSwatches.syncDisplay('uniform-undershirt-color', 'uniform-undershirt-color-swatches')
+
         this.#autosaveManager.save(this.#serializeCharacter())
 
         return true
