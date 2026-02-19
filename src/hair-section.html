@@ -1,12 +1,12 @@
 <group class="non-exocomp non-medusan non-cetaceous non-cal-mirran non-sukhabelan">
-    <h2 id="hair-header">Hair</h2>
+    <h2 id="hair-header" class="notext"></h2>
 
     <div>
         <input type="color" id="hair-color" value="#270D02" hidden>
         <details class="color-picker-details">
             <summary>
                 <div id="hair-color-display" class="color-display" aria-label="Current hair color"></div>
-                <span>Color</span>
+                <span>Hair Color</span>
             </summary>
             <select id="std-hair-colors" aria-label="Preset hair colors">
                 <option value="custom" hidden></option>
@@ -42,45 +42,8 @@
         </details>
     </div>
 
-    <h3>Facial</h3>
     <div class="index-list">
-        <select id="facial-hair-select" aria-label="Facial hair style">
-            <option value="none" selected>None</option>
-            <option value="mustache-a">Mustache A</option>
-            <option value="mustache-b">Mustache B</option>
-            <option value="mustache-c">Mustache C</option>
-            <option value="mustache-d">Mustache D</option>
-            <option value="mustache-e">Mustache E</option>
-            <option value="mustache-f">Mustache F</option>
-            <option value="mustache-g">Mustache G</option>
-            <option value="goatee-a">Goatee A</option>
-            <option value="goatee-b">Goatee B</option>
-            <option value="goatee-c">Goatee C</option>
-            <option value="goatee-d">Goatee D</option>
-            <option value="mutton-chops">Mutton Chops</option>
-            <option value="neelix-mutton-chops">Neelix's Mutton Chops</option>
-            <option value="mutton-chops-and-mustache">Mutton Chops & Mustache</option>
-            <option value="sideburns">Sideburns</option>
-            <option value="line-beard">Line Beard</option>
-            <option value="wide-beard">Wide Beard</option>
-            <option value="pointed-beard">Pointed Beard</option>
-            <option value="long-beard">Long Beard</option>
-            <option value="worf-beard">Worf Beard</option>
-            <option value="chin-beard">Chin Beard</option>
-            <option value="beard-and-mustache-a">Beard & Mustache A</option>
-            <option value="beard-and-mustache-b">Beard & Mustache B</option>
-            <option value="beard-and-mustache-c">Beard & Mustache C</option>
-            <option value="beard-and-mustache-d">Beard & Mustache D</option>
-            <option value="beard-and-mustache-e">Beard & Mustache E</option>
-            <option value="beard-and-mustache-f">Beard & Mustache F</option>
-            <option value="five-o-clock-shadow">Five O'Clock Shadow</option>
-            <option value="cat-mouth-beard" class="non-qofuari">Cat Mouth Beard</option>
-        </select>
-        <button id="facial-hair-next" title="Next option" aria-label="Next facial hair option">➜</button>
-    </div>
-
-    <h3>Head</h3>
-    <div class="index-list">
+        <label for="hair-select">Front</label>
         <select id="hair-select" aria-label="Head hair style">
             <option value="none">None</option>
             <option value="a">A</option>
@@ -142,6 +105,7 @@
         </label>
     </div>
     <div class="index-list non-qofuari">
+        <label for="rear-hair-select">Rear</label>
         <select id="rear-hair-select" aria-label="Rear hair style">
             <option value="none" selected>None</option>
             <option value="a">A</option>
@@ -174,4 +138,42 @@
             <span>⎅</span>
         </label>
     </div>
+
+    <div class="index-list">
+        <label for="facial-hair-select">Facial</label>
+        <select id="facial-hair-select" aria-label="Facial hair style">
+            <option value="none" selected>None</option>
+            <option value="mustache-a">Mustache A</option>
+            <option value="mustache-b">Mustache B</option>
+            <option value="mustache-c">Mustache C</option>
+            <option value="mustache-d">Mustache D</option>
+            <option value="mustache-e">Mustache E</option>
+            <option value="mustache-f">Mustache F</option>
+            <option value="mustache-g">Mustache G</option>
+            <option value="goatee-a">Goatee A</option>
+            <option value="goatee-b">Goatee B</option>
+            <option value="goatee-c">Goatee C</option>
+            <option value="goatee-d">Goatee D</option>
+            <option value="mutton-chops">Mutton Chops</option>
+            <option value="neelix-mutton-chops">Neelix's Mutton Chops</option>
+            <option value="mutton-chops-and-mustache">Mutton Chops & Mustache</option>
+            <option value="sideburns">Sideburns</option>
+            <option value="line-beard">Line Beard</option>
+            <option value="wide-beard">Wide Beard</option>
+            <option value="pointed-beard">Pointed Beard</option>
+            <option value="long-beard">Long Beard</option>
+            <option value="worf-beard">Worf Beard</option>
+            <option value="chin-beard">Chin Beard</option>
+            <option value="beard-and-mustache-a">Beard & Mustache A</option>
+            <option value="beard-and-mustache-b">Beard & Mustache B</option>
+            <option value="beard-and-mustache-c">Beard & Mustache C</option>
+            <option value="beard-and-mustache-d">Beard & Mustache D</option>
+            <option value="beard-and-mustache-e">Beard & Mustache E</option>
+            <option value="beard-and-mustache-f">Beard & Mustache F</option>
+            <option value="five-o-clock-shadow">Five O'Clock Shadow</option>
+            <option value="cat-mouth-beard" class="non-qofuari">Cat Mouth Beard</option>
+        </select>
+        <button id="facial-hair-next" title="Next option" aria-label="Next facial hair option">➜</button>
+    </div>
+
 </group>

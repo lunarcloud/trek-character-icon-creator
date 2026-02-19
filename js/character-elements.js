@@ -102,6 +102,11 @@ export class CharacterElements {
     /**
      * @type {HTMLSelectElement}
      */
+    jewelrySelect
+
+    /**
+     * @type {HTMLSelectElement}
+     */
     hatFeatureSelect
 
     /**
@@ -189,6 +194,7 @@ export class CharacterElements {
         this.earSelect = getSelectElement('ear-select')
         this.noseSelect = getSelectElement('nose-select')
         this.headFeatureSelect = getSelectElement('head-feature-select')
+        this.jewelrySelect = getSelectElement('jewelry-select')
         this.hatFeatureSelect = getSelectElement('hat-select')
         this.eyewearFeatureSelect = getSelectElement('eyewear-select')
 
@@ -243,6 +249,7 @@ export class CharacterElements {
             this.earSelect,
             this.noseSelect,
             this.headFeatureSelect,
+            this.jewelrySelect,
             this.hatFeatureSelect,
             this.eyewearFeatureSelect,
             this.foreheadBumpCheck,

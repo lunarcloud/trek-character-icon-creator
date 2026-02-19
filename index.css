@@ -22,6 +22,20 @@ body, select, footer {
   color: #111;
 }
 
+group {
+  position: relative;
+  display: block;
+  break-before: auto;
+  column-break-before: auto;
+  -webkit-column-break-before: auto;
+
+  &.break-before {
+    display: block;
+    break-before: always;
+    column-break-before: always;
+    -webkit-column-break-before: always;
+  }
+}
 
 body {
   font-family: Roddenberry, sans-serif;
@@ -39,27 +53,16 @@ body {
     text-align: unset;
     gap: 0.25em;
     max-width: inherit;
-
     /* min-height: 40em; */
-
-    & > group {
-      display: block;
-      break-before: auto;
-      column-break-before: auto;
-      -webkit-column-break-before: auto;
-
-      &.break-before {
-        display: block;
-        break-before: always;
-        column-break-before: always;
-        -webkit-column-break-before: always;
-      }
-    }
 
     h2, h3 {
       break-after: avoid;
       margin-block-end: 0.75em;
       padding-block-start: 0.25em;
+
+      &.notext {
+        margin-block-end: 0;
+      }
     }
 
     h2 {
@@ -71,10 +74,17 @@ body {
       margin-block-start: 0.5em;
       border-bottom: 0.25em solid rgb(13 81 102);
       width: fit-content;
+    }
+  }
 
-      &.cal-mirran-only {
+  &.cetaceous > aside,
+  &.exocomp > aside,
+  &.medusan > aside,
+  &.cal-mirran > aside {
+    column-count: auto;
+
+    h3 {
         break-before: avoid-column;
-      }
     }
   }
 
@@ -320,38 +330,36 @@ body {
   }
 }
 
-input, select, button, .body-radio-option {
+input, select, button {
   border-radius: 4px;
   max-width: 100%;
 }
 
-select:not([multiple]) {
-    width: fit-content;
+select {
+    width: calc(100% - 1em);
     margin-block: 0.25em 0.75em;
-    display: block;
-    padding: 0.5em 2em 0.5em 0.25em;
-    vertical-align: middle;
 }
 
-.body-radio-option {
-  margin: 0.25em 0;
-  line-height: 2em;
-  min-width: 6em;
-  width: 6em;
-
-  & input {
-    width: 1em;
-  }
-
-  & label {
-    display: inline-block;
-    width: calc(100% - 2em);
-    max-width: 100%;
-  }
+select:not([multiple]) {
+  display: block;
+  padding: 0.5em 2em 0.5em 0.25em;
+  vertical-align: middle;
+  min-width: 45%;
 }
+
+.index-list {
+    select:not([multiple]) {
+        width: fit-content;
+    }
+    select:last-child, input:last-child {
+        width: fit-content;
+        width: fill-available;
+        width: -webkit-fill-available;
+    }
+}
+
 
 input,
-.body-radio-option,
 select:not([multiple]),
 select[multiple] option {
   background-color: #ccc;
@@ -403,23 +411,27 @@ select[multiple] option {
             max-height: 100vh;
         }
 
-        #filter-uniform-colors-option {
-            display: unset;
-            opacity: 1;
-        }
-    }
-
-    #filter-uniform-colors-option {
-        margin-inline-start: auto;
-        float: right;
-        display: none;
-        opacity: 0;
-        transition: opacity 0.6s ease-in-out;
     }
 
     &[open] summary::after {
         content: " ▼";
     }
+
+
+    & ~ #filter-uniform-colors-option {
+        position: absolute;
+        right: 0.5em;
+        top: 0.25em;
+        display: none;
+        opacity: 0;
+        transition: opacity 0.6s ease-in-out;
+    }
+    &[open] ~ #filter-uniform-colors-option {
+        display: unset;
+        opacity: 1;
+    }
+
+
 
     & summary {
         cursor: pointer;
@@ -456,6 +468,24 @@ select[multiple] option {
         & span {
             flex-shrink: 0;
         }
+    }
+}
+
+uniform-color-group {
+    display: flex;
+    flex-direction: row;
+    flex-basis: 45%;
+    flex-shrink: 0;
+    flex-grow: 1;
+    gap: 0.25em;
+
+    & > * {
+        width: 100%;
+    }
+}
+.accent-color-choice {
+    uniform-color-group {
+
     }
 }
 
@@ -546,8 +576,9 @@ select[multiple] option {
 }
 
 @media (pointer: fine) {
-  #head-feature-select {
-    height: 12em;
+  #head-feature-select,
+  #jewelry-select {
+    height: 8em;
   }
 }
 
@@ -599,10 +630,6 @@ body header {
   aside {
     padding: 0 1em;
     gap: unset;
-  }
-
-  .body-radio-option {
-    width: 50%;
   }
 }
 
@@ -672,7 +699,6 @@ body.saving {
   }
 
   input,
-  .body-radio-option,
   select:not([multiple]),
   select[multiple] option, button {
     background-color: #222;

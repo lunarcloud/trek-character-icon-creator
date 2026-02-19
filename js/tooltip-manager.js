@@ -42,13 +42,13 @@ export class TooltipManager {
      */
     static initBodyTypeTooltips () {
         const bodyShapeSelect = document.getElementById('body-shape')
-        if (bodyShapeSelect) {
+        if (bodyShapeSelect instanceof HTMLSelectElement) {
             TooltipManager.applyTooltipsToOptions(bodyShapeSelect, tooltipData.bodyTypes)
         }
 
         // Cal-Mirran shape tooltips
         const calMirranShapeSelect = document.getElementById('cal-mirran-shape')
-        if (calMirranShapeSelect) {
+        if (calMirranShapeSelect instanceof HTMLSelectElement) {
             TooltipManager.applyTooltipsToOptions(calMirranShapeSelect, tooltipData.calMirranShapes)
         }
     }
@@ -58,7 +58,7 @@ export class TooltipManager {
      */
     static initEarTooltips () {
         const earSelect = document.getElementById('ear-select')
-        if (earSelect) {
+        if (earSelect instanceof HTMLSelectElement) {
             TooltipManager.applyTooltipsToOptions(earSelect, tooltipData.ears)
         }
     }
@@ -68,7 +68,7 @@ export class TooltipManager {
      */
     static initNoseTooltips () {
         const noseSelect = document.getElementById('nose-select')
-        if (noseSelect) {
+        if (noseSelect instanceof HTMLSelectElement) {
             TooltipManager.applyTooltipsToOptions(noseSelect, tooltipData.noseTypes)
         }
     }
@@ -78,8 +78,13 @@ export class TooltipManager {
      */
     static initHeadFeaturesTooltips () {
         const headFeatureSelect = document.getElementById('head-feature-select')
-        if (headFeatureSelect) {
+        if (headFeatureSelect instanceof HTMLSelectElement) {
             TooltipManager.applyTooltipsToOptions(headFeatureSelect, tooltipData.headFeatures)
+        }
+
+        const jewelrySelect = document.getElementById('jewelry-select')
+        if (jewelrySelect instanceof HTMLSelectElement) {
+            TooltipManager.applyTooltipsToOptions(jewelrySelect, tooltipData.jewelry)
         }
     }
 
@@ -88,7 +93,7 @@ export class TooltipManager {
      */
     static initHatTooltips () {
         const hatSelect = document.getElementById('hat-select')
-        if (hatSelect) {
+        if (hatSelect instanceof HTMLSelectElement) {
             TooltipManager.applyTooltipsToOptions(hatSelect, tooltipData.hats)
         }
     }
@@ -98,7 +103,7 @@ export class TooltipManager {
      */
     static initEyewearTooltips () {
         const eyewearSelect = document.getElementById('eyewear-select')
-        if (eyewearSelect) {
+        if (eyewearSelect instanceof HTMLSelectElement) {
             TooltipManager.applyTooltipsToOptions(eyewearSelect, tooltipData.eyewear)
         }
     }

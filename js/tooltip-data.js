@@ -30,7 +30,8 @@ export const tooltipData = {
         round: 'Standard human-like rounded ears',
         pointy: 'Distinctive pointed ears typical of Vulcans, Romulans, and related species',
         ferengi: 'Large, lobed ears characteristic of the profit-driven Ferengi species',
-        cat: 'Feline-style pointed ears seen in Caitians and Kzinti',
+        cat: 'Feline-style pointed ears seen in Caitians',
+        webbed: 'Fish-like webbed ears, also seen on the cat-like Kzinti',
         bear: 'Bear-like rounded ears',
         horns: 'Horn-like protrusions in place of standard ears'
     },
@@ -60,7 +61,10 @@ export const tooltipData = {
         'vin-shari-neck': 'Neck ridges of the VinShari species',
         'denobulan-ridges': 'Facial ridges that run horizontally. Denobulans are optimistic and practice polygamy.',
         'north-romulan-v': 'V-shaped forehead ridge seen in some Romulan lineages',
-        'kelpian-lines': 'Distinctive ganglia and facial features. Kelpiens evolved as a prey species with heightened threat awareness.',
+        'kelpian-lines': 'Distinctive ganglia and facial features. Kelpiens evolved as a prey species with heightened threat awareness.'
+    },
+
+    jewelry: {
         'bajoran-earring': 'Traditional Bajoran earring worn on the right ear, signifying their faith and family.',
         'cyborg-antenna-l': 'Cybernetic antenna implant on left side',
         'cyborg-antenna-r': 'Cybernetic antenna implant on right side',

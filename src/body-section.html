@@ -1,26 +1,33 @@
 <group>
-    <h2>Body</h2>
-    <select id="body-shape" aria-label="Body type">
-        <option value="humanoid">Humanoid</option>
-        <option value="cetaceous">Cetaceous</option>
-        <option value="exocomp">Exocomp</option>
-        <option value="medusan">Medusan</option>
-        <optgroup label="Shackelton Expanse">
-            <option value="cal-mirran">Cal-Mirran</option>
-            <option value="qofuari">Qofuari</option>
-        </optgroup>
-        <optgroup label="Sarell Expanse" hidden>
-            <option value="sukhabelan" hidden>Sukhabelan</option>
-        </optgroup>
-    </select>
-
-    <h3 class="cal-mirran-only">Shape</h3>
-    <select id="cal-mirran-shape" class="cal-mirran-only" aria-label="Cal-Mirran shape">
-        <option selected>Prismatic</option>
-        <option>Spherical</option>
-        <option>Pinwheel</option>
-        <option>Cubical</option>
-    </select>
+    <h2 class="notext"></h2>
+    <div class="index-list">
+        <label for="body-shape">Type</label>
+        <select id="body-shape" aria-label="Body type">
+            <!--<optgroup label="Standard Bipedal">-->
+            <option value="humanoid">Humanoid</option>
+            <!--    <option value="humanoid" specify="human">Humans</option>
+                <option value="humanoid" specify="andor">Andorian / Aenar</option>
+                <option value="humanoid" specify="bird">Bird-like</option>
+                <option value="humanoid" specify="aenar">Candassian</option>
+                <option value="humanoid" specify="cat">Cait-like</option>
+                <option value="humanoid" specify="aenar">Ferengi</option>
+                <option value="humanoid" specify="klingon">Klingon</option>
+                <option value="humanoid" specify="tellarite">Tellarite</option>
+            </optgroup>
+            <optgroup label="Other">-->
+                <option value="cetaceous">Cetaceous</option>
+                <option value="exocomp">Exocomp</option>
+                <option value="medusan">Medusan</option>
+            <!-- </optgroup> -->
+            <optgroup label="Shackelton Expanse">
+                <option value="cal-mirran">Cal-Mirran</option>
+                <option value="qofuari">Qofuari</option>
+            </optgroup>
+            <optgroup label="Sarell Expanse" hidden>
+                <option value="sukhabelan" hidden>Sukhabelan</option>
+            </optgroup>
+        </select>
+</div>
 
     <div class="non-exocomp non-medusan non-cal-mirran">
         <input type="color" id="body-color" value="#FEE4B3" hidden>
@@ -61,15 +68,27 @@
         </details>
     </div>
 
-    <h3 class="humanoid-only non-qofuari non-sukhabelan">Ears</h3>
-    <select id="ear-select" class="humanoid-only non-qofuari non-sukhabelan" aria-label="Ear type">
-        <option value="none">None (Edosian, Saurian, etc)</option>
-        <option value="round" selected>Round (Human)</option>
-        <option value="pointy">Pointy (Vulcan, Romulan)</option>
-        <option value="ferengi">Massive (Ferengi)</option>
-        <option value="cat">Cat (Caitian, Kzinti)</option>
-        <option value="bear">Bear</option>
-        <option value="horns">Horns</option>
+    <h3 class="non-exocomp non-qofuari">Physical Attributes</h3>
+
+    <group class="index-list humanoid-only non-qofuari non-sukhabelan">
+        <label for="ear-select">Ears</label>
+        <select id="ear-select" aria-label="Ear type">
+            <option value="none">None (Edosian, Saurian, etc)</option>
+            <option value="round" selected>Round (Human)</option>
+            <option value="pointy">Pointy (Vulcan, Romulan)</option>
+            <option value="ferengi">Massive (Ferengi)</option>
+            <option value="cat">Cat (Caitian)</option>
+            <option value="webbed">Webbed (Kzinti, Khwopans)</option>
+            <option value="bear">Bear</option>
+            <option value="horns">Horns</option>
+        </select>
+</group>
+
+    <select id="cal-mirran-shape" class="cal-mirran-only" aria-label="Cal-Mirran shape">
+        <option selected>Prismatic</option>
+        <option>Spherical</option>
+        <option>Pinwheel</option>
+        <option>Cubical</option>
     </select>
 
 </group>

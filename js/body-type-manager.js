@@ -25,6 +25,7 @@ export class BodyTypeManager {
 
         // Update the head & headgear features
         const selections = (Array.from(elements.headFeatureSelect.selectedOptions) ?? [])
+            .concat(Array.from(elements.jewelrySelect.selectedOptions) ?? [])
             .concat(Array.from(elements.eyewearFeatureSelect.selectedOptions) ?? [])
             .concat(Array.from(elements.hatFeatureSelect.selectedOptions) ?? [])
 
@@ -138,6 +139,7 @@ export class BodyTypeManager {
 
         // Update the head & headgear features
         const selections = (Array.from(elements.headFeatureSelect.selectedOptions) ?? [])
+            .concat(Array.from(elements.jewelrySelect.selectedOptions) ?? [])
             .concat(Array.from(elements.hatFeatureSelect.selectedOptions) ?? [])
 
         elements.characterHeadFeatures.innerHTML = selections.reduce(

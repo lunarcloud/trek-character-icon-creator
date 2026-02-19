@@ -115,6 +115,18 @@ export class IndexController {
             changeEl.addEventListener('change', () => this.onChangeDetected())
         }
 
+        /* Ensure that the two uniform color sections open and close together */
+        const uniformColorDetails = document.querySelectorAll('uniform-color-group details');
+        for (let details of uniformColorDetails) {
+            if (details instanceof HTMLDetailsElement) {
+                details.addEventListener('toggle', ( /** @type {ToggleEvent} */ evt) => {
+                    for (let el of uniformColorDetails) {
+                        el.toggleAttribute('open', evt.newState === 'open')
+                    }
+                })
+            }
+        }
+
         // Setup "Next" buttons
         this.#elements.setupNextButtons(() => this.onChangeDetected())
     }
@@ -311,9 +323,10 @@ export class IndexController {
      */
     #serializeCharacter () {
         const config = {
-            version: '1.0',
+            version: '2.0',
             name: this.#elements.characterNameInput.value || DEFAULT_CHARACTER_NAME,
             bodyShape: this.#elements.shapeSelect.value,
+            bodyShapeSpecify: this.#elements.shapeSelect.selectedOptions?.[0]?.getAttribute('specify'),
             colors: {
                 body: this.#colorManager.bodyColorPicker.value,
                 hair: this.#colorManager.hairColorPicker.value,
@@ -336,6 +349,7 @@ export class IndexController {
             medusanBox: this.#elements.medusanBoxCheck.checked,
             calMirranShape: this.#elements.calMirranShapeSelect.value,
             headFeatures: Array.from(this.#elements.headFeatureSelect.selectedOptions).map(o => o.value),
+            jewelry: Array.from(this.#elements.jewelrySelect.selectedOptions).map(o => o.value),
             hat: this.#elements.hatFeatureSelect.value,
             eyewear: this.#elements.eyewearFeatureSelect.value,
             facialHair: this.#elements.facialHairSelect.value,
@@ -359,10 +373,18 @@ export class IndexController {
      */
     #deserializeCharacter (config) {
         // Validate version
-        if (!config.version || config.version !== '1.0') {
-            throw new Error('Invalid or unsupported configuration version')
-        }
+        switch (config?.version) {
+            case '2.0':
+                console.debug('loaded a v 2.0 config')
+                break;
+            case '1.0':
+                config.jewelry = config.headFeatures
 
+                console.debug('loaded a v 1.0 config')
+                break;
+            default:
+                throw new Error(`Invalid or unsupported configuration version ${config?.version}`)
+        }
         // Validate body shape before applying to prevent onChangeDetected errors
         // Extract valid body shapes from the select element options
         const validBodyShapes = Array.from(this.#elements.shapeSelect.options).map(option => option.value)
@@ -370,9 +392,20 @@ export class IndexController {
             throw new Error(`Invalid body shape: "${config.bodyShape}"`)
         }
 
+        const validBodyShapeSpecifies = Array.from(this.#elements.shapeSelect.options).map(option => option.getAttribute('specify'))
+        let bodyShapeSpecify = '';
+        if (config.bodyShapeSpecify && validBodyShapeSpecifies.includes(config.bodyShapeSpecify)) {
+            bodyShapeSpecify = config.bodyShapeSpecify ?? '';
+        }
+
         // Apply body shape first as it affects available options
         if (config.bodyShape) {
-            this.#elements.shapeSelect.value = config.bodyShape
+            for (let option of this.#elements.shapeSelect.options) {
+                let specified = option.getAttribute('specify') ?? ''
+                if (option.value === config.bodyShape && specified === bodyShapeSpecify) {
+                    option.selected = true;
+                }
+            }
         }
 
         // Apply character name
@@ -432,6 +465,19 @@ export class IndexController {
             // Apply new selections
             for (const value of config.headFeatures) {
                 const option = this.#elements.headFeatureSelect.querySelector(`option[value="${value}"]`)
+                if (option instanceof HTMLOptionElement) option.selected = true
+            }
+        }
+
+        // Apply jewelry (multi-select)
+        if (Array.isArray(config.jewelry)) {
+            // Clear current selections
+            for (const option of this.#elements.jewelrySelect.options) {
+                option.selected = false
+            }
+            // Apply new selections
+            for (const value of config.jewelry) {
+                const option = this.#elements.jewelrySelect.querySelector(`option[value="${value}"]`)
                 if (option instanceof HTMLOptionElement) option.selected = true
             }
         }
