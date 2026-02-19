@@ -38,6 +38,11 @@ export class IndexController {
     #lastBodyShape = null
 
     /**
+     * @type {string}
+     */
+    #lastBodyShapeSpecify = ''
+
+    /**
      * @type {AutosaveManager}
      */
     #autosaveManager
@@ -170,22 +175,27 @@ export class IndexController {
     onChangeDetected () {
         const bodyShape = this.#elements.shapeSelect.value
         const bodyShapeChanged = !this.#elements.mainEl.classList.contains(bodyShape)
+        const bodyShapeSpecify = this.#elements.shapeSelect.selectedOptions?.[0]?.getAttribute('specify') ?? ''
+        const specifyChanged = this.#lastBodyShapeSpecify !== bodyShapeSpecify
 
         // Announce body shape changes to screen readers
-        if (bodyShapeChanged && this.#lastBodyShape !== null) {
+        if ((bodyShapeChanged || specifyChanged) && this.#lastBodyShape !== null) {
             const bodyShapeName = this.#elements.shapeSelect.selectedOptions[0]?.textContent || bodyShape
             this.#announce(`Character body type changed to ${bodyShapeName}`)
         }
         this.#lastBodyShape = bodyShape
+        this.#lastBodyShapeSpecify = bodyShapeSpecify
 
         // Update the classes at the top for hiding/showing elements
         this.#elements.mainEl.className = bodyShape // first one clears the list
+        if (bodyShapeSpecify)
+            this.#elements.mainEl.classList.add(`specify-${bodyShapeSpecify}`)
         if (window.self !== window.top)
             this.#elements.mainEl.classList.add('embedded')
         // more classes will be added later
 
         // Handle Body Shape Changes
-        if (bodyShapeChanged) {
+        if (bodyShapeChanged || specifyChanged) {
             // Ensure the invalid items are hidden
             for (const selector of this.#elements.mainEl.getElementsByTagName('select')) {
                 if (selector instanceof HTMLSelectElement)
@@ -210,6 +220,11 @@ export class IndexController {
                 if (DomUtil.IsOptionInvalid(this.#elements.hairSelect)) {
                     this.#elements.hairSelect.selectedIndex = 0
                 }
+            }
+
+            // Handle species-specific enforcement for humanoid subspecies
+            if (specifyChanged && bodyShape === 'humanoid') {
+                BodyTypeManager.enforceSpeciesDefaults(this.#elements, bodyShapeSpecify)
             }
         }
 

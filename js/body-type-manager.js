@@ -204,4 +204,46 @@ export class BodyTypeManager {
         elements.characterUniform.style.visibility = 'visible'
         document.getElementById('uniform-header').style.visibility = 'visible'
     }
+
+    /**
+     * Enforce species-specific defaults when a humanoid subspecies is selected.
+     * Auto-selects matching ears and required head features, and deselects
+     * head features that are hidden for the current species.
+     * @param {CharacterElements} elements Character elements
+     * @param {string} specify The species specify value (e.g., 'ferengi', 'klingon', '')
+     */
+    static enforceSpeciesDefaults (elements, specify) {
+        if (!specify) return
+
+        // Auto-select species-specific ears if available
+        const speciesEar = Array.from(elements.earSelect.options)
+            .find(opt => opt.classList.contains(`specific-${specify}`))
+        if (speciesEar) {
+            elements.earSelect.value = speciesEar.value
+        } else if (DomUtil.IsOptionInvalid(elements.earSelect)) {
+            // If current ear is now hidden, fall back to round
+            elements.earSelect.value = 'round'
+        }
+
+        // Deselect head features that are now hidden
+        for (const option of elements.headFeatureSelect.options) {
+            if (option.selected && option.hidden) {
+                option.selected = false
+            }
+        }
+
+        // Auto-select species-specific head features if none are currently selected
+        const speciesClass = `specific-${specify}`
+        const speciesFeatures = Array.from(elements.headFeatureSelect.options)
+            .filter(opt => opt.classList.contains(speciesClass))
+        const hasSpeciesFeatureSelected = speciesFeatures.some(opt => opt.selected)
+
+        if (!hasSpeciesFeatureSelected && speciesFeatures.length > 0) {
+            // Select the first available species-specific feature
+            const firstVisible = speciesFeatures.find(opt => !opt.hidden)
+            if (firstVisible) {
+                firstVisible.selected = true
+            }
+        }
+    }
 }

@@ -145,6 +145,14 @@ body {
   &:not(.andorian-antennae) .andorian-antennae-only,
   &:not(.bird-tuft) .bird-tuft-only,
   &:not(.whiskers) .whiskers-only,
+  &.specify-human [class*="specific-"],
+  &.specify-andor [class*="specific-"]:not(.specific-andor),
+  &.specify-bird [class*="specific-"]:not(.specific-bird),
+  &.specify-cardassian [class*="specific-"]:not(.specific-cardassian),
+  &.specify-cat [class*="specific-"]:not(.specific-cat),
+  &.specify-ferengi [class*="specific-"]:not(.specific-ferengi),
+  &.specify-klingon [class*="specific-"]:not(.specific-klingon),
+  &.specify-tellarite [class*="specific-"]:not(.specific-tellarite),
   &.no-uniform-color #uniform-color-section {
     display: none;
     visibility: hidden;
