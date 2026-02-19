@@ -1,33 +1,31 @@
 <group>
     <h2 class="notext"></h2>
-    <div class="index-list">
-        <label for="body-shape">Type</label>
-        <select id="body-shape" aria-label="Body type">
-            <!--<optgroup label="Standard Bipedal">-->
-            <option value="humanoid">Humanoid</option>
-            <!--    <option value="humanoid" specify="human">Humans</option>
-                <option value="humanoid" specify="andor">Andorian / Aenar</option>
-                <option value="humanoid" specify="bird">Bird-like</option>
-                <option value="humanoid" specify="aenar">Candassian</option>
-                <option value="humanoid" specify="cat">Cait-like</option>
-                <option value="humanoid" specify="aenar">Ferengi</option>
-                <option value="humanoid" specify="klingon">Klingon</option>
-                <option value="humanoid" specify="tellarite">Tellarite</option>
-            </optgroup>
-            <optgroup label="Other">-->
-                <option value="cetaceous">Cetaceous</option>
-                <option value="exocomp">Exocomp</option>
-                <option value="medusan">Medusan</option>
-            <!-- </optgroup> -->
-            <optgroup label="Shackelton Expanse">
-                <option value="cal-mirran">Cal-Mirran</option>
-                <option value="qofuari">Qofuari</option>
-            </optgroup>
-            <optgroup label="Sarell Expanse" hidden>
-                <option value="sukhabelan" hidden>Sukhabelan</option>
-            </optgroup>
-        </select>
-</div>
+    <label for="body-shape">Body</label>
+    <select id="body-shape" aria-label="Body type">
+        <!--<optgroup label="Standard Bipedal">-->
+        <option value="humanoid">Humanoid</option>
+        <!--    <option value="humanoid" specify="human">Humans</option>
+            <option value="humanoid" specify="andor">Andorian / Aenar</option>
+            <option value="humanoid" specify="bird">Bird-like</option>
+            <option value="humanoid" specify="aenar">Candassian</option>
+            <option value="humanoid" specify="cat">Cait-like</option>
+            <option value="humanoid" specify="aenar">Ferengi</option>
+            <option value="humanoid" specify="klingon">Klingon</option>
+            <option value="humanoid" specify="tellarite">Tellarite</option>
+        </optgroup>
+        <optgroup label="Other">-->
+            <option value="cetaceous">Cetaceous</option>
+            <option value="exocomp">Exocomp</option>
+            <option value="medusan">Medusan</option>
+        <!-- </optgroup> -->
+        <optgroup label="Shackelton Expanse">
+            <option value="cal-mirran">Cal-Mirran</option>
+            <option value="qofuari">Qofuari</option>
+        </optgroup>
+        <optgroup label="Sarell Expanse" hidden>
+            <option value="sukhabelan" hidden>Sukhabelan</option>
+        </optgroup>
+    </select>
 
     <div class="non-exocomp non-medusan non-cal-mirran">
         <input type="color" id="body-color" value="#FEE4B3" hidden>
@@ -70,7 +68,7 @@
 
     <h3 class="non-exocomp non-qofuari">Physical Attributes</h3>
 
-    <group class="index-list humanoid-only non-qofuari non-sukhabelan">
+    <group class="humanoid-only non-qofuari non-sukhabelan">
         <label for="ear-select">Ears</label>
         <select id="ear-select" aria-label="Ear type">
             <option value="none">None (Edosian, Saurian, etc)</option>
