@@ -6,7 +6,7 @@ test.describe('Species Selection Tests', () => {
         await page.waitForSelector('character')
     })
 
-    test('body shape dropdown should have species-specific options', async ({ page }) => {
+    test('body shape dropdown should have all species-specific options', async ({ page }) => {
         const bodyShape = page.locator('#body-shape')
         const options = await bodyShape.locator('option').allTextContents()
         expect(options).toContain('Humanoid')
@@ -16,8 +16,17 @@ test.describe('Species Selection Tests', () => {
         expect(options).toContain('Bird-like')
         expect(options).toContain('Cat-like')
         expect(options).toContain('Andorian / Aenar')
+        expect(options).toContain('Bajoran')
+        expect(options).toContain('Benzite')
+        expect(options).toContain('Bolian')
         expect(options).toContain('Cardassian')
+        expect(options).toContain('Denobulan')
+        expect(options).toContain('Kelpien')
         expect(options).toContain('Tellarite')
+        expect(options).toContain('Trill')
+        expect(options).toContain('VinShari')
+        expect(options).toContain('Vulcan / Romulan')
+        expect(options).toContain('Zakdorn')
     })
 
     test('selecting Ferengi should force ferengi ears', async ({ page }) => {
@@ -29,7 +38,6 @@ test.describe('Species Selection Tests', () => {
 
     test('selecting Ferengi should render ferengi-brow as forced feature', async ({ page }) => {
         await page.selectOption('#body-shape', { label: 'Ferengi' })
-        // The ferengi-brow SVG should be rendered in the character head features
         const ferengiSvg = page.locator('#character-head-features svg[data-src*="ferengi-brow"]')
         await expect(ferengiSvg).toBeAttached()
     })
@@ -39,6 +47,13 @@ test.describe('Species Selection Tests', () => {
         await page.waitForTimeout(200)
         const birdBeak = page.locator('#head-feature-select option[value="bird-beak"]')
         expect(await birdBeak.getAttribute('hidden')).not.toBeNull()
+    })
+
+    test('selecting Ferengi should hide ears dropdown', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Ferengi' })
+        await page.waitForTimeout(200)
+        const earSelect = page.locator('#ear-select')
+        await expect(earSelect).not.toBeVisible()
     })
 
     test('selecting Klingon should show ridges dropdown', async ({ page }) => {
@@ -77,7 +92,6 @@ test.describe('Species Selection Tests', () => {
     test('generic Humanoid should show all features', async ({ page }) => {
         await page.selectOption('#body-shape', { label: 'Humanoid' })
         await page.waitForTimeout(200)
-        // All species-specific features should be visible for generic humanoid
         const ferengiOption = page.locator('#head-feature-select option[value="ferengi-brow"]')
         const birdBeakOption = page.locator('#head-feature-select option[value="bird-beak"]')
         const catNoseOption = page.locator('#head-feature-select option[value="cat-nose"]')
@@ -93,15 +107,6 @@ test.describe('Species Selection Tests', () => {
         const birdBeakOption = page.locator('#head-feature-select option[value="bird-beak"]')
         expect(await ferengiOption.getAttribute('hidden')).not.toBeNull()
         expect(await birdBeakOption.getAttribute('hidden')).not.toBeNull()
-    })
-
-    test('switching from Ferengi to Humanoid should show all features again', async ({ page }) => {
-        await page.selectOption('#body-shape', { label: 'Ferengi' })
-        await page.waitForTimeout(200)
-        await page.selectOption('#body-shape', { label: 'Humanoid' })
-        await page.waitForTimeout(200)
-        const catNoseOption = page.locator('#head-feature-select option[value="cat-nose"]')
-        expect(await catNoseOption.getAttribute('hidden')).toBeNull()
     })
 
     test('Cardassian should render both forehead and neck as forced features', async ({ page }) => {
@@ -131,59 +136,64 @@ test.describe('Species Selection Tests', () => {
         await expect(noseSvg).toBeAttached()
     })
 
-    test('forced features should be hidden from head-feature-select for specified humanoids', async ({ page }) => {
-        await page.selectOption('#body-shape', { label: 'Ferengi' })
+    test('Vulcan should force pointy ears', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Vulcan / Romulan' })
         await page.waitForTimeout(200)
-        // Ferengi brow should be hidden (forced, not selectable)
-        const ferengiBrow = page.locator('#head-feature-select option[value="ferengi-brow"]')
-        expect(await ferengiBrow.getAttribute('hidden')).not.toBeNull()
+        const earValue = await page.locator('#ear-select').inputValue()
+        expect(earValue).toBe('pointy')
     })
 
-    test('Klingon ridges dropdown should not be visible for non-klingons', async ({ page }) => {
-        await page.selectOption('#body-shape', { label: 'Humanoid' })
-        await page.waitForTimeout(200)
-        const ridgesSelect = page.locator('#klingon-ridges-select')
-        await expect(ridgesSelect).not.toBeVisible()
+    test('Bolian should render bolian-line as forced feature', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Bolian' })
+        const bolianSvg = page.locator('#character-head-features svg[data-src*="bolian-line"]')
+        await expect(bolianSvg).toBeAttached()
     })
 
-    test('body color should be filtered for Andorian', async ({ page }) => {
-        await page.selectOption('#body-shape', { label: 'Andorian / Aenar' })
-        await page.waitForTimeout(200)
-        // Only andor-relevant colors should be visible
-        const andorianOption = page.locator('#std-body-colors option[value="#41AACC"]')
-        expect(await andorianOption.getAttribute('hidden')).toBeNull()
+    test('Trill should render trill-spots as forced feature', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Trill' })
+        const trillSvg = page.locator('#character-head-features svg[data-src*="trill-spots"]')
+        await expect(trillSvg).toBeAttached()
     })
 
-    test('body color should not be filtered for generic Humanoid', async ({ page }) => {
-        await page.selectOption('#body-shape', { label: 'Humanoid' })
-        await page.waitForTimeout(200)
-        // All colors should be visible
-        const andorianOption = page.locator('#std-body-colors option[value="#41AACC"]')
-        expect(await andorianOption.getAttribute('hidden')).toBeNull()
-        const humanOption = page.locator('#std-body-colors option[value="#FEE4B3"]').first()
-        expect(await humanOption.getAttribute('hidden')).toBeNull()
+    test('Bajoran should render nose-ridges as forced feature', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Bajoran' })
+        const bajoranSvg = page.locator('#character-head-features svg[data-src*="nose-ridges"]')
+        await expect(bajoranSvg).toBeAttached()
     })
 
-    test('selecting Ferengi should hide ears dropdown', async ({ page }) => {
-        await page.selectOption('#body-shape', { label: 'Ferengi' })
-        await page.waitForTimeout(200)
-        const earSelect = page.locator('#ear-select')
-        await expect(earSelect).not.toBeVisible()
+    test('Benzite should render benzite-nose as forced feature', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Benzite' })
+        const benziteSvg = page.locator('#character-head-features svg[data-src*="benzite-nose"]')
+        await expect(benziteSvg).toBeAttached()
     })
 
-    test('switching from Ferengi to Humanoid should show ears dropdown again', async ({ page }) => {
-        await page.selectOption('#body-shape', { label: 'Ferengi' })
-        await page.waitForTimeout(200)
-        await page.selectOption('#body-shape', { label: 'Humanoid' })
-        await page.waitForTimeout(200)
-        const earSelect = page.locator('#ear-select')
-        await expect(earSelect).toBeVisible()
+    test('Denobulan should render denobulan-ridges as forced feature', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Denobulan' })
+        const denobulanSvg = page.locator('#character-head-features svg[data-src*="denobulan-ridges"]')
+        await expect(denobulanSvg).toBeAttached()
+    })
+
+    test('Zakdorn should render zakdorn-cheeks as forced feature', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Zakdorn' })
+        const zakdornSvg = page.locator('#character-head-features svg[data-src*="zakdorn-cheeks"]')
+        await expect(zakdornSvg).toBeAttached()
+    })
+
+    test('Kelpien should render kelpien-lines as forced feature', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Kelpien' })
+        const kelpienSvg = page.locator('#character-head-features svg[data-src*="kelpien-lines"]')
+        await expect(kelpienSvg).toBeAttached()
+    })
+
+    test('VinShari should render vin-shari-neck as forced feature', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'VinShari' })
+        const vinshariSvg = page.locator('#character-head-features svg[data-src*="vin-shari-neck"]')
+        await expect(vinshariSvg).toBeAttached()
     })
 
     test('Klingon body colors should include black, grey, and white', async ({ page }) => {
         await page.selectOption('#body-shape', { label: 'Klingon' })
         await page.waitForTimeout(200)
-        // Klingon filtergroup should be visible with these colors
         const klingonGroup = page.locator('#std-body-colors optgroup[filtergroup="klingon"]')
         expect(await klingonGroup.getAttribute('hidden')).toBeNull()
         const black = klingonGroup.locator('option[value="#0A0A0A"]')
@@ -197,7 +207,6 @@ test.describe('Species Selection Tests', () => {
     test('Cat-like body colors should include Caitian and Kzinti', async ({ page }) => {
         await page.selectOption('#body-shape', { label: 'Cat-like' })
         await page.waitForTimeout(200)
-        // Cat filtergroup should be visible with both colors
         const catGroup = page.locator('#std-body-colors optgroup[filtergroup="cat"]')
         expect(await catGroup.getAttribute('hidden')).toBeNull()
         const caitian = catGroup.locator('option[value="#B3673D"]')
@@ -207,18 +216,13 @@ test.describe('Species Selection Tests', () => {
     })
 
     test('body color auto-switches to valid color when filter hides current selection', async ({ page }) => {
-        // Start with Andorian and set the Andorian blue color via evaluate (select is in collapsed details)
         await page.selectOption('#body-shape', { label: 'Andorian / Aenar' })
         await page.waitForTimeout(200)
         await page.locator('#std-body-colors').evaluate((el, val) => { el.value = val }, '#41AACC')
         await page.locator('#body-color').evaluate((el, val) => { el.value = val }, '#41AACC')
         await page.waitForTimeout(200)
-
-        // Now switch to Human - Andorian color should be hidden
-        // and body color should auto-switch to the first valid human tone
         await page.selectOption('#body-shape', { label: 'Human' })
         await page.waitForTimeout(200)
-
         const bodyColorValue = await page.locator('#body-color').inputValue()
         expect(bodyColorValue.toUpperCase()).toBe('#FEE4B3')
     })

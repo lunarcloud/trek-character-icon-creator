@@ -6,12 +6,21 @@
             <option value="humanoid">Humanoid</option>
             <option value="humanoid" specify="human" body-colors-filter="human">Human</option>
             <option value="humanoid" specify="andor" body-colors-filter="andor">Andorian / Aenar</option>
+            <option value="humanoid" specify="bajoran" body-colors-filter="human">Bajoran</option>
+            <option value="humanoid" specify="benzite" body-colors-filter="benzite">Benzite</option>
             <option value="humanoid" specify="bird" body-colors-filter="human">Bird-like</option>
+            <option value="humanoid" specify="bolian" body-colors-filter="bolian">Bolian</option>
             <option value="humanoid" specify="cardassian" body-colors-filter="human">Cardassian</option>
             <option value="humanoid" specify="cat" body-colors-filter="cat">Cat-like</option>
+            <option value="humanoid" specify="denobulan" body-colors-filter="human">Denobulan</option>
             <option value="humanoid" specify="ferengi" body-colors-filter="human">Ferengi</option>
+            <option value="humanoid" specify="kelpien" body-colors-filter="kelpien">Kelpien</option>
             <option value="humanoid" specify="klingon" body-colors-filter="klingon">Klingon</option>
             <option value="humanoid" specify="tellarite" body-colors-filter="human">Tellarite</option>
+            <option value="humanoid" specify="trill" body-colors-filter="human">Trill</option>
+            <option value="humanoid" specify="vinshari" body-colors-filter="vinshari">VinShari</option>
+            <option value="humanoid" specify="vulcan" body-colors-filter="human">Vulcan / Romulan</option>
+            <option value="humanoid" specify="zakdorn" body-colors-filter="human">Zakdorn</option>
         </optgroup>
         <optgroup label="Other">
             <option value="cetaceous">Cetaceous</option>
@@ -64,6 +73,21 @@
                     <option value="#F4F4F6" class="non-sukhabelan">White</option>
                     <option value="#0A0A0A">Black</option>
                 </optgroup>
+                <optgroup label="Bolian" filtergroup="bolian">
+                    <option value="#b3b3fe" class="non-cetaceous non-sukhabelan non-qofuari">Bolian</option>
+                </optgroup>
+                <optgroup label="Benzite" filtergroup="benzite">
+                    <option value="#b3b3fe" class="non-cetaceous non-sukhabelan non-qofuari">Bolian</option>
+                    <option value="#00B3B8" class="non-cetaceous non-sukhabelan non-qofuari">Blue</option>
+                </optgroup>
+                <optgroup label="Kelpien" filtergroup="kelpien">
+                    <option value="#936948" class="non-cetaceous non-sukhabelan non-qofuari">Mid Human</option>
+                    <option value="#36200C" class="non-cetaceous non-sukhabelan non-qofuari">Mid-Dark Human</option>
+                    <option value="#210F03" class="non-cetaceous non-sukhabelan non-qofuari">Darker Human</option>
+                </optgroup>
+                <optgroup label="VinShari" filtergroup="vinshari">
+                    <option value="#C80909" class="non-cetaceous non-sukhabelan non-qofuari">VinShari</option>
+                </optgroup>
                 <optgroup label="Alien">
                     <option value="#b3b3fe" class="non-cetaceous non-sukhabelan non-qofuari">Bolian</option>
                     <option value="#A6F3A8" class="non-cetaceous non-sukhabelan non-qofuari">Lighter Orion</option>
@@ -96,7 +120,7 @@
         <select id="ear-select" aria-label="Ear type">
             <option value="none">None (Edosian, Saurian, etc)</option>
             <option value="round" selected>Round (Human)</option>
-            <option value="pointy">Pointy (Vulcan, Romulan)</option>
+            <option value="pointy" class="specific-vulcan">Pointy (Vulcan, Romulan)</option>
             <option value="ferengi" class="specific-ferengi">Massive (Ferengi)</option>
             <option value="cat" class="specific-cat">Cat (Caitian)</option>
             <option value="webbed">Webbed (Kzinti, Khwopans)</option>

@@ -61,7 +61,7 @@ export const tooltipData = {
         'vin-shari-neck': 'Neck ridges of the VinShari species',
         'denobulan-ridges': 'Facial ridges that run horizontally. Denobulans are optimistic and practice polygamy.',
         'north-romulan-v': 'V-shaped forehead ridge seen in some Romulan lineages',
-        'kelpian-lines': 'Distinctive ganglia and facial features. Kelpiens evolved as a prey species with heightened threat awareness.'
+        'kelpien-lines': 'Distinctive ganglia and facial features. Kelpiens evolved as a prey species with heightened threat awareness.'
     },
 
     jewelry: {

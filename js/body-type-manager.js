@@ -8,10 +8,18 @@ import { CharacterElements } from './character-elements.js'
  */
 const FORCED_FEATURES = {
     andor: ['andorian-antennae'],
+    bajoran: ['nose-ridges'],
+    benzite: ['benzite-nose'],
     bird: ['bird-beak', 'bird-tuft', 'gill-whiskers-or-feathers'],
+    bolian: ['bolian-line'],
     cardassian: ['cardassian-forehead', 'cardassian-neck'],
     cat: ['cat-nose', 'gill-whiskers-or-feathers'],
-    ferengi: ['ferengi-brow']
+    denobulan: ['denobulan-ridges'],
+    ferengi: ['ferengi-brow'],
+    kelpien: ['kelpien-lines'],
+    trill: ['trill-spots'],
+    vinshari: ['vin-shari-neck'],
+    zakdorn: ['zakdorn-cheeks']
 }
 
 /**
