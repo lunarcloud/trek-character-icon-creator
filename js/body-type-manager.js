@@ -17,10 +17,20 @@ const FORCED_FEATURES = {
     denobulan: ['denobulan-ridges'],
     ferengi: ['ferengi-brow'],
     kelpien: ['kelpien-lines'],
+    tellarite: ['gill-whiskers-or-feathers'],
     tilikaal: ['tilikaal-headpiece'],
     trill: ['trill-spots'],
     vinshari: ['vin-shari-neck'],
     zakdorn: ['zakdorn-cheeks']
+}
+
+/**
+ * Species-specific default ear values.
+ * Maps species specify values to the ear option value to auto-select.
+ * @type {Record<string, string>}
+ */
+const SPECIES_EARS = {
+    vulcan: 'pointy'
 }
 
 /**
@@ -289,13 +299,17 @@ export class BodyTypeManager {
         if (!specify) return
 
         // Auto-select species-specific ears if available
-        const speciesEar = Array.from(elements.earSelect.options)
-            .find(opt => opt.classList.contains(`specific-${specify}`))
-        if (speciesEar) {
-            elements.earSelect.value = speciesEar.value
-        } else if (DomUtil.IsOptionInvalid(elements.earSelect)) {
-            // If current ear is now hidden, fall back to round
-            elements.earSelect.value = 'round'
+        if (SPECIES_EARS[specify]) {
+            elements.earSelect.value = SPECIES_EARS[specify]
+        } else {
+            const speciesEar = Array.from(elements.earSelect.options)
+                .find(opt => opt.classList.contains(`specific-${specify}`))
+            if (speciesEar) {
+                elements.earSelect.value = speciesEar.value
+            } else if (DomUtil.IsOptionInvalid(elements.earSelect)) {
+                // If current ear is now hidden, fall back to round
+                elements.earSelect.value = 'round'
+            }
         }
 
         // Deselect head features that are now hidden

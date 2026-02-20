@@ -9,12 +9,12 @@ test.describe('Species Selection Tests', () => {
     test('body shape dropdown should have all species-specific options', async ({ page }) => {
         const bodyShape = page.locator('#body-shape')
         const options = await bodyShape.locator('option').allTextContents()
-        expect(options).toContain('Humanoid')
+        expect(options).toContain('Custom')
         expect(options).toContain('Human')
         expect(options).toContain('Ferengi')
         expect(options).toContain('Klingon')
-        expect(options).toContain('Bird-like')
-        expect(options).toContain('Cat-like')
+        expect(options).toContain('Aurelian / Klowahkan')
+        expect(options).toContain('Caitian / Kzinti')
         expect(options).toContain('Andorian / Aenar')
         expect(options).toContain('Bajoran')
         expect(options).toContain('Benzite')
@@ -70,28 +70,28 @@ test.describe('Species Selection Tests', () => {
         await expect(klingonSvg).toBeAttached()
     })
 
-    test('selecting Cat-like should force cat ears', async ({ page }) => {
-        await page.selectOption('#body-shape', { label: 'Cat-like' })
+    test('selecting Caitian / Kzinti should force cat ears', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Caitian / Kzinti' })
         await page.waitForTimeout(200)
         const earValue = await page.locator('#ear-select').inputValue()
         expect(earValue).toBe('cat')
     })
 
-    test('selecting Bird-like should hide cat-specific features', async ({ page }) => {
-        await page.selectOption('#body-shape', { label: 'Bird-like' })
+    test('selecting Aurelian should hide cat-specific features', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Aurelian / Klowahkan' })
         await page.waitForTimeout(200)
         const catNose = page.locator('#head-feature-select option[value="cat-nose"]')
         expect(await catNose.getAttribute('hidden')).not.toBeNull()
     })
 
-    test('selecting Bird-like should render whiskers as forced feature', async ({ page }) => {
-        await page.selectOption('#body-shape', { label: 'Bird-like' })
+    test('selecting Aurelian should render whiskers as forced feature', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Aurelian / Klowahkan' })
         const whiskersSvg = page.locator('#character-head-features svg[data-src*="gill-whiskers-or-feathers"]')
         await expect(whiskersSvg).toBeAttached()
     })
 
-    test('generic Humanoid should show all features', async ({ page }) => {
-        await page.selectOption('#body-shape', { label: 'Humanoid' })
+    test('Custom Humanoid should show all features', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Custom' })
         await page.waitForTimeout(200)
         const ferengiOption = page.locator('#head-feature-select option[value="ferengi-brow"]')
         const birdBeakOption = page.locator('#head-feature-select option[value="bird-beak"]')
@@ -205,8 +205,8 @@ test.describe('Species Selection Tests', () => {
         expect(await white.getAttribute('hidden')).toBeNull()
     })
 
-    test('Cat-like body colors should include Caitian and Kzinti', async ({ page }) => {
-        await page.selectOption('#body-shape', { label: 'Cat-like' })
+    test('Caitian body colors should include Caitian and Kzinti', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Caitian / Kzinti' })
         await page.waitForTimeout(200)
         const catGroup = page.locator('#std-body-colors optgroup[filtergroup="cat"]')
         expect(await catGroup.getAttribute('hidden')).toBeNull()
@@ -245,7 +245,7 @@ test.describe('Species Selection Tests', () => {
     })
 
     test('Vulcan Romulan V checkbox should not be visible for non-vulcans', async ({ page }) => {
-        await page.selectOption('#body-shape', { label: 'Humanoid' })
+        await page.selectOption('#body-shape', { label: 'Custom' })
         await page.waitForTimeout(200)
         const vCheck = page.locator('#vulcan-romulan-v-check')
         await expect(vCheck).not.toBeVisible()
@@ -287,8 +287,8 @@ test.describe('Species Selection Tests', () => {
         await expect(headFeatureSelect).not.toBeVisible()
     })
 
-    test('Species Traits multi-select should be visible for generic Humanoid', async ({ page }) => {
-        await page.selectOption('#body-shape', { label: 'Humanoid' })
+    test('Species Traits multi-select should be visible for Custom Humanoid', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Custom' })
         await page.waitForTimeout(200)
         const headFeatureSelect = page.locator('#head-feature-select')
         await expect(headFeatureSelect).toBeVisible()
