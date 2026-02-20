@@ -22,6 +22,7 @@ export const tooltipData = {
         ferengi: 'Species with large lobed ears and pronounced brow ridges. Ferengi culture revolves around commerce and the Rules of Acquisition.',
         kelpien: 'Tall species with distinctive facial ganglia. Kelpiens evolved as a prey species with heightened threat awareness.',
         klingon: 'Warrior species with pronounced cranial ridges. Klingons value honor above all and are one of the great powers of the galaxy.',
+        orion: 'Green-skinned species known for their syndicate and animal magnetism. Orion skin tones range from light to dark green and even blue-green.',
         tellarite: 'Stout species known for their love of argument and debate. Tellarites have porcine-like noses and are founding Federation members.',
         tilikaal: 'Ancient species from the Shackleton Expanse. Tilikaal are recognizable by their light blue skin and ceremonial headpieces.',
         trill: 'Species with leopard-like spots running from the hairline down the sides of the body. Some Trill are joined with a symbiont.',

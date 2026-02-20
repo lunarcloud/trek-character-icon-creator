@@ -192,6 +192,11 @@ export class IndexController {
             this.#elements.mainEl.classList.add(`specify-${bodyShapeSpecify}`)
         if (window.self !== window.top)
             this.#elements.mainEl.classList.add('embedded')
+        // Add ear-dependent class for cat-mouth-beard visibility
+        if (bodyShape === 'humanoid' && this.#elements.earSelect.value === 'cat')
+            this.#elements.mainEl.classList.add('cat-ears')
+        // Refresh facial hair visibility since it depends on ear selection
+        DomUtil.hideInvalidSelectOptions(this.#elements.facialHairSelect)
         // more classes will be added later
 
         // Handle Body Shape Changes
@@ -362,6 +367,7 @@ export class IndexController {
         if (colors.antennae) this.#colorManager.antennaeColorPicker.value = colors.antennae
         if (colors.birdTuft) this.#colorManager.birdTuftColorPicker.value = colors.birdTuft
         if (colors.whiskers) this.#colorManager.whiskersColorPicker.value = colors.whiskers
+        if (colors.catNose) this.#colorManager.catNoseColorPicker.value = colors.catNose
     }
 
     /**
@@ -381,12 +387,14 @@ export class IndexController {
                 uniformUndershirt: this.#colorManager.uniformUndershirtColorPicker.value,
                 antennae: this.#colorManager.antennaeColorPicker.value,
                 birdTuft: this.#colorManager.birdTuftColorPicker.value,
-                whiskers: this.#colorManager.whiskersColorPicker.value
+                whiskers: this.#colorManager.whiskersColorPicker.value,
+                catNose: this.#colorManager.catNoseColorPicker.value
             },
             colorSync: {
                 antennaeWithBody: this.#colorManager.syncAntennaeWithBodyCheck.checked,
                 birdTuftWithBody: this.#colorManager.syncBirdTuftWithBodyCheck.checked,
-                whiskersWithBody: this.#colorManager.syncWhiskersWithBodyCheck.checked
+                whiskersWithBody: this.#colorManager.syncWhiskersWithBodyCheck.checked,
+                catNoseWithBody: this.#colorManager.syncCatNoseWithBodyCheck.checked
             },
             uniform: this.#elements.uniformSelect.value,
             ears: this.#elements.earSelect.value,
@@ -486,6 +494,9 @@ export class IndexController {
             }
             if (typeof config.colorSync.whiskersWithBody === 'boolean') {
                 this.#colorManager.syncWhiskersWithBodyCheck.checked = config.colorSync.whiskersWithBody
+            }
+            if (typeof config.colorSync.catNoseWithBody === 'boolean') {
+                this.#colorManager.syncCatNoseWithBodyCheck.checked = config.colorSync.catNoseWithBody
             }
         }
 

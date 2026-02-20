@@ -144,6 +144,10 @@ export class BodyTypeManager {
             elements.mainEl.classList.add('bird-tuft')
         if (allSelectionNames.includes('gill-whiskers-or-feathers'))
             elements.mainEl.classList.add('whiskers')
+        if (allSelectionNames.includes('cat-nose'))
+            elements.mainEl.classList.add('cat-nose')
+        if (elements.earSelect.value === 'cat')
+            elements.mainEl.classList.add('cat-ears')
     }
 
     /**

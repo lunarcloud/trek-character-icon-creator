@@ -13,6 +13,7 @@ test.describe('Species Selection Tests', () => {
         expect(options).toContain('Human')
         expect(options).toContain('Ferengi')
         expect(options).toContain('Klingon')
+        expect(options).toContain('Orion')
         expect(options).toContain('Aurelian / Klowahkan')
         expect(options).toContain('Caitian / Kzinti')
         expect(options).toContain('Andorian / Aenar')
@@ -292,5 +293,66 @@ test.describe('Species Selection Tests', () => {
         await page.waitForTimeout(200)
         const headFeatureSelect = page.locator('#head-feature-select')
         await expect(headFeatureSelect).toBeVisible()
+    })
+
+    test('cat-mouth-beard should be hidden when non-cat ears are selected', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Custom' })
+        await page.selectOption('#ear-select', 'round')
+        await page.waitForTimeout(200)
+        const isHidden = await page.locator('#facial-hair-select option[value="cat-mouth-beard"]').evaluate(
+            el => el.hidden
+        )
+        expect(isHidden).toBe(true)
+    })
+
+    test('cat-mouth-beard should be visible when cat ears are selected', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Custom' })
+        await page.selectOption('#ear-select', 'cat')
+        await page.waitForTimeout(500)
+        const isHidden = await page.locator('#facial-hair-select option[value="cat-mouth-beard"]').evaluate(
+            el => el.hidden
+        )
+        expect(isHidden).toBe(false)
+    })
+
+    test('Orion should have green body color options', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Orion' })
+        await page.waitForTimeout(500)
+        const orionGroupHidden = await page.locator('#std-body-colors optgroup[filtergroup="orion"]').evaluate(
+            el => el.hidden
+        )
+        expect(orionGroupHidden).toBe(false)
+        const lighterOrionHidden = await page.locator('#std-body-colors optgroup[filtergroup="orion"] option[value="#A6F3A8"]').evaluate(
+            el => el.hidden
+        )
+        expect(lighterOrionHidden).toBe(false)
+    })
+
+    test('Orion body shape dropdown should include Orion', async ({ page }) => {
+        const bodyShape = page.locator('#body-shape')
+        const options = await bodyShape.locator('option').allTextContents()
+        expect(options).toContain('Orion')
+    })
+
+    test('cat-nose color picker should be visible when cat-nose is forced', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Caitian / Kzinti' })
+        await page.waitForTimeout(500)
+        const catNoseColorDiv = page.locator('.cat-nose-only')
+        const isHidden = await catNoseColorDiv.evaluate(el => {
+            const style = window.getComputedStyle(el)
+            return style.display === 'none' || style.visibility === 'hidden'
+        })
+        expect(isHidden).toBe(false)
+    })
+
+    test('cat-nose color picker should not be visible for non-cat species', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Human' })
+        await page.waitForTimeout(500)
+        const catNoseColorDiv = page.locator('.cat-nose-only')
+        const isHidden = await catNoseColorDiv.evaluate(el => {
+            const style = window.getComputedStyle(el)
+            return style.display === 'none' || style.visibility === 'hidden'
+        })
+        expect(isHidden).toBe(true)
     })
 })

@@ -51,6 +51,11 @@ export class ColorManager {
     whiskersColorPicker
 
     /**
+     * @type {HTMLInputElement}
+     */
+    catNoseColorPicker
+
+    /**
      * @type {HTMLSelectElement}
      */
     uniformColorSelect
@@ -80,6 +85,11 @@ export class ColorManager {
      */
     syncWhiskersWithBodyCheck
 
+    /**
+     * @type {HTMLInputElement}
+     */
+    syncCatNoseWithBodyCheck
+
     #lastUsedBodyColors = {
         humanoid: '#FEE4B3',
         cetaceous: '#B5BEC8',
@@ -102,6 +112,7 @@ export class ColorManager {
         this.antennaeColorPicker = getInputElement('andorian-antennae-color')
         this.birdTuftColorPicker = getInputElement('bird-tuft-color')
         this.whiskersColorPicker = getInputElement('whiskers-color')
+        this.catNoseColorPicker = getInputElement('cat-nose-color')
         this.uniformColorSelect = getSelectElement('std-uniform-colors')
         this.bodyColorSelect = getSelectElement('std-body-colors')
         this.uniformColorFilterCheck = getInputElement('filter-color-selection')
@@ -109,6 +120,7 @@ export class ColorManager {
         this.syncAntennaeWithBodyCheck = getInputElement('sync-antennae-with-body')
         this.syncBirdTuftWithBodyCheck = getInputElement('sync-bird-tuft-with-body')
         this.syncWhiskersWithBodyCheck = getInputElement('sync-whiskers-with-body')
+        this.syncCatNoseWithBodyCheck = getInputElement('sync-cat-nose-with-body')
 
         // Handle sync checkboxes - uncheck when selecting color manually
         this.antennaeColorPicker.addEventListener('change', () => {
@@ -121,6 +133,10 @@ export class ColorManager {
         })
         this.whiskersColorPicker.addEventListener('change', () => {
             this.syncWhiskersWithBodyCheck.checked = false
+            onChangeCallback()
+        })
+        this.catNoseColorPicker.addEventListener('change', () => {
+            this.syncCatNoseWithBodyCheck.checked = false
             onChangeCallback()
         })
 
@@ -142,7 +158,8 @@ export class ColorManager {
             this.uniformColorFilterCheck,
             this.syncAntennaeWithBodyCheck,
             this.syncBirdTuftWithBodyCheck,
-            this.syncWhiskersWithBodyCheck
+            this.syncWhiskersWithBodyCheck,
+            this.syncCatNoseWithBodyCheck
         ]
     }
 
@@ -174,6 +191,9 @@ export class ColorManager {
 
         if (this.syncWhiskersWithBodyCheck.checked)
             this.whiskersColorPicker.value = this.bodyColorPicker.value
+
+        if (this.syncCatNoseWithBodyCheck.checked)
+            this.catNoseColorPicker.value = this.bodyColorPicker.value
     }
 
     /**
@@ -187,7 +207,8 @@ export class ColorManager {
             `svg .uniform-undershirt-color { color: ${this.uniformUndershirtColorPicker.value} !important;}` +
             `svg .bird-tuft-color { color: ${this.birdTuftColorPicker.value} !important;}` +
             `svg .andorian-antennae-color { color: ${this.antennaeColorPicker.value} !important;}` +
-            `svg .whiskers-color { color: ${this.whiskersColorPicker.value} !important;}`
+            `svg .whiskers-color { color: ${this.whiskersColorPicker.value} !important;}` +
+            `svg .cat-nose-color { color: ${this.catNoseColorPicker.value} !important;}`
     }
 
     /**
