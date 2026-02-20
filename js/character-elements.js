@@ -172,6 +172,16 @@ export class CharacterElements {
     /**
      * @type {HTMLInputElement}
      */
+    tellariteTusksCheck
+
+    /**
+     * @type {HTMLInputElement}
+     */
+    vulcanRomulanVCheck
+
+    /**
+     * @type {HTMLInputElement}
+     */
     saveBGCheck
 
     /**
@@ -222,6 +232,8 @@ export class CharacterElements {
         this.klingonRidgesSelect = getSelectElement('klingon-ridges-select')
         this.klingonForeheadSelect = getSelectElement('klingon-forehead-select')
         this.tellariteNoseSelect = getSelectElement('tellarite-nose-select')
+        this.tellariteTusksCheck = getInputElement('tellarite-tusks-check')
+        this.vulcanRomulanVCheck = getInputElement('vulcan-romulan-v-check')
 
         this.facialHairSelect = getSelectElement('facial-hair-select')
 
@@ -283,6 +295,8 @@ export class CharacterElements {
             this.klingonRidgesSelect,
             this.klingonForeheadSelect,
             this.tellariteNoseSelect,
+            this.tellariteTusksCheck,
+            this.vulcanRomulanVCheck,
             this.characterNameInput
         ]
     }

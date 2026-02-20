@@ -158,6 +158,7 @@ body {
   &.specify-kelpien [class*="specific-"]:not(.specific-kelpien),
   &.specify-klingon [class*="specific-"]:not(.specific-klingon),
   &.specify-tellarite [class*="specific-"]:not(.specific-tellarite),
+  &.specify-tilikaal [class*="specific-"]:not(.specific-tilikaal),
   &.specify-trill [class*="specific-"]:not(.specific-trill),
   &.specify-vinshari [class*="specific-"]:not(.specific-vinshari),
   &.specify-vulcan [class*="specific-"]:not(.specific-vulcan),
@@ -166,6 +167,7 @@ body {
   &.specify-ferengi .non-specify-ferengi,
   &:not(.specify-klingon) .specify-klingon-only,
   &:not(.specify-tellarite) .specify-tellarite-only,
+  &:not(.specify-vulcan) .specify-vulcan-only,
   &.no-uniform-color #uniform-color-section {
     display: none;
     visibility: hidden;

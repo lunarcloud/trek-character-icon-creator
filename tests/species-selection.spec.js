@@ -23,6 +23,7 @@ test.describe('Species Selection Tests', () => {
         expect(options).toContain('Denobulan')
         expect(options).toContain('Kelpien')
         expect(options).toContain('Tellarite')
+        expect(options).toContain('Tilikaal')
         expect(options).toContain('Trill')
         expect(options).toContain('VinShari')
         expect(options).toContain('Vulcan / Romulan')
@@ -225,5 +226,71 @@ test.describe('Species Selection Tests', () => {
         await page.waitForTimeout(200)
         const bodyColorValue = await page.locator('#body-color').inputValue()
         expect(bodyColorValue.toUpperCase()).toBe('#FEE4B3')
+    })
+
+    test('Vulcan should show Romulan V checkbox', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Vulcan / Romulan' })
+        await page.waitForTimeout(200)
+        const vCheck = page.locator('#vulcan-romulan-v-check')
+        await expect(vCheck).toBeVisible()
+    })
+
+    test('Vulcan Romulan V checkbox should render north-romulan-v when checked', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Vulcan / Romulan' })
+        await page.waitForTimeout(200)
+        await page.locator('#vulcan-romulan-v-check').check()
+        await page.waitForTimeout(200)
+        const vSvg = page.locator('#character-head-features svg[data-src*="north-romulan-v"]')
+        await expect(vSvg).toBeAttached()
+    })
+
+    test('Vulcan Romulan V checkbox should not be visible for non-vulcans', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Humanoid' })
+        await page.waitForTimeout(200)
+        const vCheck = page.locator('#vulcan-romulan-v-check')
+        await expect(vCheck).not.toBeVisible()
+    })
+
+    test('Tellarite should show tusks checkbox', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Tellarite' })
+        await page.waitForTimeout(200)
+        const tusksCheck = page.locator('#tellarite-tusks-check')
+        await expect(tusksCheck).toBeVisible()
+    })
+
+    test('Tellarite tusks checkbox should render tusks when checked', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Tellarite' })
+        await page.waitForTimeout(200)
+        await page.locator('#tellarite-tusks-check').check()
+        await page.waitForTimeout(200)
+        const tusksSvg = page.locator('#character-head-features svg[data-src*="tusks"]')
+        await expect(tusksSvg).toBeAttached()
+    })
+
+    test('Tilikaal should render tilikaal-headpiece as forced feature', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Tilikaal' })
+        const tilikaalSvg = page.locator('#character-head-features svg[data-src*="tilikaal-headpiece"]')
+        await expect(tilikaalSvg).toBeAttached()
+    })
+
+    test('Tilikaal body color should be light blue', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Tilikaal' })
+        await page.waitForTimeout(200)
+        const tilikaalGroup = page.locator('#std-body-colors optgroup[filtergroup="tilikaal"]')
+        expect(await tilikaalGroup.getAttribute('hidden')).toBeNull()
+    })
+
+    test('Species Traits multi-select should be hidden when all options are hidden', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Human' })
+        await page.waitForTimeout(200)
+        const headFeatureSelect = page.locator('#head-feature-select')
+        await expect(headFeatureSelect).not.toBeVisible()
+    })
+
+    test('Species Traits multi-select should be visible for generic Humanoid', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Humanoid' })
+        await page.waitForTimeout(200)
+        const headFeatureSelect = page.locator('#head-feature-select')
+        await expect(headFeatureSelect).toBeVisible()
     })
 })

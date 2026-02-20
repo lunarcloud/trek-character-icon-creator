@@ -17,6 +17,7 @@ const FORCED_FEATURES = {
     denobulan: ['denobulan-ridges'],
     ferengi: ['ferengi-brow'],
     kelpien: ['kelpien-lines'],
+    tilikaal: ['tilikaal-headpiece'],
     trill: ['trill-spots'],
     vinshari: ['vin-shari-neck'],
     zakdorn: ['zakdorn-cheeks']
@@ -45,6 +46,15 @@ export class BodyTypeManager {
 
         if (specify === 'tellarite') {
             forced.push(elements.tellariteNoseSelect.value)
+            if (elements.tellariteTusksCheck.checked) {
+                forced.push('tusks')
+            }
+        }
+
+        if (specify === 'vulcan') {
+            if (elements.vulcanRomulanVCheck.checked) {
+                forced.push('north-romulan-v')
+            }
         }
 
         return forced

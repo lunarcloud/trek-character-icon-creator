@@ -30,6 +30,7 @@
         <optgroup label="Shackelton Expanse">
             <option value="cal-mirran">Cal-Mirran</option>
             <option value="qofuari">Qofuari</option>
+            <option value="humanoid" specify="tilikaal" body-colors-filter="tilikaal">Tilikaal</option>
         </optgroup>
         <optgroup label="Sarell Expanse" hidden>
             <option value="sukhabelan" hidden>Sukhabelan</option>
@@ -87,6 +88,9 @@
                 </optgroup>
                 <optgroup label="VinShari" filtergroup="vinshari">
                     <option value="#C80909" class="non-cetaceous non-sukhabelan non-qofuari">VinShari</option>
+                </optgroup>
+                <optgroup label="Tilikaal" filtergroup="tilikaal">
+                    <option value="#00B8E9" class="">Light Blue</option>
                 </optgroup>
                 <optgroup label="Alien">
                     <option value="#b3b3fe" class="non-cetaceous non-sukhabelan non-qofuari">Bolian</option>
@@ -157,6 +161,17 @@
             <option value="tellarite-nose">Tellarite Nose</option>
             <option value="snout-nose">Snout Nose</option>
         </select>
+        <label class="check-label">
+            <input type="checkbox" id="tellarite-tusks-check" />
+            Tusks
+        </label>
+    </group>
+
+    <group class="humanoid-only specify-vulcan-only">
+        <label class="check-label">
+            <input type="checkbox" id="vulcan-romulan-v-check" />
+            North Romulan V Forehead
+        </label>
     </group>
 
 </group>

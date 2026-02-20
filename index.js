@@ -317,6 +317,14 @@ export class IndexController {
             alert(`An unexpected error occurred. Body shape "${bodyShape}" is not recognized. Please refresh the page.`)
         }
 
+        // Hide Species Traits group when all its options are hidden
+        const headFeatureGroup = this.#elements.headFeatureSelect.parentElement
+        if (headFeatureGroup) {
+            const allHidden = Array.from(this.#elements.headFeatureSelect.options)
+                .every(opt => opt.hidden)
+            headFeatureGroup.style.display = allHidden ? 'none' : ''
+        }
+
         this.#colorManager.updateSynchronizedColors()
 
         // Remember the last used color choice if it's not a color in the "Other" category
@@ -390,6 +398,8 @@ export class IndexController {
             klingonRidges: this.#elements.klingonRidgesSelect.value,
             klingonForehead: this.#elements.klingonForeheadSelect.value,
             tellariteNose: this.#elements.tellariteNoseSelect.value,
+            tellariteTusks: this.#elements.tellariteTusksCheck.checked,
+            vulcanRomulanV: this.#elements.vulcanRomulanVCheck.checked,
             headFeatures: Array.from(this.#elements.headFeatureSelect.selectedOptions).map(o => o.value),
             jewelry: Array.from(this.#elements.jewelrySelect.selectedOptions).map(o => o.value),
             hat: this.#elements.hatFeatureSelect.value,
@@ -505,6 +515,12 @@ export class IndexController {
         }
         if (config.tellariteNose) {
             this.#elements.tellariteNoseSelect.value = config.tellariteNose
+        }
+        if (typeof config.tellariteTusks === 'boolean') {
+            this.#elements.tellariteTusksCheck.checked = config.tellariteTusks
+        }
+        if (typeof config.vulcanRomulanV === 'boolean') {
+            this.#elements.vulcanRomulanVCheck.checked = config.vulcanRomulanV
         }
 
         // Apply head features (multi-select)
