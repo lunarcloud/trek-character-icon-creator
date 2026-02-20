@@ -355,4 +355,11 @@ test.describe('Species Selection Tests', () => {
         })
         expect(isHidden).toBe(true)
     })
+
+    test('cat-nose color picker should not have sync-with-body checkbox', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Caitian / Kzinti' })
+        await page.waitForTimeout(500)
+        const syncCheckbox = page.locator('#sync-cat-nose-with-body')
+        expect(await syncCheckbox.count()).toBe(0)
+    })
 })

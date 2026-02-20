@@ -393,8 +393,7 @@ export class IndexController {
             colorSync: {
                 antennaeWithBody: this.#colorManager.syncAntennaeWithBodyCheck.checked,
                 birdTuftWithBody: this.#colorManager.syncBirdTuftWithBodyCheck.checked,
-                whiskersWithBody: this.#colorManager.syncWhiskersWithBodyCheck.checked,
-                catNoseWithBody: this.#colorManager.syncCatNoseWithBodyCheck.checked
+                whiskersWithBody: this.#colorManager.syncWhiskersWithBodyCheck.checked
             },
             uniform: this.#elements.uniformSelect.value,
             ears: this.#elements.earSelect.value,
@@ -496,9 +495,6 @@ export class IndexController {
             }
             if (typeof config.colorSync.whiskersWithBody === 'boolean') {
                 this.#colorManager.syncWhiskersWithBodyCheck.checked = config.colorSync.whiskersWithBody
-            }
-            if (typeof config.colorSync.catNoseWithBody === 'boolean') {
-                this.#colorManager.syncCatNoseWithBodyCheck.checked = config.colorSync.catNoseWithBody
             }
         }
 

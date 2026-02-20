@@ -27,13 +27,18 @@ export class DomUtil {
         const onChangePicker = () => {
             // Set the "standard" colors selector to what's selected or 'custom'
             // Use case-insensitive comparison to find matching option
+            // Prefer visible (non-hidden) options over hidden ones for duplicate values across optgroups
             const pickerValueLower = picker.value.toLowerCase()
             const matchingOption = Array.from(selector.options).find(
+                opt => opt.value.toLowerCase() === pickerValueLower &&
+                    !opt.hidden &&
+                    !(opt.parentElement instanceof HTMLOptGroupElement && opt.parentElement.hidden)
+            ) || Array.from(selector.options).find(
                 opt => opt.value.toLowerCase() === pickerValueLower
             )
             const el = matchingOption ?? selector.querySelector('[value="custom"]')
             if (el instanceof HTMLOptionElement)
-                selector.value = el.value
+                el.selected = true
 
             callback()
         }
@@ -56,7 +61,7 @@ export class DomUtil {
         )
         const el = initialMatchingOption ?? selector.querySelector('[value="custom"]')
         if (el instanceof HTMLOptionElement)
-            selector.value = el.value
+            el.selected = true
 
         // return the setup picker
         return picker

@@ -85,11 +85,6 @@ export class ColorManager {
      */
     syncWhiskersWithBodyCheck
 
-    /**
-     * @type {HTMLInputElement}
-     */
-    syncCatNoseWithBodyCheck
-
     #lastUsedBodyColors = {
         humanoid: '#FEE4B3',
         cetaceous: '#B5BEC8',
@@ -120,7 +115,6 @@ export class ColorManager {
         this.syncAntennaeWithBodyCheck = getInputElement('sync-antennae-with-body')
         this.syncBirdTuftWithBodyCheck = getInputElement('sync-bird-tuft-with-body')
         this.syncWhiskersWithBodyCheck = getInputElement('sync-whiskers-with-body')
-        this.syncCatNoseWithBodyCheck = getInputElement('sync-cat-nose-with-body')
 
         // Handle sync checkboxes - uncheck when selecting color manually
         this.antennaeColorPicker.addEventListener('change', () => {
@@ -136,7 +130,6 @@ export class ColorManager {
             onChangeCallback()
         })
         this.catNoseColorPicker.addEventListener('change', () => {
-            this.syncCatNoseWithBodyCheck.checked = false
             onChangeCallback()
         })
 
@@ -158,8 +151,7 @@ export class ColorManager {
             this.uniformColorFilterCheck,
             this.syncAntennaeWithBodyCheck,
             this.syncBirdTuftWithBodyCheck,
-            this.syncWhiskersWithBodyCheck,
-            this.syncCatNoseWithBodyCheck
+            this.syncWhiskersWithBodyCheck
         ]
     }
 
@@ -191,9 +183,6 @@ export class ColorManager {
 
         if (this.syncWhiskersWithBodyCheck.checked)
             this.whiskersColorPicker.value = this.bodyColorPicker.value
-
-        if (this.syncCatNoseWithBodyCheck.checked)
-            this.catNoseColorPicker.value = this.bodyColorPicker.value
     }
 
     /**
