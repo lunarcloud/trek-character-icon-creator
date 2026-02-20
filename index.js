@@ -438,8 +438,8 @@ export class IndexController {
             break
         case '1.0':
             config.jewelry = config.headFeatures
-            if (config.bodyShape == "human") {
-                config.bodyShape = "humanoid"
+            if (config.bodyShape === 'human') {
+                config.bodyShape = 'humanoid'
             }
             console.debug('loaded a v 1.0 config')
             break
