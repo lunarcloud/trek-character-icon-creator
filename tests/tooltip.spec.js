@@ -12,7 +12,7 @@ test.describe('Tooltip Tests', () => {
         const bodyShapeSelect = page.locator('#body-shape')
 
         // Check that tooltips exist
-        const humanoidTooltip = await bodyShapeSelect.locator('option[value="humanoid"]').getAttribute('title')
+        const humanoidTooltip = await bodyShapeSelect.locator('option[value="humanoid"]:not([specify])').getAttribute('title')
         expect(humanoidTooltip).toBeTruthy()
         expect(humanoidTooltip).toContain('bipedal')
 

@@ -38,6 +38,11 @@ export class IndexController {
     #lastBodyShape = null
 
     /**
+     * @type {string}
+     */
+    #lastBodyShapeSpecify = ''
+
+    /**
      * @type {AutosaveManager}
      */
     #autosaveManager
@@ -170,22 +175,32 @@ export class IndexController {
     onChangeDetected () {
         const bodyShape = this.#elements.shapeSelect.value
         const bodyShapeChanged = !this.#elements.mainEl.classList.contains(bodyShape)
+        const bodyShapeSpecify = this.#elements.shapeSelect.selectedOptions?.[0]?.getAttribute('specify') ?? ''
+        const specifyChanged = this.#lastBodyShapeSpecify !== bodyShapeSpecify
 
         // Announce body shape changes to screen readers
-        if (bodyShapeChanged && this.#lastBodyShape !== null) {
+        if ((bodyShapeChanged || specifyChanged) && this.#lastBodyShape !== null) {
             const bodyShapeName = this.#elements.shapeSelect.selectedOptions[0]?.textContent || bodyShape
             this.#announce(`Character body type changed to ${bodyShapeName}`)
         }
         this.#lastBodyShape = bodyShape
+        this.#lastBodyShapeSpecify = bodyShapeSpecify
 
         // Update the classes at the top for hiding/showing elements
         this.#elements.mainEl.className = bodyShape // first one clears the list
+        if (bodyShapeSpecify)
+            this.#elements.mainEl.classList.add(`specify-${bodyShapeSpecify}`)
         if (window.self !== window.top)
             this.#elements.mainEl.classList.add('embedded')
+        // Add ear-dependent class for cat-mouth-beard visibility
+        if (bodyShape === 'humanoid' && this.#elements.earSelect.value === 'cat')
+            this.#elements.mainEl.classList.add('cat-ears')
+        // Refresh facial hair visibility since it depends on ear selection
+        DomUtil.hideInvalidSelectOptions(this.#elements.facialHairSelect)
         // more classes will be added later
 
         // Handle Body Shape Changes
-        if (bodyShapeChanged) {
+        if (bodyShapeChanged || specifyChanged) {
             // Ensure the invalid items are hidden
             for (const selector of this.#elements.mainEl.getElementsByTagName('select')) {
                 if (selector instanceof HTMLSelectElement)
@@ -211,6 +226,11 @@ export class IndexController {
                     this.#elements.hairSelect.selectedIndex = 0
                 }
             }
+
+            // Handle species-specific enforcement for humanoid subspecies
+            if (specifyChanged && bodyShape === 'humanoid') {
+                BodyTypeManager.enforceSpeciesDefaults(this.#elements, bodyShapeSpecify)
+            }
         }
 
         // Change the body
@@ -218,6 +238,24 @@ export class IndexController {
         this.#elements.bodyOverlay.innerHTML = ['medusan'].includes(bodyShape)
             ? ''
             : DomUtil.GenerateSVGHTML(`svg/${bodyShape}/body-overlay.svg`)
+
+        // Filter body color options by species
+        const bodyColorsFilter = this.#elements.shapeSelect.selectedOptions?.[0]?.getAttribute('body-colors-filter')
+        UniformManager.filterColorOptions(this.#elements.mainEl, this.#colorManager.bodyColorSelect, !!bodyColorsFilter, bodyColorsFilter)
+
+        // If body color is not custom and is now hidden, switch to first valid one
+        if (bodyColorsFilter && this.#colorManager.bodyColorSelect.value !== 'custom' &&
+            DomUtil.IsOptionInvalid(this.#colorManager.bodyColorSelect)) {
+            const firstVisible = Array.from(this.#colorManager.bodyColorSelect.querySelectorAll('option:not([hidden])'))
+                .find(el => el instanceof HTMLOptionElement && el.value !== 'custom')
+            if (firstVisible instanceof HTMLOptionElement) {
+                this.#colorManager.bodyColorSelect.value = firstVisible.value
+                this.#colorManager.bodyColorPicker.value = firstVisible.value
+            }
+        }
+
+        // Regenerate body color swatches to reflect filter changes
+        ColorSwatches.regenerate('body-color', 'std-body-colors', 'body-color-swatches')
 
         // Change the uniform
         const uniformBodyShape = ['sukhabelan'].includes(bodyShape) ? 'humanoid' : bodyShape
@@ -260,7 +298,7 @@ export class IndexController {
         // Perform body-specific actions
         switch (bodyShape) {
         case 'humanoid':
-            BodyTypeManager.updateHumanoid(this.#elements, selectedUniform)
+            BodyTypeManager.updateHumanoid(this.#elements, selectedUniform, bodyShapeSpecify)
             break
         case 'cetaceous':
             BodyTypeManager.updateCetaceous(this.#elements)
@@ -282,6 +320,14 @@ export class IndexController {
         default:
             console.error(`Unexpected body shape selected: "${bodyShape}". Please refresh the page and try again.`)
             alert(`An unexpected error occurred. Body shape "${bodyShape}" is not recognized. Please refresh the page.`)
+        }
+
+        // Hide Species Traits group when all its options are hidden
+        const headFeatureGroup = this.#elements.headFeatureSelect.parentElement
+        if (headFeatureGroup) {
+            const allHidden = Array.from(this.#elements.headFeatureSelect.options)
+                .every(opt => opt.hidden)
+            headFeatureGroup.style.display = allHidden ? 'none' : ''
         }
 
         this.#colorManager.updateSynchronizedColors()
@@ -321,6 +367,7 @@ export class IndexController {
         if (colors.antennae) this.#colorManager.antennaeColorPicker.value = colors.antennae
         if (colors.birdTuft) this.#colorManager.birdTuftColorPicker.value = colors.birdTuft
         if (colors.whiskers) this.#colorManager.whiskersColorPicker.value = colors.whiskers
+        if (colors.catNose) this.#colorManager.catNoseColorPicker.value = colors.catNose
     }
 
     /**
@@ -340,7 +387,8 @@ export class IndexController {
                 uniformUndershirt: this.#colorManager.uniformUndershirtColorPicker.value,
                 antennae: this.#colorManager.antennaeColorPicker.value,
                 birdTuft: this.#colorManager.birdTuftColorPicker.value,
-                whiskers: this.#colorManager.whiskersColorPicker.value
+                whiskers: this.#colorManager.whiskersColorPicker.value,
+                catNose: this.#colorManager.catNoseColorPicker.value
             },
             colorSync: {
                 antennaeWithBody: this.#colorManager.syncAntennaeWithBodyCheck.checked,
@@ -354,6 +402,11 @@ export class IndexController {
             medusanAltColor: this.#elements.medusanAltColorCheck.checked,
             medusanBox: this.#elements.medusanBoxCheck.checked,
             calMirranShape: this.#elements.calMirranShapeSelect.value,
+            klingonRidges: this.#elements.klingonRidgesSelect.value,
+            klingonForehead: this.#elements.klingonForeheadSelect.value,
+            tellariteNose: this.#elements.tellariteNoseSelect.value,
+            tellariteTusks: this.#elements.tellariteTusksCheck.checked,
+            vulcanRomulanV: this.#elements.vulcanRomulanVCheck.checked,
             headFeatures: Array.from(this.#elements.headFeatureSelect.selectedOptions).map(o => o.value),
             jewelry: Array.from(this.#elements.jewelrySelect.selectedOptions).map(o => o.value),
             hat: this.#elements.hatFeatureSelect.value,
@@ -385,7 +438,9 @@ export class IndexController {
             break
         case '1.0':
             config.jewelry = config.headFeatures
-
+            if (config.bodyShape === 'human') {
+                config.bodyShape = 'humanoid'
+            }
             console.debug('loaded a v 1.0 config')
             break
         default:
@@ -460,6 +515,21 @@ export class IndexController {
         }
         if (config.calMirranShape) {
             this.#elements.calMirranShapeSelect.value = config.calMirranShape
+        }
+        if (config.klingonRidges) {
+            this.#elements.klingonRidgesSelect.value = config.klingonRidges
+        }
+        if (config.klingonForehead) {
+            this.#elements.klingonForeheadSelect.value = config.klingonForehead
+        }
+        if (config.tellariteNose) {
+            this.#elements.tellariteNoseSelect.value = config.tellariteNose
+        }
+        if (typeof config.tellariteTusks === 'boolean') {
+            this.#elements.tellariteTusksCheck.checked = config.tellariteTusks
+        }
+        if (typeof config.vulcanRomulanV === 'boolean') {
+            this.#elements.vulcanRomulanVCheck.checked = config.vulcanRomulanV
         }
 
         // Apply head features (multi-select)

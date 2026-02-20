@@ -8,6 +8,11 @@
     width="512pt"
     height="512pt"
     viewBox="0 0 512 512">
+<style>
+    .cat-nose-color {
+        color: #ff86a0;
+    }
+</style>
 <defs/>
-<path id="shape0" transform="translate(211.394050654667, 190.469132898661)" fill="#ff86a0" fill-rule="evenodd" stroke="#d0788b" stroke-width="1.04" stroke-linecap="square" stroke-linejoin="bevel" d="M0.918441 5.96836C7.10401 -2.41364 65.3602 -1.67126 68.1059 6.34336C70.176 12.3857 41.6331 33.3768 34.1059 36.8434C24.2906 34.4021 -5.59044 14.7885 0.918441 5.96836Z" sodipodi:nodetypes="cscs"/>
+<path id="shape0" transform="translate(211.394050654667, 190.469132898661)" fill="currentColor" class="cat-nose-color" fill-rule="evenodd" stroke="#d0788b" stroke-width="1.04" stroke-linecap="square" stroke-linejoin="bevel" d="M0.918441 5.96836C7.10401 -2.41364 65.3602 -1.67126 68.1059 6.34336C70.176 12.3857 41.6331 33.3768 34.1059 36.8434C24.2906 34.4021 -5.59044 14.7885 0.918441 5.96836Z" sodipodi:nodetypes="cscs"/>
 </svg>

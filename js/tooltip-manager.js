@@ -43,7 +43,14 @@ export class TooltipManager {
     static initBodyTypeTooltips () {
         const bodyShapeSelect = document.getElementById('body-shape')
         if (bodyShapeSelect instanceof HTMLSelectElement) {
-            TooltipManager.applyTooltipsToOptions(bodyShapeSelect, tooltipData.bodyTypes)
+            const options = bodyShapeSelect.querySelectorAll('option')
+            options.forEach(option => {
+                const specify = option.getAttribute('specify')
+                const value = specify || option.value || option.textContent.trim()
+                if (tooltipData.bodyTypes[value]) {
+                    TooltipManager.applyTooltip(option, tooltipData.bodyTypes[value])
+                }
+            })
         }
 
         // Cal-Mirran shape tooltips

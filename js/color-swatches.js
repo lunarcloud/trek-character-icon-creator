@@ -108,11 +108,16 @@ export class ColorSwatches {
                 picker.value = color
 
                 // Find and select the matching option in the dropdown (case-insensitive comparison)
+                // Prefer visible (non-hidden) options to avoid selecting hidden duplicates
                 const matchingOption = Array.from(selectElement.options).find(
+                    opt => opt.value.toLowerCase() === color.toLowerCase() &&
+                        !opt.hidden &&
+                        !(opt.parentElement instanceof HTMLOptGroupElement && opt.parentElement.hidden)
+                ) || Array.from(selectElement.options).find(
                     opt => opt.value.toLowerCase() === color.toLowerCase()
                 )
                 if (matchingOption) {
-                    selectElement.value = matchingOption.value // Use the actual option value to preserve case
+                    matchingOption.selected = true
                 } else {
                     console.warn(`No matching option found for color: ${color}`)
                 }

@@ -155,6 +155,31 @@ export class CharacterElements {
     calMirranShapeSelect
 
     /**
+     * @type {HTMLSelectElement}
+     */
+    klingonRidgesSelect
+
+    /**
+     * @type {HTMLSelectElement}
+     */
+    klingonForeheadSelect
+
+    /**
+     * @type {HTMLSelectElement}
+     */
+    tellariteNoseSelect
+
+    /**
+     * @type {HTMLInputElement}
+     */
+    tellariteTusksCheck
+
+    /**
+     * @type {HTMLInputElement}
+     */
+    vulcanRomulanVCheck
+
+    /**
      * @type {HTMLInputElement}
      */
     saveBGCheck
@@ -203,6 +228,12 @@ export class CharacterElements {
         this.medusanBoxCheck = getInputElement('medusan-box')
 
         this.calMirranShapeSelect = getSelectElement('cal-mirran-shape')
+
+        this.klingonRidgesSelect = getSelectElement('klingon-ridges-select')
+        this.klingonForeheadSelect = getSelectElement('klingon-forehead-select')
+        this.tellariteNoseSelect = getSelectElement('tellarite-nose-select')
+        this.tellariteTusksCheck = getInputElement('tellarite-tusks-check')
+        this.vulcanRomulanVCheck = getInputElement('vulcan-romulan-v-check')
 
         this.facialHairSelect = getSelectElement('facial-hair-select')
 
@@ -261,6 +292,11 @@ export class CharacterElements {
             this.hairMirror,
             this.rearHairMirror,
             this.calMirranShapeSelect,
+            this.klingonRidgesSelect,
+            this.klingonForeheadSelect,
+            this.tellariteNoseSelect,
+            this.tellariteTusksCheck,
+            this.vulcanRomulanVCheck,
             this.characterNameInput
         ]
     }

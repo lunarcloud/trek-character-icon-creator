@@ -2,25 +2,36 @@
     <h2 class="notext" aria-label="Body"></h2>
     <label for="body-shape">Body</label>
     <select id="body-shape" aria-label="Body type">
-        <!--<optgroup label="Standard Bipedal">-->
-        <option value="humanoid">Humanoid</option>
-        <!--    <option value="humanoid" specify="human">Humans</option>
-            <option value="humanoid" specify="andor">Andorian / Aenar</option>
-            <option value="humanoid" specify="bird">Bird-like</option>
-            <option value="humanoid" specify="aenar">Candassian</option>
-            <option value="humanoid" specify="cat">Cait-like</option>
-            <option value="humanoid" specify="aenar">Ferengi</option>
-            <option value="humanoid" specify="klingon">Klingon</option>
-            <option value="humanoid" specify="tellarite">Tellarite</option>
+        <optgroup label="Humanoid">
+            <option value="humanoid" specify="human" body-colors-filter="human">Human</option>
+            <option value="humanoid" specify="andor" body-colors-filter="andor">Andorian / Aenar</option>
+            <option value="humanoid" specify="bajoran" body-colors-filter="human">Bajoran</option>
+            <option value="humanoid" specify="benzite" body-colors-filter="benzite">Benzite</option>
+            <option value="humanoid" specify="bird" body-colors-filter="human">Aurelian / Klowahkan</option>
+            <option value="humanoid" specify="bolian" body-colors-filter="bolian">Bolian</option>
+            <option value="humanoid" specify="cardassian" body-colors-filter="human">Cardassian</option>
+            <option value="humanoid" specify="cat" body-colors-filter="cat">Caitian / Kzinti</option>
+            <option value="humanoid" specify="denobulan" body-colors-filter="human">Denobulan</option>
+            <option value="humanoid" specify="ferengi" body-colors-filter="human">Ferengi</option>
+            <option value="humanoid" specify="kelpien" body-colors-filter="human">Kelpien</option>
+            <option value="humanoid" specify="klingon" body-colors-filter="klingon">Klingon</option>
+            <option value="humanoid" specify="orion" body-colors-filter="orion">Orion</option>
+            <option value="humanoid" specify="tellarite" body-colors-filter="human">Tellarite</option>
+            <option value="humanoid" specify="trill" body-colors-filter="human">Trill</option>
+            <option value="humanoid" specify="vulcan" body-colors-filter="human">Vulcan / Romulan</option>
+            <option value="humanoid" specify="zakdorn" body-colors-filter="human">Zakdorn</option>
+            <option value="humanoid">Custom</option>
         </optgroup>
-        <optgroup label="Other">-->
-        <option value="cetaceous">Cetaceous</option>
-        <option value="exocomp">Exocomp</option>
-        <option value="medusan">Medusan</option>
-        <!-- </optgroup> -->
+        <optgroup label="Other">
+            <option value="cetaceous">Cetaceous</option>
+            <option value="exocomp">Exocomp</option>
+            <option value="medusan">Medusan</option>
+        </optgroup>
         <optgroup label="Shackelton Expanse">
             <option value="cal-mirran">Cal-Mirran</option>
             <option value="qofuari">Qofuari</option>
+            <option value="humanoid" specify="vinshari" body-colors-filter="vinshari">VinShari</option>
+            <option value="humanoid" specify="tilikaal" body-colors-filter="tilikaal">Tilikaal</option>
         </optgroup>
         <optgroup label="Sarell Expanse" hidden>
             <option value="sukhabelan" hidden>Sukhabelan</option>
@@ -36,31 +47,73 @@
             </summary>
             <select id="std-body-colors" aria-label="Preset body colors">
                 <option value="custom" hidden selected></option>
-                <option value="#FEE4B3" class="non-cetaceous non-sukhabelan non-qofuari">Lighter Human</option>
-                <option value="#A68854" class="non-cetaceous non-sukhabelan non-qofuari">Olive Human</option>
-                <option value="#936948" class="non-cetaceous non-sukhabelan non-qofuari">Mid Human</option>
-                <option value="#36200C" class="non-cetaceous non-sukhabelan non-qofuari">Mid-Dark Human</option>
-                <option value="#210F03" class="non-cetaceous non-sukhabelan non-qofuari">Darker Human</option>
-                <option value="#765321" class="qofuari-only">Brown Fur</option>
-                <option value="#b3b3fe" class="non-cetaceous non-sukhabelan non-qofuari">Bolian</option>
-                <option value="#A6F3A8" class="non-cetaceous non-sukhabelan non-qofuari">Lighter Orion</option>
-                <option value="#98C851" class="non-cetaceous non-sukhabelan non-qofuari">Mid Orion</option>
-                <option value="#758322" class="non-cetaceous non-sukhabelan non-qofuari">Darker Orion</option>
-                <option value="#00B3B8" class="non-cetaceous non-sukhabelan non-qofuari">Blue Orion</option>
-                <option value="#41AACC" class="non-cetaceous non-sukhabelan non-qofuari">Andorian</option>
-                <option value="#B6AEAC" class="non-cetaceous non-sukhabelan non-qofuari">Aenar</option>
-                <option value="#B3673D" class="non-cetaceous non-sukhabelan">Caitian</option>
-                <option value="#A92902" class="non-cetaceous non-sukhabelan non-qofuari">Kzinti</option>
-                <option value="#C80909" class="non-cetaceous non-sukhabelan non-qofuari">VinShari</option>
-                <option value="#B5BEC8" class="non-sukhabelan">Grey</option>
-                <option value="#D9CBD6" class="non-sukhabelan">Reddish Grey</option>
-                <option value="#ECC1DB" class="non-sukhabelan">Pink</option>
-                <option value="#00B8E9" class="">Blue</option>
-                <option value="#546469" class="">Slate</option>
-                <option value="#F4F4F6" class="non-sukhabelan">White</option>
-                <option value="#636997" class="non-cetaceous">Soft Purple</option>
-                <option value="#472865" class="non-cetaceous non-qofuari">Deep Purple</option>
-                <option value="#0A0A0A">Black</option>
+                <optgroup label="Human Tones" filtergroup="human">
+                    <option value="#FEE4B3" class="non-cetaceous non-sukhabelan non-qofuari">Lighter Human</option>
+                    <option value="#A68854" class="non-cetaceous non-sukhabelan non-qofuari">Olive Human</option>
+                    <option value="#936948" class="non-cetaceous non-sukhabelan non-qofuari">Mid Human</option>
+                    <option value="#36200C" class="non-cetaceous non-sukhabelan non-qofuari">Mid-Dark Human</option>
+                    <option value="#210F03" class="non-cetaceous non-sukhabelan non-qofuari">Darker Human</option>
+                </optgroup>
+                <optgroup label="Qofuari" filtergroup="qofuari" hidden-until-filter>
+                    <option value="#765321" class="qofuari-only">Brown Fur</option>
+                </optgroup>
+                <optgroup label="Andorian / Aenar" filtergroup="andor">
+                    <option value="#41AACC" class="non-cetaceous non-sukhabelan non-qofuari">Andorian</option>
+                    <option value="#B6AEAC" class="non-cetaceous non-sukhabelan non-qofuari">Aenar</option>
+                </optgroup>
+                <optgroup label="Caitian / Cat" filtergroup="cat">
+                    <option value="#B3673D" class="non-cetaceous non-sukhabelan">Caitian</option>
+                    <option value="#A92902" class="non-cetaceous non-sukhabelan non-qofuari">Kzinti</option>
+                </optgroup>
+                <optgroup label="Klingon" filtergroup="klingon">
+                    <option value="#FEE4B3" class="non-cetaceous non-sukhabelan non-qofuari">Lighter Human</option>
+                    <option value="#A68854" class="non-cetaceous non-sukhabelan non-qofuari">Olive Human</option>
+                    <option value="#936948" class="non-cetaceous non-sukhabelan non-qofuari">Mid Human</option>
+                    <option value="#36200C" class="non-cetaceous non-sukhabelan non-qofuari">Mid-Dark Human</option>
+                    <option value="#210F03" class="non-cetaceous non-sukhabelan non-qofuari">Darker Human</option>
+                    <option value="#B5BEC8" class="non-sukhabelan">Grey</option>
+                    <option value="#F4F4F6" class="non-sukhabelan">White</option>
+                    <option value="#0A0A0A">Black</option>
+                </optgroup>
+                <optgroup label="Bolian" filtergroup="bolian">
+                    <option value="#b3b3fe" class="non-cetaceous non-sukhabelan non-qofuari">Bolian</option>
+                </optgroup>
+                <optgroup label="Orion" filtergroup="orion">
+                    <option value="#A6F3A8" class="non-cetaceous non-sukhabelan non-qofuari">Lighter Orion</option>
+                    <option value="#98C851" class="non-cetaceous non-sukhabelan non-qofuari">Mid Orion</option>
+                    <option value="#758322" class="non-cetaceous non-sukhabelan non-qofuari">Darker Orion</option>
+                    <option value="#00B3B8" class="non-cetaceous non-sukhabelan non-qofuari">Blue Orion</option>
+                </optgroup>
+                <optgroup label="Benzite" filtergroup="benzite">
+                    <option value="#b3b3fe" class="non-cetaceous non-sukhabelan non-qofuari">Benzite</option>
+                    <option value="#00B3B8" class="non-cetaceous non-sukhabelan non-qofuari">Blue</option>
+                </optgroup>
+                <optgroup label="VinShari" filtergroup="vinshari">
+                    <option value="#C80909" class="non-cetaceous non-sukhabelan non-qofuari">VinShari</option>
+                </optgroup>
+                <optgroup label="Tilikaal" filtergroup="tilikaal">
+                    <option value="#00B8E9" class="">Light Blue</option>
+                </optgroup>
+                <optgroup label="Alien">
+                    <option value="#b3b3fe" class="non-cetaceous non-sukhabelan non-qofuari">Bolian</option>
+                    <option value="#A6F3A8" class="non-cetaceous non-sukhabelan non-qofuari">Lighter Orion</option>
+                    <option value="#98C851" class="non-cetaceous non-sukhabelan non-qofuari">Mid Orion</option>
+                    <option value="#758322" class="non-cetaceous non-sukhabelan non-qofuari">Darker Orion</option>
+                    <option value="#00B3B8" class="non-cetaceous non-sukhabelan non-qofuari">Blue Orion</option>
+                    <option value="#A92902" class="non-cetaceous non-sukhabelan non-qofuari">Kzinti</option>
+                    <option value="#C80909" class="non-cetaceous non-sukhabelan non-qofuari">VinShari</option>
+                </optgroup>
+                <optgroup label="Other">
+                    <option value="#B5BEC8" class="non-sukhabelan">Grey</option>
+                    <option value="#D9CBD6" class="non-sukhabelan">Reddish Grey</option>
+                    <option value="#ECC1DB" class="non-sukhabelan">Pink</option>
+                    <option value="#00B8E9" class="">Blue</option>
+                    <option value="#546469" class="">Slate</option>
+                    <option value="#F4F4F6" class="non-sukhabelan">White</option>
+                    <option value="#636997" class="non-cetaceous">Soft Purple</option>
+                    <option value="#472865" class="non-cetaceous non-qofuari">Deep Purple</option>
+                    <option value="#0A0A0A">Black</option>
+                </optgroup>
             </select>
             <div class="color-swatches" id="body-color-swatches" aria-label="Body color swatches"></div>
         </details>
@@ -68,14 +121,14 @@
 
     <h3 class="non-exocomp non-qofuari">Physical Attributes</h3>
 
-    <group class="humanoid-only non-qofuari non-sukhabelan">
+    <group class="humanoid-only non-qofuari non-sukhabelan non-specify-ferengi">
         <label for="ear-select">Ears</label>
         <select id="ear-select" aria-label="Ear type">
             <option value="none">None (Edosian, Saurian, etc)</option>
             <option value="round" selected>Round (Human)</option>
             <option value="pointy">Pointy (Vulcan, Romulan)</option>
-            <option value="ferengi">Massive (Ferengi)</option>
-            <option value="cat">Cat (Caitian)</option>
+            <option value="ferengi" class="specific-ferengi">Massive (Ferengi)</option>
+            <option value="cat" class="specific-cat">Cat (Caitian)</option>
             <option value="webbed">Webbed (Kzinti, Khwopans)</option>
             <option value="bear">Bear</option>
             <option value="horns">Horns</option>
@@ -88,6 +141,40 @@
         <option>Pinwheel</option>
         <option>Cubical</option>
     </select>
+
+    <group class="humanoid-only specify-klingon-only">
+        <label for="klingon-ridges-select">Ridges</label>
+        <select id="klingon-ridges-select" aria-label="Klingon ridges style">
+            <option value="klingon-ridges">Klingon Ridges A</option>
+            <option value="klingon-ridges-2">Klingon Ridges B</option>
+        </select>
+
+        <label for="klingon-forehead-select">Forehead</label>
+        <select id="klingon-forehead-select" aria-label="Klingon forehead style">
+            <option value="none">None</option>
+            <option value="bifurcated-forehead-a" selected>Bifurcated Forehead A</option>
+            <option value="bifurcated-forehead-b">Bifurcated Forehead B</option>
+        </select>
+    </group>
+
+    <group class="humanoid-only specify-tellarite-only">
+        <label for="tellarite-nose-select">Nose</label>
+        <select id="tellarite-nose-select" aria-label="Tellarite nose style">
+            <option value="tellarite-nose">Tellarite Nose</option>
+            <option value="snout-nose">Snout Nose</option>
+        </select>
+        <label class="check-label">
+            <input type="checkbox" id="tellarite-tusks-check" />
+            Tusks
+        </label>
+    </group>
+
+    <group class="humanoid-only specify-vulcan-only">
+        <label class="check-label">
+            <input type="checkbox" id="vulcan-romulan-v-check" />
+            North Romulan V Forehead
+        </label>
+    </group>
 
 </group>
 

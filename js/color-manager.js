@@ -51,9 +51,19 @@ export class ColorManager {
     whiskersColorPicker
 
     /**
+     * @type {HTMLInputElement}
+     */
+    catNoseColorPicker
+
+    /**
      * @type {HTMLSelectElement}
      */
     uniformColorSelect
+
+    /**
+     * @type {HTMLSelectElement}
+     */
+    bodyColorSelect
 
     /**
      * @type {HTMLInputElement}
@@ -97,7 +107,9 @@ export class ColorManager {
         this.antennaeColorPicker = getInputElement('andorian-antennae-color')
         this.birdTuftColorPicker = getInputElement('bird-tuft-color')
         this.whiskersColorPicker = getInputElement('whiskers-color')
+        this.catNoseColorPicker = getInputElement('cat-nose-color')
         this.uniformColorSelect = getSelectElement('std-uniform-colors')
+        this.bodyColorSelect = getSelectElement('std-body-colors')
         this.uniformColorFilterCheck = getInputElement('filter-color-selection')
 
         this.syncAntennaeWithBodyCheck = getInputElement('sync-antennae-with-body')
@@ -115,6 +127,9 @@ export class ColorManager {
         })
         this.whiskersColorPicker.addEventListener('change', () => {
             this.syncWhiskersWithBodyCheck.checked = false
+            onChangeCallback()
+        })
+        this.catNoseColorPicker.addEventListener('change', () => {
             onChangeCallback()
         })
 
@@ -181,7 +196,8 @@ export class ColorManager {
             `svg .uniform-undershirt-color { color: ${this.uniformUndershirtColorPicker.value} !important;}` +
             `svg .bird-tuft-color { color: ${this.birdTuftColorPicker.value} !important;}` +
             `svg .andorian-antennae-color { color: ${this.antennaeColorPicker.value} !important;}` +
-            `svg .whiskers-color { color: ${this.whiskersColorPicker.value} !important;}`
+            `svg .whiskers-color { color: ${this.whiskersColorPicker.value} !important;}` +
+            `svg .cat-nose-color { color: ${this.catNoseColorPicker.value} !important;}`
     }
 
     /**
