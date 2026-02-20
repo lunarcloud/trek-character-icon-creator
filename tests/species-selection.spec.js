@@ -180,7 +180,7 @@ test.describe('Species Selection Tests', () => {
         await expect(earSelect).toBeVisible()
     })
 
-    test('Klingon body colors should include black grey and white', async ({ page }) => {
+    test('Klingon body colors should include black, grey, and white', async ({ page }) => {
         await page.selectOption('#body-shape', { label: 'Klingon' })
         await page.waitForTimeout(200)
         // Klingon filtergroup should be visible with these colors
@@ -207,18 +207,19 @@ test.describe('Species Selection Tests', () => {
     })
 
     test('body color auto-switches to valid color when filter hides current selection', async ({ page }) => {
-        // Start with generic Humanoid and select Andorian color
-        await page.selectOption('#body-shape', { label: 'Humanoid' })
+        // Start with Andorian and set the Andorian blue color via evaluate (select is in collapsed details)
+        await page.selectOption('#body-shape', { label: 'Andorian / Aenar' })
+        await page.waitForTimeout(200)
+        await page.locator('#std-body-colors').evaluate((el, val) => { el.value = val }, '#41AACC')
+        await page.locator('#body-color').evaluate((el, val) => { el.value = val }, '#41AACC')
         await page.waitForTimeout(200)
 
         // Now switch to Human - Andorian color should be hidden
-        // and body color should auto-switch to a valid one
+        // and body color should auto-switch to the first valid human tone
         await page.selectOption('#body-shape', { label: 'Human' })
         await page.waitForTimeout(200)
 
-        // The body color picker should have a valid human tone color
         const bodyColorValue = await page.locator('#body-color').inputValue()
-        // Should be one of the human tone colors (not custom, not andorian blue)
-        expect(bodyColorValue).not.toBe('#41AACC')
+        expect(bodyColorValue.toUpperCase()).toBe('#FEE4B3')
     })
 })
