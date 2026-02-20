@@ -8,6 +8,7 @@ import { saveTextAs } from './js/save-file-utils.js'
 import { TooltipManager } from './js/tooltip-manager.js'
 import { AutosaveManager } from './js/autosave-manager.js'
 import { migrateV1Config } from './js/migrate-v1-config.js'
+import { Randomizer } from './js/randomizer.js'
 
 /**
  * Default character name used when no name is provided.
@@ -106,6 +107,12 @@ export class IndexController {
         // Setup the reset button to clear autosave and reload
         document.getElementById('reset-character')
             .addEventListener('click', () => this.#resetCharacter())
+
+        // Setup the randomize button
+        document.getElementById('randomize-character')
+            .addEventListener('click', () => Randomizer.randomize(
+                this.#elements, this.#colorManager, () => this.onChangeDetected()
+            ))
     }
 
     /**
