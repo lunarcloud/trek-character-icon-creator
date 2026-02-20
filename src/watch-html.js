@@ -30,8 +30,17 @@ console.log('👀 Watching HTML files for changes...')
 console.log('Press Ctrl+C to stop')
 
 // Watch the src directory (includes template and partials)
-watch(join(__dirname, '..', 'src'), { recursive: true }, (eventType, filename) => {
-    if (filename && filename.endsWith('.html')) {
-        runBuild()
+try {
+    watch(join(__dirname, '..', 'src'), { recursive: true }, (eventType, filename) => {
+        if (filename && filename.endsWith('.html')) {
+            runBuild()
+        }
+    })
+} catch (e) {
+    if (e.code === 'ERR_FEATURE_UNAVAILABLE_ON_PLATFORM') {
+        console.warn('⚠️ Recursive file watching not supported on this platform.')
+        console.warn('  HTML files will not be auto-rebuilt on change.')
+    } else {
+        throw e
     }
-})
+}
