@@ -1,0 +1,36 @@
+{
+  "version": "1.0",
+  "bodyShape": "human",
+  "colors": {
+    "body": "#00b3b8",
+    "hair": "#cb9944",
+    "uniform": "#83002c",
+    "uniformUndershirt": "#718085",
+    "antennae": "#00b3b8",
+    "birdTuft": "#00b3b8",
+    "whiskers": "#745925"
+  },
+  "colorSync": {
+    "antennaeWithBody": true,
+    "birdTuftWithBody": true,
+    "whiskersWithBody": false
+  },
+  "uniform": "Academy Cadet",
+  "ears": "pointy",
+  "nose": "thick",
+  "foreheadBump": false,
+  "medusanAltColor": false,
+  "medusanBox": false,
+  "calMirranShape": "Prismatic",
+  "headFeatures": [
+    "bolian-line",
+    "bird-beak"
+  ],
+  "hat": "None",
+  "eyewear": "None",
+  "facialHair": "mustache-g",
+  "hair": "aw",
+  "hairMirror": false,
+  "rearHair": "v",
+  "rearHairMirror": false
+}

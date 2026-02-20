@@ -1,0 +1,33 @@
+{
+  "version": "1.0",
+  "bodyShape": "humanoid",
+  "colors": {
+    "body": "#fee4b3",
+    "hair": "#270d02",
+    "uniform": "#363e6a",
+    "uniformUndershirt": "#718085",
+    "antennae": "#fee4b3",
+    "birdTuft": "#fee4b3",
+    "whiskers": "#745925"
+  },
+  "colorSync": {
+    "antennaeWithBody": true,
+    "birdTuftWithBody": true,
+    "whiskersWithBody": false
+  },
+  "uniform": "Civilian Simple 1",
+  "ears": "round",
+  "nose": "thick",
+  "foreheadBump": false,
+  "medusanAltColor": false,
+  "medusanBox": false,
+  "calMirranShape": "Prismatic",
+  "headFeatures": [],
+  "hat": "None",
+  "eyewear": "None",
+  "facialHair": "none",
+  "hair": "y",
+  "hairMirror": false,
+  "rearHair": "none",
+  "rearHairMirror": false
+}

@@ -1,0 +1,39 @@
+{
+  "version": "1.0",
+  "bodyShape": "humanoid",
+  "colors": {
+    "body": "#36200c",
+    "hair": "#010101",
+    "uniform": "#a48104",
+    "uniformUndershirt": "#c9d5d9",
+    "antennae": "#c1a58b",
+    "birdTuft": "#36200c",
+    "whiskers": "#745925"
+  },
+  "colorSync": {
+    "antennaeWithBody": false,
+    "birdTuftWithBody": true,
+    "whiskersWithBody": false
+  },
+  "uniform": "Sarell Expanse",
+  "ears": "pointy",
+  "nose": "thick",
+  "foreheadBump": false,
+  "medusanAltColor": false,
+  "medusanBox": false,
+  "calMirranShape": "Prismatic",
+  "headFeatures": [
+    "andorian-antennae",
+    "kelpian-lines",
+    "bajoran-earring",
+    "cyborg-antenna-l",
+    "lab-coat"
+  ],
+  "hat": "starfleet-bucket-hat",
+  "eyewear": "sunglasses",
+  "facialHair": "sideburns",
+  "hair": "t",
+  "hairMirror": false,
+  "rearHair": "l",
+  "rearHairMirror": false
+}

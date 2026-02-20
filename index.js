@@ -7,6 +7,7 @@ import { DomUtil } from './js/util-dom.js'
 import { saveTextAs } from './js/save-file-utils.js'
 import { TooltipManager } from './js/tooltip-manager.js'
 import { AutosaveManager } from './js/autosave-manager.js'
+import { migrateV1Config } from './js/migrate-v1-config.js'
 
 /**
  * Default character name used when no name is provided.
@@ -437,10 +438,7 @@ export class IndexController {
             console.debug('loaded a v 2.0 config')
             break
         case '1.0':
-            config.jewelry = config.headFeatures
-            if (config.bodyShape === 'human') {
-                config.bodyShape = 'humanoid'
-            }
+            migrateV1Config(config)
             console.debug('loaded a v 1.0 config')
             break
         default:

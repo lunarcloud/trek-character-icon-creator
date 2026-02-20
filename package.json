@@ -16,7 +16,13 @@
         "lint-fix": "npm run eslint-fix; npm run htmllint; npm run csslint-fix; npm run svglint",
         "test": "playwright test",
         "test:headed": "playwright test --headed",
-        "test:ui": "playwright test --ui"
+        "test:ui": "playwright test --ui",
+        "test:unit": "node --experimental-vm-modules node_modules/.bin/jest"
+    },
+    "jest": {
+        "testMatch": [
+            "**/tests/**/*.test.js"
+        ]
     },
     "dependencies": {
         "external-svg-loader": "^1.7.1",
@@ -31,9 +37,11 @@
         "eslint-config-standard": "^17.1.0",
         "eslint-plugin-editorconfig": "^4.0.3",
         "eslint-plugin-import": "^2.32.0",
+        "eslint-plugin-jest": "^29.15.0",
         "eslint-plugin-jsdoc": "^46.10.1",
         "eslint-plugin-n": "^16.6.2",
         "eslint-plugin-promise": "^6.6.0",
+        "jest": "^30.2.0",
         "serve": "^14.2.5",
         "stylelint": "^16.26.1",
         "stylelint-config-standard": "^35.0.0",
