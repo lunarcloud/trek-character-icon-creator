@@ -10,6 +10,18 @@
         "sourceType": "module"
     },
     "ignorePatterns": ["**/lib/**/*.js"],
+    "overrides": [
+        {
+            "files": ["tests/**/*.test.js"],
+            "env": {
+                "jest/globals": true
+            },
+            "plugins": ["jest"],
+            "rules": {
+                "require-jsdoc": "off"
+            }
+        }
+    ],
     "rules": {
         "max-len": 0,
         "curly": 0,
