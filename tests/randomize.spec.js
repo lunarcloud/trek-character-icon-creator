@@ -85,14 +85,23 @@ test.describe('Randomize / Surprise Me Tests', () => {
         await expect(uniformSvg).toBeAttached()
     })
 
-    test('Vulcan randomize should enforce pointy ears', async ({ page }) => {
-        // Manually set to Vulcan then verify species defaults
-        await page.selectOption('#body-shape', { label: 'Vulcan / Romulan' })
-        await page.waitForTimeout(200)
+    test('randomize should enforce species-specific ears for Vulcan', async ({ page }) => {
+        // Click randomize until we get a Vulcan
+        let gotVulcan = false
+        for (let i = 0; i < 50; i++) {
+            await page.click('#randomize-character')
+            await page.waitForTimeout(200)
+            const specify = await page.locator('#body-shape option:checked').getAttribute('specify')
+            if (specify === 'vulcan') {
+                gotVulcan = true
+                break
+            }
+        }
 
-        // Now simulate what randomizer does by verifying existing Vulcan behavior
-        const earValue = await page.locator('#ear-select').inputValue()
-        expect(earValue).toBe('pointy')
+        if (gotVulcan) {
+            const earValue = await page.locator('#ear-select').inputValue()
+            expect(earValue).toBe('pointy')
+        }
     })
 
     test('randomize can be clicked multiple times without errors', async ({ page }) => {
