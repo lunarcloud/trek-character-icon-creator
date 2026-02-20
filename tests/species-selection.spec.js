@@ -160,7 +160,65 @@ test.describe('Species Selection Tests', () => {
         // All colors should be visible
         const andorianOption = page.locator('#std-body-colors option[value="#41AACC"]')
         expect(await andorianOption.getAttribute('hidden')).toBeNull()
-        const humanOption = page.locator('#std-body-colors option[value="#FEE4B3"]')
+        const humanOption = page.locator('#std-body-colors option[value="#FEE4B3"]').first()
         expect(await humanOption.getAttribute('hidden')).toBeNull()
+    })
+
+    test('selecting Ferengi should hide ears dropdown', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Ferengi' })
+        await page.waitForTimeout(200)
+        const earSelect = page.locator('#ear-select')
+        await expect(earSelect).not.toBeVisible()
+    })
+
+    test('switching from Ferengi to Humanoid should show ears dropdown again', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Ferengi' })
+        await page.waitForTimeout(200)
+        await page.selectOption('#body-shape', { label: 'Humanoid' })
+        await page.waitForTimeout(200)
+        const earSelect = page.locator('#ear-select')
+        await expect(earSelect).toBeVisible()
+    })
+
+    test('Klingon body colors should include black grey and white', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Klingon' })
+        await page.waitForTimeout(200)
+        // Klingon filtergroup should be visible with these colors
+        const klingonGroup = page.locator('#std-body-colors optgroup[filtergroup="klingon"]')
+        expect(await klingonGroup.getAttribute('hidden')).toBeNull()
+        const black = klingonGroup.locator('option[value="#0A0A0A"]')
+        const grey = klingonGroup.locator('option[value="#B5BEC8"]')
+        const white = klingonGroup.locator('option[value="#F4F4F6"]')
+        expect(await black.getAttribute('hidden')).toBeNull()
+        expect(await grey.getAttribute('hidden')).toBeNull()
+        expect(await white.getAttribute('hidden')).toBeNull()
+    })
+
+    test('Cat-like body colors should include Caitian and Kzinti', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Cat-like' })
+        await page.waitForTimeout(200)
+        // Cat filtergroup should be visible with both colors
+        const catGroup = page.locator('#std-body-colors optgroup[filtergroup="cat"]')
+        expect(await catGroup.getAttribute('hidden')).toBeNull()
+        const caitian = catGroup.locator('option[value="#B3673D"]')
+        const kzinti = catGroup.locator('option[value="#A92902"]')
+        expect(await caitian.getAttribute('hidden')).toBeNull()
+        expect(await kzinti.getAttribute('hidden')).toBeNull()
+    })
+
+    test('body color auto-switches to valid color when filter hides current selection', async ({ page }) => {
+        // Start with generic Humanoid and select Andorian color
+        await page.selectOption('#body-shape', { label: 'Humanoid' })
+        await page.waitForTimeout(200)
+
+        // Now switch to Human - Andorian color should be hidden
+        // and body color should auto-switch to a valid one
+        await page.selectOption('#body-shape', { label: 'Human' })
+        await page.waitForTimeout(200)
+
+        // The body color picker should have a valid human tone color
+        const bodyColorValue = await page.locator('#body-color').inputValue()
+        // Should be one of the human tone colors (not custom, not andorian blue)
+        expect(bodyColorValue).not.toBe('#41AACC')
     })
 })

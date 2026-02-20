@@ -238,6 +238,17 @@ export class IndexController {
         const bodyColorsFilter = this.#elements.shapeSelect.selectedOptions?.[0]?.getAttribute('body-colors-filter')
         UniformManager.filterColorOptions(this.#elements.mainEl, this.#colorManager.bodyColorSelect, !!bodyColorsFilter, bodyColorsFilter)
 
+        // If body color is not custom and is now hidden, switch to first valid one
+        if (bodyColorsFilter && this.#colorManager.bodyColorSelect.value !== 'custom' &&
+            DomUtil.IsOptionInvalid(this.#colorManager.bodyColorSelect)) {
+            const firstVisible = Array.from(this.#colorManager.bodyColorSelect.querySelectorAll('option:not([hidden])'))
+                .find(el => el instanceof HTMLOptionElement && el.value !== 'custom')
+            if (firstVisible instanceof HTMLOptionElement) {
+                this.#colorManager.bodyColorSelect.value = firstVisible.value
+                this.#colorManager.bodyColorPicker.value = firstVisible.value
+            }
+        }
+
         // Regenerate body color swatches to reflect filter changes
         ColorSwatches.regenerate('body-color', 'std-body-colors', 'body-color-swatches')
 

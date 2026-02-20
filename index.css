@@ -154,6 +154,7 @@ body {
   &.specify-klingon [class*="specific-"]:not(.specific-klingon),
   &.specify-tellarite [class*="specific-"]:not(.specific-tellarite),
   &[class*="specify-"] .forced-species,
+  &.specify-ferengi .non-specify-ferengi,
   &:not(.specify-klingon) .specify-klingon-only,
   &:not(.specify-tellarite) .specify-tellarite-only,
   &.no-uniform-color #uniform-color-section {

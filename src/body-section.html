@@ -10,7 +10,7 @@
             <option value="humanoid" specify="cardassian" body-colors-filter="human">Cardassian</option>
             <option value="humanoid" specify="cat" body-colors-filter="cat">Cat-like</option>
             <option value="humanoid" specify="ferengi" body-colors-filter="human">Ferengi</option>
-            <option value="humanoid" specify="klingon" body-colors-filter="human">Klingon</option>
+            <option value="humanoid" specify="klingon" body-colors-filter="klingon">Klingon</option>
             <option value="humanoid" specify="tellarite" body-colors-filter="human">Tellarite</option>
         </optgroup>
         <optgroup label="Other">
@@ -52,6 +52,17 @@
                 </optgroup>
                 <optgroup label="Caitian / Cat" filtergroup="cat">
                     <option value="#B3673D" class="non-cetaceous non-sukhabelan">Caitian</option>
+                    <option value="#A92902" class="non-cetaceous non-sukhabelan non-qofuari">Kzinti</option>
+                </optgroup>
+                <optgroup label="Klingon" filtergroup="klingon">
+                    <option value="#FEE4B3" class="non-cetaceous non-sukhabelan non-qofuari">Lighter Human</option>
+                    <option value="#A68854" class="non-cetaceous non-sukhabelan non-qofuari">Olive Human</option>
+                    <option value="#936948" class="non-cetaceous non-sukhabelan non-qofuari">Mid Human</option>
+                    <option value="#36200C" class="non-cetaceous non-sukhabelan non-qofuari">Mid-Dark Human</option>
+                    <option value="#210F03" class="non-cetaceous non-sukhabelan non-qofuari">Darker Human</option>
+                    <option value="#B5BEC8" class="non-sukhabelan">Grey</option>
+                    <option value="#F4F4F6" class="non-sukhabelan">White</option>
+                    <option value="#0A0A0A">Black</option>
                 </optgroup>
                 <optgroup label="Alien">
                     <option value="#b3b3fe" class="non-cetaceous non-sukhabelan non-qofuari">Bolian</option>
@@ -80,7 +91,7 @@
 
     <h3 class="non-exocomp non-qofuari">Physical Attributes</h3>
 
-    <group class="humanoid-only non-qofuari non-sukhabelan">
+    <group class="humanoid-only non-qofuari non-sukhabelan non-specify-ferengi">
         <label for="ear-select">Ears</label>
         <select id="ear-select" aria-label="Ear type">
             <option value="none">None (Edosian, Saurian, etc)</option>
