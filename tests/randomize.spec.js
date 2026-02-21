@@ -219,6 +219,47 @@ test.describe('Randomize Tests', () => {
             expect(selected).not.toContain('orion-head-bolting')
         }
     })
+
+    test('randomize should not select cyborg antenna for non-andorian species', async ({ page }) => {
+        for (let i = 0; i < 30; i++) {
+            await page.click('#randomize-character')
+            await page.waitForTimeout(50)
+            const specify = await page.locator('#body-shape option:checked').getAttribute('specify')
+            if (specify === 'andor') continue
+            const selected = await page.locator('#jewelry-select').evaluate(
+                el => Array.from(el.selectedOptions).map(o => o.value)
+            )
+            expect(selected).not.toContain('cyborg-antenna-l')
+            expect(selected).not.toContain('cyborg-antenna-r')
+        }
+    })
+
+    test('randomize should not select red overcoat with Starfleet uniforms', async ({ page }) => {
+        for (let i = 0; i < 30; i++) {
+            await page.click('#randomize-character')
+            await page.waitForTimeout(50)
+            const uniformGroup = await page.locator('#uniform-select option:checked').evaluate(
+                el => el.parentElement?.tagName === 'OPTGROUP' ? el.parentElement?.label : ''
+            )
+            if (uniformGroup !== 'Starfleet' && uniformGroup !== 'Non-Canon Starfleet') continue
+            const selected = await page.locator('#jewelry-select').evaluate(
+                el => Array.from(el.selectedOptions).map(o => o.value)
+            )
+            expect(selected).not.toContain('red-overcoat')
+        }
+    })
+
+    test('randomize should never select forehead coin or rimmer-h', async ({ page }) => {
+        for (let i = 0; i < 30; i++) {
+            await page.click('#randomize-character')
+            await page.waitForTimeout(50)
+            const selected = await page.locator('#jewelry-select').evaluate(
+                el => Array.from(el.selectedOptions).map(o => o.value)
+            )
+            expect(selected).not.toContain('forehead-coin')
+            expect(selected).not.toContain('rimmer-h')
+        }
+    })
 })
 
 test.describe('Ear-dependent jewelry visibility', () => {
