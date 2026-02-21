@@ -154,6 +154,7 @@ body {
   &.specify-benzite [class*="specific-"]:not(.specific-benzite),
   &.specify-bird [class*="specific-"]:not(.specific-bird),
   &.specify-bolian [class*="specific-"]:not(.specific-bolian),
+  &.specify-breen [class*="specific-"]:not(.specific-breen),
   &.specify-cardassian [class*="specific-"]:not(.specific-cardassian),
   &.specify-cat [class*="specific-"]:not(.specific-cat),
   &.specify-denobulan [class*="specific-"]:not(.specific-denobulan),

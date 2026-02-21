@@ -26,6 +26,7 @@ const SPECIES_WEIGHTS = [
     { value: 'humanoid', specify: 'kelpien', weight: 3 },
     { value: 'humanoid', specify: 'tellarite', weight: 3 },
     { value: 'humanoid', specify: 'zakdorn', weight: 3 },
+    { value: 'humanoid', specify: 'breen', weight: 2 },
     { value: 'cetaceous', specify: '', weight: 3 },
     { value: 'exocomp', specify: '', weight: 2 },
     { value: 'medusan', specify: '', weight: 2 },
@@ -159,6 +160,21 @@ function randomizeColorFromPresets (colorPicker, colorSelect) {
 }
 
 /**
+ * Maps species specify values to the prefix used in "Other Militia" uniform names.
+ * Militia uniforms should only be randomized when the species matches.
+ * @type {Record<string, string>}
+ */
+const MILITIA_SPECIES_PREFIX = {
+    andor: 'Andorian',
+    breen: 'Breen',
+    cardassian: 'Cardassian',
+    ferengi: 'Ferengi',
+    klingon: 'Klingon',
+    orion: 'Orion',
+    vulcan: 'Romulan'
+}
+
+/**
  * Manages random character generation with weighted species selection.
  */
 export class Randomizer {
@@ -186,10 +202,17 @@ export class Randomizer {
         onChangeDetected()
 
         // Randomize uniform from valid options, excluding "Other Series"
-        randomizeSelect(elements.uniformSelect, opt =>
-            opt.parentElement instanceof HTMLOptGroupElement &&
-            opt.parentElement.label === 'Other Series'
-        )
+        // and "Other Militia" uniforms that don't match the current species
+        const speciesPrefix = MILITIA_SPECIES_PREFIX[species.specify] ?? ''
+        randomizeSelect(elements.uniformSelect, opt => {
+            if (!(opt.parentElement instanceof HTMLOptGroupElement)) return false
+            if (opt.parentElement.label === 'Other Series') return true
+            if (opt.parentElement.label === 'Other Militia') {
+                const uniformText = opt.textContent.trim()
+                return !speciesPrefix || !uniformText.startsWith(speciesPrefix)
+            }
+            return false
+        })
 
         // Randomize body-specific selects (only when visible)
         // For custom humanoid (no specify), randomize ears freely.

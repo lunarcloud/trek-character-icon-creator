@@ -129,7 +129,7 @@ test.describe('Randomize / Surprise Me Tests', () => {
                 expect(earValue).toBe('cat')
             } else if (specify === 'ferengi') {
                 expect(earValue).toBe('ferengi')
-            } else if (['human', 'bajoran', 'trill', 'bolian', 'cardassian',
+            } else if (['human', 'bajoran', 'trill', 'bolian', 'breen', 'cardassian',
                 'orion', 'denobulan', 'zakdorn', 'benzite'].includes(specify)) {
                 expect(earValue).toBe('round')
             }
@@ -162,6 +162,28 @@ test.describe('Randomize / Surprise Me Tests', () => {
             await page.waitForTimeout(150)
             const uniformText = await page.locator('#uniform-select option:checked').textContent()
             expect(otherSeriesUniforms).not.toContain(uniformText.trim())
+        }
+    })
+
+    test('randomize should only select militia uniforms matching the species', async ({ page }) => {
+        const militiaPrefixes = {
+            andor: 'Andorian', breen: 'Breen', cardassian: 'Cardassian',
+            ferengi: 'Ferengi', klingon: 'Klingon', orion: 'Orion', vulcan: 'Romulan'
+        }
+        for (let i = 0; i < 40; i++) {
+            await page.click('#randomize-character')
+            await page.waitForTimeout(150)
+            const specify = await page.locator('#body-shape option:checked').getAttribute('specify') ?? ''
+            const uniformOpt = page.locator('#uniform-select option:checked')
+            const uniformText = (await uniformOpt.textContent()).trim()
+            const inMilitia = await uniformOpt.evaluate(
+                el => el.parentElement?.tagName === 'OPTGROUP' && el.parentElement?.label === 'Other Militia'
+            )
+            if (!inMilitia) continue
+            // If a militia uniform was chosen, the species must match its prefix
+            const expectedPrefix = militiaPrefixes[specify]
+            expect(expectedPrefix).toBeTruthy()
+            expect(uniformText.startsWith(expectedPrefix)).toBe(true)
         }
     })
 
