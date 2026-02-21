@@ -309,8 +309,9 @@ test.describe('Species Selection Tests', () => {
         // Switch to Bolian (a species without hair)
         await page.selectOption('#body-shape', { label: 'Bolian' })
 
-        // Hair should be cleared (none.svg produces empty innerHTML)
+        // Hair should be cleared but select value preserved
         await expect(page.locator('#character-hair svg')).not.toBeAttached()
+        await expect(page.locator('#hair-select')).toHaveValue('b')
     })
 
     test('switching to Breen should hide previously assigned hair', async ({ page }) => {
@@ -325,5 +326,20 @@ test.describe('Species Selection Tests', () => {
         await expect(page.locator('#character-hair svg[data-src*="/hair/b.svg"]')).toBeAttached()
         await page.selectOption('#body-shape', { label: 'Kelpien' })
         await expect(page.locator('#character-hair svg')).not.toBeAttached()
+    })
+
+    test('hair selection should be restored when switching back to species with hair', async ({ page }) => {
+        // Select a hair style
+        await page.selectOption('#hair-select', 'b')
+        await expect(page.locator('#character-hair svg[data-src*="/hair/b.svg"]')).toBeAttached()
+
+        // Switch to hairless species
+        await page.selectOption('#body-shape', { label: 'Bolian' })
+        await expect(page.locator('#character-hair svg')).not.toBeAttached()
+
+        // Switch back to species with hair - selection should be restored
+        await page.selectOption('#body-shape', { label: 'Custom' })
+        await expect(page.locator('#hair-select')).toHaveValue('b')
+        await expect(page.locator('#character-hair svg[data-src*="/hair/b.svg"]')).toBeAttached()
     })
 })

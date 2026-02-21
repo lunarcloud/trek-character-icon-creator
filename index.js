@@ -229,10 +229,6 @@ export class IndexController {
                 if (DomUtil.IsOptionInvalid(this.#elements.hairSelect)) {
                     this.#elements.hairSelect.selectedIndex = 0
                 }
-            } else {
-                this.#elements.hairSelect.selectedIndex = 0
-                this.#elements.rearHairSelect.selectedIndex = 0
-                this.#elements.facialHairSelect.selectedIndex = 0
             }
 
             // Handle species-specific enforcement for humanoid subspecies

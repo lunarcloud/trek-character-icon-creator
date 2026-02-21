@@ -80,14 +80,20 @@ export class BodyTypeManager {
         // Change the ears
         elements.characterEarsOrNose.innerHTML = DomUtil.GenerateSVGHTML(`svg/humanoid/ears/${elements.earSelect.value}.svg`)
 
-        // Update the hair
-        elements.characterHair.innerHTML = DomUtil.GenerateSVGHTML(`svg/humanoid/hair/${elements.hairSelect.value}.svg`)
-        elements.characterRearHair.innerHTML = DomUtil.GenerateSVGHTML(`svg/humanoid/rear-hair/${elements.rearHairSelect.value}.svg`)
-        elements.characterFacialHair.innerHTML = DomUtil.GenerateSVGHTML(`svg/humanoid/facial-hair/${elements.facialHairSelect.value}.svg`)
+        // Update the hair (skip rendering if hair section is hidden for the current species)
+        if (elements.hairSelect.checkVisibility()) {
+            elements.characterHair.innerHTML = DomUtil.GenerateSVGHTML(`svg/humanoid/hair/${elements.hairSelect.value}.svg`)
+            elements.characterRearHair.innerHTML = DomUtil.GenerateSVGHTML(`svg/humanoid/rear-hair/${elements.rearHairSelect.value}.svg`)
+            elements.characterFacialHair.innerHTML = DomUtil.GenerateSVGHTML(`svg/humanoid/facial-hair/${elements.facialHairSelect.value}.svg`)
 
-        // Handle hair mirroring
-        elements.characterHair.classList.toggle('mirrored', elements.hairMirror.checked)
-        elements.characterRearHair.classList.toggle('mirrored', elements.rearHairMirror.checked)
+            // Handle hair mirroring
+            elements.characterHair.classList.toggle('mirrored', elements.hairMirror.checked)
+            elements.characterRearHair.classList.toggle('mirrored', elements.rearHairMirror.checked)
+        } else {
+            elements.characterHair.innerHTML = ''
+            elements.characterRearHair.innerHTML = ''
+            elements.characterFacialHair.innerHTML = ''
+        }
 
         // Update the head & headgear features
         const selections = (Array.from(elements.headFeatureSelect.selectedOptions) ?? [])
