@@ -315,12 +315,14 @@ test.describe('Species Selection Tests', () => {
 
     test('switching to Breen should hide previously assigned hair', async ({ page }) => {
         await page.selectOption('#hair-select', 'b')
+        await expect(page.locator('#character-hair svg[data-src*="/hair/b.svg"]')).toBeAttached()
         await page.selectOption('#body-shape', { label: 'Breen' })
         await expect(page.locator('#character-hair svg')).not.toBeAttached()
     })
 
     test('switching to Kelpien should hide previously assigned hair', async ({ page }) => {
         await page.selectOption('#hair-select', 'b')
+        await expect(page.locator('#character-hair svg[data-src*="/hair/b.svg"]')).toBeAttached()
         await page.selectOption('#body-shape', { label: 'Kelpien' })
         await expect(page.locator('#character-hair svg')).not.toBeAttached()
     })
