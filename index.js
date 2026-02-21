@@ -245,6 +245,7 @@ export class IndexController {
                         .find(o => o.value === this.#savedHairValue)
                     if (savedOpt && !savedOpt.hidden) {
                         this.#elements.hairSelect.value = this.#savedHairValue
+                        this.#savedHairValue = null
                     }
                 }
             }
