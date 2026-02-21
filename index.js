@@ -203,8 +203,14 @@ export class IndexController {
         // Add ear-dependent class for cat-mouth-beard visibility
         if (bodyShape === 'humanoid' && this.#elements.earSelect.value === 'cat')
             this.#elements.mainEl.classList.add('cat-ears')
+        // Add ear-dependent class for earring/stud jewelry visibility
+        if (!this.#elements.earSelect.checkVisibility() ||
+            !['none', 'bear'].includes(this.#elements.earSelect.value))
+            this.#elements.mainEl.classList.add('has-ear-jewelry')
         // Refresh facial hair visibility since it depends on ear selection
         DomUtil.hideInvalidSelectOptions(this.#elements.facialHairSelect)
+        // Refresh jewelry visibility since it depends on ear selection
+        DomUtil.hideInvalidSelectOptions(this.#elements.jewelrySelect)
         // more classes will be added later
 
         // Handle Body Shape Changes

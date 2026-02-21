@@ -147,6 +147,7 @@ body {
   &:not(.whiskers) .whiskers-only,
   &:not(.cat-nose) .cat-nose-only,
   &:not(.cat-ears) .cat-ears-only,
+  &:not(.has-ear-jewelry) .has-ear-jewelry-only,
   &.specify-human [class*="specific-"],
   &.specify-andor [class*="specific-"]:not(.specific-andor),
   &.specify-bajoran [class*="specific-"]:not(.specific-bajoran),

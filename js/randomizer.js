@@ -63,12 +63,14 @@ function pickWeightedSpecies () {
 /**
  * Get visible (non-hidden) options from a select element, excluding placeholder values.
  * @param {HTMLSelectElement} selectEl The select element to inspect
+ * @param {Function} [excludeFilter] Optional callback returning true for options to exclude
  * @returns {HTMLOptionElement[]} Array of visible, selectable options
  */
-function getVisibleOptions (selectEl) {
+function getVisibleOptions (selectEl, excludeFilter) {
     return Array.from(selectEl.options).filter(opt => {
         if (opt.hidden || opt.value === 'custom') return false
         if (opt.parentElement instanceof HTMLOptGroupElement && opt.parentElement.hidden) return false
+        if (excludeFilter && excludeFilter(opt)) return false
         return true
     })
 }
@@ -76,9 +78,10 @@ function getVisibleOptions (selectEl) {
 /**
  * Set a random visible option on a single-selection select element.
  * @param {HTMLSelectElement} selectEl The select element to randomize
+ * @param {Function} [excludeFilter] Optional callback returning true for options to exclude
  */
-function randomizeSelect (selectEl) {
-    const options = getVisibleOptions(selectEl)
+function randomizeSelect (selectEl, excludeFilter) {
+    const options = getVisibleOptions(selectEl, excludeFilter)
     if (options.length === 0) return
     const chosen = pickRandom(options)
     chosen.selected = true
@@ -110,9 +113,10 @@ function randomizeSelectWithChance (selectEl, chanceOfNonNone) {
  * Randomly select items from a multi-select using a weighted count distribution.
  * @param {HTMLSelectElement} selectEl The multi-select element
  * @param {Array<{count: number, weight: number}>} distribution Weighted count options
+ * @param {Function} [excludeFilter] Optional callback returning true for options to exclude
  */
-function randomizeMultiSelect (selectEl, distribution) {
-    const options = getVisibleOptions(selectEl)
+function randomizeMultiSelect (selectEl, distribution, excludeFilter) {
+    const options = getVisibleOptions(selectEl, excludeFilter)
     for (const opt of selectEl.options) {
         opt.selected = false
     }
@@ -181,8 +185,11 @@ export class Randomizer {
         // First pass: establish valid options for the selected body shape
         onChangeDetected()
 
-        // Randomize uniform from valid options
-        randomizeSelect(elements.uniformSelect)
+        // Randomize uniform from valid options, excluding "Other Series"
+        randomizeSelect(elements.uniformSelect, opt =>
+            opt.parentElement instanceof HTMLOptGroupElement &&
+            opt.parentElement.label === 'Other Series'
+        )
 
         // Randomize body-specific selects (only when visible)
         // For custom humanoid (no specify), randomize ears freely.
@@ -224,13 +231,19 @@ export class Randomizer {
         }
 
         // Randomize accessories (60% 0-1, 20% 2, 20% 3, max 3)
+        // Benzite breather only for benzite, orion head-bolting only for orion
         if (elements.jewelrySelect.checkVisibility()) {
+            const jewelryFilter = opt => {
+                if (opt.value === 'benzite-breather' && species.specify !== 'benzite') return true
+                if (opt.value === 'orion-head-bolting' && species.specify !== 'orion') return true
+                return false
+            }
             randomizeMultiSelect(elements.jewelrySelect, [
                 { count: 0, weight: 30 },
                 { count: 1, weight: 30 },
                 { count: 2, weight: 20 },
                 { count: 3, weight: 20 }
-            ])
+            ], jewelryFilter)
         }
 
         // Randomize hat (25% chance) and eyewear (10% chance)

@@ -151,4 +151,83 @@ test.describe('Randomize / Surprise Me Tests', () => {
         const characterBody = page.locator('#character-body svg')
         await expect(characterBody).toBeAttached()
     })
+
+    test('randomize should never select Other Series uniforms', async ({ page }) => {
+        const otherSeriesUniforms = [
+            'Galaxy Quest Captain', 'Galaxy Quest Crew', 'Orville',
+            'Stargate SG-1', 'Stargate Atlantis Early', 'Stargate Atlantis Late'
+        ]
+        for (let i = 0; i < 30; i++) {
+            await page.click('#randomize-character')
+            await page.waitForTimeout(150)
+            const uniformText = await page.locator('#uniform-select option:checked').textContent()
+            expect(otherSeriesUniforms).not.toContain(uniformText.trim())
+        }
+    })
+
+    test('randomize should not select benzite breather for non-benzite species', async ({ page }) => {
+        for (let i = 0; i < 30; i++) {
+            await page.click('#randomize-character')
+            await page.waitForTimeout(150)
+            const specify = await page.locator('#body-shape option:checked').getAttribute('specify')
+            if (specify === 'benzite') continue
+            const selected = await page.locator('#jewelry-select').evaluate(
+                el => Array.from(el.selectedOptions).map(o => o.value)
+            )
+            expect(selected).not.toContain('benzite-breather')
+        }
+    })
+
+    test('randomize should not select orion head-bolting for non-orion species', async ({ page }) => {
+        for (let i = 0; i < 30; i++) {
+            await page.click('#randomize-character')
+            await page.waitForTimeout(150)
+            const specify = await page.locator('#body-shape option:checked').getAttribute('specify')
+            if (specify === 'orion') continue
+            const selected = await page.locator('#jewelry-select').evaluate(
+                el => Array.from(el.selectedOptions).map(o => o.value)
+            )
+            expect(selected).not.toContain('orion-head-bolting')
+        }
+    })
+})
+
+test.describe('Ear-dependent jewelry visibility', () => {
+    test.beforeEach(async ({ page }) => {
+        await page.goto('/')
+        await page.waitForSelector('character')
+    })
+
+    test('studs and earrings should be hidden when ears are None', async ({ page }) => {
+        await page.selectOption('#ear-select', 'none')
+        await page.waitForTimeout(300)
+        const jewelryOptions = await page.locator('#jewelry-select option:not([hidden])').evaluateAll(
+            els => els.map(el => el.value)
+        )
+        expect(jewelryOptions).not.toContain('bajoran-earring')
+        expect(jewelryOptions).not.toContain('lower-stud-l')
+        expect(jewelryOptions).not.toContain('hoop-earring-l')
+    })
+
+    test('studs and earrings should be hidden when ears are Bear', async ({ page }) => {
+        await page.selectOption('#ear-select', 'bear')
+        await page.waitForTimeout(300)
+        const jewelryOptions = await page.locator('#jewelry-select option:not([hidden])').evaluateAll(
+            els => els.map(el => el.value)
+        )
+        expect(jewelryOptions).not.toContain('bajoran-earring')
+        expect(jewelryOptions).not.toContain('upper-stud-r')
+        expect(jewelryOptions).not.toContain('upper-hoop-earring-r')
+    })
+
+    test('studs and earrings should be visible when ears are Round', async ({ page }) => {
+        await page.selectOption('#ear-select', 'round')
+        await page.waitForTimeout(300)
+        const jewelryOptions = await page.locator('#jewelry-select option:not([hidden])').evaluateAll(
+            els => els.map(el => el.value)
+        )
+        expect(jewelryOptions).toContain('bajoran-earring')
+        expect(jewelryOptions).toContain('lower-stud-l')
+        expect(jewelryOptions).toContain('hoop-earring-l')
+    })
 })
