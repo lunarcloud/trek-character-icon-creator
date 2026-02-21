@@ -45,9 +45,11 @@ export const tooltipData = {
     },
 
     ears: {
-        none: 'No visible external ears. Species like Edosians and Saurians lack prominent ear structures.',
+        none: 'No visible external ears.',
         round: 'Standard human-like rounded ears',
         pointy: 'Distinctive pointed ears typical of Vulcans, Romulans, and related species',
+        flat: 'Extended head with ear holes. Species like Breen, Edosians and Saurians have these.',
+        'semi-flat': 'Ears that only protrude minorly, such as Kelpien and Cardassians ears\' do.',
         ferengi: 'Large, lobed ears characteristic of the profit-driven Ferengi species',
         cat: 'Feline-style pointed ears seen in Caitians',
         webbed: 'Fish-like webbed ears, also seen on the cat-like Kzinti',
