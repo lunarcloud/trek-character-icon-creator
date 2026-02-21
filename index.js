@@ -181,6 +181,8 @@ export class IndexController {
      * This will setup all the SVG html and CSS styles for the current options.
      */
     onChangeDetected () {
+        this.#elements.triggerUpdateAnimation()
+
         const bodyShape = this.#elements.shapeSelect.value
         const bodyShapeChanged = !this.#elements.mainEl.classList.contains(bodyShape)
         const bodyShapeSpecify = this.#elements.shapeSelect.selectedOptions?.[0]?.getAttribute('specify') ?? ''

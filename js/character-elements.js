@@ -10,6 +10,11 @@ export class CharacterElements {
     mainEl
 
     /**
+     * @type {HTMLElement}
+     */
+    characterEl
+
+    /**
      * @type {HTMLStyleElement}
      */
     characterStyleEl
@@ -199,6 +204,7 @@ export class CharacterElements {
      */
     constructor () {
         this.mainEl = document.body
+        this.characterEl = document.querySelector('character')
         this.characterStyleEl = queryStyleElement('character style')
 
         this.characterEarsOrNose = document.getElementById('character-ears-or-nose')
@@ -267,6 +273,16 @@ export class CharacterElements {
             this.rearHairSelect.selectedIndex++
             onChangeCallback()
         })
+    }
+
+    /**
+     * Trigger the fade-in animation on the character preview element.
+     * Removes the animation class, forces a reflow, then re-adds it to restart the animation.
+     */
+    triggerUpdateAnimation () {
+        this.characterEl.classList.remove('updating')
+        this.characterEl.getBoundingClientRect() // force reflow to restart CSS animation
+        this.characterEl.classList.add('updating')
     }
 
     /**
