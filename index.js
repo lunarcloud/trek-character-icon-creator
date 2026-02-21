@@ -45,6 +45,12 @@ export class IndexController {
     #lastBodyShapeSpecify = ''
 
     /**
+     * Last explicitly-chosen front hair value, saved for restoration after species change.
+     * @type {string|null}
+     */
+    #savedHairValue = null
+
+    /**
      * @type {AutosaveManager}
      */
     #autosaveManager
@@ -205,6 +211,10 @@ export class IndexController {
 
         // Handle Body Shape Changes
         if (bodyShapeChanged || specifyChanged) {
+            // Save current hair for potential restoration after species change
+            if (this.#elements.hairSelect.value !== 'none')
+                this.#savedHairValue = this.#elements.hairSelect.value
+
             // Ensure the invalid items are hidden
             for (const selector of this.#elements.mainEl.getElementsByTagName('select')) {
                 if (selector instanceof HTMLSelectElement)
@@ -228,6 +238,14 @@ export class IndexController {
             if (this.#elements.hairSelect.checkVisibility()) {
                 if (DomUtil.IsOptionInvalid(this.#elements.hairSelect)) {
                     this.#elements.hairSelect.selectedIndex = 0
+                }
+                // Try to restore previously saved hair if it's now valid
+                if (this.#savedHairValue && this.#elements.hairSelect.value === 'none') {
+                    const savedOpt = Array.from(this.#elements.hairSelect.options)
+                        .find(o => o.value === this.#savedHairValue)
+                    if (savedOpt && !savedOpt.hidden) {
+                        this.#elements.hairSelect.value = this.#savedHairValue
+                    }
                 }
             }
 

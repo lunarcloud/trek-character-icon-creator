@@ -28,7 +28,7 @@ test.describe('Species Selection Tests', () => {
         expect(options).toContain('Tilikaal')
         expect(options).toContain('Trill')
         expect(options).toContain('VinShari')
-        expect(options).toContain('Vulcan / Romulan')
+        expect(options).toContain('Vulcan / Romulan / Kellerun')
         expect(options).toContain('Zakdorn')
     })
 
@@ -130,7 +130,7 @@ test.describe('Species Selection Tests', () => {
     })
 
     test('Vulcan should force pointy ears', async ({ page }) => {
-        await page.selectOption('#body-shape', { label: 'Vulcan / Romulan' })
+        await page.selectOption('#body-shape', { label: 'Vulcan / Romulan / Kellerun' })
         await expect(page.locator('#ear-select')).toHaveValue('pointy')
     })
 
@@ -209,12 +209,12 @@ test.describe('Species Selection Tests', () => {
     })
 
     test('Vulcan should show Romulan V checkbox', async ({ page }) => {
-        await page.selectOption('#body-shape', { label: 'Vulcan / Romulan' })
+        await page.selectOption('#body-shape', { label: 'Vulcan / Romulan / Kellerun' })
         await expect(page.locator('#vulcan-romulan-v-check')).toBeVisible()
     })
 
     test('Vulcan Romulan V checkbox should render north-romulan-v when checked', async ({ page }) => {
-        await page.selectOption('#body-shape', { label: 'Vulcan / Romulan' })
+        await page.selectOption('#body-shape', { label: 'Vulcan / Romulan / Kellerun' })
         await expect(page.locator('#vulcan-romulan-v-check')).toBeVisible()
         await page.locator('#vulcan-romulan-v-check').check()
         const vSvg = page.locator('#character-head-features svg[data-src*="north-romulan-v"]')
@@ -299,5 +299,62 @@ test.describe('Species Selection Tests', () => {
         await expect(page.locator('.cat-nose-only')).toBeVisible()
         const syncCheckbox = page.locator('#sync-cat-nose-with-body')
         expect(await syncCheckbox.count()).toBe(0)
+    })
+
+    test('switching to Bolian should hide previously assigned hair', async ({ page }) => {
+        // Select a hair style first
+        await page.selectOption('#hair-select', 'b')
+        await expect(page.locator('#character-hair svg[data-src*="/hair/b.svg"]')).toBeAttached()
+
+        // Switch to Bolian (a species without hair)
+        await page.selectOption('#body-shape', { label: 'Bolian' })
+
+        // Hair should be cleared but select value preserved
+        await expect(page.locator('#character-hair svg')).not.toBeAttached()
+        await expect(page.locator('#hair-select')).toHaveValue('b')
+    })
+
+    test('switching to Breen should hide previously assigned hair', async ({ page }) => {
+        await page.selectOption('#hair-select', 'b')
+        await expect(page.locator('#character-hair svg[data-src*="/hair/b.svg"]')).toBeAttached()
+        await page.selectOption('#body-shape', { label: 'Breen' })
+        await expect(page.locator('#character-hair svg')).not.toBeAttached()
+    })
+
+    test('switching to Kelpien should hide previously assigned hair', async ({ page }) => {
+        await page.selectOption('#hair-select', 'b')
+        await expect(page.locator('#character-hair svg[data-src*="/hair/b.svg"]')).toBeAttached()
+        await page.selectOption('#body-shape', { label: 'Kelpien' })
+        await expect(page.locator('#character-hair svg')).not.toBeAttached()
+    })
+
+    test('hair selection should be restored when switching back to species with hair', async ({ page }) => {
+        // Select a hair style
+        await page.selectOption('#hair-select', 'b')
+        await expect(page.locator('#character-hair svg[data-src*="/hair/b.svg"]')).toBeAttached()
+
+        // Switch to hairless species
+        await page.selectOption('#body-shape', { label: 'Bolian' })
+        await expect(page.locator('#character-hair svg')).not.toBeAttached()
+
+        // Switch back to species with hair - selection should be restored
+        await page.selectOption('#body-shape', { label: 'Custom' })
+        await expect(page.locator('#hair-select')).toHaveValue('b')
+        await expect(page.locator('#character-hair svg[data-src*="/hair/b.svg"]')).toBeAttached()
+    })
+
+    test('hair should be restored after switching from species that hides individual hair options', async ({ page }) => {
+        // Select hair AF (which is hidden for Klingon via non-specify-klingon class)
+        await page.selectOption('#hair-select', 'af')
+        await expect(page.locator('#character-hair svg[data-src*="/hair/af.svg"]')).toBeAttached()
+
+        // Switch to Klingon - AF is invalid, hair resets to None
+        await page.selectOption('#body-shape', { label: 'Klingon' })
+        await expect(page.locator('#hair-select')).toHaveValue('none')
+
+        // Switch back to Custom - AF should be restored
+        await page.selectOption('#body-shape', { label: 'Custom' })
+        await expect(page.locator('#hair-select')).toHaveValue('af')
+        await expect(page.locator('#character-hair svg[data-src*="/hair/af.svg"]')).toBeAttached()
     })
 })
