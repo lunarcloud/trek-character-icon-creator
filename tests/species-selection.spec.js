@@ -28,7 +28,7 @@ test.describe('Species Selection Tests', () => {
         expect(options).toContain('Tilikaal')
         expect(options).toContain('Trill')
         expect(options).toContain('VinShari')
-        expect(options).toContain('Vulcan / Romulan')
+        expect(options).toContain('Vulcan / Romulan / Kellerun')
         expect(options).toContain('Zakdorn')
     })
 
@@ -130,7 +130,7 @@ test.describe('Species Selection Tests', () => {
     })
 
     test('Vulcan should force pointy ears', async ({ page }) => {
-        await page.selectOption('#body-shape', { label: 'Vulcan / Romulan' })
+        await page.selectOption('#body-shape', { label: 'Vulcan / Romulan / Kellerun' })
         await expect(page.locator('#ear-select')).toHaveValue('pointy')
     })
 
@@ -209,12 +209,12 @@ test.describe('Species Selection Tests', () => {
     })
 
     test('Vulcan should show Romulan V checkbox', async ({ page }) => {
-        await page.selectOption('#body-shape', { label: 'Vulcan / Romulan' })
+        await page.selectOption('#body-shape', { label: 'Vulcan / Romulan / Kellerun' })
         await expect(page.locator('#vulcan-romulan-v-check')).toBeVisible()
     })
 
     test('Vulcan Romulan V checkbox should render north-romulan-v when checked', async ({ page }) => {
-        await page.selectOption('#body-shape', { label: 'Vulcan / Romulan' })
+        await page.selectOption('#body-shape', { label: 'Vulcan / Romulan / Kellerun' })
         await expect(page.locator('#vulcan-romulan-v-check')).toBeVisible()
         await page.locator('#vulcan-romulan-v-check').check()
         const vSvg = page.locator('#character-head-features svg[data-src*="north-romulan-v"]')
