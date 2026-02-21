@@ -66,6 +66,11 @@ export class ColorManager {
     bodyColorSelect
 
     /**
+     * @type {HTMLSelectElement}
+     */
+    hairColorSelect
+
+    /**
      * @type {HTMLInputElement}
      */
     hairColorPicker
@@ -110,6 +115,7 @@ export class ColorManager {
         this.catNoseColorPicker = getInputElement('cat-nose-color')
         this.uniformColorSelect = getSelectElement('std-uniform-colors')
         this.bodyColorSelect = getSelectElement('std-body-colors')
+        this.hairColorSelect = getSelectElement('std-hair-colors')
         this.uniformColorFilterCheck = getInputElement('filter-color-selection')
 
         this.syncAntennaeWithBodyCheck = getInputElement('sync-antennae-with-body')
