@@ -167,8 +167,13 @@ test.describe('Randomize / Surprise Me Tests', () => {
 
     test('randomize should only select militia uniforms matching the species', async ({ page }) => {
         const militiaPrefixes = {
-            andor: 'Andorian', breen: 'Breen', cardassian: 'Cardassian',
-            ferengi: 'Ferengi', klingon: 'Klingon', orion: 'Orion', vulcan: 'Romulan'
+            andor: 'Andorian',
+            breen: 'Breen',
+            cardassian: 'Cardassian',
+            ferengi: 'Ferengi',
+            klingon: 'Klingon',
+            orion: 'Orion',
+            vulcan: 'Romulan'
         }
         for (let i = 0; i < 40; i++) {
             await page.click('#randomize-character')
