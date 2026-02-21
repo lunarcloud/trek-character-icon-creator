@@ -184,7 +184,9 @@ export class Randomizer {
         randomizeSelect(elements.uniformSelect)
 
         // Randomize body-specific selects (only when visible)
-        if (elements.earSelect.checkVisibility()) {
+        // Only randomize ears for custom humanoid; species-specific ears
+        // are handled by enforceSpeciesDefaults()
+        if (!species.specify && elements.earSelect.checkVisibility()) {
             randomizeSelect(elements.earSelect)
         }
         if (elements.noseSelect.checkVisibility()) {

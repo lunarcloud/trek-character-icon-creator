@@ -104,6 +104,35 @@ test.describe('Randomize / Surprise Me Tests', () => {
         }
     })
 
+    test('randomize should not randomize ears for non-custom humanoid species', async ({ page }) => {
+        // Click randomize many times and verify species-standard ears
+        for (let i = 0; i < 30; i++) {
+            await page.click('#randomize-character')
+            await page.waitForTimeout(200)
+            const selectedOption = page.locator('#body-shape option:checked')
+            const specify = await selectedOption.getAttribute('specify')
+            const value = await selectedOption.getAttribute('value')
+
+            // Only check humanoid species with a specify value
+            if (value !== 'humanoid' || !specify) continue
+
+            const earValue = await page.locator('#ear-select').inputValue()
+
+            // Verify species-standard ears are used
+            if (specify === 'vulcan') {
+                expect(earValue).toBe('pointy')
+            } else if (specify === 'cat') {
+                expect(earValue).toBe('cat')
+            } else if (specify === 'ferengi') {
+                expect(earValue).toBe('ferengi')
+            } else if (specify === 'human' || specify === 'bajoran' || specify === 'trill' ||
+                       specify === 'bolian' || specify === 'cardassian' || specify === 'orion' ||
+                       specify === 'denobulan' || specify === 'zakdorn' || specify === 'benzite') {
+                expect(earValue).toBe('round')
+            }
+        }
+    })
+
     test('randomize can be clicked multiple times without errors', async ({ page }) => {
         // Click randomize rapidly multiple times
         for (let i = 0; i < 5; i++) {
