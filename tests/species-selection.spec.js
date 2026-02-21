@@ -80,6 +80,17 @@ test.describe('Species Selection Tests', () => {
         await expect(whiskersSvg).toBeAttached()
     })
 
+    test('Custom Humanoid should have no duplicate body color options', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Custom' })
+        await expect(page.locator('#head-feature-select')).toBeVisible()
+        const visibleValues = await page.locator('#std-body-colors option:not([hidden])').evaluateAll(
+            els => els.filter(el => !el.closest('optgroup[hidden]') && el.value !== 'custom')
+                .map(el => el.value)
+        )
+        const uniqueValues = new Set(visibleValues)
+        expect(visibleValues.length).toBe(uniqueValues.size)
+    })
+
     test('Custom Humanoid should show all features', async ({ page }) => {
         await page.selectOption('#body-shape', { label: 'Custom' })
         await expect(page.locator('#head-feature-select option[value="ferengi-brow"]')).toHaveJSProperty('hidden', false)
