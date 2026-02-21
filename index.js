@@ -8,6 +8,7 @@ import { saveTextAs } from './js/save-file-utils.js'
 import { TooltipManager } from './js/tooltip-manager.js'
 import { AutosaveManager } from './js/autosave-manager.js'
 import { migrateV1Config } from './js/migrate-v1-config.js'
+import { Randomizer } from './js/randomizer.js'
 
 /**
  * Default character name used when no name is provided.
@@ -106,6 +107,12 @@ export class IndexController {
         // Setup the reset button to clear autosave and reload
         document.getElementById('reset-character')
             .addEventListener('click', () => this.#resetCharacter())
+
+        // Setup the randomize button
+        document.getElementById('randomize-character')
+            .addEventListener('click', () => Randomizer.randomize(
+                this.#elements, this.#colorManager, () => this.onChangeDetected()
+            ))
     }
 
     /**
@@ -196,8 +203,17 @@ export class IndexController {
         // Add ear-dependent class for cat-mouth-beard visibility
         if (bodyShape === 'humanoid' && this.#elements.earSelect.value === 'cat')
             this.#elements.mainEl.classList.add('cat-ears')
+        // Add ear-dependent class for earring/stud jewelry visibility
+        // Ear jewelry is available when ear select is hidden (non-humanoid) or ears support jewelry
+        const earValue = this.#elements.earSelect.value
+        const hasEarJewelry = !this.#elements.earSelect.checkVisibility() ||
+            (earValue !== 'none' && earValue !== 'bear')
+        if (hasEarJewelry)
+            this.#elements.mainEl.classList.add('has-ear-jewelry')
         // Refresh facial hair visibility since it depends on ear selection
         DomUtil.hideInvalidSelectOptions(this.#elements.facialHairSelect)
+        // Refresh jewelry visibility since it depends on ear selection
+        DomUtil.hideInvalidSelectOptions(this.#elements.jewelrySelect)
         // more classes will be added later
 
         // Handle Body Shape Changes
