@@ -37,6 +37,11 @@ group {
   }
 }
 
+@keyframes character-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 body {
   font-family: Roddenberry, sans-serif;
   width: 100%;
@@ -283,6 +288,10 @@ body {
     #extra-overlay {
         z-index: 11;
     }
+  }
+
+  &:not(.saving) character.updating {
+    animation: character-fade-in 0.15s ease-out;
   }
 
   character,
@@ -690,6 +699,12 @@ uniform-color-group {
 body.saving {
   --svg-size: 512px !important;
   --mirror-offset: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body:not(.saving) character.updating {
+    animation: none;
+  }
 }
 
 /* Horizontal mode for Desktop/Large/Wide */
