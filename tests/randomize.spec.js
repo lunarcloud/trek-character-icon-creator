@@ -129,9 +129,8 @@ test.describe('Randomize / Surprise Me Tests', () => {
                 expect(earValue).toBe('cat')
             } else if (specify === 'ferengi') {
                 expect(earValue).toBe('ferengi')
-            } else if (specify === 'human' || specify === 'bajoran' || specify === 'trill' ||
-                       specify === 'bolian' || specify === 'cardassian' || specify === 'orion' ||
-                       specify === 'denobulan' || specify === 'zakdorn' || specify === 'benzite') {
+            } else if (['human', 'bajoran', 'trill', 'bolian', 'cardassian',
+                'orion', 'denobulan', 'zakdorn', 'benzite'].includes(specify)) {
                 expect(earValue).toBe('round')
             }
         }
