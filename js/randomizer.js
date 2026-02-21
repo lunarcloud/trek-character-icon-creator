@@ -26,7 +26,7 @@ const SPECIES_WEIGHTS = [
     { value: 'humanoid', specify: 'kelpien', weight: 3 },
     { value: 'humanoid', specify: 'tellarite', weight: 3 },
     { value: 'humanoid', specify: 'zakdorn', weight: 3 },
-    { value: 'humanoid', specify: 'breen', weight: 2 },
+    { value: 'humanoid', specify: 'breen', weight: 3 },
     { value: 'cetaceous', specify: '', weight: 3 },
     { value: 'exocomp', specify: '', weight: 2 },
     { value: 'medusan', specify: '', weight: 2 },

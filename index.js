@@ -204,7 +204,7 @@ export class IndexController {
         if (bodyShape === 'humanoid' && this.#elements.earSelect.value === 'cat')
             this.#elements.mainEl.classList.add('cat-ears')
         // Add ear-dependent class for earring/stud jewelry visibility
-        // Ear jewelry is available when ear select is hidden (non-humanoid) or ears support jewelry
+        // Ear jewelry is available when ear select is humanoid and ears support jewelry
         const earValue = this.#elements.earSelect.value
         if (this.#elements.earSelect.checkVisibility() &&
            !['none', 'bear', 'cat', 'ferengi'].includes(earValue))
