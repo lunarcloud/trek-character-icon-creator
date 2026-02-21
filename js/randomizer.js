@@ -255,10 +255,19 @@ export class Randomizer {
 
         // Randomize accessories (60% 0-1, 20% 2, 20% 3, max 3)
         // Benzite breather only for benzite, orion head-bolting only for orion
+        // Cyborg antenna only for andorian (with antennae)
+        // Red overcoat excluded with Starfleet uniforms
+        // Forehead coin and Rimmer's H never randomly selected
         if (elements.jewelrySelect.checkVisibility()) {
+            const uniformGroup = elements.uniformSelect.selectedOptions?.[0]?.parentElement
+            const uniformGroupLabel = uniformGroup instanceof HTMLOptGroupElement ? uniformGroup.label : ''
+            const isStarfleetUniform = uniformGroupLabel === 'Starfleet' || uniformGroupLabel === 'Non-Canon Starfleet'
             const jewelryFilter = opt => {
                 if (opt.value === 'benzite-breather' && species.specify !== 'benzite') return true
                 if (opt.value === 'orion-head-bolting' && species.specify !== 'orion') return true
+                if ((opt.value === 'cyborg-antenna-l' || opt.value === 'cyborg-antenna-r') && species.specify !== 'andor') return true
+                if (opt.value === 'red-overcoat' && isStarfleetUniform) return true
+                if (opt.value === 'forehead-coin' || opt.value === 'rimmer-h') return true
                 return false
             }
             randomizeMultiSelect(elements.jewelrySelect, [
