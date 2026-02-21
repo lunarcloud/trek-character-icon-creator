@@ -84,18 +84,52 @@ function randomizeSelect (selectEl) {
 }
 
 /**
- * Randomly select between min and max items from a multi-select element.
- * @param {HTMLSelectElement} selectEl The multi-select element
- * @param {number} min Minimum number of selections (inclusive)
- * @param {number} max Maximum number of selections (inclusive)
+ * Set a random visible option on a select, with a probability gate for non-"None" values.
+ * If the random check fails, the first option (typically "None") is selected.
+ * @param {HTMLSelectElement} selectEl The select element to randomize
+ * @param {number} chanceOfNonNone Probability (0–1) of selecting a non-"None" option
  */
-function randomizeMultiSelect (selectEl, min, max) {
+function randomizeSelectWithChance (selectEl, chanceOfNonNone) {
+    const options = getVisibleOptions(selectEl)
+    if (options.length === 0) return
+
+    if (Math.random() < chanceOfNonNone) {
+        const nonNone = options.filter(opt => opt.value.toLowerCase() !== 'none')
+        if (nonNone.length > 0) {
+            pickRandom(nonNone).selected = true
+            return
+        }
+    }
+    // Select "None" (first option)
+    const noneOpt = options.find(opt => opt.value.toLowerCase() === 'none') ?? options[0]
+    noneOpt.selected = true
+}
+
+/**
+ * Randomly select items from a multi-select using a weighted count distribution.
+ * @param {HTMLSelectElement} selectEl The multi-select element
+ * @param {Array<{count: number, weight: number}>} distribution Weighted count options
+ */
+function randomizeMultiSelect (selectEl, distribution) {
     const options = getVisibleOptions(selectEl)
     for (const opt of selectEl.options) {
         opt.selected = false
     }
     if (options.length === 0) return
-    const count = Math.floor(Math.random() * (max - min + 1)) + min
+
+    // Pick a count from the weighted distribution
+    const totalWeight = distribution.reduce((sum, d) => sum + d.weight, 0)
+    let random = Math.random() * totalWeight
+    let count = distribution[0].count
+    for (const d of distribution) {
+        random -= d.weight
+        if (random <= 0) {
+            count = d.count
+            break
+        }
+    }
+
+    // Fisher-Yates shuffle and select
     const shuffled = [...options]
     for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1))
@@ -174,23 +208,28 @@ export class Randomizer {
             randomizeSelect(elements.hairSelect)
         }
         if (elements.rearHairSelect.checkVisibility()) {
-            randomizeSelect(elements.rearHairSelect)
+            randomizeSelectWithChance(elements.rearHairSelect, 0.5)
         }
         if (elements.facialHairSelect.checkVisibility()) {
-            randomizeSelect(elements.facialHairSelect)
+            randomizeSelectWithChance(elements.facialHairSelect, 0.35)
         }
 
-        // Randomize accessories (0-2 items)
+        // Randomize accessories (60% 0-1, 20% 2, 20% 3, max 3)
         if (elements.jewelrySelect.checkVisibility()) {
-            randomizeMultiSelect(elements.jewelrySelect, 0, 2)
+            randomizeMultiSelect(elements.jewelrySelect, [
+                { count: 0, weight: 30 },
+                { count: 1, weight: 30 },
+                { count: 2, weight: 20 },
+                { count: 3, weight: 20 }
+            ])
         }
 
-        // Randomize hat and eyewear
+        // Randomize hat (25% chance) and eyewear (10% chance)
         if (elements.hatFeatureSelect.checkVisibility()) {
-            randomizeSelect(elements.hatFeatureSelect)
+            randomizeSelectWithChance(elements.hatFeatureSelect, 0.25)
         }
         if (elements.eyewearFeatureSelect.checkVisibility()) {
-            randomizeSelect(elements.eyewearFeatureSelect)
+            randomizeSelectWithChance(elements.eyewearFeatureSelect, 0.10)
         }
 
         // Randomize checkboxes
