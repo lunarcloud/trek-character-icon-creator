@@ -8,7 +8,7 @@ import { getSelectElement } from './type-helpers.js'
  * Common canon species are weighted higher, non-canon species are rare.
  * @type {Array<{value: string, specify: string, weight: number}>}
  */
-const SPECIES_WEIGHTS = [
+export const SPECIES_WEIGHTS = [
     { value: 'humanoid', specify: 'human', weight: 10 },
     { value: 'humanoid', specify: 'klingon', weight: 10 },
     { value: 'humanoid', specify: 'vulcan', weight: 7 },
@@ -42,7 +42,7 @@ const SPECIES_WEIGHTS = [
  * @param {Array} arr The array to pick from
  * @returns {*} A random element, or undefined if array is empty
  */
-function pickRandom (arr) {
+export function pickRandom (arr) {
     if (arr.length === 0) return undefined
     return arr[Math.floor(Math.random() * arr.length)]
 }
@@ -51,7 +51,7 @@ function pickRandom (arr) {
  * Select a weighted random species from the species table.
  * @returns {{value: string, specify: string, weight: number}} The selected species
  */
-function pickWeightedSpecies () {
+export function pickWeightedSpecies () {
     const totalWeight = SPECIES_WEIGHTS.reduce((sum, s) => sum + s.weight, 0)
     let random = Math.random() * totalWeight
     for (const species of SPECIES_WEIGHTS) {
@@ -164,7 +164,7 @@ function randomizeColorFromPresets (colorPicker, colorSelect) {
  * Militia uniforms should only be randomized when the species matches.
  * @type {Record<string, string>}
  */
-const MILITIA_SPECIES_PREFIX = {
+export const MILITIA_SPECIES_PREFIX = {
     andor: 'Andorian',
     breen: 'Breen',
     cardassian: 'Cardassian',
