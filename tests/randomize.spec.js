@@ -30,16 +30,20 @@ test.describe('Randomize / Surprise Me Tests', () => {
         expect(changed).toBe(true)
     })
 
-    test('randomize should never select Custom humanoid', async ({ page }) => {
+    test('randomize should allow Custom humanoid with small chance', async ({ page }) => {
+        // Custom humanoid has a small weight, so it should be possible but rare
         for (let i = 0; i < 20; i++) {
             await page.click('#randomize-character')
             await page.waitForTimeout(100)
             const selectedOption = page.locator('#body-shape option:checked')
             const specify = await selectedOption.getAttribute('specify')
             const value = await selectedOption.getAttribute('value')
-            // Custom is the humanoid option with no specify attribute
-            if (value === 'humanoid') {
-                expect(specify).not.toBeNull()
+            // All selections should be valid body types
+            expect(value).toBeTruthy()
+            // If custom humanoid (no specify), ears should be randomized (any valid value)
+            if (value === 'humanoid' && !specify) {
+                const earValue = await page.locator('#ear-select').inputValue()
+                expect(earValue).toBeTruthy()
             }
         }
     })

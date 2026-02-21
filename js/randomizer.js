@@ -29,6 +29,7 @@ const SPECIES_WEIGHTS = [
     { value: 'cetaceous', specify: '', weight: 3 },
     { value: 'exocomp', specify: '', weight: 2 },
     { value: 'medusan', specify: '', weight: 2 },
+    { value: 'humanoid', specify: '', weight: 1 },
     { value: 'humanoid', specify: 'vinshari', weight: 1 },
     { value: 'humanoid', specify: 'tilikaal', weight: 1 },
     { value: 'cal-mirran', specify: '', weight: 1 },
@@ -184,10 +185,16 @@ export class Randomizer {
         randomizeSelect(elements.uniformSelect)
 
         // Randomize body-specific selects (only when visible)
-        // Only randomize ears for custom humanoid; species-specific ears
-        // are handled by enforceSpeciesDefaults()
-        if (!species.specify && elements.earSelect.checkVisibility()) {
-            randomizeSelect(elements.earSelect)
+        // For custom humanoid (no specify), randomize ears freely.
+        // For specific species, reset to 'round' as the safe default;
+        // enforceSpeciesDefaults() will override for species with
+        // specific ears (e.g., vulcan→pointy, cat→cat, ferengi→ferengi).
+        if (elements.earSelect.checkVisibility()) {
+            if (species.specify) {
+                elements.earSelect.value = 'round'
+            } else {
+                randomizeSelect(elements.earSelect)
+            }
         }
         if (elements.noseSelect.checkVisibility()) {
             randomizeSelect(elements.noseSelect)
