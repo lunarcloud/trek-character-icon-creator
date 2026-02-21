@@ -1,0 +1,18 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!-- Created using Krita: https://krita.org -->
+<svg xmlns="http://www.w3.org/2000/svg" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:krita="http://krita.org/namespaces/svg/krita"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    width="512pt"
+    height="512pt"
+    viewBox="0 0 512 512">
+    <style>
+        .body-color {
+            color: #fee4b3;
+        }
+    </style>
+<defs/>
+<path id="shape0" transform="translate(333.423107088151, 108.375002195301)" fill="currentColor" class="body-color" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M44.3894 69.875C44.0769 41.786 14.4396 5.25 8.82689 0C4.05378 -4.44089e-16 25.8769 47.0693 25.1241 74.6365C24.4397 99.6999 -3.88769 139.875 0.451894 139.875C10.6896 135.562 44.7019 97.964 44.3894 69.875Z" sodipodi:nodetypes="ccccz"/><path id="shape1" transform="translate(121.236840290062, 105.625002687109)" fill="currentColor" class="body-color" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel" d="M38.3882 0C30.7908 8.25 -0.73684 48.6087 0.0131597 72.375C0.76316 96.1413 32.947 131.562 41.1382 137.812C46.0531 137.812 20.5659 99.7928 19.3851 73.6082C18.1775 46.8307 43.4144 4.44089e-16 38.3882 0Z" sodipodi:nodetypes="czccc"/><ellipse id="shape2" transform="translate(126.1875000406, 167.874992573583)" rx="1.96874710148005" ry="8.62499961844944" cx="1.96874710148005" cy="8.62499961844944" fill="#7b7b7b" fill-opacity="0.298039215686275" fill-rule="evenodd"/><ellipse id="shape01" transform="translate(368.624983692849, 168.562487519617)" rx="2.24999434047112" ry="9.58125623020877" cx="2.24999434047112" cy="9.58125623020877" fill="#7b7b7b" fill-opacity="0.298039215686275" fill-rule="evenodd" stroke-opacity="0" stroke="#000000" stroke-width="0" stroke-linecap="square" stroke-linejoin="bevel"/>
+</svg>
