@@ -45,3 +45,7 @@ jobs:
       - name: Validate Tooltips
         if: ${{ ! cancelled() }}
         run: node tests/validate-tooltips.mjs
+
+      - name: Unit Tests
+        if: ${{ ! cancelled() }}
+        run: npm run test:unit

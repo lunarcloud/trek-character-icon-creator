@@ -19,7 +19,7 @@ test.describe('Randomize Tests', () => {
         let changed = false
         for (let i = 0; i < 10; i++) {
             await page.click('#randomize-character')
-            await page.waitForTimeout(200)
+            await page.waitForTimeout(100)
             const newShape = await page.locator('#body-shape').inputValue()
             const newSpecify = await page.locator('#body-shape option:checked').getAttribute('specify')
             if (newShape !== initialShape || newSpecify !== 'human') {
@@ -34,7 +34,7 @@ test.describe('Randomize Tests', () => {
         // Custom humanoid has a small weight, so it should be possible but rare
         for (let i = 0; i < 20; i++) {
             await page.click('#randomize-character')
-            await page.waitForTimeout(100)
+            await page.waitForTimeout(50)
             const selectedOption = page.locator('#body-shape option:checked')
             const specify = await selectedOption.getAttribute('specify')
             const value = await selectedOption.getAttribute('value')
@@ -50,14 +50,13 @@ test.describe('Randomize Tests', () => {
 
     test('randomize should produce a visible character body', async ({ page }) => {
         await page.click('#randomize-character')
-        await page.waitForTimeout(500)
         const characterBody = page.locator('#character-body svg')
         await expect(characterBody).toBeAttached()
     })
 
     test('randomize should set valid body color from presets', async ({ page }) => {
         await page.click('#randomize-character')
-        await page.waitForTimeout(300)
+        await page.waitForTimeout(100)
         const bodyColor = await page.locator('#body-color').inputValue()
         // Body color should be a valid hex color
         expect(bodyColor).toMatch(/^#[0-9a-fA-F]{6}$/)
@@ -65,14 +64,14 @@ test.describe('Randomize Tests', () => {
 
     test('randomize should set valid hair color from presets', async ({ page }) => {
         await page.click('#randomize-character')
-        await page.waitForTimeout(300)
+        await page.waitForTimeout(100)
         const hairColor = await page.locator('#hair-color').inputValue()
         expect(hairColor).toMatch(/^#[0-9a-fA-F]{6}$/)
     })
 
     test('randomize should select a valid uniform', async ({ page }) => {
         await page.click('#randomize-character')
-        await page.waitForTimeout(300)
+        await page.waitForTimeout(100)
         const uniformValue = await page.locator('#uniform-select').inputValue()
         expect(uniformValue).toBeTruthy()
         // The selected uniform should not be hidden
@@ -84,7 +83,6 @@ test.describe('Randomize Tests', () => {
 
     test('randomize should render character uniform SVG', async ({ page }) => {
         await page.click('#randomize-character')
-        await page.waitForTimeout(500)
         const uniformSvg = page.locator('#character-uniform svg')
         await expect(uniformSvg).toBeAttached()
     })
@@ -94,7 +92,7 @@ test.describe('Randomize Tests', () => {
         let gotVulcan = false
         for (let i = 0; i < 50; i++) {
             await page.click('#randomize-character')
-            await page.waitForTimeout(200)
+            await page.waitForTimeout(100)
             const specify = await page.locator('#body-shape option:checked').getAttribute('specify')
             if (specify === 'vulcan') {
                 gotVulcan = true
@@ -112,7 +110,7 @@ test.describe('Randomize Tests', () => {
         // Click randomize many times and verify species-standard ears
         for (let i = 0; i < 30; i++) {
             await page.click('#randomize-character')
-            await page.waitForTimeout(200)
+            await page.waitForTimeout(100)
             const selectedOption = page.locator('#body-shape option:checked')
             const specify = await selectedOption.getAttribute('specify')
             const value = await selectedOption.getAttribute('value')
@@ -144,7 +142,7 @@ test.describe('Randomize Tests', () => {
         // Click randomize rapidly multiple times
         for (let i = 0; i < 5; i++) {
             await page.click('#randomize-character')
-            await page.waitForTimeout(200)
+            await page.waitForTimeout(100)
         }
 
         // Verify no errors - page should still function
@@ -163,7 +161,7 @@ test.describe('Randomize Tests', () => {
         ]
         for (let i = 0; i < 30; i++) {
             await page.click('#randomize-character')
-            await page.waitForTimeout(150)
+            await page.waitForTimeout(50)
             const uniformText = await page.locator('#uniform-select option:checked').textContent()
             expect(otherSeriesUniforms).not.toContain(uniformText.trim())
         }
@@ -181,7 +179,7 @@ test.describe('Randomize Tests', () => {
         }
         for (let i = 0; i < 40; i++) {
             await page.click('#randomize-character')
-            await page.waitForTimeout(150)
+            await page.waitForTimeout(50)
             const specify = await page.locator('#body-shape option:checked').getAttribute('specify') ?? ''
             const uniformOpt = page.locator('#uniform-select option:checked')
             const uniformText = (await uniformOpt.textContent()).trim()
@@ -199,7 +197,7 @@ test.describe('Randomize Tests', () => {
     test('randomize should not select benzite breather for non-benzite species', async ({ page }) => {
         for (let i = 0; i < 30; i++) {
             await page.click('#randomize-character')
-            await page.waitForTimeout(150)
+            await page.waitForTimeout(50)
             const specify = await page.locator('#body-shape option:checked').getAttribute('specify')
             if (specify === 'benzite') continue
             const selected = await page.locator('#jewelry-select').evaluate(
@@ -212,7 +210,7 @@ test.describe('Randomize Tests', () => {
     test('randomize should not select orion head-bolting for non-orion species', async ({ page }) => {
         for (let i = 0; i < 30; i++) {
             await page.click('#randomize-character')
-            await page.waitForTimeout(150)
+            await page.waitForTimeout(50)
             const specify = await page.locator('#body-shape option:checked').getAttribute('specify')
             if (specify === 'orion') continue
             const selected = await page.locator('#jewelry-select').evaluate(
@@ -231,33 +229,30 @@ test.describe('Ear-dependent jewelry visibility', () => {
 
     test('studs and earrings should be hidden when ears are None', async ({ page }) => {
         await page.selectOption('#ear-select', 'none')
-        await page.waitForTimeout(300)
+        await expect(page.locator('#jewelry-select option[value="bajoran-earring"]')).toHaveJSProperty('hidden', true)
         const jewelryOptions = await page.locator('#jewelry-select option:not([hidden])').evaluateAll(
             els => els.map(el => el.value)
         )
-        expect(jewelryOptions).not.toContain('bajoran-earring')
         expect(jewelryOptions).not.toContain('lower-stud-l')
         expect(jewelryOptions).not.toContain('hoop-earring-l')
     })
 
     test('studs and earrings should be hidden when ears are Bear', async ({ page }) => {
         await page.selectOption('#ear-select', 'bear')
-        await page.waitForTimeout(300)
+        await expect(page.locator('#jewelry-select option[value="bajoran-earring"]')).toHaveJSProperty('hidden', true)
         const jewelryOptions = await page.locator('#jewelry-select option:not([hidden])').evaluateAll(
             els => els.map(el => el.value)
         )
-        expect(jewelryOptions).not.toContain('bajoran-earring')
         expect(jewelryOptions).not.toContain('upper-stud-r')
         expect(jewelryOptions).not.toContain('upper-hoop-earring-r')
     })
 
     test('studs and earrings should be visible when ears are Round', async ({ page }) => {
         await page.selectOption('#ear-select', 'round')
-        await page.waitForTimeout(300)
+        await expect(page.locator('#jewelry-select option[value="bajoran-earring"]')).toHaveJSProperty('hidden', false)
         const jewelryOptions = await page.locator('#jewelry-select option:not([hidden])').evaluateAll(
             els => els.map(el => el.value)
         )
-        expect(jewelryOptions).toContain('bajoran-earring')
         expect(jewelryOptions).toContain('lower-stud-l')
         expect(jewelryOptions).toContain('hoop-earring-l')
     })
