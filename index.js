@@ -200,20 +200,6 @@ export class IndexController {
             this.#elements.mainEl.classList.add(`specify-${bodyShapeSpecify}`)
         if (window.self !== window.top)
             this.#elements.mainEl.classList.add('embedded')
-        // Add ear-dependent class for cat-mouth-beard visibility
-        if (bodyShape === 'humanoid' && this.#elements.earSelect.value === 'cat')
-            this.#elements.mainEl.classList.add('cat-ears')
-        // Add ear-dependent class for earring/stud jewelry visibility
-        // Ear jewelry is available when ear select is humanoid and ears support jewelry
-        const earValue = this.#elements.earSelect.value
-        if (this.#elements.earSelect.checkVisibility() &&
-           !['none', 'bear', 'cat', 'ferengi'].includes(earValue))
-            this.#elements.mainEl.classList.add('has-ear-jewelry')
-        // Refresh facial hair visibility since it depends on ear selection
-        DomUtil.hideInvalidSelectOptions(this.#elements.facialHairSelect)
-        // Refresh jewelry visibility since it depends on ear selection
-        DomUtil.hideInvalidSelectOptions(this.#elements.jewelrySelect)
-        // more classes will be added later
 
         // Handle Body Shape Changes
         if (bodyShapeChanged || specifyChanged) {
@@ -248,6 +234,22 @@ export class IndexController {
                 BodyTypeManager.enforceSpeciesDefaults(this.#elements, bodyShapeSpecify)
             }
         }
+
+        // Add ear-dependent class for cat-mouth-beard visibility
+        // (must run after enforceSpeciesDefaults to use the correct ear value)
+        if (bodyShape === 'humanoid' && this.#elements.earSelect.value === 'cat')
+            this.#elements.mainEl.classList.add('cat-ears')
+        // Add ear-dependent class for earring/stud jewelry visibility
+        // Ear jewelry is available when ear select is humanoid and ears support jewelry
+        const earValue = this.#elements.earSelect.value
+        if (this.#elements.earSelect.checkVisibility() &&
+           !['none', 'bear', 'cat', 'ferengi'].includes(earValue))
+            this.#elements.mainEl.classList.add('has-ear-jewelry')
+        // Refresh facial hair visibility since it depends on ear selection
+        DomUtil.hideInvalidSelectOptions(this.#elements.facialHairSelect)
+        // Refresh jewelry visibility since it depends on ear selection
+        DomUtil.hideInvalidSelectOptions(this.#elements.jewelrySelect)
+        // more classes will be added later
 
         // Change the body
         this.#elements.characterBody.innerHTML = DomUtil.GenerateSVGHTML(`svg/${bodyShape}/body.svg`)
