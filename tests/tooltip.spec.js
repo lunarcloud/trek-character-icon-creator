@@ -3,9 +3,7 @@ import { test, expect } from '@playwright/test'
 test.describe('Tooltip Tests', () => {
     test.beforeEach(async ({ page }) => {
         await page.goto('/')
-        // Wait for JavaScript to fully initialize
-        await page.waitForLoadState('networkidle')
-        await page.waitForTimeout(1500)
+        await page.waitForSelector('character')
     })
 
     test('body type options should have tooltips', async ({ page }) => {

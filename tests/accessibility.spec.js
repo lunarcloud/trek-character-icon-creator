@@ -287,10 +287,7 @@ test.describe('Accessibility Tests', () => {
         const bodyShapeSelect = await page.locator('#body-shape')
         await bodyShapeSelect.selectOption('cetaceous')
 
-        // Wait a bit for the announcement to be made
-        await page.waitForTimeout(200)
-
-        const announcementText = await announcements.textContent()
-        expect(announcementText).toContain('Cetaceous')
+        // Wait for the announcement to be made
+        await expect(announcements).toContainText('Cetaceous')
     })
 })
