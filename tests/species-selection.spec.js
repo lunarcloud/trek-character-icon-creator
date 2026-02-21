@@ -300,4 +300,28 @@ test.describe('Species Selection Tests', () => {
         const syncCheckbox = page.locator('#sync-cat-nose-with-body')
         expect(await syncCheckbox.count()).toBe(0)
     })
+
+    test('switching to Bolian should hide previously assigned hair', async ({ page }) => {
+        // Select a hair style first
+        await page.selectOption('#hair-select', 'b')
+        await expect(page.locator('#character-hair svg[data-src*="/hair/b.svg"]')).toBeAttached()
+
+        // Switch to Bolian (a species without hair)
+        await page.selectOption('#body-shape', { label: 'Bolian' })
+
+        // Hair should be cleared (none.svg produces empty innerHTML)
+        await expect(page.locator('#character-hair svg')).not.toBeAttached()
+    })
+
+    test('switching to Breen should hide previously assigned hair', async ({ page }) => {
+        await page.selectOption('#hair-select', 'b')
+        await page.selectOption('#body-shape', { label: 'Breen' })
+        await expect(page.locator('#character-hair svg')).not.toBeAttached()
+    })
+
+    test('switching to Kelpien should hide previously assigned hair', async ({ page }) => {
+        await page.selectOption('#hair-select', 'b')
+        await page.selectOption('#body-shape', { label: 'Kelpien' })
+        await expect(page.locator('#character-hair svg')).not.toBeAttached()
+    })
 })
