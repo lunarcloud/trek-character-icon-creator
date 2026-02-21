@@ -342,4 +342,19 @@ test.describe('Species Selection Tests', () => {
         await expect(page.locator('#hair-select')).toHaveValue('b')
         await expect(page.locator('#character-hair svg[data-src*="/hair/b.svg"]')).toBeAttached()
     })
+
+    test('hair should be restored after switching from species that hides individual hair options', async ({ page }) => {
+        // Select hair AF (which is hidden for Klingon via non-specify-klingon class)
+        await page.selectOption('#hair-select', 'af')
+        await expect(page.locator('#character-hair svg[data-src*="/hair/af.svg"]')).toBeAttached()
+
+        // Switch to Klingon - AF is invalid, hair resets to None
+        await page.selectOption('#body-shape', { label: 'Klingon' })
+        await expect(page.locator('#hair-select')).toHaveValue('none')
+
+        // Switch back to Custom - AF should be restored
+        await page.selectOption('#body-shape', { label: 'Custom' })
+        await expect(page.locator('#hair-select')).toHaveValue('af')
+        await expect(page.locator('#character-hair svg[data-src*="/hair/af.svg"]')).toBeAttached()
+    })
 })
