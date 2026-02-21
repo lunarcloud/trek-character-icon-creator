@@ -8,13 +8,10 @@ test.describe('Ear Jewelry Visibility Tests', () => {
 
     test('Ferengi to Denobulan should show ear jewelry options', async ({ page }) => {
         await page.selectOption('#body-shape', { label: 'Ferengi' })
-        await page.waitForTimeout(300)
+        await expect(page.locator('#character-head-features svg[data-src*="ferengi-brow"]')).toBeAttached()
         await page.selectOption('#body-shape', { label: 'Denobulan' })
-        await page.waitForTimeout(300)
 
-        const hasJewelry = await page.evaluate(() =>
-            document.body.classList.contains('has-ear-jewelry'))
-        expect(hasJewelry).toBe(true)
+        await expect(page.locator('body')).toHaveClass(/has-ear-jewelry/)
 
         const bajoranHidden = await page.locator(
             '#jewelry-select option[value="bajoran-earring"]'
@@ -24,13 +21,10 @@ test.describe('Ear Jewelry Visibility Tests', () => {
 
     test('Caitian to Denobulan should show ear jewelry options', async ({ page }) => {
         await page.selectOption('#body-shape', { label: 'Caitian / Kzinti' })
-        await page.waitForTimeout(300)
+        await expect(page.locator('#character-head-features svg[data-src*="cat-nose"]')).toBeAttached()
         await page.selectOption('#body-shape', { label: 'Denobulan' })
-        await page.waitForTimeout(300)
 
-        const hasJewelry = await page.evaluate(() =>
-            document.body.classList.contains('has-ear-jewelry'))
-        expect(hasJewelry).toBe(true)
+        await expect(page.locator('body')).toHaveClass(/has-ear-jewelry/)
 
         const bajoranHidden = await page.locator(
             '#jewelry-select option[value="bajoran-earring"]'
@@ -40,9 +34,9 @@ test.describe('Ear Jewelry Visibility Tests', () => {
 
     test('Caitian to Denobulan should not retain cat-ears class', async ({ page }) => {
         await page.selectOption('#body-shape', { label: 'Caitian / Kzinti' })
-        await page.waitForTimeout(300)
+        await expect(page.locator('#character-head-features svg[data-src*="cat-nose"]')).toBeAttached()
         await page.selectOption('#body-shape', { label: 'Denobulan' })
-        await page.waitForTimeout(300)
+        await expect(page.locator('#character-head-features svg[data-src*="denobulan-ridges"]')).toBeAttached()
 
         const hasCatEars = await page.evaluate(() =>
             document.body.classList.contains('cat-ears'))
@@ -51,7 +45,7 @@ test.describe('Ear Jewelry Visibility Tests', () => {
 
     test('Ferengi should not have ear jewelry', async ({ page }) => {
         await page.selectOption('#body-shape', { label: 'Ferengi' })
-        await page.waitForTimeout(300)
+        await expect(page.locator('#character-head-features svg[data-src*="ferengi-brow"]')).toBeAttached()
 
         const hasJewelry = await page.evaluate(() =>
             document.body.classList.contains('has-ear-jewelry'))
@@ -60,7 +54,7 @@ test.describe('Ear Jewelry Visibility Tests', () => {
 
     test('Caitian should not have ear jewelry', async ({ page }) => {
         await page.selectOption('#body-shape', { label: 'Caitian / Kzinti' })
-        await page.waitForTimeout(300)
+        await expect(page.locator('#character-head-features svg[data-src*="cat-nose"]')).toBeAttached()
 
         const hasJewelry = await page.evaluate(() =>
             document.body.classList.contains('has-ear-jewelry'))
@@ -69,18 +63,14 @@ test.describe('Ear Jewelry Visibility Tests', () => {
 
     test('Human should have ear jewelry', async ({ page }) => {
         await page.selectOption('#body-shape', { label: 'Human' })
-        await page.waitForTimeout(300)
-
-        const hasJewelry = await page.evaluate(() =>
-            document.body.classList.contains('has-ear-jewelry'))
-        expect(hasJewelry).toBe(true)
+        await expect(page.locator('body')).toHaveClass(/has-ear-jewelry/)
     })
 
     test('Denobulan to Ferengi should not have ear jewelry', async ({ page }) => {
         await page.selectOption('#body-shape', { label: 'Denobulan' })
-        await page.waitForTimeout(300)
+        await expect(page.locator('#character-head-features svg[data-src*="denobulan-ridges"]')).toBeAttached()
         await page.selectOption('#body-shape', { label: 'Ferengi' })
-        await page.waitForTimeout(300)
+        await expect(page.locator('#character-head-features svg[data-src*="ferengi-brow"]')).toBeAttached()
 
         const hasJewelry = await page.evaluate(() =>
             document.body.classList.contains('has-ear-jewelry'))
