@@ -14,12 +14,13 @@ test.describe('Species Selection Tests', () => {
         expect(options).toContain('Ferengi')
         expect(options).toContain('Klingon')
         expect(options).toContain('Orion')
-        expect(options).toContain('Aurelian / Klowahkan')
+        expect(options).toContain('Klowahkan / Aurelian')
         expect(options).toContain('Caitian / Kzinti')
         expect(options).toContain('Andorian / Aenar')
         expect(options).toContain('Bajoran')
         expect(options).toContain('Benzite')
         expect(options).toContain('Bolian')
+        expect(options).toContain('Breen')
         expect(options).toContain('Cardassian')
         expect(options).toContain('Denobulan')
         expect(options).toContain('Kelpien')
@@ -79,14 +80,14 @@ test.describe('Species Selection Tests', () => {
     })
 
     test('selecting Aurelian should hide cat-specific features', async ({ page }) => {
-        await page.selectOption('#body-shape', { label: 'Aurelian / Klowahkan' })
+        await page.selectOption('#body-shape', { label: 'Klowahkan / Aurelian' })
         await page.waitForTimeout(200)
         const catNose = page.locator('#head-feature-select option[value="cat-nose"]')
         expect(await catNose.getAttribute('hidden')).not.toBeNull()
     })
 
     test('selecting Aurelian should render whiskers as forced feature', async ({ page }) => {
-        await page.selectOption('#body-shape', { label: 'Aurelian / Klowahkan' })
+        await page.selectOption('#body-shape', { label: 'Klowahkan / Aurelian' })
         const whiskersSvg = page.locator('#character-head-features svg[data-src*="gill-whiskers-or-feathers"]')
         await expect(whiskersSvg).toBeAttached()
     })

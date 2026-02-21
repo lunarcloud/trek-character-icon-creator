@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
 
-test.describe('Randomize / Surprise Me Tests', () => {
+test.describe('Randomize Tests', () => {
     test.beforeEach(async ({ page }) => {
         await page.goto('/')
         await page.waitForSelector('character')
@@ -9,7 +9,7 @@ test.describe('Randomize / Surprise Me Tests', () => {
     test('randomize button should exist in footer', async ({ page }) => {
         const button = page.locator('#randomize-character')
         await expect(button).toBeVisible()
-        await expect(button).toHaveText('🎲 Surprise Me')
+        await expect(button).toHaveText('🎲 Random')
     })
 
     test('clicking randomize should change the body shape selection', async ({ page }) => {
@@ -129,6 +129,10 @@ test.describe('Randomize / Surprise Me Tests', () => {
                 expect(earValue).toBe('cat')
             } else if (specify === 'ferengi') {
                 expect(earValue).toBe('ferengi')
+            } else if (['kelpien', 'cardassian'].includes(specify)) {
+                expect(earValue).toBe('semi-flat')
+            } else if (['breen'].includes(specify)) {
+                expect(earValue).toBe('flat')
             } else if (['human', 'bajoran', 'trill', 'bolian', 'breen', 'cardassian',
                 'orion', 'denobulan', 'zakdorn', 'benzite'].includes(specify)) {
                 expect(earValue).toBe('round')
