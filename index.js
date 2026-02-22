@@ -51,6 +51,19 @@ export class IndexController {
     #savedHairValue = null
 
     /**
+     * Hair color saved before a species-specific filter auto-switched it.
+     * @type {string|null}
+     */
+    #savedHairColorBeforeFilter = null
+
+    /**
+     * Hair color value that was set by auto-switch when entering a filtered species.
+     * Used to detect whether the user explicitly changed the color.
+     * @type {string|null}
+     */
+    #autoSwitchedHairColor = null
+
+    /**
      * @type {AutosaveManager}
      */
     #autosaveManager
@@ -294,6 +307,48 @@ export class IndexController {
 
         // Regenerate body color swatches to reflect filter changes
         ColorSwatches.regenerate('body-color', 'std-body-colors', 'body-color-swatches')
+
+        // Filter hair color options by species
+        const hairColorsFilter = this.#elements.shapeSelect.selectedOptions?.[0]?.getAttribute('hair-colors-filter')
+        UniformManager.filterColorOptions(this.#elements.mainEl, this.#colorManager.hairColorSelect, !!hairColorsFilter, hairColorsFilter)
+
+        // Save/restore hair color when switching between filtered and unfiltered species
+        if (bodyShapeChanged || specifyChanged) {
+            if (hairColorsFilter && this.#savedHairColorBeforeFilter === null) {
+                // Entering filtered state for the first time - save current color
+                this.#savedHairColorBeforeFilter = this.#colorManager.hairColorPicker.value
+            } else if (!hairColorsFilter && this.#savedHairColorBeforeFilter !== null) {
+                // Returning to unfiltered state - restore if user hasn't changed the auto-switched color
+                if (this.#autoSwitchedHairColor !== null &&
+                    this.#colorManager.hairColorPicker.value.toLowerCase() === this.#autoSwitchedHairColor) {
+                    this.#colorManager.hairColorPicker.value = this.#savedHairColorBeforeFilter
+                    // Sync the select dropdown with the restored color
+                    const restoredLower = this.#savedHairColorBeforeFilter.toLowerCase()
+                    const matchOpt = Array.from(this.#colorManager.hairColorSelect.options).find(
+                        o => o.value.toLowerCase() === restoredLower && !o.hidden &&
+                            !(o.parentElement instanceof HTMLOptGroupElement && o.parentElement.hidden)
+                    ) ?? this.#colorManager.hairColorSelect.querySelector('[value="custom"]')
+                    if (matchOpt instanceof HTMLOptionElement) matchOpt.selected = true
+                }
+                this.#savedHairColorBeforeFilter = null
+                this.#autoSwitchedHairColor = null
+            }
+        }
+
+        // If hair color is not custom and is now hidden, switch to first valid one
+        if (hairColorsFilter && this.#colorManager.hairColorSelect.value !== 'custom' &&
+            DomUtil.IsOptionInvalid(this.#colorManager.hairColorSelect)) {
+            const firstVisible = Array.from(this.#colorManager.hairColorSelect.querySelectorAll('option:not([hidden])'))
+                .find(el => el instanceof HTMLOptionElement && el.value !== 'custom')
+            if (firstVisible instanceof HTMLOptionElement) {
+                this.#colorManager.hairColorSelect.value = firstVisible.value
+                this.#colorManager.hairColorPicker.value = firstVisible.value
+                this.#autoSwitchedHairColor = firstVisible.value.toLowerCase()
+            }
+        }
+
+        // Regenerate hair color swatches to reflect filter changes
+        ColorSwatches.regenerate('hair-color', 'std-hair-colors', 'hair-color-swatches')
 
         // Change the uniform
         const uniformBodyShape = ['sukhabelan'].includes(bodyShape) ? 'humanoid' : bodyShape

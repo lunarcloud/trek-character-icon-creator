@@ -357,4 +357,109 @@ test.describe('Species Selection Tests', () => {
         await expect(page.locator('#hair-select')).toHaveValue('af')
         await expect(page.locator('#character-hair svg[data-src*="/hair/af.svg"]')).toBeAttached()
     })
+
+    test('Andorian should only show blue/grey/white hair color options', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Andorian / Aenar' })
+        const andorGroup = page.locator('#std-hair-colors optgroup[filtergroup="andor"]')
+        await expect(andorGroup).toHaveJSProperty('hidden', false)
+        await expect(andorGroup.locator('option[value="#222154"]')).toHaveJSProperty('hidden', false)
+        await expect(andorGroup.locator('option[value="#2D439A"]')).toHaveJSProperty('hidden', false)
+        await expect(andorGroup.locator('option[value="#CCCCFF"]')).toHaveJSProperty('hidden', false)
+        await expect(andorGroup.locator('option[value="#B5BEC8"]')).toHaveJSProperty('hidden', false)
+        await expect(andorGroup.locator('option[value="#F4F4F6"]')).toHaveJSProperty('hidden', false)
+    })
+
+    test('Andorian should hide common hair color options', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Andorian / Aenar' })
+        const commonGroup = page.locator('#std-hair-colors optgroup[label="Common"]')
+        await expect(commonGroup).toHaveJSProperty('hidden', true)
+    })
+
+    test('Orion should only show black/green/orange/red hair color options', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Orion' })
+        const orionGroup = page.locator('#std-hair-colors optgroup[filtergroup="orion"]')
+        await expect(orionGroup).toHaveJSProperty('hidden', false)
+        await expect(orionGroup.locator('option[value="#010101"]')).toHaveJSProperty('hidden', false)
+        await expect(orionGroup.locator('option[value="#5F1007"]')).toHaveJSProperty('hidden', false)
+        await expect(orionGroup.locator('option[value="#06220C"]')).toHaveJSProperty('hidden', false)
+        await expect(orionGroup.locator('option[value="#2D9A43"]')).toHaveJSProperty('hidden', false)
+    })
+
+    test('Orion should hide common hair color options', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Orion' })
+        const commonGroup = page.locator('#std-hair-colors optgroup[label="Common"]')
+        await expect(commonGroup).toHaveJSProperty('hidden', true)
+    })
+
+    test('Custom Humanoid should show all hair color options', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Custom' })
+        const commonGroup = page.locator('#std-hair-colors optgroup[label="Common"]')
+        await expect(commonGroup).toHaveJSProperty('hidden', false)
+    })
+
+    test('hair color auto-switches to valid color when species filter hides current selection', async ({ page }) => {
+        // Start with a non-Andorian color (e.g., Walnut brown)
+        await page.selectOption('#body-shape', { label: 'Custom' })
+        await page.locator('#std-hair-colors').evaluate((el, val) => { el.value = val }, '#270D02')
+        await page.locator('#hair-color').evaluate((el, val) => { el.value = val }, '#270D02')
+
+        // Switch to Andorian - Walnut is not in the Andorian palette
+        await page.selectOption('#body-shape', { label: 'Andorian / Aenar' })
+
+        // Hair color should auto-switch to first valid Andorian option
+        const hairColorValue = await page.locator('#hair-color').inputValue()
+        const andorianColors = ['#222154', '#2d439a', '#ccccff', '#b5bec8', '#f4f4f6']
+        expect(andorianColors).toContain(hairColorValue.toLowerCase())
+    })
+
+    test('hair color restores when switching from filtered species back to unfiltered', async ({ page }) => {
+        // Set hair to Walnut brown on Human
+        await page.selectOption('#body-shape', { label: 'Human' })
+        await page.locator('#std-hair-colors').evaluate((el, val) => { el.value = val }, '#270D02')
+        await page.locator('#hair-color').evaluate((el, val) => { el.value = val }, '#270D02')
+
+        // Switch to Orion - should auto-switch to an Orion color
+        await page.selectOption('#body-shape', { label: 'Orion' })
+        const orionColor = await page.locator('#hair-color').inputValue()
+        expect(orionColor.toLowerCase()).not.toBe('#270d02')
+
+        // Switch back to Human - should restore original Walnut
+        await page.selectOption('#body-shape', { label: 'Human' })
+        await expect(page.locator('#hair-color')).toHaveValue('#270d02')
+    })
+
+    test('hair color does not restore if user explicitly changed it on filtered species', async ({ page }) => {
+        // Set hair to Walnut brown on Human
+        await page.selectOption('#body-shape', { label: 'Human' })
+        await page.locator('#std-hair-colors').evaluate((el, val) => { el.value = val }, '#270D02')
+        await page.locator('#hair-color').evaluate((el, val) => { el.value = val }, '#270D02')
+
+        // Switch to Orion - auto-switches to Orion color
+        await page.selectOption('#body-shape', { label: 'Orion' })
+
+        // User explicitly changes hair color to Mid Green while on Orion
+        await page.locator('#std-hair-colors').evaluate((el, val) => { el.value = val }, '#2D9A43')
+        await page.locator('#hair-color').evaluate((el, val) => { el.value = val }, '#2D9A43')
+        // Trigger change detection
+        await page.locator('#hair-color').dispatchEvent('change')
+
+        // Switch back to Human - should keep user's explicit choice
+        await page.selectOption('#body-shape', { label: 'Human' })
+        await expect(page.locator('#hair-color')).toHaveValue('#2d9a43')
+    })
+
+    test('hair color restores after switching between multiple filtered species back to unfiltered', async ({ page }) => {
+        // Set hair to Walnut brown on Human
+        await page.selectOption('#body-shape', { label: 'Human' })
+        await page.locator('#std-hair-colors').evaluate((el, val) => { el.value = val }, '#270D02')
+        await page.locator('#hair-color').evaluate((el, val) => { el.value = val }, '#270D02')
+
+        // Switch to Orion then Andorian without changing color
+        await page.selectOption('#body-shape', { label: 'Orion' })
+        await page.selectOption('#body-shape', { label: 'Andorian / Aenar' })
+
+        // Switch back to Human - should restore original Walnut
+        await page.selectOption('#body-shape', { label: 'Human' })
+        await expect(page.locator('#hair-color')).toHaveValue('#270d02')
+    })
 })
