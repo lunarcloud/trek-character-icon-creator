@@ -1,0 +1,103 @@
+# Star Trek Species (Canon)
+Aenar
+Andor
+Andoria
+Andorian
+Andorians
+Aurelian
+Aurelians
+Bajor
+Bajoran
+Bajorans
+Benzite
+Benzites
+Bolian
+Bolians
+Breen
+Caitian
+Caitians
+Cardassian
+Cardassians
+Denobulan
+Denobulans
+Edosian
+Edosians
+Exocomp
+Ferengi
+Kellerun
+Kelpien
+Kelpiens
+Klingon
+Klingons
+Klowahkan
+Klowahkans
+Kzinti
+Medusan
+Orion
+Orions
+Romulan
+Romulans
+Saurian
+Saurians
+Tellarite
+Tellarites
+Trill
+Vulcan
+Vulcans
+Zakdorn
+
+# Star Trek Species (Non-Canon / Fan / RPG)
+Mirran
+Qofuari
+Sarell
+Sukhabelan
+Tilikaal
+VinShari
+
+# Star Trek Character Names
+Chakotay
+Geordi
+Guinan
+Neelix
+Opaka
+Rutherford
+Winn
+Worf
+
+# Star Trek Locations & Organizations
+Starfleet
+homeworld
+
+# Star Trek Technology & Terminology
+holodeck
+Timeship
+timeship
+
+# Star Trek Uniform & Clothing Terms
+Bekk
+bekk
+Minidress
+minidress
+Skant
+skant
+Vedek
+Vedeks
+
+# Star Trek Abbreviations
+VOY
+DS9
+TOS
+TNG
+ENT
+SNW
+DISCO
+STO
+IDW
+
+# Star Trek Organizations & Terminology
+Shiar
+Khwopans
+
+# Other Sci-Fi References
+Orville
+Stargate

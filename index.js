@@ -7,7 +7,7 @@ import { DomUtil } from './js/util-dom.js'
 import { saveTextAs } from './js/save-file-utils.js'
 import { TooltipManager } from './js/tooltip-manager.js'
 import { AutosaveManager } from './js/autosave-manager.js'
-import { migrateV1Config } from './js/migrate-v1-config.js'
+import { migrateV1Config, applySpellingCorrections } from './js/migrate-v1-config.js'
 import { Randomizer } from './js/randomizer.js'
 
 /**
@@ -359,7 +359,7 @@ export class IndexController {
         // No uniform-specific options (mostly about color)
         this.#elements.mainEl.classList.toggle('no-uniform-color', uniformClassList?.contains('no-color-choice') ?? false)
         this.#elements.mainEl.classList.toggle('accent-color-choice', uniformClassList?.contains('accent-color-choice') ?? false)
-        const extraOverlay = this.#elements.mainEl.classList.toggle('orville-badge-choice', uniformClassList?.contains('orille-badge-choice') ?? false)
+        const extraOverlay = this.#elements.mainEl.classList.toggle('orville-badge-choice', uniformClassList?.contains('orville-badge-choice') ?? false)
         this.#elements.mainEl.classList.toggle('extra-overlay', extraOverlay)
 
         // Filter color selector by uniform's colors
@@ -536,6 +536,8 @@ export class IndexController {
         default:
             throw new Error(`Invalid or unsupported configuration version ${config?.version}`)
         }
+        // Apply spelling corrections to renamed identifiers from older saves
+        applySpellingCorrections(config)
         // Validate body shape before applying to prevent onChangeDetected errors
         // Extract valid body shapes from the select element options
         const validBodyShapes = Array.from(this.#elements.shapeSelect.options).map(option => option.value)

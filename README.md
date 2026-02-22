@@ -44,12 +44,13 @@ The project has linters for the HTML, CSS, JavaScript, and SVG files all set up 
 
 ### Running Linters
 ```sh
-npm run lint        # Run all linters (ESLint, HTML, CSS, SVG)
+npm run lint        # Run all linters (ESLint, HTML, CSS, SVG, Spell Check)
 npm run lint-fix    # Auto-fix issues where possible
 npm run eslint      # JavaScript linting only
 npm run htmllint    # HTML linting only
 npm run csslint     # CSS linting only
 npm run svglint     # SVG linting only
+npm run spellcheck  # Spell checking only
 ```
 
 ### JavaScript Code Quality

@@ -42,6 +42,10 @@ jobs:
         if: ${{ ! cancelled() }}
         run: npm run svglint
 
+      - name: Spell Check
+        if: ${{ ! cancelled() }}
+        run: npm run spellcheck
+
       - name: Validate Tooltips
         if: ${{ ! cancelled() }}
         run: node tests/validate-tooltips.mjs

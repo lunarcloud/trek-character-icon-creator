@@ -1,0 +1,38 @@
+# Project-Specific Terms
+STCC
+stcc
+SVGHTML
+lunarcloud
+pixelsagas
+notext
+filtergroup
+optgroups
+underuniform
+overhair
+
+# Development Tool Names
+htmllint
+linthtml
+csslint
+svglint
+cspell
+stylelint
+
+# Web Standards & Accessibility
+WCAG
+labelledby
+
+# Valid English Words (sometimes flagged)
+bindi
+cateye
+headwear
+eyewear
+noseless
+deserialisation
+minorly
+
+# Maintainer / Project Names
+Sarette
+
+# Migration Terms (intentional old spellings for backward compatibility)
+kelpian
