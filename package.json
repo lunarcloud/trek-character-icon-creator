@@ -14,7 +14,7 @@
         "svglint": "npx svglint --ci ./*.svg ./svg/*/*.svg ./svg/*/*/*.svg",
         "spellcheck": "npx cspell --no-progress",
         "lint": "npm run eslint; npm run htmllint; npm run csslint;  npm run svglint; npm run spellcheck",
-        "lint-fix": "npm run eslint-fix; npm run htmllint; npm run csslint-fix; npm run svglint",
+        "lint-fix": "npm run eslint-fix; npm run htmllint; npm run csslint-fix; npm run svglint; npm run spellcheck",
         "test": "playwright test",
         "test:headed": "playwright test --headed",
         "test:ui": "playwright test --ui",
