@@ -624,8 +624,8 @@ uniform-color-group {
     body {
         --header-size: calc(var(--svg-size) + 5em);
         --footer-size: 6em;
-        overflow: hidden;
 
+        overflow: hidden;
         display: grid;
         position: absolute;
         inset: 0;
