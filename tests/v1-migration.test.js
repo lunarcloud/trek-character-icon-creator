@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs'
 import { resolve, dirname } from 'path'
 import { fileURLToPath } from 'url'
-import { migrateV1Config } from '../js/migrate-v1-config.js'
+import { migrateV1Config, applySpellingCorrections } from '../js/migrate-v1-config.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -94,5 +94,53 @@ describe('migrateV1Config', () => {
 
         expect(config.jewelry).toContain('cyborg-antenna-r')
         expect(config.headFeatures).toContain('andorian-antennae')
+    })
+})
+
+describe('applySpellingCorrections', () => {
+    /* cspell:disable -- old spellings are intentional in migration tests */
+    test('corrects occular-implant-l to ocular-implant-l in jewelry', () => {
+        const config = { jewelry: ['occular-implant-l', 'bajoran-earring'] }
+        applySpellingCorrections(config)
+        expect(config.jewelry).toContain('ocular-implant-l')
+        expect(config.jewelry).not.toContain('occular-implant-l')
+        expect(config.jewelry).toContain('bajoran-earring')
+    })
+
+    test('corrects occular-implant-r to ocular-implant-r in jewelry', () => {
+        const config = { jewelry: ['occular-implant-r'] }
+        applySpellingCorrections(config)
+        expect(config.jewelry).toContain('ocular-implant-r')
+    })
+
+    test('corrects occular implants in headFeatures', () => {
+        const config = { headFeatures: ['occular-implant-l', 'occular-implant-r'] }
+        applySpellingCorrections(config)
+        expect(config.headFeatures).toContain('ocular-implant-l')
+        expect(config.headFeatures).toContain('ocular-implant-r')
+    })
+
+    test('corrects Leather Jacket Courrier to Courier in uniform', () => {
+        const config = { uniform: 'Leather Jacket Courrier' }
+        applySpellingCorrections(config)
+        expect(config.uniform).toBe('Leather Jacket Courier')
+    })
+    /* cspell:enable */
+
+    test('leaves correct spellings unchanged', () => {
+        const config = {
+            jewelry: ['ocular-implant-l', 'bajoran-earring'],
+            headFeatures: ['andorian-antennae'],
+            uniform: 'TNG'
+        }
+        applySpellingCorrections(config)
+        expect(config.jewelry).toEqual(['ocular-implant-l', 'bajoran-earring'])
+        expect(config.headFeatures).toEqual(['andorian-antennae'])
+        expect(config.uniform).toBe('TNG')
+    })
+
+    test('handles missing arrays gracefully', () => {
+        const config = { uniform: 'TNG' }
+        expect(() => applySpellingCorrections(config)).not.toThrow()
     })
 })

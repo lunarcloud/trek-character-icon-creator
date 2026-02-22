@@ -1,0 +1,35 @@
+{
+    "version": "0.2",
+    "language": "en",
+    "dictionaries": [
+        "trek",
+        "project"
+    ],
+    "dictionaryDefinitions": [
+        {
+            "name": "trek",
+            "path": ".cspell/trek-dictionary.txt",
+            "addWords": true
+        },
+        {
+            "name": "project",
+            "path": ".cspell/project-dictionary.txt",
+            "addWords": true
+        }
+    ],
+    "files": [
+        "**/*.js",
+        "**/*.mjs",
+        "**/*.css",
+        "**/*.md",
+        "src/**/*.html"
+    ],
+    "ignorePaths": [
+        "node_modules",
+        "js/lib",
+        "playwright-report",
+        "test-results",
+        "package-lock.json",
+        "*.svg"
+    ]
+}
