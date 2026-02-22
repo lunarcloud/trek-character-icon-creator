@@ -623,7 +623,8 @@ uniform-color-group {
 @media screen and (width <= 899px) {
     body {
         --header-size: calc(var(--svg-size) + 5em);
-        --footer-size: 5em;
+        --footer-size: 6em;
+        overflow: hidden;
 
         display: grid;
         position: absolute;
@@ -671,17 +672,17 @@ uniform-color-group {
   }
 }
 
-@media (width >= 641px) and (width <= 1024px) {
+@media (width >= 640px) and (width < 1100px) {
   :root {
     --svg-size: 256px;
     --mirror-offset: 9px;
   }
 }
 
-@media (width >= 1024px) and (width <= 1440px) {
+@media (width >= 1100px) and (width <= 1440px) {
   :root {
-    --svg-size: 512px;
-    --mirror-offset: 12px;
+    --svg-size: 448px;
+    --mirror-offset: 10px;
   }
 }
 
