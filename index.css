@@ -45,6 +45,7 @@ group {
 body {
   font-family: Roddenberry, sans-serif;
   width: 100%;
+  padding-top: 0.5em;
   max-width: min(90em, 100dvw);
   min-height: min(52em, 100%); /* 52 em is the height after which it will vertically center */
   margin: auto;
@@ -59,8 +60,7 @@ body {
     max-width: inherit;
     padding-left: 0.5em;
     gap: 0.5em;
-
-    /* min-height: 40em; */
+    min-height: calc(var(--svg-size) + 2em);
 
     h2, h3 {
       break-after: avoid;
@@ -88,7 +88,7 @@ body {
   &.exocomp > aside,
   &.medusan > aside,
   &.cal-mirran > aside {
-    column-count: auto;
+    columns: auto;
 
     h3 {
         break-before: avoid-column;
@@ -199,7 +199,6 @@ body {
     display: flex;
     position: relative;
     height: auto;
-    height: fit-content;
   }
 
   character bg svg {
@@ -217,7 +216,7 @@ body {
 
   character {
     background-color: transparent;
-    padding: 1em 1em 0;
+    padding: 1em 0 0;
     width: var(--svg-size);
     height: var(--svg-size);
     margin: 0 auto;
@@ -342,7 +341,7 @@ body {
   footer {
     padding: 0.25em;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: flex-start;
 
     button {
@@ -400,16 +399,6 @@ select:not([multiple]) {
     align-items: baseline;
     justify-content: space-between;
     gap: 0.25em;
-
-    select:not([multiple]) {
-        width: fit-content;
-    }
-
-    select:last-child, input:last-child {
-        width: fit-content;
-        width: fill-available;
-        width: -webkit-fill-available;
-    }
 }
 
 
@@ -664,6 +653,13 @@ uniform-color-group {
             top: unset;
             z-index: 1;
             border-top: 2px inset #aaa;
+            flex-direction: column;
+
+            & > * {
+                width: 100%;
+                text-align: center;
+                margin: 0 auto;
+            }
         }
     }
 }
@@ -677,7 +673,7 @@ uniform-color-group {
 
 @media (width >= 641px) and (width <= 1024px) {
   :root {
-    --svg-size: 384px;
+    --svg-size: 256px;
     --mirror-offset: 9px;
   }
 }
@@ -722,6 +718,10 @@ body.saving {
     main {
       grid-row: 2;
       grid-column: 1;
+      margin: auto 0;
+      height: auto;
+      height: fill-available;
+      height: -webkit-fill-available;
     }
 
     aside {
@@ -732,6 +732,7 @@ body.saving {
     footer {
       grid-row: 3;
       grid-column: 1 / 3;
+      padding-top: 1em;
     }
   }
 }
@@ -758,12 +759,10 @@ body.saving {
 .index-list button,
 .index-list select {
     display: inline-block;
-    width: fit-content;
 }
 
 .index-list select {
     display: inline-block;
-    width: fit-content;
     max-width: calc(100% - 6em);
 }
 
