@@ -34,7 +34,7 @@
         "@linthtml/linthtml": "^0.10.2",
         "@playwright/test": "^1.58.2",
         "axe-core": "^4.11.1",
-        "cspell": "^9.6.4",
+        "cspell": "^9.7.0",
         "eslint": "^8.57.1",
         "eslint-config-standard": "^17.1.0",
         "eslint-plugin-editorconfig": "^4.0.3",
@@ -47,6 +47,6 @@
         "serve": "^14.2.5",
         "stylelint": "^16.26.1",
         "stylelint-config-standard": "^35.0.0",
-        "svglint": "^4.2.0"
+        "svglint": "^4.2.1"
     }
 }
