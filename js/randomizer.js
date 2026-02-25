@@ -93,9 +93,10 @@ function randomizeSelect (selectEl, excludeFilter) {
  * If the random check fails, the first option (typically "None") is selected.
  * @param {HTMLSelectElement} selectEl The select element to randomize
  * @param {number} chanceOfNonNone Probability (0–1) of selecting a non-"None" option
+ * @param {Function} [excludeFilter] Optional callback returning true for options to exclude
  */
-function randomizeSelectWithChance (selectEl, chanceOfNonNone) {
-    const options = getVisibleOptions(selectEl)
+function randomizeSelectWithChance (selectEl, chanceOfNonNone, excludeFilter) {
+    const options = getVisibleOptions(selectEl, excludeFilter)
     if (options.length === 0) return
 
     if (Math.random() < chanceOfNonNone) {
@@ -172,6 +173,22 @@ export const MILITIA_SPECIES_PREFIX = {
     klingon: 'Klingon',
     orion: 'Orion',
     vulcan: 'Romulan'
+}
+
+/**
+ * Maps hat/headgear values to the species specify value required to wear them.
+ * Species-locked hats are excluded from random selection unless the species matches.
+ * @type {Record<string, string>}
+ */
+export const HAT_SPECIES_RESTRICTION = {
+    'ferengi-headdress': 'ferengi',
+    'romulan-23rd-helmet': 'vulcan',
+    'breen-helmet-24th': 'breen',
+    'breen-helmet-32nd': 'breen',
+    'blue-orion-helmet': 'orion',
+    'bajoran-vedic-hat': 'bajoran',
+    'bajoran-kai-hat-a': 'bajoran',
+    'bajoran-kai-hat-b': 'bajoran'
 }
 
 /**
@@ -257,7 +274,7 @@ export class Randomizer {
         // Benzite breather only for benzite, orion head-bolting only for orion
         // Cyborg antenna only for andorian (with antennae)
         // Red overcoat excluded with Starfleet uniforms
-        // Forehead coin and Rimmer's H never randomly selected
+        // Forehead coin, Rimmer's H, and Chakotay's tattoo never randomly selected
         if (elements.jewelrySelect.checkVisibility()) {
             const uniformGroup = elements.uniformSelect.selectedOptions?.[0]?.parentElement
             const uniformGroupLabel = uniformGroup instanceof HTMLOptGroupElement ? uniformGroup.label : ''
@@ -267,7 +284,7 @@ export class Randomizer {
                 if (opt.value === 'orion-head-bolting' && species.specify !== 'orion') return true
                 if ((opt.value === 'cyborg-antenna-l' || opt.value === 'cyborg-antenna-r') && species.specify !== 'andor') return true
                 if (opt.value === 'red-overcoat' && isStarfleetUniform) return true
-                if (opt.value === 'forehead-coin' || opt.value === 'rimmer-h') return true
+                if (opt.value === 'forehead-coin' || opt.value === 'rimmer-h' || opt.value === 'chakotay-tattoo') return true
                 return false
             }
             randomizeMultiSelect(elements.jewelrySelect, [
@@ -278,9 +295,18 @@ export class Randomizer {
             ], jewelryFilter)
         }
 
-        // Randomize hat (25% chance) and eyewear (10% chance)
+        // Randomize hat: species-locked hats only for matching species.
+        // Ferengi have a 75% chance of wearing the ferengi headdress specifically.
         if (elements.hatFeatureSelect.checkVisibility()) {
-            randomizeSelectWithChance(elements.hatFeatureSelect, 0.25)
+            const hatFilter = opt => {
+                const restriction = HAT_SPECIES_RESTRICTION[opt.value]
+                return restriction !== undefined && restriction !== species.specify
+            }
+            if (species.specify === 'ferengi' && Math.random() < 0.75) {
+                elements.hatFeatureSelect.value = 'ferengi-headdress'
+            } else {
+                randomizeSelectWithChance(elements.hatFeatureSelect, 0.25, hatFilter)
+            }
         }
         if (elements.eyewearFeatureSelect.checkVisibility()) {
             randomizeSelectWithChance(elements.eyewearFeatureSelect, 0.10)
