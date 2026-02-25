@@ -275,6 +275,10 @@ body {
         &.overhair {
             z-index: 9;
         }
+
+        &.under-rear-hair {
+            z-index: 0;
+        }
     }
 
     #character-hair {

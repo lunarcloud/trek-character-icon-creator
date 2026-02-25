@@ -62,6 +62,11 @@ export class CharacterElements {
     /**
      * @type {HTMLElement}
      */
+    characterUnderRearHair
+
+    /**
+     * @type {HTMLElement}
+     */
     characterUniform
 
     /**
@@ -217,6 +222,7 @@ export class CharacterElements {
         this.bodyOverlay = document.getElementById('body-overlay')
         this.characterExtraOverlay = document.getElementById('extra-overlay')
         this.characterExtraUnderlay = document.getElementById('extra-underlay')
+        this.characterUnderRearHair = document.getElementById('character-under-rear-hair')
         this.characterAnnouncements = document.getElementById('character-announcements')
 
         // Selection Elements

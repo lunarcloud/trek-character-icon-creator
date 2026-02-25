@@ -124,9 +124,13 @@ export class BodyTypeManager {
                 return accumulator
             }, '')
 
+        // Enable uniform color if hat chosen requires it
+        if (elements.hatFeatureSelect.selectedOptions[0].classList.contains('uniform-color-choice')) {
+            elements.mainEl.classList.remove('no-color-choice')
+        }
         // Enable accent color if hat chosen requires it
         if (elements.hatFeatureSelect.selectedOptions[0].classList.contains('accent-color-choice')) {
-            elements.mainEl.classList.toggle('accent-color-choice', true)
+            elements.mainEl.classList.add('accent-color-choice')
         }
 
         // Update extra overlay
@@ -241,9 +245,13 @@ export class BodyTypeManager {
                 return accumulator
             }, '')
 
+        // Enable uniform color if hat chosen requires it
+        if (elements.hatFeatureSelect.selectedOptions[0].classList.contains('uniform-color-choice')) {
+            elements.mainEl.classList.remove('no-color-choice')
+        }
         // Enable accent color if hat chosen requires it
         if (elements.hatFeatureSelect.selectedOptions[0].classList.contains('accent-color-choice')) {
-            elements.mainEl.classList.toggle('accent-color-choice', true)
+            elements.mainEl.classList.add('accent-color-choice')
         }
     }
 
@@ -268,9 +276,13 @@ export class BodyTypeManager {
                 return accumulator
             }, '')
 
+        // Enable uniform color if hat chosen requires it
+        if (elements.hatFeatureSelect.selectedOptions[0].classList.contains('uniform-color-choice')) {
+            elements.mainEl.classList.remove('no-color-choice')
+        }
         // Enable accent color if hat chosen requires it
         if (elements.hatFeatureSelect.selectedOptions[0].classList.contains('accent-color-choice')) {
-            elements.mainEl.classList.toggle('accent-color-choice', true)
+            elements.mainEl.classList.add('accent-color-choice')
         }
 
         // Update extra overlay

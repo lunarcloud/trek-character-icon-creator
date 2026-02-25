@@ -357,7 +357,11 @@ export class IndexController {
         const uniformClassList = this.#elements.uniformSelect.selectedOptions?.[0].classList
 
         // No uniform-specific options (mostly about color)
-        this.#elements.mainEl.classList.toggle('no-uniform-color', uniformClassList?.contains('no-color-choice') ?? false)
+        this.#elements.mainEl.classList.toggle('no-uniform-color',
+            (uniformClassList?.contains('no-color-choice') ?? false) &&
+            this.#elements.hatFeatureSelect.selectedOptions?.[0].classList?.contains('uniform-color-choice') !== true
+        )
+
         this.#elements.mainEl.classList.toggle('accent-color-choice', uniformClassList?.contains('accent-color-choice') ?? false)
         const extraOverlay = this.#elements.mainEl.classList.toggle('orville-badge-choice', uniformClassList?.contains('orville-badge-choice') ?? false)
         this.#elements.mainEl.classList.toggle('extra-overlay', extraOverlay)
