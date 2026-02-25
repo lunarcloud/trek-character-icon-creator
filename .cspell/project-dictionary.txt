@@ -1,4 +1,5 @@
 # Project-Specific Terms
+networkidle
 STCC
 stcc
 SVGHTML
@@ -15,6 +16,7 @@ htmllint
 linthtml
 csslint
 svglint
+svglintrc
 cspell
 stylelint
 
