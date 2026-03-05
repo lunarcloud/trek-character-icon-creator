@@ -18,7 +18,10 @@
         "test": "playwright test",
         "test:headed": "playwright test --headed",
         "test:ui": "playwright test --ui",
-        "test:unit": "node --experimental-vm-modules node_modules/.bin/jest"
+        "test:unit": "node --experimental-vm-modules node_modules/.bin/jest",
+        "outdated": "npx npm-check-updates",
+        "outdated:minor": "npx npm-check-updates --target minor",
+        "outdated:patch": "npx npm-check-updates --target patch"
     },
     "jest": {
         "testMatch": [
@@ -44,6 +47,7 @@
         "eslint-plugin-n": "^16.6.2",
         "eslint-plugin-promise": "^6.6.0",
         "jest": "^30.2.0",
+        "npm-check-updates": "^19.6.3",
         "serve": "^14.2.6",
         "stylelint": "^16.26.1",
         "stylelint-config-standard": "^35.0.0",
