@@ -196,23 +196,49 @@ export class DomUtil {
             combinedSVG.appendChild(styleEl)
         }
 
-        // Add background if requested
-        if (saveBackground) {
-            // Get the holodeck grid pattern from the HTML <bg> element
-            const defs = imageElement.querySelector('bg > svg defs')
-            if (defs) {
-                // Import the defs node with the pattern
-                const importedDefs = document.importNode(defs, true)
-                combinedSVG.appendChild(importedDefs)
-            }
+        // Add defs for drop shadow filter (and background pattern if needed)
+        const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs')
 
-            // Create the background rectangle using the pattern
+        // Add drop shadow filter for character border visibility on light backgrounds
+        const filter = document.createElementNS('http://www.w3.org/2000/svg', 'filter')
+        filter.setAttribute('id', 'character-shadow')
+        filter.setAttribute('x', '-5%')
+        filter.setAttribute('y', '-5%')
+        filter.setAttribute('width', '110%')
+        filter.setAttribute('height', '110%')
+        const feDropShadow = document.createElementNS('http://www.w3.org/2000/svg', 'feDropShadow')
+        feDropShadow.setAttribute('dx', '0')
+        feDropShadow.setAttribute('dy', '0')
+        feDropShadow.setAttribute('stdDeviation', '1')
+        feDropShadow.setAttribute('flood-color', 'black')
+        feDropShadow.setAttribute('flood-opacity', '0.5')
+        filter.appendChild(feDropShadow)
+        defs.appendChild(filter)
+
+        // Add background pattern if requested
+        if (saveBackground) {
+            const bgDefs = imageElement.querySelector('bg > svg defs')
+            if (bgDefs) {
+                for (const child of Array.from(bgDefs.children)) {
+                    defs.appendChild(document.importNode(child, true))
+                }
+            }
+        }
+
+        combinedSVG.appendChild(defs)
+
+        // Add background rectangle if requested
+        if (saveBackground) {
             const bgRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
             bgRect.setAttribute('width', String(SVG_SIZE))
             bgRect.setAttribute('height', String(SVG_SIZE))
             bgRect.setAttribute('fill', 'url(#holodeck-grid)')
             combinedSVG.appendChild(bgRect)
         }
+
+        // Wrap character content in a group with drop shadow filter
+        const shadowGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g')
+        shadowGroup.setAttribute('filter', 'url(#character-shadow)')
 
         // Process each SVG element in order
         for (const svgEl of svgElements) {
@@ -248,10 +274,12 @@ export class DomUtil {
 
                 // Only add the group if it has content
                 if (group.children.length > 0) {
-                    combinedSVG.appendChild(group)
+                    shadowGroup.appendChild(group)
                 }
             }
         }
+
+        combinedSVG.appendChild(shadowGroup)
 
         // Convert to string and create download
         const serializer = new XMLSerializer()
