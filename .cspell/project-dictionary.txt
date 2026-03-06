@@ -11,6 +11,10 @@ optgroups
 underuniform
 overhair
 
+# SVG Filter Primitives (lowercase form for HTML5 compatibility)
+fedropshadow
+stddeviation
+
 # Development Tool Names
 htmllint
 linthtml
