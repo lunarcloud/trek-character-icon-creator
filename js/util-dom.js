@@ -1,11 +1,7 @@
 import { getInputElement, getSelectElement } from './type-helpers.js'
-import html2canvas from './lib/html2canvas.esm.js'
 
 /** SVG canvas size in pixels */
 const SVG_SIZE = 512
-
-/** Background color for saved images */
-const BACKGROUND_COLOR = '#363638'
 
 /**
  * DOM-related Utilities
@@ -117,13 +113,12 @@ export class DomUtil {
     }
 
     /**
-     * Export character as a combined SVG file.
-     * @param {string}      imageName       name for the download.
+     * Build a combined SVG of all visible character layers with drop shadow filter.
      * @param {HTMLElement} imageElement    element to create image of.
-     * @param {boolean}     saveBackground  whether to save the background image or go transparent.
-     * @returns {Promise<void>}             promise that resolves when export is complete.
+     * @param {boolean}     saveBackground  whether to include the background.
+     * @returns {SVGSVGElement}             the combined SVG element.
      */
-    static async SaveImageAsSVG (imageName, imageElement, saveBackground = true) {
+    static buildCharacterSVG (imageElement, saveBackground = true) {
         // Get all SVG elements and filter to only include those whose parent containers are visible
         const allSvgElements = Array.from(imageElement.querySelectorAll('svg[data-src]'))
         const visibleSvgElements = allSvgElements.filter(svg => {
@@ -196,23 +191,49 @@ export class DomUtil {
             combinedSVG.appendChild(styleEl)
         }
 
-        // Add background if requested
-        if (saveBackground) {
-            // Get the holodeck grid pattern from the HTML <bg> element
-            const defs = imageElement.querySelector('bg > svg defs')
-            if (defs) {
-                // Import the defs node with the pattern
-                const importedDefs = document.importNode(defs, true)
-                combinedSVG.appendChild(importedDefs)
-            }
+        // Add defs for drop shadow filter (and background pattern if needed)
+        const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs')
 
-            // Create the background rectangle using the pattern
+        // Add drop shadow filter for character border visibility on light backgrounds
+        const filter = document.createElementNS('http://www.w3.org/2000/svg', 'filter')
+        filter.setAttribute('id', 'character-shadow')
+        filter.setAttribute('x', '-10%')
+        filter.setAttribute('y', '-10%')
+        filter.setAttribute('width', '120%')
+        filter.setAttribute('height', '120%')
+        const feDropShadow = document.createElementNS('http://www.w3.org/2000/svg', 'feDropShadow')
+        feDropShadow.setAttribute('dx', '0')
+        feDropShadow.setAttribute('dy', '0')
+        feDropShadow.setAttribute('stdDeviation', '3')
+        feDropShadow.setAttribute('flood-color', 'black')
+        feDropShadow.setAttribute('flood-opacity', '0.9')
+        filter.appendChild(feDropShadow)
+        defs.appendChild(filter)
+
+        // Add background pattern if requested
+        if (saveBackground) {
+            const bgDefs = imageElement.querySelector('bg > svg defs')
+            if (bgDefs) {
+                for (const child of Array.from(bgDefs.children)) {
+                    defs.appendChild(document.importNode(child, true))
+                }
+            }
+        }
+
+        combinedSVG.appendChild(defs)
+
+        // Add background rectangle if requested
+        if (saveBackground) {
             const bgRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
             bgRect.setAttribute('width', String(SVG_SIZE))
             bgRect.setAttribute('height', String(SVG_SIZE))
             bgRect.setAttribute('fill', 'url(#holodeck-grid)')
             combinedSVG.appendChild(bgRect)
         }
+
+        // Wrap character content in a group with drop shadow filter
+        const shadowGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g')
+        shadowGroup.setAttribute('filter', 'url(#character-shadow)')
 
         // Process each SVG element in order
         for (const svgEl of svgElements) {
@@ -248,10 +269,25 @@ export class DomUtil {
 
                 // Only add the group if it has content
                 if (group.children.length > 0) {
-                    combinedSVG.appendChild(group)
+                    shadowGroup.appendChild(group)
                 }
             }
         }
+
+        combinedSVG.appendChild(shadowGroup)
+
+        return combinedSVG
+    }
+
+    /**
+     * Export character as a combined SVG file.
+     * @param {string}      imageName       name for the download.
+     * @param {HTMLElement} imageElement    element to create image of.
+     * @param {boolean}     saveBackground  whether to save the background image or go transparent.
+     * @returns {Promise<void>}             promise that resolves when export is complete.
+     */
+    static async SaveImageAsSVG (imageName, imageElement, saveBackground = true) {
+        const combinedSVG = DomUtil.buildCharacterSVG(imageElement, saveBackground)
 
         // Convert to string and create download
         const serializer = new XMLSerializer()
@@ -287,33 +323,39 @@ export class DomUtil {
             return
         }
 
-        // Handle PNG export with html2canvas
-        if (typeof (html2canvas) !== 'function') {
-            console.error('html2canvas library is not available')
-            alert('Unable to save image. The required library failed to load. Please refresh the page and try again.')
-            return
-        }
-
-        const size1em = parseFloat(getComputedStyle(rootElement).fontSize)
-
-        const options = {
-            backgroundColor: (saveBackground ? BACKGROUND_COLOR : null),
-            width: SVG_SIZE + (size1em * 2),
-            height: SVG_SIZE + (size1em * 2),
-            ignoreElements: (/** @type {{ tagName: string; }} */ el) => {
-                return el.tagName === 'BG' && !saveBackground
-            }
-        }
-
+        // Handle PNG export by rendering the combined SVG to a canvas
         rootElement.classList.add('saving')
-        html2canvas(imageElement, options)
-            .then((/** @type {HTMLCanvasElement} */ canvas) => {
-                const link = document.createElement('a')
-                link.download = imageName
-                link.href = canvas.toDataURL('image/png', 1.0)
-                link.click()
-            }).finally(() => {
+        const combinedSVG = DomUtil.buildCharacterSVG(imageElement, saveBackground)
+
+        const serializer = new XMLSerializer()
+        const svgString = serializer.serializeToString(combinedSVG)
+        const svgDataUrl = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgString)
+
+        const img = new Image()
+        img.onload = () => {
+            const canvas = document.createElement('canvas')
+            canvas.width = SVG_SIZE
+            canvas.height = SVG_SIZE
+            const ctx = canvas.getContext('2d')
+            if (!ctx) {
+                console.error('Failed to get 2D canvas context for PNG export')
+                alert('Unable to save image. Please try again.')
                 rootElement.classList.remove('saving')
-            })
+                return
+            }
+            ctx.drawImage(img, 0, 0, SVG_SIZE, SVG_SIZE)
+
+            const link = document.createElement('a')
+            link.download = imageName
+            link.href = canvas.toDataURL('image/png', 1.0)
+            link.click()
+            rootElement.classList.remove('saving')
+        }
+        img.onerror = () => {
+            console.error('Failed to render SVG to canvas for PNG export')
+            alert('Unable to save image. Please try again.')
+            rootElement.classList.remove('saving')
+        }
+        img.src = svgDataUrl
     }
 }
