@@ -333,15 +333,16 @@ body {
       font-size: 1.5em;
       border: none;
       background-color: transparent;
-      color: #111;
-      text-shadow: 1px 1px 6px #fff;
+      color: #def1f7;
+      color: oklab(0.79 -0.15 -0.1);
+      text-shadow: 1px 1px 2px oklab(0.59 -0.04 0.13);
       text-align: inline-start;
       padding-inline-start: 1.25em;
       width: min(20em, 90%);
 
       &::placeholder {
-        color: #888;
-        font-style: italic;
+        color: inherit;
+        font-style: normal;
       }
 
       &:focus {
