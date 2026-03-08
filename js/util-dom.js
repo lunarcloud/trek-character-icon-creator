@@ -337,6 +337,12 @@ export class DomUtil {
             canvas.width = SVG_SIZE
             canvas.height = SVG_SIZE
             const ctx = canvas.getContext('2d')
+            if (!ctx) {
+                console.error('Failed to get 2D canvas context for PNG export')
+                alert('Unable to save image. Please try again.')
+                rootElement.classList.remove('saving')
+                return
+            }
             ctx.drawImage(img, 0, 0, SVG_SIZE, SVG_SIZE)
 
             const link = document.createElement('a')
