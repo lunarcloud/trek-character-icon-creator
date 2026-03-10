@@ -334,9 +334,9 @@ body {
       border: none;
       background-color: transparent;
       color: #def1f7;
-      color: oklab(0.79 -0.15 -0.1);
-      text-shadow: 1px 1px 2px oklab(0.59 -0.04 0.13);
-      text-align: inline-start;
+      color: oklab(79% -0.15 -0.1);
+      text-shadow: 1px 1px 2px oklab(59% -0.04 0.13);
+      text-align: start;
       padding-inline-start: 1.25em;
       width: min(20em, 90%);
 
@@ -461,7 +461,7 @@ select[multiple] option {
     }
 
     &[open] {
-        background: linear-gradient(180deg, oklab(0.25 0 0 / 50%) 1.5em, oklab(0 0 0 / 0%) 1em, oklab(1 0 0 / 0%) 2em, oklab(1 0 0 / 11%) 0);
+        background: linear-gradient(180deg, oklab(25% 0 0 / 50%) 1.5em, oklab(0% 0 0 / 0%) 1em, oklab(100% 0 0 / 0%) 2em, oklab(100% 0 0 / 11%) 0);
 
         & > :not(summary) {
             max-height: 100vh;
@@ -917,7 +917,7 @@ dialog.import-dialog {
     padding: 0;
     margin: -1px;
     overflow: hidden;
-    clip: rect(0, 0, 0, 0);
+    clip-path: rect(0 0 0 0);
     white-space: nowrap;
     border-width: 0;
 }

@@ -6,6 +6,14 @@
     "selector-type-no-unknown": null,
     "selector-pseudo-class-no-unknown": null,
     "no-descending-specificity": null,
-    "property-no-unknown": [true, { "ignoreProperties": ["column-break-before"] }]
+    "property-no-unknown": [true, {
+        "ignoreProperties": ["column-break-before"]
+    }],
+    "declaration-property-value-no-unknown": [true, {
+        "ignoreProperties": {
+            "width": ["fill-available"],
+            "height": ["fill-available"]
+        }
+    }]
   }
 }
