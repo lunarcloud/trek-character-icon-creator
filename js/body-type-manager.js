@@ -114,7 +114,7 @@ export class BodyTypeManager {
             })
             .filter(opt => opt !== null)
 
-        const allSelections = selections.concat(forcedOptions)
+        const allSelections = forcedOptions.concat(selections)
 
         elements.characterHeadFeatures.innerHTML = allSelections.reduce(
             (accumulator, e) => {
