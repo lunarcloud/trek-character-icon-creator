@@ -10,6 +10,7 @@ filtergroup
 optgroups
 underuniform
 overhair
+Swoopy
 
 # SVG Filter Primitives (lowercase form for HTML5 compatibility)
 fedropshadow
