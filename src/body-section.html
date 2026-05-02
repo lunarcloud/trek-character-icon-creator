@@ -20,6 +20,7 @@
             <option value="humanoid" specify="tellarite" body-colors-filter="human">Tellarite</option>
             <option value="humanoid" specify="trill" body-colors-filter="human">Trill</option>
             <option value="humanoid" specify="vulcan" body-colors-filter="human">Vulcan / Romulan / Kellerun</option>
+            <option value="humanoid" specify="reman" body-colors-filter="reman">Reman</option>
             <option value="humanoid" specify="zakdorn" body-colors-filter="human">Zakdorn</option>
             <option value="humanoid">Custom</option>
         </optgroup>
@@ -102,6 +103,9 @@
                 <optgroup label="VinShari" filtergroup="vinshari" hidden-until-filter>
                     <option value="#C80909">VinShari</option>
                 </optgroup>
+                <optgroup label="Reman" filtergroup="reman" hidden-until-filter>
+                    <option value="#B5BEC5">Grey</option>
+                </optgroup>
                 <optgroup label="Tilikaal" filtergroup="tilikaal" hidden-until-filter>
                     <option value="#00B8E9">Light Blue</option>
                 </optgroup>
@@ -133,14 +137,14 @@
         </details>
     </div>
 
-    <h3 class="non-exocomp non-qofuari">Physical Attributes</h3>
+    <h3 class="non-exocomp non-qofuari non-specify-reman">Physical Attributes</h3>
 
-    <group class="humanoid-only non-specify-ferengi">
+    <group class="humanoid-only non-specify-ferengi non-specify-reman">
         <label for="ear-select">Ears</label>
         <select id="ear-select" aria-label="Ear type">
             <option value="none">None</option>
             <option value="round" selected>Round (Human)</option>
-            <option value="pointy" class="specific-vulcan">Pointy (Vulcan, Romulan, Kellerun)</option>
+            <option value="pointy" class="specific-vulcan specific-reman">Pointy (Vulcan, Romulan, Kellerun, Reman)</option>
             <option value="semi-flat" class="specific-kelpien specific-cardassian">Semi-Flat (Kelpien, Cardassian)</option>
             <option value="flat" class="specific-breen">Flat (Edosian, Breen, Saurian)</option>
             <option value="ferengi" class="specific-ferengi">Massive (Ferengi)</option>

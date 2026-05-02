@@ -17,6 +17,7 @@ const FORCED_FEATURES = {
     denobulan: ['denobulan-ridges'],
     ferengi: ['ferengi-brow'],
     kelpien: ['kelpien-lines'],
+    reman: ['reman-nose'],
     tellarite: ['gill-whiskers-or-feathers'],
     tilikaal: ['tilikaal-headpiece'],
     trill: ['trill-spots'],
@@ -30,7 +31,8 @@ const FORCED_FEATURES = {
  * @type {Record<string, string>}
  */
 const SPECIES_EARS = {
-    vulcan: 'pointy'
+    vulcan: 'pointy',
+    reman: 'pointy'
 }
 
 /**
