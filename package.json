@@ -2,6 +2,9 @@
     "name": "@lunarcloud/trek-character-icon-creator",
     "private": true,
     "type": "module",
+    "engines": {
+        "node": ">=24.15.0"
+    },
     "scripts": {
         "build": "node src/build-html.js",
         "watch": "node src/watch-html.js",
