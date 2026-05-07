@@ -46,7 +46,7 @@
         "eslint-plugin-jsdoc": "^46.10.1",
         "eslint-plugin-n": "^16.6.2",
         "eslint-plugin-promise": "^6.6.0",
-        "jest": "^30.3.0",
+        "jest": "^30.4.0",
         "npm-check-updates": "^22.1.1",
         "serve": "^14.2.6",
         "stylelint": "^17.11.0",
