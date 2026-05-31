@@ -64,6 +64,7 @@ export const tooltipData = {
         'trill-spots': 'Leopard-like spots running from hairline down the sides of the body. Some Trill are joined with a symbiont.',
         'bird-beak': 'Avian-style beak for bird-like species',
         'tilikaal-headpiece': 'Ceremonial headpiece of the ancient Tilikaal species of the Shackleton Expanse',
+        'tilikaal-wings': 'Ceremonial back piece of the ancient Tilikaal species of the Shackleton Expanse',
         'bird-tuft': 'Feathered crest or tuft typical of avian species',
         'gill-whiskers-or-feathers': 'Gills, whiskers, or feather-like structures for aquatic or avian species',
         'cat-nose': 'Feline-style nose for Caitians and similar species',

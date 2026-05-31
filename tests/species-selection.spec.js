@@ -245,6 +245,12 @@ test.describe('Species Selection Tests', () => {
         await expect(tilikaalSvg).toBeAttached()
     })
 
+    test('Tilikaal should render tilikaal-wings as forced feature', async ({ page }) => {
+        await page.selectOption('#body-shape', { label: 'Tilikaal' })
+        const tilikaalSvg = page.locator('#character-head-features svg[data-src*="tilikaal-wings"]')
+        await expect(tilikaalSvg).toBeAttached()
+    })
+
     test('Tilikaal body color should be light blue', async ({ page }) => {
         await page.selectOption('#body-shape', { label: 'Tilikaal' })
         await expect(page.locator('#std-body-colors optgroup[filtergroup="tilikaal"]')).toHaveJSProperty('hidden', false)

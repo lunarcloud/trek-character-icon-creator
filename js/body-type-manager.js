@@ -19,7 +19,7 @@ const FORCED_FEATURES = {
     kelpien: ['kelpien-lines'],
     reman: ['reman-nose'],
     tellarite: ['gill-whiskers-or-feathers'],
-    tilikaal: ['tilikaal-headpiece'],
+    tilikaal: ['tilikaal-headpiece', 'tilikaal-wings'],
     trill: ['trill-spots'],
     vinshari: ['vin-shari-neck'],
     zakdorn: ['zakdorn-cheeks']
