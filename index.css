@@ -283,6 +283,10 @@ body {
         &.under-rear-hair {
             z-index: 0;
         }
+
+        &.under-body {
+            z-index: 2;
+        }
     }
 
     #character-hair {
