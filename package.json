@@ -36,9 +36,9 @@
         "html2canvas": "^1.4.1"
     },
     "devDependencies": {
-        "@axe-core/playwright": "^4.11.3",
+        "@axe-core/playwright": "^4.12.1",
         "@linthtml/linthtml": "^0.10.2",
-        "@playwright/test": "^1.61.0",
+        "@playwright/test": "^1.61.1",
         "axe-core": "^4.12.1",
         "cspell": "^10.0.1",
         "eslint": "^8.57.1",
@@ -50,9 +50,9 @@
         "eslint-plugin-n": "^16.6.2",
         "eslint-plugin-promise": "^6.6.0",
         "jest": "^30.4.2",
-        "npm-check-updates": "^22.2.3",
+        "npm-check-updates": "^22.2.7",
         "serve": "^14.2.6",
-        "stylelint": "^17.13.0",
+        "stylelint": "^17.14.0",
         "stylelint-config-standard": "^40.0.0",
         "svglint": "^4.2.1"
     }
