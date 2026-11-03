@@ -13,20 +13,26 @@ import jest from 'eslint-plugin-jest'
  */
 
 const jsdocConfig = jsdoc.configs['flat/recommended']
+const { '@stylistic': stylistic } = neostandard.plugins
 
 const config = [
-    // Base neostandard configuration for browser environment
-    ...neostandard({
-        env: ['browser'],
+    // Global ignores applied to every config object below (e.g. jsdoc, stylistic)
+    {
         ignores: [
             ...resolveIgnoresFromGitignore(),
             '**/lib/**/*.js'
         ]
+    },
+
+    // Base neostandard configuration for browser environment
+    ...neostandard({
+        env: ['browser']
     }),
 
     // JSDoc validation plugin
     jsdocConfig,
     {
+        plugins: { '@stylistic': stylistic },
         rules: {
             '@stylistic/indent': ['error', 4, { SwitchCase: 0 }],
             curly: 0,
